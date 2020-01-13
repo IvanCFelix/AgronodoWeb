@@ -15,7 +15,8 @@ export const routes = [
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', loadChildren: './home/home.module#HomeModule' },
-            { path: 'test', loadChildren: './test2/test2.module#Test2Module' }
+            { path: 'test', loadChildren: './test2/test2.module#Test2Module' },
+            { path: 'Admin-Agronodo', loadChildren: './admin-agronodo/admin-agronodo.module#AdminAgronodoModule' }
         ]
     },
 
@@ -28,6 +29,5 @@ export const routes = [
     { path: 'maintenance', component: MaintenanceComponent },
     { path: '404', component: Error404Component },
     { path: '500', component: Error500Component },
- 
     { path: '**', redirectTo: 'home' }
 ];

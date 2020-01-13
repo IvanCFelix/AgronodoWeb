@@ -9,6 +9,11 @@ const test = {
     link: '/test',
     icon: 'icon-home'
 };
+const adminAgronodo = {
+    text: 'Administrador',
+    link: '/Admin-Agronodo',
+    icon: 'icon-home'
+};
 
 const headingMain = {
     text: 'Main Navigation',
@@ -18,5 +23,6 @@ const headingMain = {
 export const menu = [
     headingMain,
     Home,
-    test
+    test,
+    adminAgronodo
 ];
