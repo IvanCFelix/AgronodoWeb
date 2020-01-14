@@ -12,7 +12,7 @@ const test = {
 const adminAgronodo = {
     text: 'Administrador',
     link: '/Admin-Agronodo',
-    icon: 'icon-home'
+    icon: 'icon-user'
 };
 
 const headingMain = {

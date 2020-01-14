@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { CustomFormsModule } from 'ng2-validation';
 import { AppComponent } from './app.component';
 
 import { CoreModule } from './core/core.module';
@@ -23,6 +23,7 @@ export function createTranslateLoader(http: HttpClient) {
     ],
     imports: [
         HttpClientModule,
+        CustomFormsModule,
         BrowserAnimationsModule, // required for ng2-tag-input
         CoreModule,
         LayoutModule,
