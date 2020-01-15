@@ -14,6 +14,11 @@ const adminAgronodo = {
     link: '/Admin-Agronodo',
     icon: 'icon-user'
 };
+const AgroindustriasAgronodo = {
+    text: 'Agroindustrias',
+    link: '/Agroindustrias-Agronodo',
+    icon: 'icon-user'
+};
 
 const headingMain = {
     text: 'Main Navigation',
@@ -24,5 +29,6 @@ export const menu = [
     headingMain,
     Home,
     test,
-    adminAgronodo
+    adminAgronodo,
+    AgroindustriasAgronodo
 ];
