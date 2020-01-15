@@ -20,7 +20,9 @@ export const routes = [
             { path: 'Admin-Edit/new', loadChildren: './admin-edit-agronodo/admin-edit-agronodo.module#AdminEditAgronodoModule'},
             { path: 'Admin-Edit/:id', loadChildren: './admin-edit-id-agronodo/admin-edit-id-agronodo.module#AdminEditIDAgronodoModule' },
             { path: 'Agroindustrias-Agronodo', loadChildren: './agroindustrias-agronodo/agroindustrias-agronodo.module#AgroindustriasAgronodoModule' },
-        ]
+            { path: 'Agroindustria/new', loadChildren: './agroindustrias-edit-agronodo/agroindustrias-edit-agronodo.module#AgroindustriasEditAgronodoModule'},
+
+        ]   
     },
 
     // Not found

@@ -17,7 +17,7 @@ const adminAgronodo = {
 const AgroindustriasAgronodo = {
     text: 'Agroindustrias',
     link: '/Agroindustrias-Agronodo',
-    icon: 'icon-user'
+    icon: 'fas fa-industry'
 };
 
 const headingMain = {
