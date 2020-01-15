@@ -1,12 +1,168 @@
-<div class="col-md-6">
-  <div class="card card-default">
-      <div class="card-header">Html element:</div>
-      <div class="card-body">
-          <div class="h1 clickable mt-lg" [(colorPicker)]="colorDemo2" [cpPosition]="'bottom'" [style.color]="colorDemo2" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true">
-            <div >
-              <a class="fas fa-square"></a>
-            </div>
-          </div>
-      </div>
+<div class="content-heading">
+  <div>Agregar agroindustria
+    <!-- <small>Native Angular input validation</small> -->
   </div>
 </div>
+<!-- START row-->
+<div class="container-fluid">
+  <div class="row d-flex justify-content-center align-content-center">
+    <div class="col-6">
+      <form [formGroup]="adminagronodo" (submit)="submitForm($event, adminagronodo.value)">
+        <!-- START card-->
+        <div class="card ">
+          <div class="card-body">
+            <fieldset class="b0">
+              <legend>Datos del administrador</legend>
+            </fieldset>
+            <fieldset>
+              <div class="form-group row">
+                <label class="col-3 col-form-label text-lg-right">Correo</label>
+                <div class="col-lg-9">
+                  <input class="form-control" formControlName="email" type="email" placeholder="example@example.com" />
+                  <span class="text-danger" *ngIf="adminagronodo.controls['email'].errors?.email">Ingresa un correo
+                    válido</span>
+                  <span class="text-danger" *ngIf="adminagronodo.controls['email'].errors?.required">Ingresa un
+                    correo</span>
+                </div>
+              </div>
+
+            </fieldset>
+            <fieldset>
+              <div class="form-group row">
+                <label class="col-3 col-form-label text-lg-right">Nombre</label>
+                <div class="col-lg-9">
+                  <input class="form-control" formControlName="name" type="text" />
+                  <span class="text-danger" *ngIf="adminagronodo.controls['name'].errors?.required">Ingresa un campo
+                    válido</span>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div class="form-group row">
+                <label class="col-3 col-form-label text-lg-right">Apellido</label>
+                <div class="col-lg-9">
+                  <input class="form-control" formControlName="name_contact" type="text" />
+                  <span class="text-danger" *ngIf="adminagronodo.controls['name_contact'].errors?.required">Ingresa un
+                    campo
+                    válido</span>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div class="form-group row">
+                <label class="col-3 col-form-label text-lg-right">Teléfono</label>
+                <div class="col-lg-9">
+                  <input class="form-control" type="number" formControlName="number" />
+                  <span class="text-danger" *ngIf="adminagronodo.controls['number'].errors">Ingresa un numero
+                    válido</span>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+
+              <div class="card-body">
+                <h5>Colores</h5>
+                <div class="row">
+                  <div class="col text-center">
+                    Color principal:
+                  </div>
+                  <div class="col text-center">
+                    <div class="h1 clickable mt-lg"  [(colorPicker)]="colorDemo1" [cpPosition]="'bottom'"
+                      [style.color]="colorDemo1" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true">
+                      <div>
+                        <a class="fas fa-square"></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col text-center">
+                    Color secundario:
+                  </div>
+                  <div class="col text-center">
+                    <div class="h1 clickable mt-lg" [(colorPicker)]="colorDemo2" [cpPosition]="'bottom'"
+                      [style.color]="colorDemo2" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true">
+                      <div>
+                        <a class="fas fa-square"></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col text-center">
+                    Color terciario:
+                  </div>
+                  <div class="col text-center">
+                    <div class="h1 clickable mt-lg" [(colorPicker)]="colorDemo3" [cpPosition]="'bottom'"
+                      [style.color]="colorDemo3" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true">
+                      <div>
+                        <a class="fas fa-square"></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+           
+            <fieldset>
+              <h5>Permisos</h5>
+              <div class="row ml-5 mt-3">
+                <div class="col text-left">
+                  <div class="checkbox c-checkbox">
+                    <label>
+                      <input type="checkbox" formControlName="requests" />
+                      <span class="fa fa-check"></span>Solicitudes</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row ml-5 mt-2">
+                <div class="col text-left">
+                  <div class="checkbox c-checkbox">
+                    <label>
+                      <input type="checkbox" formControlName="family" />
+                      <span class="fa fa-check"></span>Familia de productos</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row ml-5 mt-2">
+                <div class="col text-left">
+                  <div class="checkbox c-checkbox">
+                    <label>
+                      <input type="checkbox" formControlName="highEngineers" />
+                      <span class="fa fa-check"></span>Alta de ingenieros</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row ml-5 mt-2">
+                <div class="col text-left">
+                  <div class="checkbox c-checkbox">
+                    <label>
+                      <input type="checkbox" formControlName="Support" />
+                      <span class="fa fa-check"></span>Atención al cliente</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row ml-5 mt-2">
+                <div class="col text-left">
+                  <div class="checkbox c-checkbox">
+                    <label>
+                      <input type="checkbox" formControlName="admin" />
+                      <span class="fa fa-check"></span>Administradores extras</label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+            </div>
+           
+          
+          <div class="card-footer card-default text-center">
+            <button class="btn btn-info" type="submit"><em class="fa-2x mr-2 fas fa-plus font-13"></em>Agregar</button>
+          </div>
+        </div>
+        <!-- END card-->
+      </form>
+    </div>
+
+  </div>
+</div>
+<!-- END row-->

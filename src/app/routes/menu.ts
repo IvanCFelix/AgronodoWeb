@@ -28,7 +28,6 @@ const headingMain = {
 export const menu = [
     headingMain,
     Home,
-    test,
     adminAgronodo,
     AgroindustriasAgronodo
 ];
