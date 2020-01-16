@@ -22,10 +22,31 @@ export class AgroindustriasEditAgronodoComponent implements OnInit {
   colorDemo2 = "#1255a7";
   colorDemo3 = "#555555";
   adminagronodo: FormGroup;
+  
   name: string;
   data1: any;
   cropperSettings: CropperSettings;
+  @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
   constructor() {
+    this.name = "Angular2";
+    this.cropperSettings = new CropperSettings();
+    this.cropperSettings.noFileInput = true;
+    this.cropperSettings.width = 200;
+    this.cropperSettings.height = 200;
+    this.cropperSettings.croppedWidth = 200;
+    this.cropperSettings.croppedHeight = 200;
+    this.cropperSettings.canvasWidth = 300;
+    this.cropperSettings.canvasHeight = 300;
+    this.cropperSettings.minWidth = 100;
+    this.cropperSettings.minHeight = 100;
+    this.cropperSettings.cropperDrawSettings.strokeColor = "rgba(0,0,0,.25)";
+    this.cropperSettings.cropperDrawSettings.strokeWidth = 2;
+
+    this.cropperSettings.rounded = false;
+
+    this.data1 = {};
+
+
     this.adminagronodo = new FormGroup({
       name: new FormControl("", Validators.required),
       email: new FormControl("", [Validators.email, Validators.required]),
@@ -37,6 +58,7 @@ export class AgroindustriasEditAgronodoComponent implements OnInit {
       Support: new FormControl(false),
       admin: new FormControl(false)
     });
+
   }
   ngOnInit() {}
 
@@ -59,4 +81,21 @@ export class AgroindustriasEditAgronodoComponent implements OnInit {
     };
     console.log(obj);
   }
+  cropped(bounds: Bounds) {
+    // console.log(bounds);
+}
+
+fileChangeListener($event) {
+    let image: any = new Image();
+    let file: File = $event.target.files[0];
+    let myReader: FileReader = new FileReader();
+    
+    let that = this;
+    myReader.onloadend = function(loadEvent: any) {
+        image.src = loadEvent.target.result;
+        that.cropper.setImage(image);
+    };
+
+    myReader.readAsDataURL(file);
+}
 }
