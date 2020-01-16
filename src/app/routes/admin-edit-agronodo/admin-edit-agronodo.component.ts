@@ -13,6 +13,10 @@ export class AdminEditAgronodoComponent implements OnInit {
   adminagronodo: FormGroup;
   name: string;
   data1: any;
+  public files: any;
+  public filestring: string = "";
+  public filename: any = [];
+
   cropperSettings: CropperSettings;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
   
@@ -31,8 +35,8 @@ export class AdminEditAgronodoComponent implements OnInit {
     this.cropperSettings.height = 200;
     this.cropperSettings.croppedWidth = 200;
     this.cropperSettings.croppedHeight = 200;
-    this.cropperSettings.canvasWidth = 460;
-    this.cropperSettings.canvasHeight = 400;
+    this.cropperSettings.canvasWidth = 300;
+    this.cropperSettings.canvasHeight = 300;
     this.cropperSettings.minWidth = 100;
     this.cropperSettings.minHeight = 100;
     this.cropperSettings.cropperDrawSettings.strokeColor = "rgba(0,0,0,.25)";
@@ -66,10 +70,19 @@ cropped(bounds: Bounds) {
 }
 
 fileChangeListener($event) {
+  //base 64 
+  this.filename = $event.target.files[0];
+  this.files = $event.target.files;
+  var reader = new FileReader();
+  reader.onload = this._handleReaderLoaded.bind(this);
+  reader.readAsBinaryString(this.files[0]);
+  
+//codigo para seleccionar la imagen y mandarla al input 
     let image: any = new Image();
     let file: File = $event.target.files[0];
     let myReader: FileReader = new FileReader();
-    
+   
+   
     let that = this;
     myReader.onloadend = function(loadEvent: any) {
         image.src = loadEvent.target.result;
@@ -78,4 +91,10 @@ fileChangeListener($event) {
 
     myReader.readAsDataURL(file);
 }
+_handleReaderLoaded(readerEvt) {
+  var binaryString = readerEvt.target.result;
+  this.filestring = btoa(binaryString); // Converting binary string data.
+
+}
+
 }

@@ -3,144 +3,78 @@
     <!-- <small>Native Angular input validation</small> -->
   </div>
 </div>
-<!-- START row-->
-<div class="container-fluid">
-  <div class="row d-flex justify-content-center align-content-center">
-    <div class="col-6">
+
+<div class="container-fluid mt-5">
+  <div class="row d-flex justify-content-center align-content-center ">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-9 col-xl-8">
       <form [formGroup]="adminagronodo" (submit)="submitForm($event, adminagronodo.value)">
-        <!-- START card-->
         <div class="card ">
           <div class="card-body">
-
-            <fieldset>
-              <div class="form-group row">
-                <label class="col-3 col-form-label text-lg-right">Nombre</label>
-                <div class="col-lg-9">
-                  
-                </div>
-              </div>
-            </fieldset>
-            <fieldset>
-              <div class="form-group row">
-                <label class="col-3 col-form-label text-lg-right">Apellido</label>
-                <div class="col-lg-9">
-                  <input class="form-control" formControlName="lastname" type="text" />
-                  <span class="text-danger" *ngIf="adminagronodo.controls['lastname'].errors?.required">Ingresa un campo
-                    válido</span>
-                </div>
-              </div>
-            </fieldset>
-            <fieldset>
-              <div class="form-group row">
-                <label class="col-3 col-form-label text-lg-right">Teléfono</label>
-                <div class="col-lg-9">
-                  <input class="form-control" type="number" formControlName="number" />
-                  <span class="text-danger" *ngIf="adminagronodo.controls['number'].errors">Ingresa un numero
-                    válido</span>
-                </div>
-              </div>
-            </fieldset>
-          </div>
-          <div class="card-footer card-default text-center">
-            <button class="btn btn-info" type="submit"><em class="fa-2x mr-2 fas fa-plus font-13"></em>Agregar</button>
-          </div>
-        </div>
-        <!-- END card-->
-      </form>
-    </div>
-    <div class="col-6">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">Selecciona una imagen</div>
-            <div class="card-body">
-              <label for="image-input" class="file-upload" style="width: -webkit-fill-available;">
-                <input id="image-input" type="file" (change)="fileChangeListener($event)">
-              </label>
-              <!-- <p class="pv">Crop type:</p> -->
-              <div class="btn-group btn-group-justified mb">
-                <!-- <label class="btn btn-secondary" (click)="setRoundedMethod(false)" [class.active]="!cropperSettings.rounded">Square</label>
-                    <label class="btn btn-secondary" (click)="setRoundedMethod(true)" [class.active]="cropperSettings.rounded">Circle</label> -->
-              </div>
-              <div class="result" *ngIf="data1.image">
-                <!-- <p class="pv">Cropped image</p>
-                    <img class="img-fluid img-thumbnail" [class.rounded-circle]="cropperSettings.rounded"  [src]="data1.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight"> -->
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-group row">
+              <div class="col">
+                <label>Nombre</label>
+                <input class="form-control" formControlName="name" type="text" />
+                <span class="text-danger" *ngIf="adminagronodo.controls['name'].errors?.required">Ingresa un campo
+                  válido</span>
               </div>
             </div>
-          <div class="col p-0">
+            <div class="form-group row">
+              <div class="col">
+                <label>Email</label>
+                <input class="form-control" formControlName="email" type="email" placeholder="example@example.com" />
+                <span class="text-danger" *ngIf="adminagronodo.controls['email'].errors?.email">Ingresa un correo
+                  válido</span>
+                <span class="text-danger" *ngIf="adminagronodo.controls['email'].errors?.required">Ingresa un
+                  correo</span>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col">
+                <label>Apellido</label>
+                <input class="form-control" formControlName="lastname" type="text" />
+                <span class="text-danger" *ngIf="adminagronodo.controls['lastname'].errors?.required">Ingresa un
+                  campo
+                  válido</span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <label>Teléfono</label>
+                <input class="form-control" type="number" formControlName="number" />
+                <span class="text-danger" *ngIf="adminagronodo.controls['number'].errors">Ingresa un numero
+                  válido</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">
             <div class="main-container d-flex justify-content-center align-content-center">
               <div class="row">
-                <div class="col">
+                <div class="col p-2">
                   <img-cropper #cropper [image]="data1" [settings]="cropperSettings" (onCrop)="cropped($event)">
                   </img-cropper>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- <form [formGroup]="adminagronodo" (submit)="submitForm($event, adminagronodo.value)">
-  <div class="row">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-      <div class="form-group row">
-        <div class="col">
-          <label>Email</label>
-          <input class="form-control" formControlName="email" type="email" placeholder="example@example.com" />
-          <span class="text-danger" *ngIf="adminagronodo.controls['email'].errors?.email">Ingresa un correo
-            válido</span>
-          <span class="text-danger" *ngIf="adminagronodo.controls['email'].errors?.required">Ingresa un
-            correo</span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col">
-          <label>Nombre</label>
-          <input class="form-control" formControlName="name" type="text" />
-          <span class="text-danger" *ngIf="adminagronodo.controls['name'].errors?.required">Ingresa un campo
-            válido</span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col">
-          <label>Apellido</label>
-          <input class="form-control" formControlName="name_contact" type="text" />
-          <span class="text-danger" *ngIf="adminagronodo.controls['name_contact'].errors?.required">Ingresa un
-            campo
-            válido</span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col">
-          <label>Teléfono</label>
-          <input class="form-control" type="number" formControlName="number" />
-          <span class="text-danger" *ngIf="adminagronodo.controls['number'].errors">Ingresa un numero
-            válido</span>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">
-        <div class="main-container d-flex justify-content-center align-content-center">
-          <div class="row">
-            <div class="col p-2">
-              <img-cropper #cropper [image]="data1" [settings]="cropperSettings" (onCrop)="cropped($event)">
-              </img-cropper>
+            <div class=" p-0">
+              <label for="file-upload" class="input-mod2 ">
+                <a class="fas fa-upload"></a> Selecciona una imagen
+              </label>
+              <input id="file-upload" (change)="fileChangeListener($event)" type="file" style='display: none;' />
+              <div class="btn-group btn-group-justified mb">
+              </div>
             </div>
           </div>
         </div>
-        <div class=" p-0">
-          <label for="file-upload" class="input-mod2 ">
-            <a class="fas fa-upload"></a> Selecciona una imagen
-          </label>
-          <input id="file-upload" (change)="fileChangeListener($event)" type="file" style='display: none;' />
-          <div class="btn-group btn-group-justified mb">
-          </div>
-        </div>
       </div>
+      <div class="card-footer card-default text-center">
+        <button class="btn btn-info" type="submit"><em class="fa-2x mr-2 fas fa-plus font-13"></em>Agregar</button>
+      </div>
+    </div>
+      </form>
+    </div>
   </div>
-</form> -->
+</div>
 <!-- END row-->
