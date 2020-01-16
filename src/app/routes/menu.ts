@@ -10,12 +10,12 @@ const test = {
     icon: 'icon-home'
 };
 const adminAgronodo = {
-    text: 'Administrador',
+    text: 'Administrador-Agro',
     link: '/Admin-Agronodo',
     icon: 'icon-user'
 };
 const AgroindustriasAgronodo = {
-    text: 'Agroindustrias',
+    text: 'Agroindustrias-Agro',
     link: '/Agroindustrias-Agronodo',
     icon: 'fas fa-industry'
 };

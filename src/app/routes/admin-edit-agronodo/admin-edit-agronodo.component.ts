@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { CustomValidators } from "ng2-validation";
 import {FormBuilder,FormGroup,Validators,FormControl} from "@angular/forms";
 import { Component, OnInit,ViewChild } from "@angular/core";
@@ -15,7 +16,7 @@ export class AdminEditAgronodoComponent implements OnInit {
   cropperSettings: CropperSettings;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
   
-  constructor(fb: FormBuilder) {
+  constructor(private route: ActivatedRoute) {
     this.adminagronodo = new FormGroup({
       name: new FormControl("", Validators.required),
       email: new FormControl("", [Validators.email, Validators.required]),
@@ -25,30 +26,33 @@ export class AdminEditAgronodoComponent implements OnInit {
 
     this.name = "Angular2";
     this.cropperSettings = new CropperSettings();
-
     this.cropperSettings.noFileInput = true;
-
     this.cropperSettings.width = 200;
     this.cropperSettings.height = 200;
-
     this.cropperSettings.croppedWidth = 200;
     this.cropperSettings.croppedHeight = 200;
-
     this.cropperSettings.canvasWidth = 460;
     this.cropperSettings.canvasHeight = 400;
-
     this.cropperSettings.minWidth = 100;
     this.cropperSettings.minHeight = 100;
-
     this.cropperSettings.cropperDrawSettings.strokeColor = "rgba(0,0,0,.25)";
     this.cropperSettings.cropperDrawSettings.strokeWidth = 2;
-
     this.cropperSettings.rounded = false;
-
     this.data1 = {};
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  
+    const id = this.route.snapshot.paramMap.get("id");
+
+
+    if(id == null){
+      console.log("Nuevo Admin ")
+    }
+    if(id){
+      console.log("Editar Admin ")
+    }
+  }
 
   submitForm($ev, value: any) {
     console.log(value);

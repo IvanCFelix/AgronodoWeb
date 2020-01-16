@@ -11,6 +11,7 @@ import {
   CropperSettings,
   Bounds
 } from "ng2-img-cropper";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-agroindustrias-edit-agronodo",
@@ -21,13 +22,13 @@ export class AgroindustriasEditAgronodoComponent implements OnInit {
   colorDemo1 = "#389fd0";
   colorDemo2 = "#1255a7";
   colorDemo3 = "#555555";
-  adminagronodo: FormGroup;
+  agroindustrias: FormGroup;
   
   name: string;
   data1: any;
   cropperSettings: CropperSettings;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
-  constructor() {
+  constructor(private route: ActivatedRoute) {
     this.name = "Angular2";
     this.cropperSettings = new CropperSettings();
     this.cropperSettings.noFileInput = true;
@@ -47,11 +48,11 @@ export class AgroindustriasEditAgronodoComponent implements OnInit {
     this.data1 = {};
 
 
-    this.adminagronodo = new FormGroup({
+    this.agroindustrias = new FormGroup({
       name: new FormControl("", Validators.required),
-      email: new FormControl("", [Validators.email, Validators.required]),
+      address: new FormControl("", [ Validators.required]),
       name_contact: new FormControl("", Validators.required),
-      number: new FormControl("", [Validators.required]),
+      phone: new FormControl("", [Validators.required]),
       requests: new FormControl(false),
       family: new FormControl(false),
       highEngineers: new FormControl(false),
@@ -60,7 +61,17 @@ export class AgroindustriasEditAgronodoComponent implements OnInit {
     });
 
   }
-  ngOnInit() {}
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get("id");
+
+    if(id == null){
+      console.log("Nueva Agroindustria")
+    }
+    if(id){
+      console.log("Editar Agroindustria")
+    }
+
+  }
 
   submitForm($ev, value: any) {
     let obj = {
