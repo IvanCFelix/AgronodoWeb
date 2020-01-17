@@ -51,10 +51,10 @@ export class AdminEditAgronodoComponent implements OnInit {
 
 
     if(id == null){
-      console.log("Nuevo Admin ")
+      console.log("Nuevo Admin")
     }
     if(id){
-      console.log("Editar Admin ")
+      console.log("Editar Admin")
     }
   }
 
