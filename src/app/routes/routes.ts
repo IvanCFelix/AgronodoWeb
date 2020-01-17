@@ -23,7 +23,9 @@ export const routes = [
             { path: 'Agroindustrias-Agronodo', loadChildren: './agroindustrias-agronodo/agroindustrias-agronodo.module#AgroindustriasAgronodoModule' },
             { path: 'Agroindustria/new', loadChildren: './agroindustrias-edit-agronodo/agroindustrias-edit-agronodo.module#AgroindustriasEditAgronodoModule'},
             { path: 'Agroindustria/:id', loadChildren: './agroindustrias-edit-agronodo/agroindustrias-edit-agronodo.module#AgroindustriasEditAgronodoModule'},
-
+            { path: 'Admin-Agricola', loadChildren: './admin-agricola/admin-agricola.module#AdminAgricolaModule' },
+            { path: 'Agricola-Edit/new', loadChildren: './agricola-edit/agricola-edit.module#AgricolaEditModule' },
+            { path: 'Agricola-Edit/:id', loadChildren: './agricola-edit/agricola-edit.module#AgricolaEditModule' },
 
         ]   
     },

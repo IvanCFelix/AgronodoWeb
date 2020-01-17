@@ -8,6 +8,12 @@ const test = {
   link: "/test",
   icon: "icon-home"
 };
+
+const adminAgricola = {
+  text: "Agricola",
+  link: "/Admin-Agricola",
+  icon: "icon-home"
+};
 const HomeAgronodo = {
     text: "Home Agronodo",
     link: "/home-agronodo",
@@ -34,4 +40,4 @@ const headingMain = {
   heading: true
 };
 
-export const menu = [headingMain, Home, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+export const menu = [headingMain, Home, HomeAgronodo, UsuariosAgroindustriasAgronodo, adminAgricola];
