@@ -1,6 +1,6 @@
 import { Error500Component } from './home/pages/error500/error500.component';
 import { Error404Component } from './home/pages/error404/error404.component';
-import { MaintenanceComponent } from './home/pages/maintenance/maintenance.component';
+import { LandingComponent } from './home/pages/landing/landing.component';
 import { LockComponent } from './home/pages/lock/lock.component';
 import { RecoverComponent } from './home/pages/recover/recover.component';
 import { RegisterComponent } from './home/pages/register/register.component';
@@ -34,7 +34,7 @@ export const routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'recover', component: RecoverComponent },
     { path: 'lock', component: LockComponent },
-    { path: 'maintenance', component: MaintenanceComponent },
+    { path: 'landing', component: LandingComponent },
     { path: '404', component: Error404Component },
     { path: '500', component: Error500Component },
     { path: '**', redirectTo: 'home' }
