@@ -26,7 +26,7 @@ import { SharedModule } from '../shared/shared.module';
         NavsearchComponent,
         OffsidebarComponent,
         FooterComponent
-    ],
+        ],
     exports: [
         LayoutComponent,
         SidebarComponent,

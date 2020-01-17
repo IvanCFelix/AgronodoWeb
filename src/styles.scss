@@ -11,3 +11,13 @@
 @import "./app/shared/styles/bootstrap.scss";
 //== Application
 @import "./app/shared/styles/app.scss";
+
+.input-mod2 {
+    padding: 5px 10px;
+    background: #4b8ab1;
+    color: #fff;
+    border: 0px solid #fff;
+    cursor: pointer;
+    border-radius: 9px;
+  }
+  

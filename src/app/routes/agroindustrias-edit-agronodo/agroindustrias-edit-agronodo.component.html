@@ -1,0 +1,190 @@
+<div class="content-heading">
+  <div>Agregar agroindustria
+    <!-- <small>Native Angular input validation</small> -->
+  </div>
+</div>
+<!-- START row-->
+<div class="container-fluid">
+  <div class="row d-flex justify-content-center align-content-center">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-9 col-xl-8">
+      <form [formGroup]="agroindustrias" (submit)="submitForm($event, agroindustrias.value)">
+        <!-- START card-->
+        <div class="card ">
+          <div class="card-body">
+            <fieldset class="b0">
+              <legend>Datos del administrador</legend>
+            </fieldset>
+            <div class="row">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="form-group row">
+                  <div class="col">
+                    <label>Agroindustria</label>
+                    <input class="form-control" formControlName="name" type="text" />
+                    <span class="text-danger" *ngIf="agroindustrias.controls['name'].errors?.required">Ingresa un campo
+                      válido</span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col">
+                    <label>Dirección</label>
+                    <input class="form-control" formControlName="address" type="text" />
+                    <span class="text-danger" *ngIf="agroindustrias.controls['address'].errors?.required">Ingresa un
+                      correo</span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col">
+                    <label>Nombre de contacto</label>
+                    <input class="form-control" formControlName="name_contact" type="text" />
+                    <span class="text-danger" *ngIf="agroindustrias.controls['name_contact'].errors?.required">Ingresa
+                      un
+                      campo
+                      válido</span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col">
+                    <label>Teléfono</label>
+                    <input class="form-control" type="number" formControlName="phone" />
+                    <span class="text-danger" *ngIf="agroindustrias.controls['phone'].errors">Ingresa un numero
+                      válido</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">
+                <div class="main-container d-flex justify-content-center align-content-center">
+                  <div class="row">
+                    <div class="col p-2">
+                      <img-cropper #cropper [image]="data1" [settings]="cropperSettings" (onCrop)="cropped($event)">
+                      </img-cropper>
+                    </div>
+                  </div>
+                </div>
+                <div class=" p-0">
+                  <label for="file-upload" class="input-mod2 ">
+                    <a class="fas fa-upload"></a> Selecciona una imagen
+                  </label>
+                  <input id="file-upload" (change)="fileChangeListener($event)" type="file" style='display: none;' />
+                  <div class="btn-group btn-group-justified mb">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="card-body">
+                  <h5>Colores</h5>
+                  <div class="row">
+                    <div class="col text-center">
+                      Color principal:
+                    </div>
+                    <div class="col text-center">
+                      <div class="h1 clickable mt-lg" [(colorPicker)]="colorDemo1" [cpPosition]="'bottom'"
+                        [style.color]="colorDemo1" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true">
+                        <div>
+                          <a class="fas fa-square"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col text-center">
+                      Color secundario:
+                    </div>
+                    <div class="col text-center">
+                      <div class="h1 clickable mt-lg" [(colorPicker)]="colorDemo2" [cpPosition]="'bottom'"
+                        [style.color]="colorDemo2" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true">
+                        <div>
+                          <a class="fas fa-square"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col text-center">
+                      Color terciario:
+                    </div>
+                    <div class="col text-center">
+                      <div class="h1 clickable mt-lg" [(colorPicker)]="colorDemo3" [cpPosition]="'bottom'"
+                        [style.color]="colorDemo3" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true">
+                        <div>
+                          <a class="fas fa-square"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <h5>Permisos</h5>
+                
+                <div class="row ml-5 mt-3">
+                  <div class="col text-left col-height">
+                    <div class="checkbox c-checkbox">
+                      <label>
+                        <input type="checkbox" formControlName="requests" />
+                        <span class="fa fa-check"></span>Solicitudes</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ml-5 mt-2">
+                  <div class="col text-left col-height">
+                    <div class="checkbox c-checkbox">
+                      <label>
+                        <input type="checkbox" formControlName="family" />
+                        <span class="fa fa-check"></span>Familia de productos</label>
+                    </div>
+                  </div>
+                  <div class="col" *ngIf="agroindustrias.value.family == true">
+                    <input class="form-control" type="number" formControlName="familyLenght" />
+                  </div>
+                </div>
+                <div class="row ml-5 mt-2">
+                  <div class="col text-left col-height">
+                    <div class="checkbox c-checkbox">
+                      <label>
+                        <input type="checkbox" formControlName="highEngineers" />
+                        <span class="fa fa-check"></span>Alta de ingenieros</label>
+                    </div>
+                  </div>
+                  <div class="col" *ngIf="agroindustrias.value.highEngineers == true">
+                    <input class="form-control" type="number" formControlName="highEngineersLenght" />
+
+                  </div>
+                </div>
+                <div class="row ml-5 mt-2">
+                  <div class="col text-left col-height">
+                    <div class="checkbox c-checkbox">
+                      <label>
+                        <input type="checkbox" formControlName="Support" />
+                        <span class="fa fa-check"></span>Atención al cliente</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ml-5 mt-2" >
+                  <div class="col text-left col-height">
+                    <div class="checkbox c-checkbox">
+                      <label>
+                        <input type="checkbox" formControlName="admin" />
+                        <span class="fa fa-check"></span>Administradores extras</label>
+                    </div>
+                  </div>
+                  <div class="col" *ngIf="agroindustrias.value.admin == true">
+                    <input class="form-control" type="number" formControlName="adminLenght" />
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="card-footer card-default text-center">
+            <button class="btn btn-info" type="submit"><em class="fa-2x mr-2 fas fa-plus font-13"></em>Agregar</button>
+          </div>
+        </div>
+        <!-- END card-->
+      </form>
+    </div>
+  </div>
+</div>
+<!-- END row-->
