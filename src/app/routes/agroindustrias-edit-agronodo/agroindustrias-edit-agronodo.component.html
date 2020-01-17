@@ -117,8 +117,9 @@
               </div>
               <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                 <h5>Permisos</h5>
+                
                 <div class="row ml-5 mt-3">
-                  <div class="col text-left">
+                  <div class="col text-left col-height">
                     <div class="checkbox c-checkbox">
                       <label>
                         <input type="checkbox" formControlName="requests" />
@@ -127,25 +128,32 @@
                   </div>
                 </div>
                 <div class="row ml-5 mt-2">
-                  <div class="col text-left">
+                  <div class="col text-left col-height">
                     <div class="checkbox c-checkbox">
                       <label>
                         <input type="checkbox" formControlName="family" />
                         <span class="fa fa-check"></span>Familia de productos</label>
                     </div>
                   </div>
+                  <div class="col" *ngIf="agroindustrias.value.family == true">
+                    <input class="form-control" type="number" formControlName="familyLenght" />
+                  </div>
                 </div>
                 <div class="row ml-5 mt-2">
-                  <div class="col text-left">
+                  <div class="col text-left col-height">
                     <div class="checkbox c-checkbox">
                       <label>
                         <input type="checkbox" formControlName="highEngineers" />
                         <span class="fa fa-check"></span>Alta de ingenieros</label>
                     </div>
                   </div>
+                  <div class="col" *ngIf="agroindustrias.value.highEngineers == true">
+                    <input class="form-control" type="number" formControlName="highEngineersLenght" />
+
+                  </div>
                 </div>
                 <div class="row ml-5 mt-2">
-                  <div class="col text-left">
+                  <div class="col text-left col-height">
                     <div class="checkbox c-checkbox">
                       <label>
                         <input type="checkbox" formControlName="Support" />
@@ -153,13 +161,17 @@
                     </div>
                   </div>
                 </div>
-                <div class="row ml-5 mt-2">
-                  <div class="col text-left">
+                <div class="row ml-5 mt-2" >
+                  <div class="col text-left col-height">
                     <div class="checkbox c-checkbox">
                       <label>
                         <input type="checkbox" formControlName="admin" />
                         <span class="fa fa-check"></span>Administradores extras</label>
                     </div>
+                  </div>
+                  <div class="col" *ngIf="agroindustrias.value.admin == true">
+                    <input class="form-control" type="number" formControlName="adminLenght" />
+
                   </div>
                 </div>
 

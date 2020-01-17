@@ -55,9 +55,13 @@ export class AgroindustriasEditAgronodoComponent implements OnInit {
       phone: new FormControl("", [Validators.required]),
       requests: new FormControl(false),
       family: new FormControl(false),
+      familyLenght: new FormControl(""),
       highEngineers: new FormControl(false),
+      highEngineersLenght: new FormControl(""),
       Support: new FormControl(false),
-      admin: new FormControl(false)
+      admin: new FormControl(false),
+      adminLenght: new FormControl(""),
+
     });
 
   }
