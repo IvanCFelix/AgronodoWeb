@@ -9,6 +9,7 @@ import { LockComponent } from './lock/lock.component';
 import { LandingComponent } from './landing/landing.component';
 import { Error404Component } from './error404/error404.component';
 import { Error500Component } from './error500/error500.component';
+import { ModalModule} from 'ngx-bootstrap/modal'
 
 /* Use this routes definition in case you want to make them lazy-loaded */
 /*const routes: Routes = [
@@ -24,6 +25,7 @@ import { Error500Component } from './error500/error500.component';
 @NgModule({
     imports: [
         SharedModule,
+        ModalModule.forRoot(),
         ReactiveFormsModule,
         // RouterModule.forChild(routes)
     ],

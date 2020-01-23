@@ -1,8 +1,8 @@
 import { SettingsService } from './../../../../core/settings/settings.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-
 import { CustomValidators } from 'ng2-validation';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
     selector: 'app-login',
@@ -10,11 +10,12 @@ import { CustomValidators } from 'ng2-validation';
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+    modalRef: BsModalRef;
 
     loginAgronodo : FormGroup;
 
-    constructor(public settings: SettingsService, fb: FormBuilder) {
-
+    constructor(public settings: SettingsService, fb: FormBuilder ,private modalService: BsModalService) {
+   
         
        this.loginAgronodo = new FormGroup({
         email: new FormControl("",[Validators.email,Validators.required]),
@@ -27,7 +28,10 @@ export class LoginComponent implements OnInit {
         $ev.preventDefault();
         console.log(value);
     }
-
+    @ViewChild ('template') modal : TemplateRef<any>;
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
     ngOnInit() {
 
     }
