@@ -13,7 +13,7 @@ export const routes = [
         path: '',
         component: LayoutComponent,
         children: [
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: '', redirectTo: '/landing', pathMatch: 'full' },
             { path: 'home', loadChildren: './home/home.module#HomeModule' },
             { path: 'home-agronodo', loadChildren: './home-agronodo/home-agronodo.module#HomeAgronodoModule' },
             { path: 'test', loadChildren: './test2/test2.module#Test2Module' },
@@ -39,5 +39,5 @@ export const routes = [
     { path: 'landing', component: LandingComponent },
     { path: '404', component: Error404Component },
     { path: '500', component: Error500Component },
-    { path: '**', redirectTo: 'home' }
+    { path: '**', redirectTo: '/landing' }
 ];
