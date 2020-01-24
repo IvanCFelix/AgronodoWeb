@@ -25,89 +25,43 @@
   </div>
 </div>
 
-  <!-- <div class="row mt-4">
-    <div class="col">
-      <div class="card card-default">
-         <div class="card-header">Basic Table</div>
-         <div class="card-body">
-            <div class="table-responsive">
-               <table class="table">
-                  <thead>
-                     <tr>
-                        <th>#</th>
-                        <th>Agroindustria</th>
-                        <th>Ubicación</th>
-                        <th>Nombre contacto</th>
-                        <th>Teléfono</th>
-                        <th>Acción</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <tr>
-                        <td>1</td>
-                        <td>Tepeyac</td>
-                        <td>Prados del Sur, Los Mochis, Sin.</td>
-                        <td>Luis jose</td>
-                        <td>6683977444</td>
-                        <td>
-                          
-                          <button class="btn btn-success m-1" type="button" [routerLink]="['/Agroindustria/hola']">
-                            <a class="fas fa-pencil-alt"></a> </button>
-                        <button class="btn btn-danger" >
-                            <a class="fas fa-trash-alt"></a>
-                        </button>
-
-                        </td>
-                     </tr>
-                  </tbody>
-               </table>
-            </div>
-         </div>
-      </div>
-    </div>
-  </div> -->
-
-  <div class="card card-default">
-    <div class="card-header">
-      
-        <div class="card-title">Expand Row Detail</div>
-    </div>
-    <div class="card-body">
-        <ngx-datatable #myTable class='bootstrap expandable' [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarV]="50" [rows]='rowsExp' (page)="onPage($event)">
-            <!-- Row Detail Template -->
-            <ngx-datatable-row-detail [rowHeight]="60" #myDetailRow (toggle)="onDetailToggle($event)">
-                <ng-template let-row="row" ngx-datatable-row-detail-template>
-                    <div style="padding-left:35px;">
-                        <div><strong>Company</strong></div>
-                        <div>{{row.company}}</div>
-                    </div>
-                </ng-template>
-            </ngx-datatable-row-detail>
-         
-            <ngx-datatable-column name="Index" width="80">
+  <div class="card card-default mt-5">
+   
+    <div class="card-body ">
+        <ngx-datatable #myTable class="bootstrap expandable "  [columnMode]="'force'"  [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarV]="true" [rows]='rowsExp' (page)="onPage($event)">
+            <!-- Column Templates -->
+            <ngx-datatable-column name="#" width="800">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                     <strong>{{row.$$index}}</strong>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Expanded" width="80">
+            <ngx-datatable-column name="Agroindustria" width="800">
+                <ng-template let-row="row"   ngx-datatable-cell-template>
+                   {{row.agroindustry}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Ubicación" width="800">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                    <strong>{{row.$$expanded === 1}}</strong>
+                    <strong>{{row.address}}</strong>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Name" width="200">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <strong>{{value}}</strong>
+            <ngx-datatable-column name="Nombre contacto" width="800">
+                <ng-template let-row="row"  ngx-datatable-cell-template>
+                    {{row.name}}
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Gender" width="300">
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                    <i [innerHTML]="row['name']"></i> and <i>{{value}}</i>
-                </ng-template>
+            <ngx-datatable-column name="Teléfono">
+              <ng-template let-row="row"  ngx-datatable-cell-template>
+                {{row.number_contact}}
+            </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Age"></ngx-datatable-column>
-            <ngx-datatable-column name="Actions" width="300">
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                    <button class="mb-1 mr-1 btn btn-success" [routerLink]="['/Agroindustria']" type="button">Success</button>
+            <ngx-datatable-column name="Acción" width="300">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <button class="btn btn-success m-1" type="button" [routerLink]="['/Agroindustria',row.id]">
+                      <a class="fas fa-pencil-alt"></a> </button>
+                  <button class="btn btn-danger" >
+                      <a class="fas fa-trash-alt"></a>
+                  </button>
                 </ng-template>
             </ngx-datatable-column>
         </ngx-datatable>

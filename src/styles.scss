@@ -12,6 +12,106 @@
 //== Application
 @import "./app/shared/styles/app.scss";
 
+
+/* You can add global styles to this file, and also import other style files */
+
+//== Vendor
+@import '~@fortawesome/fontawesome-free/css/brands.css';
+@import '~@fortawesome/fontawesome-free/css/regular.css';
+@import '~@fortawesome/fontawesome-free/css/solid.css';
+@import '~@fortawesome/fontawesome-free/css/fontawesome.css';
+@import '~simple-line-icons/css/simple-line-icons.css';
+@import '~weather-icons/css/weather-icons.css';
+@import '~weather-icons/css/weather-icons-wind.css';
+
+@import '~spinkit/css/spinkit.css';
+@import '~loaders.css/loaders.css';
+
+@import '~angular2-toaster/toaster.css';
+
+@import '~ng2-dnd/bundles/style.css';
+
+@import '~ag-grid-community/dist/styles/ag-grid.css';
+@import '~ag-grid-community/dist/styles/ag-theme-fresh.css';
+
+@import '~ika.jvectormap/jquery-jvectormap-1.2.2.css';
+
+@import '~jqcloud2/dist/jqcloud.css';
+
+@import '~summernote/dist/summernote.css';
+
+@import '~fullcalendar/dist/fullcalendar.min.css';
+
+@import '~codemirror/lib/codemirror.css';
+
+//== Bootstrap
+@import "./app/shared/styles/bootstrap.scss";
+//== Application
+@import "./app/shared/styles/app.scss";
+
+//Estilos para las tablas con paginas
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/bootstrap.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+
+@import '../src/app/shared/styles/bootstrap/functions';
+@import '../src/app/shared/styles/bootstrap/variables';
+@import '../src/app/shared/styles/app/variables';
+
+.ngx-datatable.bootstrap .datatable-footer .datatable-pager ul li:not(.disabled).active a, .ngx-datatable.bootstrap .datatable-footer .datatable-pager ul li:not(.disabled):hover a {
+  background-color: #5d9cec!important;
+  border-color: #5d9cec!important;
+  color: #fff!important;
+}
+// remove link decoration
+.datatable-icon-right {
+  text-decoration: none !important;
+}
+// align table with no data legend
+.ngx-datatable.bootstrap .empty-row {
+  text-align: center;
+  margin-top: 20px;
+}
+// tabele footer
+.ngx-datatable.bootstrap .datatable-footer {
+  background-color: transparent!important;
+  color: $body-color!important;
+}
+// table pagination
+.ngx-datatable.bootstrap .datatable-footer .datatable-pager a {
+  color: $pagination-color!important;
+}
+.pager li > a, .pager li > span {
+  border-color: $pagination-border-color!important;
+}
+.ngx-datatable.bootstrap .datatable-body .datatable-body-row {
+  border: 0!important;
+}
+.ngx-datatable.bootstrap .datatable-body .datatable-body-row.datatable-row-even {
+  background-color: rgba(0, 0, 0, 0.025)!important;
+}
+.ngx-datatable.bootstrap {
+  background-color: transparent;
+  box-shadow: 0 0 0 #000;
+}
+
+.ngx-datatable.scroll-vertical {
+  height: 600px;
+}
+// with other table in the same page
+.no-detail-row .datatable-row-detail {
+  display: none !important;
+}
+// change color of active cells selected
+.ngx-datatable.bootstrap.single-selection .datatable-body-row.active, .ngx-datatable.bootstrap.single-selection .datatable-body-row.active .datatable-row-group, .ngx-datatable.bootstrap.multi-selection .datatable-body-row.active, .ngx-datatable.bootstrap.multi-selection .datatable-body-row.active .datatable-row-group, .ngx-datatable.bootstrap.multi-click-selection .datatable-body-row.active, .ngx-datatable.bootstrap.multi-click-selection .datatable-body-row.active .datatable-row-group,
+.ngx-datatable.bootstrap.single-selection .datatable-body-row.active:hover, .ngx-datatable.bootstrap.single-selection .datatable-body-row.active:hover .datatable-row-group, .ngx-datatable.bootstrap.multi-selection .datatable-body-row.active:hover, .ngx-datatable.bootstrap.multi-selection .datatable-body-row.active:hover .datatable-row-group, .ngx-datatable.bootstrap.multi-click-selection .datatable-body-row.active:hover, .ngx-datatable.bootstrap.multi-click-selection .datatable-body-row.active:hover .datatable-row-group {
+  // background-color: $primary !important;
+  .datatable-body-cell {
+      color: #fff!important;
+  }
+}
+
+
 .input-mod2 {
     padding: 5px 10px;
     background: #4b8ab1;
@@ -20,4 +120,6 @@
     cursor: pointer;
     border-radius: 9px;
   }
+  
+
   

@@ -8,116 +8,102 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 export class AgroindustriasAgronodoComponent implements OnInit {
   rowsExp = [
     {
-      name: "Ethel Price",
-      gender: "female",
-      company: "Johnson, Johnson and Partners, LLC CMP DDC",
-      age: 22
+      id:"111111",
+      agroindustry: "Ethel Price",
+      address: "female",
+      name: "Julion pedrito",
+      number_contact: 225555
     },
     {
-      name: "Claudine Neal",
-      gender: "female",
-      company: "Sealoud",
-      age: 55
+      id:"222222",
+      agroindustry: "Ethel Price",
+      address: "female",
+      name: "Julion pedrito",
+      number_contact: 225555
     },
     {
-      name: "Beryl Rice",
-      gender: "female",
-      company: "Velity",
-      age: 67
+      id:"3333333",
+      agroindustry: "Ethel Price",
+      address: "female",
+      name: "Julion pedrito",
+      number_contact: 225555
     },
     {
-      name: "Wilder Gonzales",
-      gender: "male",
-      company: "Geekko"
+      id:"4444444",
+      agroindustry: "Ethel Price",
+      address: "female",
+      name: "Julion pedrito",
+      number_contact: 225555
     },
     {
-      name: "Claudine Neal",
-      gender: "female",
-      company: "Sealoud",
-      age: 55
+      id:"555555",
+      agroindustry: "Ethel Price",
+      address: "female",
+      name: "Julion pedrito",
+      number_contact: 225555
     },
     {
-      name: "Beryl Rice",
-      gender: "female",
-      company: "Velity",
-      age: 67
+      id:"6666666",
+      agroindustry: "Ethel Price",
+      address: "female",
+      name: "Julion pedrito",
+      number_contact: 225555
     },
     {
-      name: "Wilder Gonzales",
-      gender: "male",
-      company: "Geekko"
+      id:"77777777",
+      agroindustry: "Ethel Price",
+      address: "female",
+      name: "Julion pedrito",
+      number_contact: 225555
     },
     {
-      name: "Claudine Neal",
-      gender: "female",
-      company: "Sealoud",
-      age: 55
+      id:"88888888",
+      agroindustry: "Ethel Price",
+      address: "female",
+      name: "Julion pedrito",
+      number_contact: 225555
     },
     {
-      name: "Beryl Rice",
-      gender: "female",
-      company: "Velity",
-      age: 67
+      id:"99999999",
+      agroindustry: "Ethel Price",
+      address: "female",
+      name: "Julion pedrito",
+      number_contact: 225555
     },
     {
-      name: "Wilder Gonzales",
-      gender: "male",
-      company: "Geekko"
+      id:"000000000",
+      agroindustry: "Ethel Price",
+      address: "female",
+      name: "Julion pedrito",
+      number_contact: 225555
     }
   ];
   timeout: any;
-
-  editing = {};
-  rows = [];
-  rowsFilter = [];
-
-  rowsSort = [];
-  temp = [];
   expanded: any = {};
+ 
 
-  rowsSel = [];
+
   selected = [];
   constructor() {}
+
   onPage(event) {
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
-      console.log("paged!", event);
     }, 100);
   }
-  toggleExpandRow(row) {
-    console.log("Toggled Expand Row!", row);
-    this.tableExp.rowDetail.toggleExpandRow(row);
-  }
-
-  onDetailToggle(event) {
-    console.log("Detail Toggled", event);
-  }
-
-  fetch(cb) {
-    const req = new XMLHttpRequest();
-    req.open("GET", `assets/company.json`);
-
-    req.onload = () => {
-      cb(JSON.parse(req.response));
-    };
-
-    req.send();
-  }
-
+ 
   @ViewChild("myTable") tableExp: any;
+
 
   ngOnInit() {}
 
-  // Selection
 
   onSelect({ selected }) {
-    console.log("Select Event", selected, this.selected);
 
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
   }
 
   onActivate(event) {
-    console.log("Activate Event", event);
   }
 }
