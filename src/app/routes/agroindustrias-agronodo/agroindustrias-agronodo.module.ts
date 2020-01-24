@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ng2-img-cropper';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 const routes: Routes = [
   { path: '', component: AgroindustriasAgronodoComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   imports: [
     ReactiveFormsModule,
     ImageCropperModule,
+    NgxDatatableModule,
     CommonModule,
     RouterModule.forChild(routes)
   ]

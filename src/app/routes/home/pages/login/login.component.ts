@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit() {}
   login(event, form) {
+    
     if (form.invalid) {
       return;
     }
@@ -52,7 +53,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl("/dashboard/v1");
       },
       err => {
-        console.log(err);
+        
       }
     );
   }
