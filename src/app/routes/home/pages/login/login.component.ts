@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     public auth: AuthService
   ) {
     this.loginAgronodo = new FormGroup({
-      email: new FormControl("", [Validators.email, Validators.required]),
+      username: new FormControl("", [Validators.required]),
       password: new FormControl("", Validators.required)
     });
   }
@@ -43,14 +43,13 @@ export class LoginComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
   ngOnInit() {}
-  login(event, form) {
-    
+  login( form) {    
     if (form.invalid) {
       return;
     }
-    this.auth.login(form).subscribe(
+    this.auth.login(form.value).subscribe(
       (resp: any) => {
-        this.router.navigateByUrl("/dashboard/v1");
+        this.router.navigateByUrl("/home");
       },
       err => {
         

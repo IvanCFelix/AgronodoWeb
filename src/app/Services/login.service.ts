@@ -1,45 +1,45 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Uris } from './Uris'
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Uris } from "./Uris";
 import { map } from "rxjs/operators";
 
-
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root"
 })
 export class AuthService {
-  userToken:String;
+  userToken: String;
   constructor(private http: HttpClient) {
-     this.leerToken();
-   }
+    this.leerToken();
+  }
 
- 
-  login( admin ){
-    console.log("entro")
+  login(admin) {
     const authData = {
       ...admin,
       returnSecureToken: true
-    }
-    return this.http.post(`${Uris.API_LOGIN_EJEMPLO}`,authData)
-    .pipe(
-      map( resp => {       
-      return resp;
-    })
+    };
+    return this.http.post(`${Uris.API_LOGIN}`, authData).pipe(
+      map(resp => {
+        console.log(resp);
+        this.guardarToken(resp['token'])
+        return resp;
+      })
     );
   }
-  
-  private guardarToken( idToken:string){
+
+  private guardarToken(idToken: string) {
     this.userToken = idToken;
-    
-    localStorage.setItem('token', idToken);
+
+    localStorage.setItem("token", idToken);
   }
-  
-  leerToken(){
-    localStorage.getItem('token') ? this.userToken = localStorage.getItem('token') : this.userToken = null
+
+  leerToken() {
+    localStorage.getItem("token")
+      ? (this.userToken = localStorage.getItem("token"))
+      : (this.userToken = null);
     return this.userToken;
   }
- 
-  estaAutenticado(){
-    return this.userToken;  
+
+  estaAutenticado() {
+    return this.userToken;
   }
 }

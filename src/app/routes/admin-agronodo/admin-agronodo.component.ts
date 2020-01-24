@@ -133,6 +133,9 @@ export class AdminAgronodoComponent implements OnInit {
     this.timeout = setTimeout(() => {
     }, 100);
   }
+  onDetailToggle(event) {
+    console.log('Detail Toggled', event);
+}
  
   @ViewChild("myTable") tableExp: any;
 

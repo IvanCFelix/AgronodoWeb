@@ -67,13 +67,13 @@
                 <img src="../../../../../assets/img/Icono-app.png"  alt="IMG">
             </div>
 
-            <form [formGroup]="loginAgronodo"  (submit)="login($event,loginAgronodo )" class="login100-form validate-form">
+            <form [formGroup]="loginAgronodo"  (submit)="login(loginAgronodo )" class="login100-form validate-form">
                 <span class="login100-form-title">
                     Iniciar Sesión
                 </span>
 
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                    <input class="input100" formControlName="email" type="email" name="email" placeholder="Email">
+                    <input class="input100" formControlName="username" type="text" name="username" >
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-envelope" aria-hidden="true"></i>

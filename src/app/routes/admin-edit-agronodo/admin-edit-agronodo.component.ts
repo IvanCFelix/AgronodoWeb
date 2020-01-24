@@ -1,8 +1,17 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from "@angular/router";
 import { CustomValidators } from "ng2-validation";
-import {FormBuilder,FormGroup,Validators,FormControl} from "@angular/forms";
-import { Component, OnInit,ViewChild } from "@angular/core";
-import { ImageCropperComponent,CropperSettings,Bounds} from "ng2-img-cropper";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl
+} from "@angular/forms";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  ImageCropperComponent,
+  CropperSettings,
+  Bounds
+} from "ng2-img-cropper";
 
 @Component({
   selector: "app-admin-edit-agronodo",
@@ -18,8 +27,8 @@ export class AdminEditAgronodoComponent implements OnInit {
   public filename: any = [];
 
   cropperSettings: CropperSettings;
-  @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
-  
+  @ViewChild("cropper", undefined) cropper: ImageCropperComponent;
+
   constructor(private route: ActivatedRoute) {
     this.adminagronodo = new FormGroup({
       name: new FormControl("", Validators.required),
@@ -46,55 +55,50 @@ export class AdminEditAgronodoComponent implements OnInit {
   }
 
   ngOnInit() {
-  
     const id = this.route.snapshot.paramMap.get("id");
 
-
-    if(id == null){
-      console.log("Nuevo Admin")
+    if (id == null) {
+      console.log("Nuevo Admin");
     }
-    if(id){
-      console.log("Editar Admin")
+    if (id) {
+      console.log("Editar Admin");
     }
   }
 
-  submitForm($ev, value: any) {
+  register($ev, value: any) {
     console.log(value);
   }
   setRoundedMethod(value: boolean) {
     this.cropperSettings.rounded = value;
-}
+  }
 
-cropped(bounds: Bounds) {
+  cropped(bounds: Bounds) {
     // console.log(bounds);
-}
+  }
 
-fileChangeListener($event) {
-  //base 64 
-  this.filename = $event.target.files[0];
-  this.files = $event.target.files;
-  var reader = new FileReader();
-  reader.onload = this._handleReaderLoaded.bind(this);
-  reader.readAsBinaryString(this.files[0]);
-  
-//codigo para seleccionar la imagen y mandarla al input 
+  fileChangeListener($event) {
+    //base 64
+    this.filename = $event.target.files[0];
+    this.files = $event.target.files;
+    var reader = new FileReader();
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsBinaryString(this.files[0]);
+
+    //codigo para seleccionar la imagen y mandarla al input
     let image: any = new Image();
     let file: File = $event.target.files[0];
     let myReader: FileReader = new FileReader();
-   
-   
+
     let that = this;
     myReader.onloadend = function(loadEvent: any) {
-        image.src = loadEvent.target.result;
-        that.cropper.setImage(image);
+      image.src = loadEvent.target.result;
+      that.cropper.setImage(image);
     };
 
     myReader.readAsDataURL(file);
-}
-_handleReaderLoaded(readerEvt) {
-  var binaryString = readerEvt.target.result;
-  this.filestring = btoa(binaryString); // Converting binary string data.
-
-}
-
+  }
+  _handleReaderLoaded(readerEvt) {
+    var binaryString = readerEvt.target.result;
+    this.filestring = btoa(binaryString); // Converting binary string data.
+  }
 }
