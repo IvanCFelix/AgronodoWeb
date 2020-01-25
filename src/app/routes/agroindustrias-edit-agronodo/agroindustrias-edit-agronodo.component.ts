@@ -1,3 +1,4 @@
+import { AgroindustriaAgronodo } from './../../Services/agroindustria-agronodo.service';
 import { CustomValidators } from "ng2-validation";
 import {
   FormBuilder,
@@ -11,7 +12,7 @@ import {
   CropperSettings,
   Bounds
 } from "ng2-img-cropper";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-agroindustrias-edit-agronodo",
@@ -28,7 +29,8 @@ export class AgroindustriasEditAgronodoComponent implements OnInit {
   data1: any;
   cropperSettings: CropperSettings;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,public agroindustriaService:AgroindustriaAgronodo,public router:Router) {
+
     this.name = "Angular2";
     this.cropperSettings = new CropperSettings();
     this.cropperSettings.noFileInput = true;
@@ -50,17 +52,19 @@ export class AgroindustriasEditAgronodoComponent implements OnInit {
 
     this.agroindustrias = new FormGroup({
       name: new FormControl("", Validators.required),
+      username: new FormControl("", Validators.required),
+      email: new FormControl("", [Validators.email, Validators.required]),
       address: new FormControl("", [ Validators.required]),
-      name_contact: new FormControl("", Validators.required),
+      contactName: new FormControl("", Validators.required),
       phone: new FormControl("", [Validators.required]),
       requests: new FormControl(false),
       family: new FormControl(false),
-      familyLenght: new FormControl(""),
+      familyLenght: new FormControl(false),
       highEngineers: new FormControl(false),
-      highEngineersLenght: new FormControl(""),
+      highEngineersLenght: new FormControl(false),
       Support: new FormControl(false),
       admin: new FormControl(false),
-      adminLenght: new FormControl(""),
+      adminLenght: new FormControl(false),
 
     });
 
@@ -77,23 +81,32 @@ export class AgroindustriasEditAgronodoComponent implements OnInit {
 
   }
 
-  submitForm($ev, value: any) {
+  submitForm(value: any) {
+  
+
     let obj = {
-      name: value.name,
-      email: value.email,
-      name_contact: value.name_contact,
-      number: value.number,
-      primary:this.colorDemo1,
-      secondary:this.colorDemo2,
-      terc:this.colorDemo3,
-      permisos: [
-        value.requests,
-        value.family,
-        value.highEngineers,
-        value.Support,
-        value.admin
-      ]
-    };
+      agroindustria:value.name,
+      address:value.address ,
+      contactName: value.contactName ,
+      phone: value.phone,
+      mainColor: this.colorDemo1 ,
+      secondaryColor: this.colorDemo2,
+      thirdColor: this.colorDemo3,
+      prmsSolicitudes: value.requests,
+      prmsFamiliaProductos: value.familyLenght,
+      prmsAltaIngenieros: value.highEngineersLenght,
+      prmsAtencionCliente: value.Support,
+      prmsAdminExtras: value.adminLenght,
+      user:  {
+        username: value.username,
+        email: value.email,
+        password: "micontra"
+      }
+    }
+
+    this.agroindustriaService.register(obj).subscribe( resp =>{
+      this.router.navigateByUrl("/Agroindustrias-Agronodo");
+    })
     console.log(obj);
   }
   cropped(bounds: Bounds) {

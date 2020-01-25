@@ -1,4 +1,5 @@
-import { ActivatedRoute } from "@angular/router";
+import { AdminAgronodo } from './../../Services/admin-agronodo.service';
+import { ActivatedRoute, Router } from "@angular/router";
 import { CustomValidators } from "ng2-validation";
 import {
   FormBuilder,
@@ -29,13 +30,15 @@ export class AdminEditAgronodoComponent implements OnInit {
   cropperSettings: CropperSettings;
   @ViewChild("cropper", undefined) cropper: ImageCropperComponent;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, public adminregister:AdminAgronodo,public router:Router) {
     this.adminagronodo = new FormGroup({
       name: new FormControl("", Validators.required),
       email: new FormControl("", [Validators.email, Validators.required]),
       lastname: new FormControl("", Validators.required),
-      number: new FormControl("", [Validators.required])
-    });
+      number: new FormControl("", [Validators.required]),
+      username: new FormControl("", [Validators.required]),
+      password: new FormControl("",[Validators.required])
+      });
 
     this.name = "Angular2";
     this.cropperSettings = new CropperSettings();
@@ -65,9 +68,23 @@ export class AdminEditAgronodoComponent implements OnInit {
     }
   }
 
-  register($ev, value: any) {
-    console.log(value);
-  }
+  register(value: any) {
+    console.log(value)
+    let obj = {
+      names: value.name,
+      lastnames: value.lastname,
+      phone: value.number,
+      user:  {
+        username: value.username,
+        email: value.email,
+        password: "micontra"
+    }
+    }
+      this.adminregister.register(obj).subscribe( resp =>{
+        this.router.navigateByUrl("/Admin-Agronodo");
+      })
+    }
+  
   setRoundedMethod(value: boolean) {
     this.cropperSettings.rounded = value;
   }
