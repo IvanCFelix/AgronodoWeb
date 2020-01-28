@@ -1,18 +1,9 @@
 import { AdminAgronodo } from './../../Services/admin-agronodo.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { CustomValidators } from "ng2-validation";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl
-} from "@angular/forms";
+import {FormBuilder,FormGroup,Validators,FormControl} from "@angular/forms";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import {
-  ImageCropperComponent,
-  CropperSettings,
-  Bounds
-} from "ng2-img-cropper";
+import {ImageCropperComponent,CropperSettings,Bounds} from "ng2-img-cropper";
 
 @Component({
   selector: "app-admin-edit-agronodo",

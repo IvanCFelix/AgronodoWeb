@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit {
     this.auth.login(form.value).subscribe(
       (resp: any) => {
         this.router.navigateByUrl("/home");
-        localStorage.setItem("USER", JSON.stringify(resp));
 
       },
       err => {

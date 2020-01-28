@@ -21,6 +21,8 @@ export class AuthService {
       map(resp => {
         console.log(resp);
         this.guardarToken(resp['token'])
+        localStorage.setItem("USER", JSON.stringify(resp));
+
         return resp;
       })
     );

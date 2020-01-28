@@ -6,8 +6,9 @@ import { map } from "rxjs/operators";
 @Injectable({
   providedIn: "root"
 })
+
 export class AgroindustriaAgronodo {
-  private headers = new Headers({'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') });
+  headers = new HttpHeaders()
 
   public token = localStorage.getItem("token")
 
@@ -16,7 +17,7 @@ export class AgroindustriaAgronodo {
   }
 
   register(agroindustria) {
-    return this.http.post(`${Uris.API_AGROINDUSTRIA_AGRONODO}`, agroindustria, ).pipe(
+    return this.http.post(`${Uris.API_AGROINDUSTRIA_AGRONODO}`, agroindustria,{headers: new HttpHeaders(this.token)} ).pipe(
       map(resp => {
         console.log(resp);
         return resp;
