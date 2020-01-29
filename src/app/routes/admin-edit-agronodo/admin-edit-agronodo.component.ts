@@ -1,3 +1,4 @@
+import { UsernameValidator } from './../../validators/UsernameValidator ';
 import { AdminAgronodo } from './../../Services/admin-agronodo.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { CustomValidators } from "ng2-validation";
@@ -27,8 +28,7 @@ export class AdminEditAgronodoComponent implements OnInit {
       email: new FormControl("", [Validators.email, Validators.required]),
       lastname: new FormControl("", Validators.required),
       number: new FormControl("", [Validators.required]),
-      username: new FormControl("", [Validators.required]),
-      password: new FormControl("",[Validators.required])
+      username: new FormControl("", [Validators.required,UsernameValidator.cannotContainSpace]),
       });
 
     this.name = "Angular2";
@@ -73,8 +73,11 @@ export class AdminEditAgronodoComponent implements OnInit {
     }
       this.adminregister.register(obj).subscribe( resp =>{
         this.router.navigateByUrl("/Admin-Agronodo");
-      })
-    }
+      },
+      (err:any) => {
+       console.log(err._body)
+      }
+    )}
   
   setRoundedMethod(value: boolean) {
     this.cropperSettings.rounded = value;

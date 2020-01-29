@@ -1,3 +1,4 @@
+import { AuthGuard } from './../guard/auth.guard';
 import { Error500Component } from './home/pages/error500/error500.component';
 import { Error404Component } from './home/pages/error404/error404.component';
 import { LandingComponent } from './home/pages/landing/landing.component';
@@ -13,19 +14,19 @@ export const routes = [
         path: '',
         component: LayoutComponent,
         children: [
-            { path: '', redirectTo: '/landing', pathMatch: 'full' },
-            { path: 'home', loadChildren: './home/home.module#HomeModule' },
-            { path: 'home-agronodo', loadChildren: './home-agronodo/home-agronodo.module#HomeAgronodoModule' },
-            { path: 'test', loadChildren: './test2/test2.module#Test2Module' },
-            { path: 'Admin-Agronodo', loadChildren: './admin-agronodo/admin-agronodo.module#AdminAgronodoModule' },
-            { path: 'Admin-Edit/new', loadChildren: './admin-edit-agronodo/admin-edit-agronodo.module#AdminEditAgronodoModule'},
-            { path: 'Admin-Edit/:id', loadChildren: './admin-edit-agronodo/admin-edit-agronodo.module#AdminEditAgronodoModule' },
-            { path: 'Agroindustrias-Agronodo', loadChildren: './agroindustrias-agronodo/agroindustrias-agronodo.module#AgroindustriasAgronodoModule' },
-            { path: 'Agroindustria/new', loadChildren: './agroindustrias-edit-agronodo/agroindustrias-edit-agronodo.module#AgroindustriasEditAgronodoModule'},
-            { path: 'Agroindustria/:id', loadChildren: './agroindustrias-edit-agronodo/agroindustrias-edit-agronodo.module#AgroindustriasEditAgronodoModule'},
-            { path: 'Admin-Agricola', loadChildren: './admin-agricola/admin-agricola.module#AdminAgricolaModule' },
-            { path: 'Agricola-Edit/new', loadChildren: './agricola-edit/agricola-edit.module#AgricolaEditModule' },
-            { path: 'Agricola-Edit/:id', loadChildren: './agricola-edit/agricola-edit.module#AgricolaEditModule' },
+            { path: '', canActivate:[ AuthGuard ], redirectTo: '/landing', pathMatch: 'full' },
+            { path: 'home', canActivate:[ AuthGuard ] ,loadChildren: './home/home.module#HomeModule' },
+            { path: 'home-agronodo',canActivate:[ AuthGuard ], loadChildren: './home-agronodo/home-agronodo.module#HomeAgronodoModule' },
+            { path: 'test', canActivate:[ AuthGuard ], loadChildren: './test2/test2.module#Test2Module' },
+            { path: 'Admin-Agronodo', canActivate:[ AuthGuard ],loadChildren: './admin-agronodo/admin-agronodo.module#AdminAgronodoModule' },
+            { path: 'Admin-Edit/new',canActivate:[ AuthGuard ], loadChildren: './admin-edit-agronodo/admin-edit-agronodo.module#AdminEditAgronodoModule'},
+            { path: 'Admin-Edit/:id',canActivate:[ AuthGuard ], loadChildren: './admin-edit-agronodo/admin-edit-agronodo.module#AdminEditAgronodoModule' },
+            { path: 'Agroindustrias-Agronodo',canActivate:[ AuthGuard ], loadChildren: './agroindustrias-agronodo/agroindustrias-agronodo.module#AgroindustriasAgronodoModule' },
+            { path: 'Agroindustria/new', canActivate:[ AuthGuard ],loadChildren: './agroindustrias-edit-agronodo/agroindustrias-edit-agronodo.module#AgroindustriasEditAgronodoModule'},
+            { path: 'Agroindustria/:id',canActivate:[ AuthGuard ], loadChildren: './agroindustrias-edit-agronodo/agroindustrias-edit-agronodo.module#AgroindustriasEditAgronodoModule'},
+            { path: 'Admin-Agricola',canActivate:[ AuthGuard ], loadChildren: './admin-agricola/admin-agricola.module#AdminAgricolaModule' },
+            { path: 'Agricola-Edit/new',canActivate:[ AuthGuard ], loadChildren: './agricola-edit/agricola-edit.module#AgricolaEditModule' },
+            { path: 'Agricola-Edit/:id', canActivate:[ AuthGuard ],loadChildren: './agricola-edit/agricola-edit.module#AgricolaEditModule' },
 
         ]   
     },
