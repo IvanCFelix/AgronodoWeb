@@ -1,22 +1,11 @@
-const Home = {
-  text: "Home",
-  link: "/home",
-  icon: "icon-home"
-};
-const test = {
-  text: "Test",
-  link: "/test",
-  icon: "icon-home"
-};
-
 const adminAgricola = {
   text: "Agricola",
   link: "/Admin-Agricola",
   icon: "icon-home"
 };
 const HomeAgronodo = {
-    text: "Home Agronodo",
-    link: "/home-agronodo",
+    text: "Home",
+    link: "/home",
     icon: "icon-home"
   };
 const UsuariosAgroindustriasAgronodo = {
@@ -40,4 +29,16 @@ const headingMain = {
   heading: true
 };
 
-export const menu = [headingMain, Home, HomeAgronodo, UsuariosAgroindustriasAgronodo, adminAgricola];
+
+let user = (<any>JSON.parse(localStorage.getItem('USER')))
+
+if(user.user_type == 4){
+ var adminagronodo = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo, adminAgricola]
+}
+if(user.user_type == 0){
+  this.adminagronodo = [HomeAgronodo]
+}
+
+export const menu = adminagronodo;
+
+

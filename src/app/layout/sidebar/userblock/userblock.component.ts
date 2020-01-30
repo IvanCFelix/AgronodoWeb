@@ -9,14 +9,17 @@ import { UserblockService } from './userblock.service';
 })
 export class UserblockComponent implements OnInit {
     user: any;
+    public usuario:any
     constructor(public userblockService: UserblockService) {
-
+       
         this.user = {
             picture: 'assets/img/user/01.jpg'
         };
     }
 
     ngOnInit() {
+        this.usuario = (<any>JSON.parse(localStorage.getItem('USER')))
+        console.log(this.usuario.user_type_name)
     }
 
     userBlockIsVisible() {

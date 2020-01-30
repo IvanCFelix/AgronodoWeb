@@ -17,8 +17,6 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
   styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
-  modalRef: BsModalRef;
-
   loginAgronodo: FormGroup;
 
   constructor(
@@ -27,7 +25,7 @@ export class LoginComponent implements OnInit {
     private modalService: BsModalService,
     public router: Router,
     public auth: AuthService
-  ) {
+    ) {
     this.loginAgronodo = new FormGroup({
       username: new FormControl("", [Validators.required]),
       password: new FormControl("", Validators.required)
@@ -38,11 +36,13 @@ export class LoginComponent implements OnInit {
     $ev.preventDefault();
     console.log(value);
   }
-  @ViewChild("template") modal: TemplateRef<any>;
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+  
+
+  ngOnInit() {
+
   }
-  ngOnInit() {}
+
+
   login( form) {    
     if (form.invalid) {
       return;
@@ -57,4 +57,6 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+
 }
