@@ -1,4 +1,4 @@
-import { AgroindustriasAgronodoComponent } from './agroindustrias-agronodo.component';
+import { AgricolaAgronodoComponent } from './agricola-agronodo.component';
 
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -8,11 +8,11 @@ import { ImageCropperModule } from 'ng2-img-cropper';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 const routes: Routes = [
-  { path: '', component: AgroindustriasAgronodoComponent },
+  { path: '', component: AgricolaAgronodoComponent },
 ];
 
 @NgModule({
-  declarations: [AgroindustriasAgronodoComponent],
+  declarations: [AgricolaAgronodoComponent],
   imports: [
     ReactiveFormsModule,
     ImageCropperModule,
@@ -21,4 +21,4 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ]
 })
-export class AgroindustriasAgronodoModule { }
+export class AgricolaAgronodoModule { }

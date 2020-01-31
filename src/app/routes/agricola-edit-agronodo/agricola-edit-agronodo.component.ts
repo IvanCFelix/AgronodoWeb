@@ -1,4 +1,4 @@
-import { AgroindustriaAgronodo } from './../../Services/agroindustria-agronodo.service';
+import { AgroindustriaAgronodo } from '../../Services/agroindustria-agronodo.service';
 import { CustomValidators } from "ng2-validation";
 import {
   FormBuilder,
@@ -15,15 +15,15 @@ import {
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
-  selector: "app-agroindustrias-edit-agronodo",
-  templateUrl: "./agroindustrias-edit-agronodo.component.html",
-  styleUrls: ["./agroindustrias-edit-agronodo.component.scss"]
+  selector: "app-agricola-edit-agronodo",
+  templateUrl: "./agricola-edit-agronodo.component.html",
+  styleUrls: ["./agricola-edit-agronodo.component.scss"]
 })
-export class AgroindustriasEditAgronodoComponent implements OnInit {
+export class AgricolaEditAgronodoComponent implements OnInit {
   colorDemo1 = "#389fd0";
   colorDemo2 = "#1255a7";
   colorDemo3 = "#555555";
-  agroindustrias: FormGroup;
+  agricola: FormGroup;
   
   name: string;
   data1: any;
@@ -50,19 +50,18 @@ export class AgroindustriasEditAgronodoComponent implements OnInit {
     this.data1 = {};
 
 
-    this.agroindustrias = new FormGroup({
+    this.agricola = new FormGroup({
       name: new FormControl("", Validators.required),
       username: new FormControl("", Validators.required),
       email: new FormControl("", [Validators.email, Validators.required]),
       address: new FormControl("", [ Validators.required]),
       contactName: new FormControl("", Validators.required),
       phone: new FormControl("", [Validators.required]),
-      requests: new FormControl(false),
-      family: new FormControl(false),
-      familyLenght: new FormControl(false),
       highEngineers: new FormControl(false),
       highEngineersLenght: new FormControl(false),
-      Support: new FormControl(false),
+      requests: new FormControl(false),
+      lots: new FormControl(false),
+      lotsLenght: new FormControl(false),
       admin: new FormControl(false),
       adminLenght: new FormControl(false),
 
@@ -89,13 +88,8 @@ export class AgroindustriasEditAgronodoComponent implements OnInit {
       address:value.address ,
       contactName: value.contactName ,
       phone: value.phone,
-      mainColor: this.colorDemo1 ,
-      secondaryColor: this.colorDemo2,
-      thirdColor: this.colorDemo3,
-      prmsSolicitudes: value.requests,
-      prmsFamiliaProductos: value.familyLenght,
       prmsAltaIngenieros: value.highEngineersLenght,
-      prmsAtencionCliente: value.Support,
+      prmsAtencionCliente: value.lots,
       prmsAdminExtras: value.adminLenght,
       user:  {
         username: value.username,
@@ -105,7 +99,7 @@ export class AgroindustriasEditAgronodoComponent implements OnInit {
     }
 
     this.agroindustriaService.register(obj).subscribe( resp =>{
-      this.router.navigateByUrl("/Agroindustrias-Agronodo");
+      this.router.navigateByUrl("/Agricola");
     })
     console.log(obj);
   }

@@ -65,19 +65,21 @@ export class AdminEditAgronodoComponent implements OnInit {
       names: value.name,
       lastnames: value.lastname,
       phone: value.number,
+      photo:this.filestring,
       user:  {
         username: value.username,
         email: value.email,
-        password: "micontra"
+        
     }
     }
+    console.log(obj)
       this.adminregister.register(obj).subscribe( resp =>{
         this.router.navigateByUrl("/Admin-Agronodo");
       },
       (err:any) => {
        console.log(err._body)
-      }
-    )}
+      })
+  }
   
   setRoundedMethod(value: boolean) {
     this.cropperSettings.rounded = value;

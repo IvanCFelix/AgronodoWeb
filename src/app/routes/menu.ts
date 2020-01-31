@@ -1,8 +1,4 @@
-const adminAgricola = {
-  text: "Agricola",
-  link: "/Admin-Agricola",
-  icon: "icon-home"
-};
+
 const HomeAgronodo = {
     text: "Home",
     link: "/home",
@@ -12,13 +8,13 @@ const UsuariosAgroindustriasAgronodo = {
   text: "Usuarios",
   submenu: [
     {
-      text: "Administrador-Agro",
+      text: "Administradores",
       link: "/Admin-Agronodo",
       icon: "icon-user"
     },
     {
-      text: "Agroindustrias-Agro",
-      link: "/Agroindustrias-Agronodo",
+      text: "Agricola",
+      link: "/Agricola",
       icon: "fas fa-industry"
     }
   ]
@@ -33,7 +29,7 @@ const headingMain = {
 let user = (<any>JSON.parse(localStorage.getItem('USER')))
 
 if(user.user_type == 4){
- var adminagronodo = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo, adminAgricola]
+ var adminagronodo = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo]
 }
 if(user.user_type == 0){
   this.adminagronodo = [HomeAgronodo]

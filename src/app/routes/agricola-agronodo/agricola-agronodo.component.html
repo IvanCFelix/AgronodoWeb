@@ -18,17 +18,17 @@
 <div class="row">
   <div class="col-4">
     <em class="fa-2x mr-2 fas fa-search pos-icon"></em>
-    <input class="form-control mb-2" type="text" placeholder="       Search" style="border-radius: 21px;" />
+    <input class="form-control mb-2" type="text" placeholder="Buscar.." style="border-radius: 21px;"  (keyup)='updateFilter($event)'/>
   </div>
   <div class="col text-right">
-    <button class="mb-1 mr-1 btn btn-success" type="button" routerLink="/Agroindustria/new">Agregar nueva agroindustria</button>
+    <button class="mb-1 mr-1 btn btn-success" type="button" routerLink="/Agricola/new">Agregar nueva agroindustria</button>
   </div>
 </div>
 
   <div class="card card-default mt-5">
    
     <div class="card-body ">
-        <ngx-datatable #myTable class="bootstrap expandable "  [columnMode]="'force'"  [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarV]="true" [rows]='rowsExp' (page)="onPage($event)">
+        <ngx-datatable #table class="bootstrap expandable "  [columnMode]="'force'"  [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarV]="true" [rows]='rowsExp' (page)="onPage($event)">
             <!-- Column Templates -->
             <ngx-datatable-column name="#" width="800">
                 <ng-template let-row="row" ngx-datatable-cell-template>
@@ -57,7 +57,7 @@
             </ngx-datatable-column>
             <ngx-datatable-column name="Acción" width="300">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                    <button class="btn btn-success m-1" type="button" [routerLink]="['/Agroindustria',row.id]">
+                    <button class="btn btn-success m-1" type="button" [routerLink]="['/Agricola',row.id]">
                       <a class="fas fa-pencil-alt"></a> </button>
                   <button class="btn btn-danger" >
                       <a class="fas fa-trash-alt"></a>

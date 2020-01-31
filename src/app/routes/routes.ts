@@ -18,13 +18,9 @@ export const routes = [
             { path: 'Admin-Agronodo', canActivate:[ AuthGuard ],loadChildren: './admin-agronodo/admin-agronodo.module#AdminAgronodoModule' },
             { path: 'Admin-Edit/new',canActivate:[ AuthGuard ], loadChildren: './admin-edit-agronodo/admin-edit-agronodo.module#AdminEditAgronodoModule'},
             { path: 'Admin-Edit/:id',canActivate:[ AuthGuard ], loadChildren: './admin-edit-agronodo/admin-edit-agronodo.module#AdminEditAgronodoModule' },
-            { path: 'Agroindustrias-Agronodo',canActivate:[ AuthGuard ], loadChildren: './agroindustrias-agronodo/agroindustrias-agronodo.module#AgroindustriasAgronodoModule' },
-            { path: 'Agroindustria/new', canActivate:[ AuthGuard ],loadChildren: './agroindustrias-edit-agronodo/agroindustrias-edit-agronodo.module#AgroindustriasEditAgronodoModule'},
-            { path: 'Agroindustria/:id',canActivate:[ AuthGuard ], loadChildren: './agroindustrias-edit-agronodo/agroindustrias-edit-agronodo.module#AgroindustriasEditAgronodoModule'},
-            { path: 'Admin-Agricola',canActivate:[ AuthGuard ], loadChildren: './admin-agricola/admin-agricola.module#AdminAgricolaModule' },
-            { path: 'Agricola-Edit/new',canActivate:[ AuthGuard ], loadChildren: './agricola-edit/agricola-edit.module#AgricolaEditModule' },
-            { path: 'Agricola-Edit/:id', canActivate:[ AuthGuard ],loadChildren: './agricola-edit/agricola-edit.module#AgricolaEditModule' },
-
+            { path: 'Agricola',canActivate:[ AuthGuard ], loadChildren: './agricola-agronodo/agricola-agronodo.module#AgricolaAgronodoModule' },
+            { path: 'Agricola/new', canActivate:[ AuthGuard ],loadChildren: './agricola-edit-agronodo/agricola-edit-agronodo.module#AgricolaEditAgronodoModule'},
+            { path: 'Agricola/:id',canActivate:[ AuthGuard ], loadChildren: './agricola-edit-agronodo/agricola-edit-agronodo.module#AgricolaEditAgronodoModule'},
         ]   
     },
 

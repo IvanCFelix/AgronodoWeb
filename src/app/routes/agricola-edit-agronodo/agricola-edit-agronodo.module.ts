@@ -1,4 +1,4 @@
-import { AgroindustriasEditAgronodoComponent } from './agroindustrias-edit-agronodo.component';
+import { AgricolaEditAgronodoComponent } from './agricola-edit-agronodo.component';
 
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -8,11 +8,11 @@ import { ImageCropperModule } from 'ng2-img-cropper';
 import { ColorPickerModule, ColorPickerService } from 'ngx-color-picker';
 
 const routes: Routes = [
-  { path: '', component: AgroindustriasEditAgronodoComponent },
+  { path: '', component: AgricolaEditAgronodoComponent },
 ];
 
 @NgModule({
-  declarations: [AgroindustriasEditAgronodoComponent],
+  declarations: [AgricolaEditAgronodoComponent],
   providers: [ColorPickerService],
   imports: [
     ColorPickerModule,
@@ -22,4 +22,4 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ]
 })
-export class AgroindustriasEditAgronodoModule { }
+export class AgricolaEditAgronodoModule { }
