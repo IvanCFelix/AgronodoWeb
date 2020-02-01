@@ -28,6 +28,7 @@ export class AdminAgronodo {
         localStorage.removeItem('token');
     }
   }
+  
   private jwt() {
     if (this.token) {
         let headers = new Headers();

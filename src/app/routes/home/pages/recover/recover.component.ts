@@ -1,3 +1,4 @@
+import { AuthService } from './../../../../Services/login.service';
 import { SettingsService } from './../../../../core/settings/settings.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -12,7 +13,7 @@ export class RecoverComponent implements OnInit {
 
     valForm: FormGroup;
 
-    constructor(public settings: SettingsService, fb: FormBuilder) {
+    constructor(public settings: SettingsService, fb: FormBuilder,public recover:AuthService) {
         this.valForm = fb.group({
             'email': [null, Validators.compose([Validators.required, CustomValidators.email])]
         });
@@ -24,7 +25,9 @@ export class RecoverComponent implements OnInit {
             this.valForm.controls[c].markAsTouched();
         }
         if (this.valForm.valid) {
-         
+         this.recover.recover(value).subscribe(resp => {
+             console.log(resp)
+         })
         }
     }
 

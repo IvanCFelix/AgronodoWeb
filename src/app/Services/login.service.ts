@@ -27,6 +27,17 @@ export class AuthService {
       })
     );
   }
+  recover(email) {
+    return this.http.post(`${Uris.API_RECOVER_POST}`, email).pipe(
+      map(resp => {
+        console.log(resp);
+        return resp;
+      })
+    );
+  } 
+  logout(){
+    localStorage.clear();
+  }
 
   private guardarToken(idToken: string) {
     this.userToken = idToken;

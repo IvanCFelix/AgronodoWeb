@@ -1,11 +1,16 @@
-
 const HomeAgronodo = {
-    text: "Home",
-    link: "/home",
-    icon: "icon-home"
-  };
+  text: "Home",
+  link: "/home",
+  icon: "icon-home"
+};
+const Text = {
+  text: "Text",
+  link: "/home",
+  icon: "icon-home"
+};
 const UsuariosAgroindustriasAgronodo = {
   text: "Usuarios",
+  icon: "icon-user",
   submenu: [
     {
       text: "Administradores",
@@ -21,20 +26,50 @@ const UsuariosAgroindustriasAgronodo = {
 };
 
 const headingMain = {
-  text: "Main Navigation",
+  text: "Menú",
   heading: true
 };
 
 
-let user = (<any>JSON.parse(localStorage.getItem('USER')))
-
-if(user.user_type == 4){
- var adminagronodo = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo]
+let user = <any>JSON.parse(localStorage.getItem("USER"));
+if (!user) {
+  var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+} else {
+  switch (user.user_type) {
+    //Admin DIOSITO
+    case 1: {
+      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+      break;
+    }
+    //Admin Agronodo
+    case 2: {
+      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo,Text];
+      break;
+    }
+    //Agricola
+    case 3: {
+      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+      break;
+    }
+    //Admin Agricola
+    case 4: {
+      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+      break;
+    }
+    //Admin Ingeniero
+    case 5: {
+      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+      break;
+    }
+    //Ingeniero
+    case 6: {
+      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+      break;
+    }
+    default: {
+      break;
+    }
+  }
 }
-if(user.user_type == 0){
-  this.adminagronodo = [HomeAgronodo]
-}
 
-export const menu = adminagronodo;
-
-
+export const menu = role;

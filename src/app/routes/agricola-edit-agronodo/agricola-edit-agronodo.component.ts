@@ -1,4 +1,4 @@
-import { AgroindustriaAgronodo } from '../../Services/agroindustria-agronodo.service';
+import { AgricolaAgronodo } from '../../Services/agricola-agronodo.service';
 import { CustomValidators } from "ng2-validation";
 import {
   FormBuilder,
@@ -29,7 +29,7 @@ export class AgricolaEditAgronodoComponent implements OnInit {
   data1: any;
   cropperSettings: CropperSettings;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
-  constructor(private route: ActivatedRoute,public agroindustriaService:AgroindustriaAgronodo,public router:Router) {
+  constructor(private route: ActivatedRoute,public agroindustriaService:AgricolaAgronodo,public router:Router) {
 
     this.name = "Angular2";
     this.cropperSettings = new CropperSettings();
@@ -58,12 +58,12 @@ export class AgricolaEditAgronodoComponent implements OnInit {
       contactName: new FormControl("", Validators.required),
       phone: new FormControl("", [Validators.required]),
       highEngineers: new FormControl(false),
-      highEngineersLenght: new FormControl(false),
+      highEngineersLenght: new FormControl(1),
       requests: new FormControl(false),
       lots: new FormControl(false),
-      lotsLenght: new FormControl(false),
+      lotsLenght: new FormControl(1),
       admin: new FormControl(false),
-      adminLenght: new FormControl(false),
+      adminLenght: new FormControl(1),
 
     });
 

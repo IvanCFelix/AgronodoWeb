@@ -7,7 +7,7 @@ import { map } from "rxjs/operators";
   providedIn: "root"
 })
 
-export class AgroindustriaAgronodo {
+export class AgricolaAgronodo {
   private token: String;
 
 
@@ -17,13 +17,14 @@ export class AgroindustriaAgronodo {
   }
 
   register(agroindustria) {
-    return this.http.post(`${Uris.API_AGROINDUSTRIA_AGRONODO_POST}`, agroindustria,this.jwt()).pipe(
+    return this.http.post(`${Uris.API_AGRICOLA_POST}`, agroindustria,this.jwt()).pipe(
       map(resp => {
         console.log(resp);
         return resp;
       })
     );
   } 
+ 
   errorHandler(error: any): void {
     console.log("SUPER ERROR",error)
     if (localStorage.getItem('token') && error.status == 401) {
