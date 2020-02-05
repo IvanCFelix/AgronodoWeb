@@ -19,9 +19,15 @@ export class AdminAgronodo {
   }
 
   listadmin() {
-    return this.http.get(`${Uris.API_AGRONODO_GET}`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http.get(`${Uris.API_AGRONODO_GET_LIST}`,this.jwt()).map((response: Response) => response.json()) 
   }
-  
+  getadmin(user) {
+    return this.http.get(`${Uris.API_AGRONODO_GET_USER}${user}/`,this.jwt()).map((response: Response) => response.json()) 
+  }
+  delete(user) {
+    return this.http.delete(`${Uris.API_ABRONODO_DELETE}${user}/`,this.jwt()).map((response: Response) => response.json()) 
+  }
+
   errorHandler(error: any): void {
     console.log("SUPER ERROR",error)
     if (localStorage.getItem('token') && error.status == 401) {

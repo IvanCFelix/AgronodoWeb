@@ -1,11 +1,10 @@
-import { UsernameValidator } from './../../validators/UsernameValidator ';
-import { AdminAgronodo } from './../../Services/admin-agronodo.service';
+import { UsernameValidator } from "./../../validators/UsernameValidator ";
+import { AdminAgronodo } from "./../../Services/admin-agronodo.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { CustomValidators } from "ng2-validation";
-import {FormBuilder,FormGroup,Validators,FormControl} from "@angular/forms";
+import {  FormGroup, Validators, FormControl} from "@angular/forms";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import {ImageCropperComponent,CropperSettings,Bounds} from "ng2-img-cropper";
-
+import { ImageCropperComponent, CropperSettings, Bounds} from "ng2-img-cropper";
+import { Uris } from "../../Services/Uris";
 @Component({
   selector: "app-admin-edit-agronodo",
   templateUrl: "./admin-edit-agronodo.component.html",
@@ -13,23 +12,33 @@ import {ImageCropperComponent,CropperSettings,Bounds} from "ng2-img-cropper";
 })
 export class AdminEditAgronodoComponent implements OnInit {
   adminagronodo: FormGroup;
+  mostrar:boolean;
+  photo:string;
   name: string;
   data1: any;
   public files: any;
   public filestring: string = "";
   public filename: any = [];
+  public url = 'http://159.89.49.19';
 
   cropperSettings: CropperSettings;
   @ViewChild("cropper", undefined) cropper: ImageCropperComponent;
 
-  constructor(private route: ActivatedRoute, public adminregister:AdminAgronodo,public router:Router) {
+  constructor(
+    private route: ActivatedRoute,
+    public adminregister: AdminAgronodo,
+    public router: Router
+  ) {
     this.adminagronodo = new FormGroup({
       name: new FormControl("", Validators.required),
       email: new FormControl("", [Validators.email, Validators.required]),
       lastname: new FormControl("", Validators.required),
       number: new FormControl("", [Validators.required]),
-      username: new FormControl("", [Validators.required,UsernameValidator.cannotContainSpace]),
-      });
+      username: new FormControl("", [
+        Validators.required,
+        UsernameValidator.cannotContainSpace
+      ])
+    });
 
     this.name = "Angular2";
     this.cropperSettings = new CropperSettings();
@@ -52,35 +61,48 @@ export class AdminEditAgronodoComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get("id");
 
     if (id == null) {
-      console.log("Nuevo Admin");
+      this.mostrar = true;
     }
     if (id) {
-      console.log("Editar Admin");
+      this.adminregister.getadmin(id).subscribe((resp:any) => {
+        console.log(resp)
+        this.photo = resp.photo
+        this.mostrar = false;
+       
+        this.adminagronodo.setValue({
+          name: resp.names,
+          email: resp.user.email,
+          lastname: resp.lastnames,
+          number: resp.phone,
+          username: resp.user.username
+        });
+      });
     }
   }
 
   register(value: any) {
-    console.log(value)
+    console.log(value);
     let obj = {
       names: value.name,
       lastnames: value.lastname,
       phone: value.number,
-      photo:this.filestring,
-      user:  {
+      photo: this.filestring,
+      user: {
         username: value.username,
-        email: value.email,
-        
-    }
-    }
-    console.log(obj)
-      this.adminregister.register(obj).subscribe( resp =>{
+        email: value.email
+      }
+    };
+    console.log(obj);
+    this.adminregister.register(obj).subscribe(
+      resp => {
         this.router.navigateByUrl("/Admin-Agronodo");
       },
-      (err:any) => {
-       console.log(err._body)
-      })
+      (err: any) => {
+        console.log(err._body);
+      }
+    );
   }
-  
+
   setRoundedMethod(value: boolean) {
     this.cropperSettings.rounded = value;
   }
@@ -90,6 +112,7 @@ export class AdminEditAgronodoComponent implements OnInit {
   }
 
   fileChangeListener($event) {
+    this.mostrar = true;
     //base 64
     this.filename = $event.target.files[0];
     this.files = $event.target.files;

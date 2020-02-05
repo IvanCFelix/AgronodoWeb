@@ -3,11 +3,7 @@ const HomeAgronodo = {
   link: "/home",
   icon: "icon-home"
 };
-const Text = {
-  text: "Text",
-  link: "/home",
-  icon: "icon-home"
-};
+
 const UsuariosAgroindustriasAgronodo = {
   text: "Usuarios",
   icon: "icon-user",
@@ -43,7 +39,7 @@ if (!user) {
     }
     //Admin Agronodo
     case 2: {
-      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo,Text];
+      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
       break;
     }
     //Agricola

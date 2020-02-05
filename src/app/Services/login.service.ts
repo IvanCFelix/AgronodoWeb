@@ -35,6 +35,23 @@ export class AuthService {
       })
     );
   } 
+  reset(user) {
+    return this.http.post(`${Uris.PASSWORD_RESET}`, user).pipe(
+      map(resp => {
+        console.log(resp);
+        return resp;
+      })
+    ); 
+  }
+  setConfirm(user) {
+    return this.http.post(`${Uris.PASSWORD_SET_CONFIRM}`, user).pipe(
+      map(resp => {
+        console.log(resp);
+        return resp;
+      })
+    ); 
+  }
+
   logout(){
     localStorage.clear();
   }

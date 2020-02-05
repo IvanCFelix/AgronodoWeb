@@ -21,6 +21,7 @@ export const routes = [
             { path: 'Agricola',canActivate:[ AuthGuard ], loadChildren: './agricola-agronodo/agricola-agronodo.module#AgricolaAgronodoModule' },
             { path: 'Agricola/new', canActivate:[ AuthGuard ],loadChildren: './agricola-edit-agronodo/agricola-edit-agronodo.module#AgricolaEditAgronodoModule'},
             { path: 'Agricola/:id',canActivate:[ AuthGuard ], loadChildren: './agricola-edit-agronodo/agricola-edit-agronodo.module#AgricolaEditAgronodoModule'},
+
         ]   
     },
 
@@ -28,7 +29,7 @@ export const routes = [
    
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'lock', component: LockComponent },
+    { path: 'reset/:user/:token', component: LockComponent },
     { path: 'landing', component: LandingComponent },
     { path: '404', component: Error404Component },
     { path: '500', component: Error500Component },
