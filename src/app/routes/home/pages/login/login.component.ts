@@ -10,6 +10,7 @@ import {
 } from "@angular/forms";
 import { CustomValidators } from "ng2-validation";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-login",
@@ -18,6 +19,7 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 })
 export class LoginComponent implements OnInit {
   loginAgronodo: FormGroup;
+  forgotpassword: FormGroup;
 
   constructor(
     public settings: SettingsService,
@@ -30,25 +32,38 @@ export class LoginComponent implements OnInit {
       username: new FormControl("", [Validators.required]),
       password: new FormControl("", Validators.required)
     });
+    this.forgotpassword = new FormGroup({
+      email: new FormControl("", [Validators.required,Validators.email]),
+  
+    });
   }
 
   submitForm($ev, value: any) {
     $ev.preventDefault();
     console.log(value);
   }
+
+
   
 
   ngOnInit() {
-
+    localStorage.clear();
   }
 
 
   login( form) {    
+    Swal.fire({
+      text: "Cargando información...",
+      allowOutsideClick: false,
+      width: '250px'
+    });
+    Swal.showLoading();
     if (form.invalid) {
       return;
     }
     this.auth.login(form.value).subscribe(
       (resp: any) => {
+        Swal.close();
         this.router.navigateByUrl("/home");
 
       },
@@ -57,6 +72,21 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+  Forgotpassword($ev, value: any) {
+    if (this.forgotpassword.valid) {
+     this.auth.recover(value).subscribe(resp => {
+        Swal.fire({
+            title: "Se creó correctamente",
+            icon: "success",
+            text: value.name,
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.modalService.hide(-1)        
+           console.log(resp)
+     })
+    }
+}
 
 
 }

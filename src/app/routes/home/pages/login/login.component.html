@@ -150,7 +150,45 @@
                 </button>
             </div>
             <div class="modal-body">
-                <app-recover></app-recover>
+              <div class="container">s
+                <div class="row">
+                  <!-- <div class="p-3">
+
+                  
+                  <div class="col-12">
+                    <p class="text-left py-2">Recuperar contraseña</p>
+                  </div>
+                  <div class="col-12">
+                    <form [formGroup]="forgotpassword" class="form-validate" role="form" name="recoverForm" novalidate=""
+                      (submit)="submitForm($event, forgotpassword.value)">
+                      <div class="form-group">
+                        <label class="text-muted">Correo</label>
+                        <div class="input-group ">
+                          <input class="form-control" type="email" name="email" placeholder="example@hotmail.com"
+                            autocomplete="off" formControlName="email"  style="border-bottom: 1px solid gray;border-radius: 0;"/>
+                          <div class="input-group-append">
+                            <span class="input-group-text text-muted bg-transparent border-left-0" style="padding: 9px;border:none;border-bottom: 1px solid gray;">
+                              <em class="fa fa-envelope"></em>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="text-danger"
+                          *ngIf="forgotpassword.controls['email'].hasError('required') && (forgotpassword.controls['email'].dirty || forgotpassword.controls['email'].touched)">
+                          El correo es obligatorio</div>
+                        <div class="text-danger"
+                          *ngIf="forgotpassword.controls['email'].hasError('email') && (forgotpassword.controls['email'].dirty || forgotpassword.controls['email'].touched)">
+                         Correo no válido</div>
+                      </div>
+                      <p class="text-left mt-2">Mandaremos un mensaje a tu correo para verificar que estes registrado.</p>
+                      <div class="text-right">
+                        <button class="btn btn-success  mb-4 mt-4" type="submit">Mandar correo</button>
+                      </div>
+                    </form>
+                  </div>
+                </div> -->
+              <app-recover ></app-recover>
+              </div>
+              </div>
             </div>
         </div>
     </div>

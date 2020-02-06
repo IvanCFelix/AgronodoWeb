@@ -1,25 +1,28 @@
 import { UsernameValidator } from "./../../validators/UsernameValidator ";
 import { AdminAgronodo } from "./../../Services/admin-agronodo.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import {  FormGroup, Validators, FormControl} from "@angular/forms";
+import { FormGroup, Validators, FormControl } from "@angular/forms";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ImageCropperComponent, CropperSettings, Bounds} from "ng2-img-cropper";
+import { ImageCropperComponent, CropperSettings, Bounds } from "ng2-img-cropper";
 import { Uris } from "../../Services/Uris";
+import Swal from "sweetalert2";
+
 @Component({
   selector: "app-admin-edit-agronodo",
   templateUrl: "./admin-edit-agronodo.component.html",
   styleUrls: ["./admin-edit-agronodo.component.scss"]
 })
 export class AdminEditAgronodoComponent implements OnInit {
+  id;
   adminagronodo: FormGroup;
-  mostrar:boolean;
-  photo:string;
+  mostrar: boolean;
+  photo: string;
   name: string;
   data1: any;
   public files: any;
   public filestring: string = "";
   public filename: any = [];
-  public url = 'http://159.89.49.19';
+  public url = "http://159.89.49.19";
 
   cropperSettings: CropperSettings;
   @ViewChild("cropper", undefined) cropper: ImageCropperComponent;
@@ -59,16 +62,14 @@ export class AdminEditAgronodoComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get("id");
-
-    if (id == null) {
-      this.mostrar = true;
-    }
+    this.id = id;
+   
     if (id) {
-      this.adminregister.getadmin(id).subscribe((resp:any) => {
-        console.log(resp)
-        this.photo = resp.photo
+      this.adminregister.getadmin(id).subscribe((resp: any) => {
+        console.log(resp);
+        this.photo = resp.photo;
         this.mostrar = false;
-       
+
         this.adminagronodo.setValue({
           name: resp.names,
           email: resp.user.email,
@@ -77,11 +78,25 @@ export class AdminEditAgronodoComponent implements OnInit {
           username: resp.user.username
         });
       });
+    }else{
+      this.mostrar = true;
     }
   }
 
   register(value: any) {
-    console.log(value);
+    Swal.fire({
+      text: "Guardar información",
+      allowOutsideClick: false
+    });
+    Swal.showLoading();
+    if (this.id == null) {
+      this.create(value);
+    } else {
+      this.update(value);
+    }
+  }
+
+  create(value: any) {
     let obj = {
       names: value.name,
       lastnames: value.lastname,
@@ -92,15 +107,24 @@ export class AdminEditAgronodoComponent implements OnInit {
         email: value.email
       }
     };
-    console.log(obj);
     this.adminregister.register(obj).subscribe(
       resp => {
+        Swal.fire({
+          title: "Se creó correctamente",
+          icon: "success",
+          text: value.name,
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.router.navigateByUrl("/Admin-Agronodo");
       },
       (err: any) => {
         console.log(err._body);
       }
     );
+  }
+  update(value: any) {
+    console.log("editar");
   }
 
   setRoundedMethod(value: boolean) {

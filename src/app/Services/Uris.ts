@@ -10,7 +10,7 @@ export class Uris {
     public static API_AGRONODO_POST = `${Uris.API_ENDPOINT}register/adminagronodo/`
     public static API_AGRONODO_GET_LIST= `${Uris.API_ENDPOINT}adminagronodo/`;
     public static API_AGRONODO_GET_USER = `${Uris.API_ENDPOINT}adminagronodo/`;
-    public static API_ABRONODO_DELETE = `${Uris.API_ENDPOINT}adminagronodo/luisarmando/`
+    public static API_ABRONODO_DELETE = `${Uris.API_ENDPOINT}adminagronodo/`
 
     public static API_AGRICOLA_POST = `${Uris.API_ENDPOINT}register/agricola/`;
     public static API_RECOVER_POST =  `${Uris.API_ENDPOINT}password/reset/`;

@@ -78,6 +78,7 @@
     "spinkit": "1.2.5",
     "summernote": "0.8.10",
     "sweetalert": "2.1.2",
+    "sweetalert2": "^9.7.1",
     "ts-helpers": "1.1.1",
     "weather-icons": "github:erikflowers/weather-icons",
     "web-animations-js": "2.2.1",
