@@ -11,7 +11,7 @@
       <div class="card-body">
         <p class="text-center">Please login to unlock your screen.</p>
         <form [formGroup]="valForm" role="form" name="lockForm" (submit)="submitForm(valForm.value)">
-          <!-- <div class="form-group">
+          <div class="form-group" *ngIf="password" >
               <label>Constraseña actual</label>
             <div class="input-group with-focus">
 
@@ -25,7 +25,7 @@
             </div>
             <span class="text-danger" *ngIf="valForm.controls['password'].errors?.required">
                 Este campo es requerido</span>
-          </div> -->
+          </div>
           <div  formGroupName="passwordGroup">
             <div class="form-group">
                 <label>Nueva contraseña</label>
@@ -63,9 +63,12 @@
 
 
           </div>
-          <div class="text-center">
+          <div class="text-center" *ngIf="token">
               <button *ngIf="valForm.valid" class="btn btn-md btn-success" type="submit">Enviar</button>
           </div>
+          <div class="text-center" *ngIf="password">
+            <button *ngIf="valForm.valid" class="btn btn-md btn-success" type="submit">Enviar</button>
+        </div>
         </form>
 
 

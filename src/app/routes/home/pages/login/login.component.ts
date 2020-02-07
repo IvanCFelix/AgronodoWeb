@@ -68,7 +68,14 @@ export class LoginComponent implements OnInit {
 
       },
       err => {
-        
+        Swal.fire({
+          text: err.error.non_field_errors[0],
+          showConfirmButton: false,
+          timer: 1500,
+          icon:'error',
+          width: '250px'
+        });
+      
       }
     );
   }

@@ -1,10 +1,10 @@
+import { Uris } from './../../Services/Uris';
 import { UsernameValidator } from "./../../validators/UsernameValidator ";
 import { AdminAgronodo } from "./../../Services/admin-agronodo.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormGroup, Validators, FormControl } from "@angular/forms";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ImageCropperComponent, CropperSettings, Bounds } from "ng2-img-cropper";
-import { Uris } from "../../Services/Uris";
 import Swal from "sweetalert2";
 
 @Component({
@@ -22,7 +22,7 @@ export class AdminEditAgronodoComponent implements OnInit {
   public files: any;
   public filestring: string = "";
   public filename: any = [];
-  public url = "http://159.89.49.19";
+  public url = Uris.API_ENDPOINT;
 
   cropperSettings: CropperSettings;
   @ViewChild("cropper", undefined) cropper: ImageCropperComponent;
@@ -68,6 +68,7 @@ export class AdminEditAgronodoComponent implements OnInit {
       this.adminregister.getadmin(id).subscribe((resp: any) => {
         console.log(resp);
         this.photo = resp.photo;
+        this.filestring = resp.photo;
         this.mostrar = false;
 
         this.adminagronodo.setValue({
@@ -101,7 +102,6 @@ export class AdminEditAgronodoComponent implements OnInit {
       names: value.name,
       lastnames: value.lastname,
       phone: value.number,
-      photo: this.filestring,
       user: {
         username: value.username,
         email: value.email
@@ -124,7 +124,31 @@ export class AdminEditAgronodoComponent implements OnInit {
     );
   }
   update(value: any) {
-    console.log("editar");
+      let obj = {
+      names: value.name,
+      lastnames: value.lastname,
+      phone: value.number,
+      photo:this.filestring,
+      user: {
+        username: value.username,
+      }
+    };
+    console.log(obj)
+    this.adminregister.edit(obj).subscribe(
+      resp => {
+        Swal.fire({
+          title: "Se creó correctamente",
+          icon: "success",
+          text: value.name,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.router.navigateByUrl("/Admin-Agronodo");
+      },
+      (err: any) => {
+        console.log(err._body);
+      }
+    );
   }
 
   setRoundedMethod(value: boolean) {

@@ -63,6 +63,7 @@ if (!user) {
       break;
     }
     default: {
+      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
       break;
     }
   }

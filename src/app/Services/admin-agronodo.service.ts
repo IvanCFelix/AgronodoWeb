@@ -27,6 +27,19 @@ export class AdminAgronodo {
   delete(user) {
     return this.http.delete(`${Uris.API_ABRONODO_DELETE}${user}/`,this.jwt()).map((response: Response) => response.json()) 
   }
+  reset(password) {
+    return this.http.post(`${Uris.PASSWORD_CHANGE}`,password,this.jwt()).map((response: Response) => response.json()) 
+  }
+   
+ edit(admin) {
+
+   console.log(admin)
+   const AdminTemp = {
+      names: admin.name
+  } 
+  return this.http.patch(`${Uris.API_AGRONODO_EDIT}${admin.user.username}/`, AdminTemp,this.jwt()).map((response: Response) => response.json()) 
+}
+  
 
   errorHandler(error: any): void {
     console.log("SUPER ERROR",error)
