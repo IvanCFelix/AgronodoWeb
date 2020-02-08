@@ -31,13 +31,9 @@ export class AdminAgronodo {
     return this.http.post(`${Uris.PASSWORD_CHANGE}`,password,this.jwt()).map((response: Response) => response.json()) 
   }
    
- edit(admin) {
+ edit(admin,user) {
 
-   console.log(admin)
-   const AdminTemp = {
-      names: admin.name
-  } 
-  return this.http.patch(`${Uris.API_AGRONODO_EDIT}${admin.user.username}/`, AdminTemp,this.jwt()).map((response: Response) => response.json()) 
+  return this.http.patch(`${Uris.API_AGRONODO_EDIT}${user.user.username}/`, admin,this.jwt()).map((response: Response) => response.json()) 
 }
   
 

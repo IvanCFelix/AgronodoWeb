@@ -124,17 +124,20 @@ export class AdminEditAgronodoComponent implements OnInit {
     );
   }
   update(value: any) {
-      let obj = {
+  if(this.filestring){
+    let obj = {
       names: value.name,
       lastnames: value.lastname,
       phone: value.number,
-      photo:this.filestring,
+      user: {
+      }
+    };
+    let user= {
       user: {
         username: value.username,
       }
-    };
-    console.log(obj)
-    this.adminregister.edit(obj).subscribe(
+    }
+    this.adminregister.edit(obj,user).subscribe(
       resp => {
         Swal.fire({
           title: "Se creó correctamente",
@@ -149,6 +152,41 @@ export class AdminEditAgronodoComponent implements OnInit {
         console.log(err._body);
       }
     );
+  
+
+  }else{
+    let obj = {
+      names: value.name,
+      lastnames: value.lastname,
+      phone: value.number,
+      photo:this.filestring,
+      user: {
+      }
+    };
+    let user= {
+      user: {
+        username: value.username,
+      }
+    }
+    this.adminregister.edit(obj,user).subscribe(
+      resp => {
+        Swal.fire({
+          title: "Se creó correctamente",
+          icon: "success",
+          text: value.name,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.router.navigateByUrl("/Admin-Agronodo");
+      },
+      (err: any) => {
+        console.log(err._body);
+      }
+    );
+  }
+      
+     
+   
   }
 
   setRoundedMethod(value: boolean) {
