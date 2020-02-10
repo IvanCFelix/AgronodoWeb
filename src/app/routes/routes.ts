@@ -21,6 +21,8 @@ export const routes = [
             { path: 'Agricola',canActivate:[ AuthGuard ], loadChildren: './agricola-agronodo/agricola-agronodo.module#AgricolaAgronodoModule' },
             { path: 'Agricola/new', canActivate:[ AuthGuard ],loadChildren: './agricola-edit-agronodo/agricola-edit-agronodo.module#AgricolaEditAgronodoModule'},
             { path: 'Agricola/:id',canActivate:[ AuthGuard ], loadChildren: './agricola-edit-agronodo/agricola-edit-agronodo.module#AgricolaEditAgronodoModule'},
+            { path: 'profile/:id', loadChildren: './profile/profile.component.module#ProfileAgronodoModule'},
+
 
         ]   
     },

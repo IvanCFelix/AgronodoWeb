@@ -13,13 +13,27 @@
         <div class="row">
           <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
             <div class="form-group row">
-              <div class="col">
+              <div class="col ">
                 <label>Nombre de usuario</label>
-                <input class="form-control" formControlName="username" type="text" />
+                <input *ngIf="!id" class="form-control" formControlName="username" type="text"  />
+                <input *ngIf="id" class="form-control" formControlName="username" type="text" disabled />
+
                 <span class="text-danger" *ngIf="adminagronodo.controls['username'].errors?.required">Ingresa un campo
                   válido</span>
                   <span class="text-danger" *ngIf="adminagronodo.controls['username'].errors?.cannotContainSpace">
                     No se permiten espacios en este campo</span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col" >
+                <label>Email</label>
+                <input *ngIf="!id" class="form-control" formControlName="email" type="email" placeholder="example@example.com" />
+                <input *ngIf="id" class="form-control" formControlName="email" type="email" placeholder="example@example.com" disabled/>
+
+                <span class="text-danger" *ngIf="adminagronodo.controls['email'].errors?.email">Ingresa un correo
+                  válido</span>
+                <span class="text-danger" *ngIf="adminagronodo.controls['email'].errors?.required">Ingresa un
+                  correo</span>
               </div>
             </div>
             <div class="form-group row">
@@ -30,16 +44,7 @@
                   válido</span>
               </div>
             </div>
-            <div class="form-group row">
-              <div class="col">
-                <label>Email</label>
-                <input class="form-control" formControlName="email" type="email" placeholder="example@example.com" />
-                <span class="text-danger" *ngIf="adminagronodo.controls['email'].errors?.email">Ingresa un correo
-                  válido</span>
-                <span class="text-danger" *ngIf="adminagronodo.controls['email'].errors?.required">Ingresa un
-                  correo</span>
-              </div>
-            </div>
+            
 
             <div class="form-group row">
               <div class="col">

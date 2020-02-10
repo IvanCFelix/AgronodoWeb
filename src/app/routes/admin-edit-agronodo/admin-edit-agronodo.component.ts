@@ -1,10 +1,14 @@
-import { Uris } from './../../Services/Uris';
+import { Uris } from "./../../Services/Uris";
 import { UsernameValidator } from "./../../validators/UsernameValidator ";
 import { AdminAgronodo } from "./../../Services/admin-agronodo.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormGroup, Validators, FormControl } from "@angular/forms";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ImageCropperComponent, CropperSettings, Bounds } from "ng2-img-cropper";
+import {
+  ImageCropperComponent,
+  CropperSettings,
+  Bounds
+} from "ng2-img-cropper";
 import Swal from "sweetalert2";
 
 @Component({
@@ -63,12 +67,13 @@ export class AdminEditAgronodoComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get("id");
     this.id = id;
-   
+
     if (id) {
+      // this.adminagronodo.controls['username'].disable();
+      // this.adminagronodo.controls['email'].disable();
       this.adminregister.getadmin(id).subscribe((resp: any) => {
         console.log(resp);
         this.photo = resp.photo;
-        this.filestring = resp.photo;
         this.mostrar = false;
 
         this.adminagronodo.setValue({
@@ -79,7 +84,7 @@ export class AdminEditAgronodoComponent implements OnInit {
           username: resp.user.username
         });
       });
-    }else{
+    } else {
       this.mostrar = true;
     }
   }
@@ -102,6 +107,7 @@ export class AdminEditAgronodoComponent implements OnInit {
       names: value.name,
       lastnames: value.lastname,
       phone: value.number,
+      photo: this.filestring,
       user: {
         username: value.username,
         email: value.email
@@ -124,69 +130,65 @@ export class AdminEditAgronodoComponent implements OnInit {
     );
   }
   update(value: any) {
-  if(this.filestring){
-    let obj = {
-      names: value.name,
-      lastnames: value.lastname,
-      phone: value.number,
-      user: {
-      }
-    };
-    let user= {
-      user: {
-        username: value.username,
-      }
-    }
-    this.adminregister.edit(obj,user).subscribe(
-      resp => {
-        Swal.fire({
-          title: "Se creó correctamente",
-          icon: "success",
-          text: value.name,
-          showConfirmButton: false,
-          timer: 1500
-        });
-        this.router.navigateByUrl("/Admin-Agronodo");
-      },
-      (err: any) => {
-        console.log(err._body);
-      }
-    );
-  
+    console.log(value);
+    if (this.filestring == "") {
+      let obj = {
+        names: value.name,
+        lastnames: value.lastname,
+        phone: value.number,
+        user: {
 
-  }else{
-    let obj = {
-      names: value.name,
-      lastnames: value.lastname,
-      phone: value.number,
-      photo:this.filestring,
-      user: {
-      }
-    };
-    let user= {
-      user: {
-        username: value.username,
-      }
+        }
+      };
+      let user = {
+        user: {
+          username: value.username
+        }
+      };
+      this.adminregister.edit(obj, user).subscribe(
+        resp => {
+          Swal.fire({
+            title: "Se creó correctamente",
+            icon: "success",
+            text: value.name,
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.router.navigateByUrl("/Admin-Agronodo");
+        },
+        (err: any) => {
+          console.log(err._body);
+        }
+      );
+    } else {
+      let obj = {
+        names: value.name,
+        lastnames: value.lastname,
+        phone: value.number,
+        photo: this.filestring,
+        user: {}
+      };
+      let user = {
+        user: {
+          username: value.username
+        }
+      };
+      this.adminregister.edit(obj, user).subscribe(
+        resp => {
+          Swal.fire({
+            title: "Se creó correctamente",
+            icon: "success",
+            text: value.name,
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.router.navigateByUrl("/Admin-Agronodo");
+        },
+        (err: any) => {
+          console.log(err._body);
+        }
+      );
     }
-    this.adminregister.edit(obj,user).subscribe(
-      resp => {
-        Swal.fire({
-          title: "Se creó correctamente",
-          icon: "success",
-          text: value.name,
-          showConfirmButton: false,
-          timer: 1500
-        });
-        this.router.navigateByUrl("/Admin-Agronodo");
-      },
-      (err: any) => {
-        console.log(err._body);
-      }
-    );
-  }
-      
-     
-   
   }
 
   setRoundedMethod(value: boolean) {
