@@ -1,18 +1,9 @@
 import { AgricolaAgronodo } from '../../Services/agricola-agronodo.service';
-import { CustomValidators } from "ng2-validation";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl
-} from "@angular/forms";
+import { FormGroup, Validators, FormControl } from "@angular/forms";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import {
-  ImageCropperComponent,
-  CropperSettings,
-  Bounds
-} from "ng2-img-cropper";
+import { ImageCropperComponent, CropperSettings, Bounds } from "ng2-img-cropper";
 import { ActivatedRoute, Router } from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-agricola-edit-agronodo",
@@ -24,12 +15,18 @@ export class AgricolaEditAgronodoComponent implements OnInit {
   colorDemo2 = "#1255a7";
   colorDemo3 = "#555555";
   agricola: FormGroup;
+  public filename: any = [];
+  id;
+  mostrar: boolean;
+  photo: string;
+  public files: any;
+  public filestring: string = "";
   
   name: string;
   data1: any;
   cropperSettings: CropperSettings;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
-  constructor(private route: ActivatedRoute,public agroindustriaService:AgricolaAgronodo,public router:Router) {
+  constructor(private route: ActivatedRoute,public agricolaService:AgricolaAgronodo,public router:Router) {
 
     this.name = "Angular2";
     this.cropperSettings = new CropperSettings();
@@ -70,7 +67,7 @@ export class AgricolaEditAgronodoComponent implements OnInit {
   }
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get("id");
-
+    this.id = id;
     if(id == null){
       console.log("Nueva Agroindustria")
     }
@@ -81,33 +78,80 @@ export class AgricolaEditAgronodoComponent implements OnInit {
   }
 
   submitForm(value: any) {
-  
-
-    let obj = {
-      agroindustria:value.name,
-      address:value.address ,
-      contactName: value.contactName ,
-      phone: value.phone,
-      prmsAltaIngenieros: value.highEngineersLenght,
-      prmsAtencionCliente: value.lots,
-      prmsAdminExtras: value.adminLenght,
-      user:  {
-        username: value.username,
-        email: value.email,
-        password: "micontra"
-      }
+    Swal.fire({
+      text: "Guardar información",
+      allowOutsideClick: false,
+      width: '270px'
+    });
+    Swal.showLoading();
+    if (this.id == null) {
+      this.create(value);
+    } else {
+      this.update(value);
     }
+  }
 
-    this.agroindustriaService.register(obj).subscribe( resp =>{
+  create(value){
+    // let obj = {
+    //   agroindustria:value.name,
+    //   address:value.address ,
+    //   contactName: value.contactName ,
+    //   phone: value.phone,
+    //   prmsAltaIngenieros: value.highEngineersLenght,
+    //   prmsAtencionCliente: value.lots,
+    //   prmsAdminExtras: value.adminLenght,
+    //   user:  {
+    //     username: value.username,
+    //     email: value.email,
+    //   }
+    // }
+    let obj = {
+        logo: this.filestring,
+        agricola: value.name,
+        address: value.address,
+        contactName: value.contactName,
+        phone: value.phone,
+        prmsIngenieros: value.highEngineersLenght,
+        prmsLotes: value.lotsLenght,
+        prmsAdminExtra:value.adminLenght,
+        user:{
+            username: value.username,
+            email: value.email
+        }
+      }
+      console.log(obj);
+    this.agricolaService.register(obj).subscribe( resp =>{
+      Swal.fire({
+        title: "Se creó correctamente",
+        icon: "success",
+        text: value.name,
+        showConfirmButton: false,
+        timer: 1500,
+        width: '270px'
+      });
       this.router.navigateByUrl("/Agricola");
     })
-    console.log(obj);
   }
+
+  update(value){
+
+  }
+
   cropped(bounds: Bounds) {
     // console.log(bounds);
 }
 
 fileChangeListener($event) {
+  this.mostrar = true;
+  //base 64
+  this.filename = $event.target.files[0];
+  this.files = $event.target.files;
+  var reader = new FileReader();
+  reader.onload = this._handleReaderLoaded.bind(this);
+  reader.readAsBinaryString(this.files[0]);
+
+
+
     let image: any = new Image();
     let file: File = $event.target.files[0];
     let myReader: FileReader = new FileReader();
@@ -119,5 +163,9 @@ fileChangeListener($event) {
     };
 
     myReader.readAsDataURL(file);
+}
+_handleReaderLoaded(readerEvt) {
+  var binaryString = readerEvt.target.result;
+  this.filestring = btoa(binaryString); // Converting binary string data.
 }
 }

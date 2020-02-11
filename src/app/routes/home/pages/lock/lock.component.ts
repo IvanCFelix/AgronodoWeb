@@ -7,7 +7,7 @@ import { Component, OnInit, Injector } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'app-lock',
@@ -30,8 +30,6 @@ export class LockComponent implements OnInit {
         if(this.route.snapshot.paramMap.get("token")){
             console.log("entro")
             this.valForm = fb.group({
-            
-    
                 'passwordGroup': fb.group({
                     new_password1: password,
                     new_password2: certainPassword
@@ -61,14 +59,17 @@ export class LockComponent implements OnInit {
         this.token = token;
         const password = this.route.snapshot.paramMap.get("password");
         this.password = password;
-        console.log(password)
     }
 
 
     submitForm(value: any) {
         if (this.valForm.valid) {
-           
-           
+            Swal.fire({
+                text: "Guardar información",
+                allowOutsideClick: false,
+                width: '270px'
+              });
+              Swal.showLoading();
             if(this.password){
                 let obj = {
                     old_password: value.password,
@@ -76,7 +77,22 @@ export class LockComponent implements OnInit {
                     new_password2: value.passwordGroup.new_password2,
                 }
                this.userReser.reset(obj).subscribe(resp => {
+                Swal.fire({
+                    text: "Se Guardó correctamente",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    width: '300px'
+                  });
                 this.router.navigate(['/home']);
+               }, err => {
+                Swal.fire({
+                    text: "Error en el sevidor",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    icon:'error',
+                    width: '250px'
+                  });
                })
             }else{
                 let obj = {
@@ -87,13 +103,43 @@ export class LockComponent implements OnInit {
                 }
             try {
                 this.resetService.setConfirm(obj).subscribe(resp =>{
+                    Swal.fire({
+                        text: "Se Guardó correctamente",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1500,
+                        width: '250px'
+                      });
                     this.router.navigate(['/login']);
+               }, err =>{
+                Swal.fire({
+                    text: "Error en el sevidor",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    icon:'error',
+                    width: '250px'
+                  });
                })
               }
               catch(error) {
                 console.log(obj);
                 this.resetService.reset(obj).subscribe(resp =>{
+                    Swal.fire({
+                        text: "Se Guardó correctamente",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1500,
+                        width: '250px'
+                      });
                      this.router.navigate(['/login']);
+                }, err => {
+                    Swal.fire({
+                        text: "Error en el sevidor",
+                        showConfirmButton: false,
+                        timer: 1500,
+                        icon:'error',
+                        width: '250px'
+                      });
                 })
               }
             }

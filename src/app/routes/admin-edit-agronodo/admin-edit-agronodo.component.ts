@@ -92,7 +92,8 @@ export class AdminEditAgronodoComponent implements OnInit {
   register(value: any) {
     Swal.fire({
       text: "Guardar información",
-      allowOutsideClick: false
+      allowOutsideClick: false,
+      width: '270px'
     });
     Swal.showLoading();
     if (this.id == null) {
@@ -116,16 +117,22 @@ export class AdminEditAgronodoComponent implements OnInit {
     this.adminregister.register(obj).subscribe(
       resp => {
         Swal.fire({
-          title: "Se creó correctamente",
+          text: "Se creó correctamente"+value.name,
           icon: "success",
-          text: value.name,
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
+          width: '250px'
         });
         this.router.navigateByUrl("/Admin-Agronodo");
       },
       (err: any) => {
-        console.log(err._body);
+        Swal.fire({
+          text: "Error en el sevidor",
+          showConfirmButton: false,
+          timer: 1500,
+          icon:'error',
+          width: '250px'
+        });
       }
     );
   }
@@ -136,9 +143,7 @@ export class AdminEditAgronodoComponent implements OnInit {
         names: value.name,
         lastnames: value.lastname,
         phone: value.number,
-        user: {
-
-        }
+        user: {  }
       };
       let user = {
         user: {
@@ -148,16 +153,22 @@ export class AdminEditAgronodoComponent implements OnInit {
       this.adminregister.edit(obj, user).subscribe(
         resp => {
           Swal.fire({
-            title: "Se creó correctamente",
+            text: "Se creó correctamente \n"+value.name,
             icon: "success",
-            text: value.name,
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
+            width: '250px'
           });
           this.router.navigateByUrl("/Admin-Agronodo");
         },
         (err: any) => {
-          console.log(err._body);
+          Swal.fire({
+            text: "Error en el sevidor",
+            showConfirmButton: false,
+            timer: 1500,
+            icon:'error',
+            width: '250px'
+          });
         }
       );
     } else {
@@ -180,12 +191,19 @@ export class AdminEditAgronodoComponent implements OnInit {
             icon: "success",
             text: value.name,
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
+            width: '250px'
           });
           this.router.navigateByUrl("/Admin-Agronodo");
         },
         (err: any) => {
-          console.log(err._body);
+          Swal.fire({
+            text: "Error en el sevidor",
+            showConfirmButton: false,
+            timer: 1500,
+            icon:'error',
+            width: '250px'
+          });
         }
       );
     }

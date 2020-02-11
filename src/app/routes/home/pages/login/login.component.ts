@@ -68,8 +68,9 @@ export class LoginComponent implements OnInit {
 
       },
       err => {
+        console.log("entro")
         Swal.fire({
-          text: err.error.non_field_errors[0],
+          text: "Error en el sevidor",
           showConfirmButton: false,
           timer: 1500,
           icon:'error',

@@ -4,7 +4,7 @@
     <div class="main-container">
       <div class="row">
         <div class="col-12">
-          <h3 class="m-0">Agroindustria</h3>
+          <h3 class="m-0">Agrícola</h3>
         </div>
     <div class="col">
       <p class="text-18">Ve la lista de agroindustrias, edita, habilita/deshabilita o agrega nuevos.</p>
@@ -21,43 +21,43 @@
     <input class="form-control mb-2" type="text" placeholder="Buscar.." style="border-radius: 21px;"  (keyup)='updateFilter($event)'/>
   </div>
   <div class="col text-right">
-    <button class="mb-1 mr-1 btn btn-success" type="button" routerLink="/Agricola/new">Agregar nueva agroindustria</button>
+    <button class="mb-1 mr-1 btn btn-success" type="button" routerLink="/Agricola/new">Agregar nueva agricola</button>
   </div>
 </div>
 
   <div class="card card-default mt-5">
    
     <div class="card-body ">
-        <ngx-datatable #table class="bootstrap expandable "  [columnMode]="'force'"  [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarV]="true" [rows]='rowsExp' (page)="onPage($event)">
+        <ngx-datatable #table class="bootstrap expandable "  [columnMode]="'force'"  [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarV]="true" [rows]='listagricola' (page)="onPage($event)">
             <!-- Column Templates -->
-            <ngx-datatable-column name="#" width="800">
+            <ngx-datatable-column name="#">
+              <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                <strong>{{rowIndex + 1}}</strong>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Nombre" width="800">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                    <strong>{{row.$$index}}</strong>
+                    <strong>{{row.agricola}}</strong>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Agroindustria" width="800">
+            <ngx-datatable-column name="Dirección" width="800">
                 <ng-template let-row="row"   ngx-datatable-cell-template>
-                   {{row.agroindustry}}
+                   {{row.address}}
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Ubicación" width="800">
+            <ngx-datatable-column name="Nombre de contacto" width="800">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                    <strong>{{row.address}}</strong>
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Nombre contacto" width="800">
-                <ng-template let-row="row"  ngx-datatable-cell-template>
-                    {{row.name}}
+                    <strong>{{row.contactName}}</strong>
                 </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Teléfono">
               <ng-template let-row="row"  ngx-datatable-cell-template>
-                {{row.number_contact}}
+                {{row.phone}}
             </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Acción" width="300">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                    <button class="btn btn-success m-1" type="button" [routerLink]="['/Agricola',row.id]">
+                    <button class="btn btn-success m-1" type="button" [routerLink]="['/Agricola',row.user.username]">
                       <a class="fas fa-pencil-alt"></a> </button>
                   <button class="btn btn-danger" >
                       <a class="fas fa-trash-alt"></a>

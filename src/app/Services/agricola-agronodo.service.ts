@@ -1,36 +1,50 @@
-import { Injectable } from "@angular/core";
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { Uris } from "./Uris";
-import { map } from "rxjs/operators";
 
+import 'rxjs/add/operator/map'
+import { Injectable } from '@angular/core';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { HttpHeaders} from '@angular/common/http';
+import 'rxjs/add/operator/map'
+import { Uris } from './Uris';
+import { Observable } from '../../../node_modules/rxjs';
 @Injectable({
   providedIn: "root"
 })
-
 export class AgricolaAgronodo {
   private token: String;
-
-
-  constructor(private http: Http) {
+  constructor(public http: Http) { 
     this.token = (localStorage.getItem('token') ? (<any>JSON.parse(localStorage.getItem('USER')).token) : null);
-
+  }
+  
+ register(agricola) {
+    return this.http.post(`${Uris.API_AGRICOLA_POST}`, agricola,this.jwt()).map((response: Response) => response.json()) 
   }
 
-  register(agroindustria) {
-    return this.http.post(`${Uris.API_AGRICOLA_POST}`, agroindustria,this.jwt()).pipe(
-      map(resp => {
-        console.log(resp);
-        return resp;
-      })
-    );
-  } 
- 
+  listadmin() {
+    return this.http.get(`${Uris.API_AGRICOLA_GET_LIST}`,this.jwt()).map((response: Response) => response.json()) 
+  }
+  getadmin(user) {
+    return this.http.get(`${Uris.API_AGRONODO_GET_USER}${user}/`,this.jwt()).map((response: Response) => response.json()) 
+  }
+  delete(user) {
+    return this.http.delete(`${Uris.API_ABRONODO_DELETE}${user}/`,this.jwt()).map((response: Response) => response.json()) 
+  }
+  reset(password) {
+    return this.http.post(`${Uris.PASSWORD_CHANGE}`,password,this.jwt()).map((response: Response) => response.json()) 
+  }
+   
+ edit(admin,user) {
+
+  return this.http.patch(`${Uris.API_AGRONODO_EDIT}${user.user.username}/`, admin,this.jwt()).map((response: Response) => response.json()) 
+}
+  
+
   errorHandler(error: any): void {
     console.log("SUPER ERROR",error)
     if (localStorage.getItem('token') && error.status == 401) {
         localStorage.removeItem('token');
     }
   }
+  
   private jwt() {
     if (this.token) {
         let headers = new Headers();
@@ -41,3 +55,8 @@ export class AgricolaAgronodo {
     }
   }
 }
+
+  
+
+
+
