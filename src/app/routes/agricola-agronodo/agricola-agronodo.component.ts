@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { AgricolaAgronodo } from "../../Services/agricola-agronodo.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-agricola-agronodo",
@@ -58,5 +59,37 @@ export class AgricolaAgronodoComponent implements OnInit {
   onActivate(event) {
   }
 
+   delete(value){
+    console.log(value)
+    Swal.fire({
+      title: 'Seguro que quieres eliminar esta agricola?',
+      text: value.names,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'No, cancelar!',
+    }).then((result) => {
+      if (result.value) {
+        console.log(result.value)
+        this.agricola.delete(value.user.username)
+        .subscribe( resp => {
+          
+          this.agricola.listadmin().subscribe(resp => {
+            this.listagricola = resp;
+            this.temp = resp;
+            console.log(resp)
+          })
+
+        })
+        // Swal.fire(
+        //   'Deleted!',
+        //   'Your file has been deleted.',
+        //   'success',
+        // )
+      }
+    })
+  }
 
 }

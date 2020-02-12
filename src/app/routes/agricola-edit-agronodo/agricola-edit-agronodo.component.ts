@@ -4,6 +4,8 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { ImageCropperComponent, CropperSettings, Bounds } from "ng2-img-cropper";
 import { ActivatedRoute, Router } from "@angular/router";
 import Swal from "sweetalert2";
+import { UsernameValidator } from "./../../validators/UsernameValidator ";
+import { Uris } from "./../../Services/Uris";
 
 @Component({
   selector: "app-agricola-edit-agronodo",
@@ -21,7 +23,7 @@ export class AgricolaEditAgronodoComponent implements OnInit {
   photo: string;
   public files: any;
   public filestring: string = "";
-  
+  public url = Uris.API_ENDPOINT;
   name: string;
   data1: any;
   cropperSettings: CropperSettings;
@@ -49,14 +51,13 @@ export class AgricolaEditAgronodoComponent implements OnInit {
 
     this.agricola = new FormGroup({
       name: new FormControl("", Validators.required),
-      username: new FormControl("", Validators.required),
+      username: new FormControl("", [Validators.required,UsernameValidator.cannotContainSpace]),
       email: new FormControl("", [Validators.email, Validators.required]),
       address: new FormControl("", [ Validators.required]),
       contactName: new FormControl("", Validators.required),
       phone: new FormControl("", [Validators.required]),
       highEngineers: new FormControl(false),
       highEngineersLenght: new FormControl(1),
-      requests: new FormControl(false),
       lots: new FormControl(false),
       lotsLenght: new FormControl(1),
       admin: new FormControl(false),
@@ -68,11 +69,33 @@ export class AgricolaEditAgronodoComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get("id");
     this.id = id;
-    if(id == null){
+    if(!id){
       console.log("Nueva Agroindustria")
     }
+
     if(id){
-      console.log("Editar Agroindustria")
+      this.agricolaService.getadmin(id).subscribe((resp: any) => {
+        console.log(resp);
+        this.photo = resp.logo;
+        this.mostrar = false;
+
+        this.agricola.setValue({
+          name:resp.agricola,
+          username:resp.user.username,
+          email:resp.user.email,
+          address:resp.address,
+          contactName:resp.contactName,
+          phone:resp.phone,
+          highEngineersLenght: resp.prmsIngenieros,
+          lotsLenght:resp.prmsLotes,
+          adminLenght:resp.prmsAdminExtra,
+          highEngineers: true,
+          lots:true,
+          admin:true,
+        });
+      });
+    }else {
+      this.mostrar = true;
     }
 
   }
@@ -92,19 +115,7 @@ export class AgricolaEditAgronodoComponent implements OnInit {
   }
 
   create(value){
-    // let obj = {
-    //   agroindustria:value.name,
-    //   address:value.address ,
-    //   contactName: value.contactName ,
-    //   phone: value.phone,
-    //   prmsAltaIngenieros: value.highEngineersLenght,
-    //   prmsAtencionCliente: value.lots,
-    //   prmsAdminExtras: value.adminLenght,
-    //   user:  {
-    //     username: value.username,
-    //     email: value.email,
-    //   }
-    // }
+   
     let obj = {
         logo: this.filestring,
         agricola: value.name,
@@ -119,12 +130,10 @@ export class AgricolaEditAgronodoComponent implements OnInit {
             email: value.email
         }
       }
-      console.log(obj);
     this.agricolaService.register(obj).subscribe( resp =>{
       Swal.fire({
-        title: "Se creó correctamente",
+        text: "Se creó correctamente"+value.name,
         icon: "success",
-        text: value.name,
         showConfirmButton: false,
         timer: 1500,
         width: '270px'
@@ -132,8 +141,88 @@ export class AgricolaEditAgronodoComponent implements OnInit {
       this.router.navigateByUrl("/Agricola");
     })
   }
-
   update(value){
+    if (this.filestring == "") {
+      console.log("la imagen esta vacia")
+      let obj = {
+        agricola: value.name,
+        address: value.address,
+        contactName: value.contactName,
+        phone: value.phone,
+        prmsIngenieros: value.highEngineersLenght,
+        prmsLotes: value.lotsLenght,
+        prmsAdminExtra:value.adminLenght,
+        user:{
+        }
+      };
+      let user = {
+        user: {
+          username: value.username
+        }
+      };
+      this.agricolaService.edit(obj, user).subscribe(
+        resp => {
+          Swal.fire({
+            text: "Se creó correctamente \n"+value.name,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+            width: '250px'
+          });
+          this.router.navigateByUrl("/Agricola");
+        },
+        (err: any) => {
+          Swal.fire({
+            text: "Error en el sevidor",
+            showConfirmButton: false,
+            timer: 1500,
+            icon:'error',
+            width: '250px'
+          });
+        }
+      );
+    } else {
+      console.log("hay imagen")
+
+      let obj = {
+        logo: this.filestring,
+        agricola: value.name,
+        address: value.address,
+        contactName: value.contactName,
+        phone: value.phone,
+        prmsIngenieros: value.highEngineersLenght,
+        prmsLotes: value.lotsLenght,
+        prmsAdminExtra:value.adminLenght,
+        user:{
+        }
+      };
+      let user = {
+        user: {
+          username: value.username
+        }
+      };
+      this.agricolaService.edit(obj, user).subscribe(
+        resp => {
+          Swal.fire({
+            text: "Se creó correctamente"+value.name,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+            width: '250px'
+          });
+          this.router.navigateByUrl("/Agricola");
+        },
+        (err: any) => {
+          Swal.fire({
+            text: "Error en el sevidor",
+            showConfirmButton: false,
+            timer: 1500,
+            icon:'error',
+            width: '250px'
+          });
+        }
+      );
+    }
 
   }
 

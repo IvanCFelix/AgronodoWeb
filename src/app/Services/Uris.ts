@@ -14,9 +14,15 @@ export class Uris {
     public static API_AGRONODO_GET_USER = `${Uris.API_ENDPOINT}adminagronodo/`;
     public static API_ABRONODO_DELETE = `${Uris.API_ENDPOINT}adminagronodo/`
     public static API_AGRONODO_EDIT = `${Uris.API_ENDPOINT}adminagronodo/`
+    public static API_AGRONODO_GET = `${Uris.API_ENDPOINT}refresh/`
 
 
     public static API_AGRICOLA_POST = `${Uris.API_ENDPOINT}agricola/`;
     public static API_AGRICOLA_GET_LIST= `${Uris.API_ENDPOINT}agricola/`;
     public static API_RECOVER_POST =  `${Uris.API_ENDPOINT}password/reset/`;
+
+    public static API_AGRICOLA_GET_USER = `${Uris.API_ENDPOINT}agricola/`;
+    public static API_AGRICOLA_DELETE = `${Uris.API_ENDPOINT}agricola/`
+    public static API_AGRICOLA_EDIT = `${Uris.API_ENDPOINT}agricola/`
+
 }

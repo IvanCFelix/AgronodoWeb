@@ -19,9 +19,26 @@
                 <div class="form-group row">
                   <div class="col">
                     <label>Usuario de la Agricola</label>
-                    <input class="form-control" formControlName="username" type="text" />
+                    <input *ngIf="!id" class="form-control" formControlName="username" type="text"  />
+                    <input *ngIf="id" class="form-control" formControlName="username" type="text" disabled />
+
                     <span class="text-danger" *ngIf="agricola.controls['username'].errors?.required">Ingresa un campo
                       válido</span>
+                      <span class="text-danger" *ngIf="agricola.controls['username'].errors?.cannotContainSpace">
+                        No se permiten espacios en este campo</span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col">
+                    <label>Email</label>
+                    <input *ngIf="!id" class="form-control" formControlName="email" type="email"
+                      placeholder="example@example.com" />
+                      <input *ngIf="id" class="form-control" formControlName="email" type="email"
+                      placeholder="example@example.com" disabled/>
+                    <span class="text-danger" *ngIf="agricola.controls['email'].errors?.email">Ingresa un correo
+                      válido</span>
+                    <span class="text-danger" *ngIf="agricola.controls['email'].errors?.required">Ingresa un
+                      correo</span>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -42,17 +59,7 @@
                       válido</span>
                   </div>
                 </div>
-                <div class="form-group row">
-                  <div class="col">
-                    <label>Email</label>
-                    <input class="form-control" formControlName="email" type="email"
-                      placeholder="example@example.com" />
-                    <span class="text-danger" *ngIf="agricola.controls['email'].errors?.email">Ingresa un correo
-                      válido</span>
-                    <span class="text-danger" *ngIf="agricola.controls['email'].errors?.required">Ingresa un
-                      correo</span>
-                  </div>
-                </div>
+               
                 <div class="form-group row">
                   <div class="col">
                     <label>Teléfono</label>
@@ -76,8 +83,11 @@
                 <div class="main-container ">
                   <div class="row">
                     <div class="col-12 p-2">
-                      <img-cropper #cropper [image]="data1" [settings]="cropperSettings" (onCrop)="cropped($event)">
+                      <img-cropper #cropper *ngIf="mostrar == true" [image]="data1" [settings]="cropperSettings" (onCrop)="cropped($event)">
                       </img-cropper>
+                      <div height="400" width="400" *ngIf="mostrar == false" >
+                        <img [src]="url+ photo" width="70%"  style="padding: 0px 30px 0px 30px;" >
+                      </div>
                     </div>
                     <div class="col-12">
                       <div class=" p-0">

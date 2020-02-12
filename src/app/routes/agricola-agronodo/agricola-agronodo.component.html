@@ -35,17 +35,17 @@
                 <strong>{{rowIndex + 1}}</strong>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Nombre" width="800">
+            <ngx-datatable-column name="Nombre" >
                 <ng-template let-row="row" ngx-datatable-cell-template>
                     <strong>{{row.agricola}}</strong>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Dirección" width="800">
+            <ngx-datatable-column name="Dirección">
                 <ng-template let-row="row"   ngx-datatable-cell-template>
                    {{row.address}}
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Nombre de contacto" width="800">
+            <ngx-datatable-column name="Nombre de contacto">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                     <strong>{{row.contactName}}</strong>
                 </ng-template>
@@ -55,12 +55,12 @@
                 {{row.phone}}
             </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Acción" width="300">
+            <ngx-datatable-column name="Acción" >
                 <ng-template let-row="row" ngx-datatable-cell-template>
                     <button class="btn btn-success m-1" type="button" [routerLink]="['/Agricola',row.user.username]">
                       <a class="fas fa-pencil-alt"></a> </button>
-                  <button class="btn btn-danger" >
-                      <a class="fas fa-trash-alt"></a>
+                  <button class="btn btn-danger" (click)="delete(row)">
+                      <a class="fas fa-trash-alt" ></a>
                   </button>
                 </ng-template>
             </ngx-datatable-column>
