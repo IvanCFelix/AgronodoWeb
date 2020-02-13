@@ -187,9 +187,8 @@ export class AdminEditAgronodoComponent implements OnInit {
       this.adminregister.edit(obj, user).subscribe(
         resp => {
           Swal.fire({
-            title: "Se creó correctamente",
+            text: "Se creó correctamente" + value.names,
             icon: "success",
-            text: value.name,
             showConfirmButton: false,
             timer: 1500,
             width: '250px'

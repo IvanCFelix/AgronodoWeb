@@ -76,7 +76,8 @@ export class AgricolaEditAgronodoComponent implements OnInit {
     if(id){
       this.agricolaService.getadmin(id).subscribe((resp: any) => {
         console.log(resp);
-        this.photo = resp.logo;
+        console.log(resp)
+        this.photo = resp.photo;
         this.mostrar = false;
 
         this.agricola.setValue({
@@ -89,9 +90,9 @@ export class AgricolaEditAgronodoComponent implements OnInit {
           highEngineersLenght: resp.prmsIngenieros,
           lotsLenght:resp.prmsLotes,
           adminLenght:resp.prmsAdminExtra,
-          highEngineers: true,
-          lots:true,
-          admin:true,
+          highEngineers: resp.prmsIngenierosBool,
+          lots:resp.prmsLotesBool,
+          admin:resp.prmsAdminExtraBool,
         });
       });
     }else {
@@ -117,7 +118,7 @@ export class AgricolaEditAgronodoComponent implements OnInit {
   create(value){
    
     let obj = {
-        logo: this.filestring,
+        photo: this.filestring,
         agricola: value.name,
         address: value.address,
         contactName: value.contactName,
@@ -125,6 +126,9 @@ export class AgricolaEditAgronodoComponent implements OnInit {
         prmsIngenieros: value.highEngineersLenght,
         prmsLotes: value.lotsLenght,
         prmsAdminExtra:value.adminLenght,
+        prmsIngenierosBool:value.highEngineers,
+        prmsLotesBool:value.lots,
+        prmsAdminExtraBool:value.admin,
         user:{
             username: value.username,
             email: value.email
@@ -152,6 +156,9 @@ export class AgricolaEditAgronodoComponent implements OnInit {
         prmsIngenieros: value.highEngineersLenght,
         prmsLotes: value.lotsLenght,
         prmsAdminExtra:value.adminLenght,
+        prmsIngenierosBool:value.highEngineers,
+        prmsLotesBool:value.lots,
+        prmsAdminExtraBool:value.admin,
         user:{
         }
       };
@@ -185,7 +192,7 @@ export class AgricolaEditAgronodoComponent implements OnInit {
       console.log("hay imagen")
 
       let obj = {
-        logo: this.filestring,
+        photo: this.filestring,
         agricola: value.name,
         address: value.address,
         contactName: value.contactName,
@@ -193,6 +200,9 @@ export class AgricolaEditAgronodoComponent implements OnInit {
         prmsIngenieros: value.highEngineersLenght,
         prmsLotes: value.lotsLenght,
         prmsAdminExtra:value.adminLenght,
+        prmsIngenierosBool:value.highEngineers,
+        prmsLotesBool:value.lots,
+        prmsAdminExtraBool:value.admin,
         user:{
         }
       };

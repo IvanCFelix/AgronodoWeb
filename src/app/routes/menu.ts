@@ -3,6 +3,17 @@ const HomeAgronodo = {
   link: "/home",
   icon: "icon-home"
 };
+const Profile = {
+  text: "ejemplo",
+  icon: "icon-user",
+  submenu: [
+    {
+      text: "Agricolas",
+      link: "/profile/ejemplo",
+      icon: "icon-user"
+    }
+  ]
+};
 
 const UsuariosAgroindustriasAgronodo = {
   text: "Usuarios",
@@ -27,43 +38,47 @@ const headingMain = {
 };
 
 
+var role = []
+
+
 let user = <any>JSON.parse(localStorage.getItem("USER"));
 if (!user) {
-  var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+ role = [headingMain, HomeAgronodo,UsuariosAgroindustriasAgronodo];
 } else {
   switch (user.user_type) {
     //Admin DIOSITO
     case 1: {
-      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+     role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
       break;
     }
     //Admin Agronodo
     case 2: {
-      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+      console.log("Eres administrador de agronodo")
+      role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
       break;
     }
     //Agricola
     case 3: {
-      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+      role = [headingMain, HomeAgronodo, Profile];
       break;
     }
     //Admin Agricola
     case 4: {
-      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+      role = [headingMain, HomeAgronodo, Profile];
       break;
     }
     //Admin Ingeniero
     case 5: {
-      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+      role = [headingMain, HomeAgronodo, Profile];
       break;
     }
     //Ingeniero
     case 6: {
-      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+     role = [headingMain, HomeAgronodo, Profile];
       break;
     }
     default: {
-      var role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+      role = [headingMain, HomeAgronodo, Profile];
       break;
     }
   }

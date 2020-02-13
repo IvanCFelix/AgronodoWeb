@@ -95,13 +95,14 @@ export class LockComponent implements OnInit {
                   });
                })
             }else{
+              
+            try {
                 let obj = {
                     new_password1: value.passwordGroup.new_password1,
                     new_password2: value.passwordGroup.new_password2,
                     uid: this.user,
                     token: this.token
                 }
-            try {
                 this.resetService.setConfirm(obj).subscribe(resp =>{
                     Swal.fire({
                         text: "Se Guardó correctamente",
@@ -122,7 +123,12 @@ export class LockComponent implements OnInit {
                })
               }
               catch(error) {
-                console.log(obj);
+                let obj = {
+                    new_password1: value.passwordGroup.new_password1,
+                    new_password2: value.passwordGroup.new_password2,
+                    uid: this.user,
+                    token: this.token
+                }
                 this.resetService.reset(obj).subscribe(resp =>{
                     Swal.fire({
                         text: "Se Guardó correctamente",
