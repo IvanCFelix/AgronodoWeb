@@ -5,7 +5,7 @@ import { Uris } from './Uris';
 @Injectable({
   providedIn: "root"
 })
-export class AdminAgronodo {
+export class AdminIngAgricola {
   private token: String;
   constructor(public http: Http) { 
     this.token = (localStorage.getItem('token') ? (<any>JSON.parse(localStorage.getItem('USER')).token) : null);
@@ -56,6 +56,4 @@ export class AdminAgronodo {
 }
 
   
-
-
 

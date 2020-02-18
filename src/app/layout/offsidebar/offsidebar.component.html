@@ -1,6 +1,6 @@
 <tabset [justified]="true">
-    <tab>
-        <ng-template tabHeading>
+    <tab >
+        <ng-template tabHeading style="margin-top: 24px;">
             <em class="icon-equalizer fa-lg"></em>
         </ng-template>
         <h3 class="text-center text-thin mt-4" [innerHTML]="'offsidebar.setting.SETTINGS' | translate"></h3>
@@ -218,17 +218,15 @@
             </select>
         </div>
     </tab>
-    <tab>
+    <!-- <tab>
         <ng-template tabHeading>
             <em class="icon-user fa-lg"></em>
         </ng-template>
         <h3 class="text-center text-thin mt-4">Connections</h3>
         <div class="list-group">
-            <!-- START list title-->
             <div class="list-group-item border-0">
                 <small class="text-muted">ONLINE</small>
             </div>
-            <!-- END list title-->
             <div class="list-group-item list-group-item-action border-0">
                 <div class="media">
                     <img class="align-self-center mr-3 rounded-circle thumb48" src="assets/img/user/05.jpg" alt="Image">
@@ -289,11 +287,9 @@
                     </div>
                 </div>
             </div>
-            <!-- START list title-->
             <div class="list-group-item border-0">
                 <small class="text-muted">OFFLINE</small>
             </div>
-            <!-- END list title-->
             <div class="list-group-item list-group-item-action border-0">
                 <div class="media">
                     <img class="align-self-center mr-3 rounded-circle thumb48" src="assets/img/user/09.jpg" alt="Image">
@@ -326,12 +322,10 @@
             </div>
         </div>
         <div class="px-3 py-4 text-center">
-            <!-- Optional link to list more users-->
             <a class="btn btn-purple btn-sm" href="#" title="See more contacts">
                            <strong>Load more..</strong>
                         </a>
         </div>
-        <!-- Extra items-->
         <div class="px-3 py-2">
             <p>
                 <small class="text-muted">Tasks completion</small>
@@ -352,5 +346,5 @@
                 </div>
             </div>
         </div>
-    </tab>
+    </tab> -->
 </tabset>

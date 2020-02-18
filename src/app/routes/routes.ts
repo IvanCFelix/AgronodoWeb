@@ -15,6 +15,8 @@ export const routes = [
         children: [
             { path: '', canActivate:[ AuthGuard ], redirectTo: '/landing', pathMatch: 'full' },
             { path: 'home',canActivate:[ AuthGuard ], loadChildren: './home-agronodo/home-agronodo.module#HomeAgronodoModule' },
+            { path: 'Home-agricola',canActivate:[ AuthGuard ], loadChildren: './home-agricola/home-agricola.module#HomeAgricolaModule' },
+
             { path: 'Admin-Agronodo', canActivate:[ AuthGuard ],loadChildren: './admin-agronodo/admin-agronodo.module#AdminAgronodoModule' },
             { path: 'Admin-Edit/new',canActivate:[ AuthGuard ], loadChildren: './admin-edit-agronodo/admin-edit-agronodo.module#AdminEditAgronodoModule'},
             { path: 'Admin-Edit/:id',canActivate:[ AuthGuard ], loadChildren: './admin-edit-agronodo/admin-edit-agronodo.module#AdminEditAgronodoModule' },
@@ -22,6 +24,8 @@ export const routes = [
             { path: 'Agricola/new', canActivate:[ AuthGuard ],loadChildren: './agricola-edit-agronodo/agricola-edit-agronodo.module#AgricolaEditAgronodoModule'},
             { path: 'Agricola/:id',canActivate:[ AuthGuard ], loadChildren: './agricola-edit-agronodo/agricola-edit-agronodo.module#AgricolaEditAgronodoModule'},
             { path: 'profile/:id', loadChildren: './profile/profile.component.module#ProfileAgronodoModule'},
+            { path: 'Ingeniero',canActivate:[ AuthGuard ], loadChildren: './admin-agricola/admin-agricola.module#AdminIngAgricolaModule' },
+
 
 
         ]   
@@ -30,7 +34,7 @@ export const routes = [
     // Not found
    
     { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
+    // { path: 'register', component: RegisterComponent },
     { path: 'reset/:user/:token', component: LockComponent },
     { path: 'reset/:password', component: LockComponent },
     { path: 'landing', component: LandingComponent },

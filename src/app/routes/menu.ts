@@ -3,13 +3,18 @@ const HomeAgronodo = {
   link: "/home",
   icon: "icon-home"
 };
-const Profile = {
-  text: "ejemplo",
+const HomeAgricola = {
+  text: "Home",
+  link: "/Home-agricola",
+  icon: "icon-home"
+};
+const AdminAgricola = {
+  text: "Administradores",
   icon: "icon-user",
   submenu: [
     {
       text: "Agricolas",
-      link: "/profile/ejemplo",
+      link: "/Ingeniero",
       icon: "icon-user"
     }
   ]
@@ -46,11 +51,6 @@ if (!user) {
  role = [headingMain, HomeAgronodo,UsuariosAgroindustriasAgronodo];
 } else {
   switch (user.user_type) {
-    //Admin DIOSITO
-    case 1: {
-     role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
-      break;
-    }
     //Admin Agronodo
     case 2: {
       console.log("Eres administrador de agronodo")
@@ -59,26 +59,26 @@ if (!user) {
     }
     //Agricola
     case 3: {
-      role = [headingMain, HomeAgronodo, Profile];
+      role = [headingMain, HomeAgronodo, AdminAgricola];
       break;
     }
     //Admin Agricola
     case 4: {
-      role = [headingMain, HomeAgronodo, Profile];
+      role = [headingMain, HomeAgricola, AdminAgricola];
       break;
     }
     //Admin Ingeniero
     case 5: {
-      role = [headingMain, HomeAgronodo, Profile];
+      role = [headingMain, HomeAgronodo, AdminAgricola];
       break;
     }
     //Ingeniero
     case 6: {
-     role = [headingMain, HomeAgronodo, Profile];
+     role = [headingMain, HomeAgronodo, AdminAgricola];
       break;
     }
     default: {
-      role = [headingMain, HomeAgronodo, Profile];
+      role = [headingMain, HomeAgronodo, AdminAgricola];
       break;
     }
   }

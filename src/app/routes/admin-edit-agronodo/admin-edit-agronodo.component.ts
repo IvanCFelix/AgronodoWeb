@@ -114,6 +114,7 @@ export class AdminEditAgronodoComponent implements OnInit {
         email: value.email
       }
     };
+    console.log(obj)
     this.adminregister.register(obj).subscribe(
       resp => {
         Swal.fire({
