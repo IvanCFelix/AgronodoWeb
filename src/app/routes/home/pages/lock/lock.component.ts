@@ -88,7 +88,7 @@ export class LockComponent implements OnInit {
             this.router.navigate(["/home"]);
           },
           err => {
-              console.log(err)
+          console.log(err)
             Swal.fire({
               text: "Error en el sevidor",
               showConfirmButton: false,
