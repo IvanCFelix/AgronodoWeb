@@ -118,7 +118,7 @@ export class AdminEditAgronodoComponent implements OnInit {
     this.adminregister.register(obj).subscribe(
       resp => {
         Swal.fire({
-          text: "Se creó correctamente"+value.name,
+          text: "Se creó correctamente " + value.name,
           icon: "success",
           showConfirmButton: false,
           timer: 1500,
@@ -154,7 +154,7 @@ export class AdminEditAgronodoComponent implements OnInit {
       this.adminregister.edit(obj, user).subscribe(
         resp => {
           Swal.fire({
-            text: "Se creó correctamente \n"+value.name,
+            text: "Se actualizó correctamente \n"+value.name,
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -188,7 +188,7 @@ export class AdminEditAgronodoComponent implements OnInit {
       this.adminregister.edit(obj, user).subscribe(
         resp => {
           Swal.fire({
-            text: "Se creó correctamente" + value.names,
+            text: "Se actualizó correctamente" + value.names,
             icon: "success",
             showConfirmButton: false,
             timer: 1500,

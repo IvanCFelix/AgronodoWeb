@@ -3,6 +3,10 @@ const HomeAgronodo = {
   link: "/home",
   icon: "icon-home"
 };
+const headingMain = {
+  text: "Menú",
+  heading: true
+};
 const HomeAgricola = {
   text: "Home",
   link: "/Home-agricola",
@@ -15,6 +19,11 @@ const AdminAgricola = {
     {
       text: "Agricolas",
       link: "/Ingeniero",
+      icon: "icon-user"
+    },
+    {
+      text: "Lotes",
+      link: "/Lotes",
       icon: "icon-user"
     }
   ]
@@ -37,10 +46,7 @@ const UsuariosAgroindustriasAgronodo = {
   ]
 };
 
-const headingMain = {
-  text: "Menú",
-  heading: true
-};
+
 
 
 var role = []

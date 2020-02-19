@@ -70,7 +70,6 @@ export class AgricolaEditAgronodoComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get("id");
     this.id = id;
     if(!id){
-      console.log("Nueva Agroindustria")
     }
 
     if(id){
@@ -136,7 +135,7 @@ export class AgricolaEditAgronodoComponent implements OnInit {
       }
     this.agricolaService.register(obj).subscribe( resp =>{
       Swal.fire({
-        text: "Se creó correctamente"+value.name,
+        text: "Se creó correctamente " + value.name,
         icon: "success",
         showConfirmButton: false,
         timer: 1500,
@@ -170,7 +169,7 @@ export class AgricolaEditAgronodoComponent implements OnInit {
       this.agricolaService.edit(obj, user).subscribe(
         resp => {
           Swal.fire({
-            text: "Se creó correctamente \n"+value.name,
+            text: "Se Actualizó correctamente "+value.name,
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -214,7 +213,7 @@ export class AgricolaEditAgronodoComponent implements OnInit {
       this.agricolaService.edit(obj, user).subscribe(
         resp => {
           Swal.fire({
-            text: "Se creó correctamente"+value.name,
+            text: "Se Actualizó correctamente"+value.name,
             icon: "success",
             showConfirmButton: false,
             timer: 1500,

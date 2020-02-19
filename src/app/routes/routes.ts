@@ -26,6 +26,8 @@ export const routes = [
             { path: 'profile/:id', loadChildren: './profile/profile.component.module#ProfileAgronodoModule'},
             { path: 'Ingeniero',canActivate:[ AuthGuard ], loadChildren: './admin-agricola/admin-agricola.module#AdminIngAgricolaModule' },
             { path: 'Admin-Agricola/new',canActivate:[ AuthGuard ], loadChildren: './admin-edit-agricola/admin-edit-agricola.module#AdminEditAgricolaModule'},
+            { path: 'Lotes', canActivate:[ AuthGuard ],loadChildren: './lots/lots.module#LotsModule' },
+
 
 
 
