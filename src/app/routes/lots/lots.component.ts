@@ -21,7 +21,7 @@ export class LotsComponent implements OnInit {
     const val = event.target.value.toLowerCase();
     // filter our data
     const temp = this.temp.filter(function(d) {
-        return d.names.toLowerCase().indexOf(val) !== -1  || d.lastnames.toLowerCase().indexOf(val) !== -1  || d.user.username.toLowerCase().indexOf(val) !== -1 || d.user.email.toLowerCase().indexOf(val) !== -1 || d.phone.toLowerCase().indexOf(val) !== -1 || !val ;
+        return d.names.toLowerCase().indexOf(val) !== -1   || !val ;
     });
     // update the rows
     this.listlots = temp;
@@ -30,6 +30,16 @@ export class LotsComponent implements OnInit {
 }
 
   ngOnInit() {
+    let obj = [
+      {
+        names:'luis',
+        id:222222
+      }
+    ]
+      this.listlots = obj;
+      this.temp = obj;
+    
+ 
     // this.AdminagronodoService.listadmin().subscribe(resp => {
     //   this.listlots = resp;
     //   this.temp = resp;

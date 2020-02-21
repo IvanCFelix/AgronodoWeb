@@ -2,8 +2,10 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { UsernameValidator } from './../../validators/UsernameValidator ';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-declare const google: any;
+import { ActivatedRoute, Router } from "@angular/router";
+
 import Swal from "sweetalert2";
+declare const google: any;
 
 
 @Component({
@@ -18,12 +20,12 @@ export class LotsEditComponent implements OnInit {
   id;
   sublotearray = [];
 
-
   lat: number = 25.8132204;
   lng: number = -108.9858821;
   zoom: number = 14;
   polygon: any;
   scrollwheel = false;
+  newpaths = [];
   paths = [[
     { lat: 25.8132204, lng: -108.9858821 },
     { lat: 25.8145939, lng: -108.9721467 },
@@ -39,7 +41,9 @@ export class LotsEditComponent implements OnInit {
     { lat: 25.8125219, lng: -108.9767367 }
   ]
   ]
-  constructor(private modalService: BsModalService) {
+
+  selectedMarker;
+  constructor(private modalService: BsModalService, public router: Router, private route: ActivatedRoute) {
 
     this.adminagronodo = new FormGroup({
     
@@ -71,6 +75,9 @@ export class LotsEditComponent implements OnInit {
   };
 
   ngOnInit() {
+  
+    const id = this.route.snapshot.paramMap.get("id");
+    console.log(id)
   }
 
   register(value: any) {
@@ -205,5 +212,35 @@ export class LotsEditComponent implements OnInit {
 men(){
   console.log("entro")
 }
+
+
+addMarker(lat: number, lng: number) {
+  console.log(lat)
+  console.log(lng)
+
+  this.newpaths.push({ lat, lng, alpha: 0.4 });
+}
+
+max(coordType: 'lat' | 'lng'): number {
+  return Math.max(...this.newpaths.map(marker => marker[coordType]));
+}
+
+min(coordType: 'lat' | 'lng'): number {
+  return Math.min(...this.newpaths.map(marker => marker[coordType]));
+}
+
+selectMarker(event) {
+  this.selectedMarker = {
+    lat: event.latitude,
+    lng: event.longitude
+  };
+}
+
+markerDragEnd(coords, event){
+  console.log(coords)
+  console.log(event)
+}
+
+
 
 }

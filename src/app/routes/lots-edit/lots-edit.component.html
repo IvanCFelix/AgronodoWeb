@@ -11,7 +11,7 @@
         <div class="card ">
           <div class="card-body">
             <div class="row">
-              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
                 <div class="form-group row">
                   <div class="col ">
                     <label>Nombre de usuario</label>
@@ -27,25 +27,51 @@
                 </div>
 
               </div>
-              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">
-                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                  <agm-polygon [paths]="paths" (polyClick)="men()"></agm-polygon>
-                  <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">  -->
-                </agm-map>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
+            
+                <!-- <agm-map [latitude]="options.lat" [longitude]="options.lng" >
+                </agm-map> -->
+                <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                  <agm-polygon [paths]="newpaths"></agm-polygon>
+                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"> 
+                </agm-map> -->
 
+                <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
+                (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
+                <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
+                 [opacity]="marker.alpha"[markerDraggable]="true" (markerClick)="selectMarker($event)" >
+                </agm-marker>
+                <agm-polyline *ngFor="let data of paths" [editable]="true">
+                  <agm-polyline-point
+                    [latitude]="lat"
+                    [longitude]="lng">
+                  </agm-polyline-point>
+    </agm-polyline>
+              </agm-map> -->
+
+              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                      <agm-polyline >
+                          <agm-polyline-point *ngFor="let item of paths[1]; let i = index" [latitude]="item.lat" [longitude]="item.lng">
+                          </agm-polyline-point>
+                        
+                      </agm-polyline>
+                    </agm-map>
+              <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"></agm-map> -->
+              <p  *ngIf="selectedMarker">
+                Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
+              </p>
               </div>
             </div>
           </div>
           <div *ngIf="adminagronodo.valid" class="card-footer card-default text-center">
             <button class="btn btn-info" type="submit"><em class="fa-2x mr-2 fas fa-plus font-13"></em>Guardar</button>
           </div>
-          <div class="row text-right p-2">
+          <div *ngIf="id !== null" class="row text-right p-2">
             <div class="col ">
-            <button class="btn btn-success" (click)="Modal.show()">Agregar un sub lote</button>
-    
+              <button class="btn btn-success" (click)="Modal.show()">Agregar un sub lote</button>
             </div>
           </div>
-          <div class="row d-flex justify-content-center align-content-center ">
+          <div *ngIf="id !== null" class="row d-flex justify-content-center align-content-center ">
             <div class="col">
               <div class="card-body">
                 <!-- START table-responsive-->
@@ -71,13 +97,13 @@
                 </div>
                 <!-- END table-responsive-->
               </div>
-  
+
             </div>
           </div>
 
         </div>
       </form>
-      
+
 
     </div>
   </div>
@@ -98,57 +124,55 @@
         </button>
       </div>
       <div class="modal-body">
-          
-          <div class="container">
-              <div class="row">
-                  <div class="col">
-                      <form [formGroup]="sublotesforms" (submit)="sublote(sublotesforms.value)" >
-                      <div class="form-group ">
-                          <div class="col-12">
-                  <label>Nombre</label>
-                  <input class="form-control" formControlName="name" type="text" />
-                  <span class="text-danger" *ngIf="sublotesforms.controls['name'].errors?.required">Ingresa un campo
-                    válido</span>
-                </div>
-              </div>
-              <div class="form-group ">
-                <div class="col-12">
-                  <label>Tipo de cultivo</label>
-                  <input class="form-control" formControlName="TypeC" type="text" />
-                  <span class="text-danger" *ngIf="sublotesforms.controls['TypeC'].errors?.required">Ingresa un campo
-                    válido</span>
-                </div>
-              </div>
-              <div class="form-group ">
-                <div class="col-12">
-
-                  <div data-intro="Selecciona tu ocupación." class="form-group">
-                    <label>Tipo de lote</label><br>
-                    <select formControlName="TypeL" class="form-control">
-                      <option value="" disabled>
-                        Seleccione una ocupación...
-                      </option>
-                      <option value="Estudio" class="form-control">Protegida</option>
-                      <option value="Egresado">Tradicional</option>
-                    </select>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <form [formGroup]="sublotesforms" (submit)="sublote(sublotesforms.value)">
+                <div class="form-group ">
+                  <div class="col-12">
+                    <label>Nombre</label>
+                    <input class="form-control" formControlName="name" type="text" />
+                    <span class="text-danger" *ngIf="sublotesforms.controls['name'].errors?.required">Ingresa un campo
+                      válido</span>
                   </div>
-                  <span class="text-danger" *ngIf="sublotesforms.controls['TypeL'].errors?.required">Ingresa un campo
-                    válido</span>
                 </div>
-            </div>
-            <div class="text-center mt-3">
-                <button class="btn btn-success " type="submit" (click)="Modal.hide()">Agregar</button>
+                <div class="form-group ">
+                  <div class="col-12">
+                    <label>Tipo de cultivo</label>
+                    <input class="form-control" formControlName="TypeC" type="text" />
+                    <span class="text-danger" *ngIf="sublotesforms.controls['TypeC'].errors?.required">Ingresa un campo
+                      válido</span>
+                  </div>
+                </div>
+                <div class="form-group ">
+                  <div class="col-12">
+                    <div data-intro="Selecciona tu ocupación." class="form-group">
+                      <label>Tipo de lote</label><br>
+                      <select formControlName="TypeL" class="form-control">
+                        <option value="" disabled>
+                          Seleccione una ocupación...
+                        </option>
+                        <option value="Estudio" class="form-control">Protegida</option>
+                        <option value="Egresado">Tradicional</option>
+                      </select>
+                    </div>
+                    <span class="text-danger" *ngIf="sublotesforms.controls['TypeL'].errors?.required">Ingresa un campo
+                      válido</span>
+                  </div>
+                </div>
+                <div class="text-center mt-3">
+                  <button class="btn btn-success " type="submit" (click)="Modal.hide()">Agregar</button>
 
-            </div>
+                </div>
 
-        </form> 
+              </form>
             </div>
             <div class="col">
-                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" style="width: 474px;
+              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" style="width: 474px;
                 height: 433px;">
-                    <agm-polygon [paths]="paths" ></agm-polygon>
-                    <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">  -->
-                  </agm-map>
+                <agm-polygon [paths]="paths"></agm-polygon>
+                <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">  -->
+              </agm-map>
             </div>
           </div>
         </div>

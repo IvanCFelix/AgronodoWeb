@@ -41,24 +41,9 @@
             {{row.names}}
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Apellido">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            <strong>{{row.lastnames }}</strong>
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Correo">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            {{row.user.email}}
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Teléfono">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            {{row.phone}}
-          </ng-template>
-        </ngx-datatable-column>
         <ngx-datatable-column name="Acción">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            <button class="btn btn-success m-1" type="button" [routerLink]="['/Admin-Edit/',row.user.username]">
+            <button class="btn btn-success m-1" type="button" [routerLink]="['/Lotes/',row.id]">
               <a class="fas fa-pencil-alt"></a> </button>
             <button class="btn btn-danger" (click)="delete(row)">
               <a class="fas fa-trash-alt" ></a>
