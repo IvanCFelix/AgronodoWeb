@@ -7,6 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ng2-img-cropper';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AgmCoreModule } from '@agm/core';
+import { ModalModule} from 'ngx-bootstrap/modal'
+
 const routes: Routes = [
   { path: '', component: LotsEditComponent },
 ];
@@ -18,6 +20,7 @@ const routes: Routes = [
     ImageCropperModule,
     CommonModule,
     NgxDatatableModule,
+    ModalModule.forRoot(),
     RouterModule.forChild(routes),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBNs42Rt_CyxAqdbIBK0a5Ut83QiauESPA',

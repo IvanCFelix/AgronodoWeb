@@ -1,5 +1,10 @@
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { UsernameValidator } from './../../validators/UsernameValidator ';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 declare const google: any;
+import Swal from "sweetalert2";
+
 
 @Component({
   selector: 'app-lots-edit',
@@ -7,22 +12,50 @@ declare const google: any;
   styleUrls: ['./lots-edit.component.scss']
 })
 export class LotsEditComponent implements OnInit {
+  adminagronodo: FormGroup;
+  sublotesforms: FormGroup;
+  
+  id;
+  sublotearray = [];
 
-  lat: number = 33.790807;
-  lng: number = -117.835734;
+
+  lat: number = 25.8132204;
+  lng: number = -108.9858821;
   zoom: number = 14;
   polygon: any;
   scrollwheel = false;
-  paths = [
+  paths = [[
     { lat: 25.8132204, lng: -108.9858821 },
     { lat: 25.8145939, lng: -108.9721467 },
     { lat: 25.8134606, lng: -108.9730846 },
     { lat: 25.8125865, lng: -108.9770006 },
     { lat: 25.8125619, lng: -108.9767367 }
-    ]
-  constructor() {
+    ],
+  [
+    { lat: 25.8132304, lng: -108.9858821 },
+    { lat: 25.8145639, lng: -108.9721467 },
+    { lat: 25.8134506, lng: -108.9730846 },
+    { lat: 25.8125465, lng: -108.9770006 },
+    { lat: 25.8125219, lng: -108.9767367 }
+  ]
+  ]
+  constructor(private modalService: BsModalService) {
 
+    this.adminagronodo = new FormGroup({
     
+      username: new FormControl("", [
+        Validators.required,
+        UsernameValidator.cannotContainSpace
+      ])
+    });
+    this.sublotesforms = new FormGroup({
+    
+      name: new FormControl("", Validators.required),
+      TypeC: new FormControl("", [Validators.email, Validators.required]),
+      TypeL: new FormControl("", Validators.required),
+    });
+
+  
    }
 
   managerOptions = {
@@ -39,6 +72,33 @@ export class LotsEditComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  register(value: any) {
+    console.log(value)
+    // Swal.fire({
+    //   text: "Guardar información",
+    //   allowOutsideClick: false,
+    //   width: '270px'
+    // });
+    // Swal.showLoading();
+    // if (this.id == null) {
+    //   this.create(value);
+    // } else {
+    //   this.update(value);
+    // }
+  }
+
+  sublote(value){
+    console.log(value)
+    let obj = {
+      name:'hola',
+      typeC:'uwu',
+      typeL:'jeje'
+    }
+    this.sublotearray.push(obj)
+  }
+
+
   onMapReady(map) {
     this.initDrawingManager(map);
   }
@@ -88,10 +148,10 @@ export class LotsEditComponent implements OnInit {
   }
 
   getPaths() {
-    console.log("get path");
     if (this.polygon) {
       const vertices = this.polygon.getPaths().getArray()[0];
       let paths = [];
+     
       vertices.getArray().forEach(function (xy, i) {
         // console.log(xy);
         let latLng = {
@@ -142,6 +202,8 @@ export class LotsEditComponent implements OnInit {
       });
     });
   };
-
+men(){
+  console.log("entro")
+}
 
 }
