@@ -6,7 +6,9 @@ import { LotsEditComponent  } from './lots-edit.component'
 import { ReactiveFormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ng2-img-cropper';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule,PolylineManager  } from '@agm/core';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 import { ModalModule} from 'ngx-bootstrap/modal'
 
 const routes: Routes = [
@@ -20,6 +22,7 @@ const routes: Routes = [
     ImageCropperModule,
     CommonModule,
     NgxDatatableModule,
+    BsDatepickerModule,
     ModalModule.forRoot(),
     RouterModule.forChild(routes),
     AgmCoreModule.forRoot({

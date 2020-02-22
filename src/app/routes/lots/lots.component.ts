@@ -1,6 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import Swal from "sweetalert2";
+import { LotsAgricolaService } from '../../Services/lots-agricola.service';
 @Component({
   selector: 'app-lots',
   templateUrl: './lots.component.html',
@@ -16,7 +17,11 @@ export class LotsComponent implements OnInit {
   timeout: any;
   expanded: any = {};
   selected = [];
-  constructor() { }
+
+
+  constructor(public LotsService:LotsAgricolaService) { }
+
+
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
     // filter our data
@@ -30,21 +35,11 @@ export class LotsComponent implements OnInit {
 }
 
   ngOnInit() {
-    let obj = [
-      {
-        names:'luis',
-        id:222222
-      }
-    ]
-      this.listlots = obj;
-      this.temp = obj;
-    
- 
-    // this.AdminagronodoService.listadmin().subscribe(resp => {
-    //   this.listlots = resp;
-    //   this.temp = resp;
-    //   console.log(resp)
-    // })
+    this.LotsService.listlots().subscribe(resp => {
+      this.listlots = resp;
+      this.temp = resp;
+      console.log(resp)
+    })
   }
 
   delete(value){

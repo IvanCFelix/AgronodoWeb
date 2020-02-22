@@ -7,7 +7,7 @@
 <div class="container-fluid mt-5">
   <div class="row d-flex justify-content-center align-content-center ">
     <div class="col-12 col-sm-10 col-md-9 col-lg-9 col-xl-8">
-      <form [formGroup]="adminagronodo" (submit)="register(adminagronodo.value)">
+      <form [formGroup]="lotesForms" (submit)="register(lotesForms.value)">
         <div class="card ">
           <div class="card-body">
             <div class="row">
@@ -15,14 +15,14 @@
                 <div class="form-group row">
                   <div class="col ">
                     <label>Nombre de usuario</label>
-                    <input *ngIf="!id" class="form-control" formControlName="username" type="text" />
-                    <input *ngIf="id" class="form-control" formControlName="username" type="text" disabled />
+                    <input *ngIf="!id" class="form-control" formControlName="name" type="text" />
+                    <input *ngIf="id" class="form-control" formControlName="name" type="text" disabled />
 
-                    <span class="text-danger" *ngIf="adminagronodo.controls['username'].errors?.required">Ingresa un
+                    <span class="text-danger" *ngIf="lotesForms.controls['name'].errors?.required">Ingresa un
                       campo
                       válido</span>
-                    <span class="text-danger" *ngIf="adminagronodo.controls['username'].errors?.cannotContainSpace">
-                      No se permiten espacios en este campo</span>
+                    <!-- <span class="text-danger" *ngIf="lotesForms.controls['name'].errors?.cannotContainSpace">
+                      No se permiten espacios en este campo</span> -->
                   </div>
                 </div>
 
@@ -31,31 +31,31 @@
             
                 <!-- <agm-map [latitude]="options.lat" [longitude]="options.lng" >
                 </agm-map> -->
-                <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
                   <agm-polygon [paths]="newpaths"></agm-polygon>
-                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"> 
-                </agm-map> -->
+                  <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">  -->
+                </agm-map>
 
                 <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
                 (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
                 <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
                  [opacity]="marker.alpha"[markerDraggable]="true" (markerClick)="selectMarker($event)" >
                 </agm-marker>
-                <agm-polyline *ngFor="let data of paths" [editable]="true">
+              </agm-map> -->
+                <!-- <agm-polyline *ngFor="let data of paths" [editable]="true">
                   <agm-polyline-point
                     [latitude]="lat"
                     [longitude]="lng">
                   </agm-polyline-point>
-    </agm-polyline>
-              </agm-map> -->
+    </agm-polyline> -->
 
-              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                      <agm-polyline >
+              <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                      <agm-polylin>
                           <agm-polyline-point *ngFor="let item of paths[1]; let i = index" [latitude]="item.lat" [longitude]="item.lng">
                           </agm-polyline-point>
                         
                       </agm-polyline>
-                    </agm-map>
+                    </agm-map> -->
               <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"></agm-map> -->
               <p  *ngIf="selectedMarker">
                 Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
@@ -63,7 +63,7 @@
               </div>
             </div>
           </div>
-          <div *ngIf="adminagronodo.valid" class="card-footer card-default text-center">
+          <div *ngIf="lotesForms.valid" class="card-footer card-default text-center">
             <button class="btn btn-info" type="submit"><em class="fa-2x mr-2 fas fa-plus font-13"></em>Guardar</button>
           </div>
           <div *ngIf="id !== null" class="row text-right p-2">
@@ -83,14 +83,16 @@
                         <th>Nombre</th>
                         <th>Tipo de cultivo</th>
                         <th>Tipo de lote</th>
+                        <th>Fechas</th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let items of sublotearray let c = index;">
+                    <tbody *ngFor="let items of sublotearray; let c = index;">
                       <tr>
                         <td>{{c + 1}}</td>
-                        <td>{{items.name}}</td>
-                        <td>{{items.typeC}}</td>
-                        <td>{{items.typeL}}</td>
+                        <td>{{items.nickname}}</td>
+                        <td>{{items.agriculture_type}}</td>
+                        <td>{{items.TypeL}}</td>
+                        <td><b>{{items.start_date}} </b> a <b> {{items.finish_date}}</b></td>
                       </tr>
                     </tbody>
                   </table>
@@ -131,16 +133,16 @@
                 <div class="form-group ">
                   <div class="col-12">
                     <label>Nombre</label>
-                    <input class="form-control" formControlName="name" type="text" />
-                    <span class="text-danger" *ngIf="sublotesforms.controls['name'].errors?.required">Ingresa un campo
+                    <input class="form-control" formControlName="nickname" type="text" />
+                    <span class="text-danger" *ngIf="sublotesforms.controls['nickname'].errors?.required">Ingresa un campo
                       válido</span>
                   </div>
                 </div>
                 <div class="form-group ">
                   <div class="col-12">
                     <label>Tipo de cultivo</label>
-                    <input class="form-control" formControlName="TypeC" type="text" />
-                    <span class="text-danger" *ngIf="sublotesforms.controls['TypeC'].errors?.required">Ingresa un campo
+                    <input class="form-control" formControlName="agriculture_type" type="text" />
+                    <span class="text-danger" *ngIf="sublotesforms.controls['agriculture_type'].errors?.required">Ingresa un campo
                       válido</span>
                   </div>
                 </div>
@@ -152,27 +154,43 @@
                         <option value="" disabled>
                           Seleccione una ocupación...
                         </option>
-                        <option value="Estudio" class="form-control">Protegida</option>
-                        <option value="Egresado">Tradicional</option>
+                        <option value="Protegida" class="form-control">Protegida</option>
+                        <option value="Tradicional">Tradicional</option>
                       </select>
                     </div>
                     <span class="text-danger" *ngIf="sublotesforms.controls['TypeL'].errors?.required">Ingresa un campo
                       válido</span>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-6">
+                    <label>Fecha de inicio</label>
+                    <input type="date" class="form-control" formControlName="start_date">
+                  </div>
+                  <div class="col-6">
+                    <label>Fecha final</label>
+                    <input type="date" class="form-control" formControlName="finish_date">
+                  </div>
+                </div>
                 <div class="text-center mt-3">
                   <button class="btn btn-success " type="submit" (click)="Modal.hide()">Agregar</button>
-
                 </div>
+               
 
               </form>
             </div>
             <div class="col">
-              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" style="width: 474px;
+              <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" style="width: 474px;
                 height: 433px;">
-                <agm-polygon [paths]="paths"></agm-polygon>
+                <agm-polygon [paths]="paths"></agm-polygon> -->
                 <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">  -->
-              </agm-map>
+              <!-- </agm-map> -->
+              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
+              (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
+              <agm-marker *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
+               [opacity]="marker.alpha"[markerDraggable]="true" (markerClick)="selectMarker($event)" >
+              </agm-marker>
+            </agm-map>
             </div>
           </div>
         </div>
