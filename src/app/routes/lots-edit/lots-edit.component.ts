@@ -21,6 +21,7 @@ declare const google: any;
 export class LotsEditComponent implements OnInit {
   lotesForms: FormGroup;
   sublotesforms: FormGroup;
+  example: any = [];
 
   id;
   sublotearray = [];
@@ -30,22 +31,19 @@ export class LotsEditComponent implements OnInit {
   zoom: number = 14;
   polygon: any;
   scrollwheel = false;
-  newpaths = [];
+  newpaths = [
+    { lat: 25.80317630952905, lng: -108.98491032228453},
+    { lat: 25.801746752090914, lng: -108.98598320589049 },
+    { lat: 25.79966034001631, lng: -108.98233540163024 },
+    { lat: 25.801012648326893, lng: -108.9811766873358 },
+  ];
   pathsSubLotes = []
   paths = [
     [
-      { lat: 25.8132204, lng: -108.9858821 },
-      { lat: 25.8145939, lng: -108.9721467 },
-      { lat: 25.8134606, lng: -108.9730846 },
-      { lat: 25.8125865, lng: -108.9770006 },
-      { lat: 25.8125619, lng: -108.9767367 }
-    ],
-    [
-      { lat: 25.8132304, lng: -108.9858821 },
-      { lat: 25.8145639, lng: -108.9721467 },
-      { lat: 25.8134506, lng: -108.9730846 },
-      { lat: 25.8125465, lng: -108.9770006 },
-      { lat: 25.8125219, lng: -108.9767367 }
+      { lat: 25.80317630952905, lng: -108.98491032228453},
+      { lat: 25.801746752090914, lng: -108.98598320589049 },
+      { lat: 25.79966034001631, lng: -108.98233540163024 },
+      { lat: 25.801012648326893, lng: -108.9811766873358 },
     ]
   ];
 
@@ -84,15 +82,54 @@ export class LotsEditComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get("id");
-    console.log(id);
 
     if(id){
       this.lotService.getLot(id).subscribe((resp: any) => {
-        this.newpaths =resp.coordinates
-        for (let item = 0; item < resp.cordinates; item++) {
-          this.newpaths.push(item)
-        }
-        console.log(this.newpaths);
+        this.sublotearray = resp.subfield
+        this.newpaths = resp.coordinates
+        console.log(resp)
+        let obj= [
+          { lat: 25.80317630952905, lng: -108.98491032228453},
+          { lat: 25.801746752090914, lng: -108.98598320589049 },
+          { lat: 25.79966034001631, lng: -108.98233540163024 },
+          { lat: 25.801012648326893, lng: -108.9811766873358 }
+        ]
+
+
+          
+
+
+
+        // this.example = resp.coordinates
+        // let newArray = this.newpaths.map( item => {})
+
+        // this.newpaths = newArray
+        // console.log(newArray)
+   
+         
+    //  for (let i = 0; i < this.example.length; i++) {
+    //     this.newpaths.push({i})
+      
+    // }
+    // for(let item of resp.coordinates){
+      
+      
+      
+      // }
+      //si jala
+      // this.example.map( item => {
+      // })
+      // console.log(this.example);
+    
+
+     
+       
+        // this.newpaths = resp.coordinates
+          
+        // const uwu =  Object.values(resp.coordinates)
+        // console.log(uwu)
+        // this.newpaths =resp.coordinates
+       
       //   this.photo = resp.photo;
       //   this.mostrar = false;
 
@@ -124,6 +161,17 @@ export class LotsEditComponent implements OnInit {
     // } else {
     //   this.update(value);
     // }
+  }
+  datasublote(value){
+    console.log(value)
+    this.sublotesforms.setValue({
+      nickname: value.nickname,
+      agriculture_type:value.agriculture_type,
+      start_date:value.start_date,
+      finish_date:value.finish_date,
+      TypeL:'Protegida'
+    })
+    this.paths = value.subfieldCoordinates
   }
 
   sublote(value) {

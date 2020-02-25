@@ -14,7 +14,7 @@
               <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
                 <div class="form-group row">
                   <div class="col ">
-                    <label>Nombre de usuario</label>
+                    <label>Nombre del lote</label>
                     <input *ngIf="!id" class="form-control" formControlName="name" type="text" />
                     <input *ngIf="id" class="form-control" formControlName="name" type="text" disabled />
 
@@ -33,7 +33,6 @@
                 </agm-map> -->
                 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
                   <agm-polygon [paths]="newpaths"></agm-polygon>
-                  <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">  -->
                 </agm-map>
 
                 <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
@@ -84,6 +83,7 @@
                         <th>Tipo de cultivo</th>
                         <th>Tipo de lote</th>
                         <th>Fechas</th>
+                        <th>Acciones</th>
                       </tr>
                     </thead>
                     <tbody *ngFor="let items of sublotearray; let c = index;">
@@ -93,6 +93,13 @@
                         <td>{{items.agriculture_type}}</td>
                         <td>{{items.TypeL}}</td>
                         <td><b>{{items.start_date}} </b> a <b> {{items.finish_date}}</b></td>
+                        <td>
+                          <button class="btn btn-success m-1" type="button" (click)="datasublote(items);Modal.show();">
+                            <a class="fas fa-pencil-alt"></a> </button>
+                          <button class="btn btn-danger" >
+                            <a class="fas fa-trash-alt" ></a>
+                          </button>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -114,7 +121,7 @@
 <div bsModal #Modal="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-lg " style="height: 52%;width: 100%;">
-    <div class="modal-content">
+    <div class="modal-content" style="width: 116%;">
       <div class="modal-header p-0">
         <div class="brand-logo" style="font-size: 20px;padding: 8px;">
           <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
@@ -163,11 +170,11 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-6" style="padding: 1px 3px 3px 30px;">
                     <label>Fecha de inicio</label>
-                    <input type="date" class="form-control" formControlName="start_date">
+                    <input type="date" class="form-control" formControlName="start_date" >
                   </div>
-                  <div class="col-6">
+                  <div class="col-6" style="    padding: 0px 23px 13px 14px;">
                     <label>Fecha final</label>
                     <input type="date" class="form-control" formControlName="finish_date">
                   </div>
@@ -180,17 +187,16 @@
               </form>
             </div>
             <div class="col">
-              <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" style="width: 474px;
+              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" style="width: 474px;
                 height: 433px;">
-                <agm-polygon [paths]="paths"></agm-polygon> -->
-                <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">  -->
-              <!-- </agm-map> -->
-              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
+                <agm-polygon [paths]="paths"></agm-polygon>
+              </agm-map>
+              <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
               (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
               <agm-marker *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
                [opacity]="marker.alpha"[markerDraggable]="true" (markerClick)="selectMarker($event)" >
               </agm-marker>
-            </agm-map>
+            </agm-map> -->
             </div>
           </div>
         </div>
