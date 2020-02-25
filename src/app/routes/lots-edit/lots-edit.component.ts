@@ -31,33 +31,19 @@ export class LotsEditComponent implements OnInit {
   zoom: number = 14;
   polygon: any;
   scrollwheel = false;
-  newpaths = [
-    { lat: 25.80317630952905, lng: -108.98491032228453},
-    { lat: 25.801746752090914, lng: -108.98598320589049 },
-    { lat: 25.79966034001631, lng: -108.98233540163024 },
-    { lat: 25.801012648326893, lng: -108.9811766873358 },
-  ];
-  pathsSubLotes = []
-  paths = [
-    [
-      { lat: 25.80317630952905, lng: -108.98491032228453},
-      { lat: 25.801746752090914, lng: -108.98598320589049 },
-      { lat: 25.79966034001631, lng: -108.98233540163024 },
-      { lat: 25.801012648326893, lng: -108.9811766873358 },
-    ]
-  ];
+  newpaths = [];
+  pathsSubLotes = [];
+  paths = [];
 
   selectedMarker;
   constructor(
     private modalService: BsModalService,
     public router: Router,
     private route: ActivatedRoute,
-    public lotService:LotsAgricolaService
+    public lotService: LotsAgricolaService
   ) {
     this.lotesForms = new FormGroup({
-      name: new FormControl("", [
-        Validators.required,
-      ])
+      name: new FormControl("", [Validators.required])
     });
     this.sublotesforms = new FormGroup({
       nickname: new FormControl("", Validators.required),
@@ -83,95 +69,115 @@ export class LotsEditComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get("id");
 
-    if(id){
+    if (id) {
       this.lotService.getLot(id).subscribe((resp: any) => {
-        this.sublotearray = resp.subfield
-        this.newpaths = resp.coordinates
-        console.log(resp)
-        let obj= [
-          { lat: 25.80317630952905, lng: -108.98491032228453},
+        this.sublotearray = resp.subfield;
+        this.newpaths = resp.coordinates;
+        console.log(resp);
+        let obj = [
+          { lat: 25.80317630952905, lng: -108.98491032228453 },
           { lat: 25.801746752090914, lng: -108.98598320589049 },
           { lat: 25.79966034001631, lng: -108.98233540163024 },
           { lat: 25.801012648326893, lng: -108.9811766873358 }
-        ]
-
-
-          
-
-
+        ];
 
         // this.example = resp.coordinates
         // let newArray = this.newpaths.map( item => {})
 
         // this.newpaths = newArray
         // console.log(newArray)
-   
-         
-    //  for (let i = 0; i < this.example.length; i++) {
-    //     this.newpaths.push({i})
-      
-    // }
-    // for(let item of resp.coordinates){
-      
-      
-      
-      // }
-      //si jala
-      // this.example.map( item => {
-      // })
-      // console.log(this.example);
-    
 
-     
-       
+        //  for (let i = 0; i < this.example.length; i++) {
+        //     this.newpaths.push({i})
+
+        // }
+        // for(let item of resp.coordinates){
+
+        // }
+        //si jala
+        // this.example.map( item => {
+        // })
+        // console.log(this.example);
+
         // this.newpaths = resp.coordinates
-          
+
         // const uwu =  Object.values(resp.coordinates)
         // console.log(uwu)
         // this.newpaths =resp.coordinates
-       
-      //   this.photo = resp.photo;
-      //   this.mostrar = false;
+
+        //   this.photo = resp.photo;
+        //   this.mostrar = false;
 
         this.lotesForms.setValue({
-          name: resp.name,
-
+          name: resp.name
+        });
       });
-
-      })
     }
+  }
+  clear() {
+    this.newpaths = []
+  }
+  pol() {
+    this.pathsSubLotes = [];
+
+    this.paths.push(this.newpaths);
+
+    console.log(this.paths);
   }
 
   register(value: any) {
+    Swal.fire({
+      text: "Guardar información",
+      allowOutsideClick: false,
+      width: "270px"
+    });
+    Swal.showLoading();
+    if (this.id == null) {
+      this.create(value);
+    } else {
+      // this.update(value);
+    }
+  }
+
+  create(value: any) {
     let obj = {
-      name: value.name,
+      name: "",
       coordinates: this.newpaths,
-      subfield: 2
+      subfield: this.sublotearray
     };
     console.log(obj);
-
-    // Swal.fire({
-    //   text: "Guardar información",
-    //   allowOutsideClick: false,
-    //   width: '270px'
-    // });
-    // Swal.showLoading();
-    // if (this.id == null) {
-    //   this.create(value);
-    // } else {
-    //   this.update(value);
-    // }
+    // this.lotService.register(obj).subscribe(
+    //   resp => {
+    //     Swal.fire({
+    //       text: "Se creó correctamente " + value.name,
+    //       icon: "success",
+    //       showConfirmButton: false,
+    //       timer: 1500,
+    //       width: '250px'
+    //     });
+    //     this.router.navigateByUrl("/Lotes");
+    //   },
+    //   (err: any) => {
+    //     Swal.fire({
+    //       text: "Error en el sevidor",
+    //       showConfirmButton: false,
+    //       timer: 1500,
+    //       icon:'error',
+    //       width: '250px'
+    //     });
+    //   }
+    // );
   }
-  datasublote(value){
-    console.log(value)
+  datasublote(value) {
+    console.log(value);
     this.sublotesforms.setValue({
       nickname: value.nickname,
-      agriculture_type:value.agriculture_type,
-      start_date:value.start_date,
-      finish_date:value.finish_date,
-      TypeL:'Protegida'
-    })
-    this.paths = value.subfieldCoordinates
+      agriculture_type: value.agriculture_type,
+      start_date: value.start_date,
+      finish_date: value.finish_date,
+      TypeL: "Protegida"
+    });
+    this.paths = value.subfieldCoordinates;
   }
 
   sublote(value) {
@@ -181,18 +187,18 @@ export class LotsEditComponent implements OnInit {
       finish_date: value.finish_date,
       nickname: value.nickname,
       TypeL: value.TypeL,
-      subfieldCoordinates:this.pathsSubLotes
+      subfieldCoordinates: this.pathsSubLotes
     };
     console.log(obj);
     this.sublotearray.push(obj);
-  this.sublotesforms.setValue({
-    agriculture_type: "",
-    start_date: "",
-    finish_date: "",
-    nickname: "",
-    TypeL: "",
-  })
-  this.pathsSubLotes = []
+    this.sublotesforms.setValue({
+      agriculture_type: "",
+      start_date: "",
+      finish_date: "",
+      nickname: "",
+      TypeL: ""
+    });
+    this.pathsSubLotes = [];
   }
 
   onMapReady(map) {

@@ -8,6 +8,9 @@
   <div class="row d-flex justify-content-center align-content-center ">
     <div class="col-12 col-sm-10 col-md-9 col-lg-9 col-xl-8">
       <form [formGroup]="lotesForms" (submit)="register(lotesForms.value)">
+        <div class="text-right p-4">
+          <button class="btn btn-info" type="submit"><em class="fa-2x mr-2 fas fa-plus font-13"></em>Guardar</button>
+        </div>
         <div class="card ">
           <div class="card-body">
             <div class="row">
@@ -28,19 +31,24 @@
 
               </div>
               <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
-            
-                <!-- <agm-map [latitude]="options.lat" [longitude]="options.lng" >
-                </agm-map> -->
-                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                  <agm-polygon [paths]="newpaths"></agm-polygon>
-                </agm-map>
 
-                <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
-                (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
-                <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
-                 [opacity]="marker.alpha"[markerDraggable]="true" (markerClick)="selectMarker($event)" >
-                </agm-marker>
-              </agm-map> -->
+                <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                 <agm-polygon [paths]="newpaths"></agm-polygon>
+               </agm-map> -->
+               
+               <div>
+                 <div class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
+  
+                   <button class="btn btn-danger " type="button"(click)="clear()"><em class="fa fas fa-trash"></em></button>
+                 </div>
+                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
+                    (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
+                    <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
+                      [opacity]="marker.alpha" [markerDraggable]="true" (markerClick)="selectMarker($event)">
+                    </agm-marker>
+                  </agm-map>
+                </div>
+
                 <!-- <agm-polyline *ngFor="let data of paths" [editable]="true">
                   <agm-polyline-point
                     [latitude]="lat"
@@ -48,26 +56,17 @@
                   </agm-polyline-point>
     </agm-polyline> -->
 
-              <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                      <agm-polylin>
-                          <agm-polyline-point *ngFor="let item of paths[1]; let i = index" [latitude]="item.lat" [longitude]="item.lng">
-                          </agm-polyline-point>
-                        
-                      </agm-polyline>
-                    </agm-map> -->
-              <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"></agm-map> -->
-              <p  *ngIf="selectedMarker">
-                Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
-              </p>
+
+                <p *ngIf="selectedMarker">
+                  Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
+                </p>
               </div>
             </div>
           </div>
-          <div *ngIf="lotesForms.valid" class="card-footer card-default text-center">
-            <button class="btn btn-info" type="submit"><em class="fa-2x mr-2 fas fa-plus font-13"></em>Guardar</button>
-          </div>
+
           <div *ngIf="id !== null" class="row text-right p-2">
             <div class="col ">
-              <button class="btn btn-success" (click)="Modal.show()">Agregar un sub lote</button>
+              <button class="btn btn-success" type="button" (click)="pol();Modal.show();">Agregar un sub lote</button>
             </div>
           </div>
           <div *ngIf="id !== null" class="row d-flex justify-content-center align-content-center ">
@@ -96,8 +95,8 @@
                         <td>
                           <button class="btn btn-success m-1" type="button" (click)="datasublote(items);Modal.show();">
                             <a class="fas fa-pencil-alt"></a> </button>
-                          <button class="btn btn-danger" >
-                            <a class="fas fa-trash-alt" ></a>
+                          <button class="btn btn-danger">
+                            <a class="fas fa-trash-alt"></a>
                           </button>
                         </td>
                       </tr>
@@ -141,7 +140,8 @@
                   <div class="col-12">
                     <label>Nombre</label>
                     <input class="form-control" formControlName="nickname" type="text" />
-                    <span class="text-danger" *ngIf="sublotesforms.controls['nickname'].errors?.required">Ingresa un campo
+                    <span class="text-danger" *ngIf="sublotesforms.controls['nickname'].errors?.required">Ingresa un
+                      campo
                       válido</span>
                   </div>
                 </div>
@@ -149,7 +149,8 @@
                   <div class="col-12">
                     <label>Tipo de cultivo</label>
                     <input class="form-control" formControlName="agriculture_type" type="text" />
-                    <span class="text-danger" *ngIf="sublotesforms.controls['agriculture_type'].errors?.required">Ingresa un campo
+                    <span class="text-danger"
+                      *ngIf="sublotesforms.controls['agriculture_type'].errors?.required">Ingresa un campo
                       válido</span>
                   </div>
                 </div>
@@ -172,7 +173,7 @@
                 <div class="row">
                   <div class="col-6" style="padding: 1px 3px 3px 30px;">
                     <label>Fecha de inicio</label>
-                    <input type="date" class="form-control" formControlName="start_date" >
+                    <input type="date" class="form-control" formControlName="start_date">
                   </div>
                   <div class="col-6" style="    padding: 0px 23px 13px 14px;">
                     <label>Fecha final</label>
@@ -182,21 +183,22 @@
                 <div class="text-center mt-3">
                   <button class="btn btn-success " type="submit" (click)="Modal.hide()">Agregar</button>
                 </div>
-               
+
 
               </form>
             </div>
             <div class="col">
-              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" style="width: 474px;
+              <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" style="width: 474px;
                 height: 433px;">
                 <agm-polygon [paths]="paths"></agm-polygon>
-              </agm-map>
-              <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
+              </agm-map> -->
+              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
               (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
               <agm-marker *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
                [opacity]="marker.alpha"[markerDraggable]="true" (markerClick)="selectMarker($event)" >
               </agm-marker>
-            </agm-map> -->
+              <agm-polygon [paths]="paths"></agm-polygon>
+            </agm-map>
             </div>
           </div>
         </div>
