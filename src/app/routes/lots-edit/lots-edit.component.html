@@ -32,29 +32,37 @@
               </div>
               <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
 
-                <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                 <agm-polygon [paths]="newpaths"></agm-polygon>
-               </agm-map> -->
-               
-               <div>
-                 <div class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
-  
-                   <button class="btn btn-danger " type="button"(click)="clear()"><em class="fa fas fa-trash"></em></button>
-                 </div>
+
+                <div *ngIf="mostrar == true" class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
+                  <button class="btn btn-danger " type="button" (click)="clear()"><em
+                      class="fa fas fa-trash"></em></button>
+                </div>
+                <div *ngIf="mostrar == false" class="text-right p-2" style="position: absolute;z-index: 1;right: 18px; top: 39px;">
+                  <button class="btn btn-success " type="button" (click)="savepath()"><em
+                      class="fa fas fa-edit"></em></button>
+                </div>
+                <div *ngIf="mostrar == true" class="text-right p-2" style="position: absolute;z-index: 1;right: 18px; top: 39px;">
+                  <button class="btn btn-success " type="button" (click)="savepath()"><em
+                      class="fa fas fa-eye"></em></button>
+                </div>
+
+                <div *ngIf="mostrar == false">
+                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                    <agm-polygon [paths]="newpaths"></agm-polygon>
+                  </agm-map>
+                </div>
+
+                <div *ngIf="mostrar == true">
                   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
                     (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
                     <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
                       [opacity]="marker.alpha" [markerDraggable]="true" (markerClick)="selectMarker($event)">
                     </agm-marker>
+                    <agm-polygon   [polyDraggable]="options" [paths]="nestedPaths"></agm-polygon>
                   </agm-map>
                 </div>
 
-                <!-- <agm-polyline *ngFor="let data of paths" [editable]="true">
-                  <agm-polyline-point
-                    [latitude]="lat"
-                    [longitude]="lng">
-                  </agm-polyline-point>
-    </agm-polyline> -->
+
 
 
                 <p *ngIf="selectedMarker">
@@ -193,12 +201,12 @@
                 <agm-polygon [paths]="paths"></agm-polygon>
               </agm-map> -->
               <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
-              (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
-              <agm-marker *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
-               [opacity]="marker.alpha"[markerDraggable]="true" (markerClick)="selectMarker($event)" >
-              </agm-marker>
-              <agm-polygon [paths]="paths"></agm-polygon>
-            </agm-map>
+                (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
+                <agm-marker *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
+                  [opacity]="marker.alpha" [markerDraggable]="true" (markerClick)="selectMarker($event)">
+                </agm-marker>
+                <agm-polygon [paths]="paths"></agm-polygon>
+              </agm-map>
             </div>
           </div>
         </div>

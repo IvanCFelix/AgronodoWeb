@@ -22,7 +22,7 @@ export class LotsEditComponent implements OnInit {
   lotesForms: FormGroup;
   sublotesforms: FormGroup;
   example: any = [];
-
+  mostrar:boolean = true;
   id;
   sublotearray = [];
 
@@ -33,7 +33,22 @@ export class LotsEditComponent implements OnInit {
   scrollwheel = false;
   newpaths = [];
   pathsSubLotes = [];
-  paths = [];
+  paths = [
+  
+  ];
+  nestedPaths = [
+    [
+    { lat: 25.80317630952905, lng: -108.98491032228453 },
+    { lat: 25.801746752090914, lng: -108.98598320589049 },
+    { lat: 25.79966034001631, lng: -108.98233540163024 },
+    { lat: 25.801012648326893, lng: -108.9811766873358 }
+    ],[
+      { lat: 25.81224822827475, lng: -108.98349946020446 },
+    { lat: 25.81417988733787, lng: -108.98959343908629 },
+    { lat: 25.811398288307792, lng: -108.99216835974059 },
+    { lat: 25.808500719863055, lng: -108.98663228033385 }
+  ]
+]
 
   selectedMarker;
   constructor(
@@ -117,10 +132,22 @@ export class LotsEditComponent implements OnInit {
   clear() {
     this.newpaths = []
   }
+  savepath(){
+    if(this.mostrar == true){
+      this.mostrar = false
+    }else{
+      this.mostrar = true;
+    }
+  }
   pol() {
     this.pathsSubLotes = [];
-
-    this.paths.push(this.newpaths);
+let obj = [
+  { lat: 25.80317630952905, lng: -108.98491032228453 },
+  { lat: 25.801746752090914, lng: -108.98598320589049 },
+  { lat: 25.79966034001631, lng: -108.98233540163024 },
+  { lat: 25.801012648326893, lng: -108.9811766873358 }
+]
+    this.paths.push(obj);
 
     console.log(this.paths);
   }
