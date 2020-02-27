@@ -4,11 +4,7 @@ import { AdminAgronodo } from "./../../Services/admin-agronodo.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormGroup, Validators, FormControl } from "@angular/forms";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import {
-  ImageCropperComponent,
-  CropperSettings,
-  Bounds
-} from "ng2-img-cropper";
+import { ImageCropperComponent, CropperSettings, Bounds } from "ng2-img-cropper";
 import Swal from "sweetalert2";
 
 @Component({
@@ -188,7 +184,7 @@ export class AdminEditAgronodoComponent implements OnInit {
       this.adminregister.edit(obj, user).subscribe(
         resp => {
           Swal.fire({
-            text: "Se actualizó correctamente" + value.names,
+            text: "Se actualizó correctamente" + value.name,
             icon: "success",
             showConfirmButton: false,
             timer: 1500,

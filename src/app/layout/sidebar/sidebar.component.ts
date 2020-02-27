@@ -18,27 +18,31 @@ export class SidebarComponent implements OnInit, OnDestroy {
     $doc: any = null;
 
     constructor(public menu: MenuService, public settings: SettingsService, public injector: Injector) {
-
-        this.menuItems = menu.getMenu();
+        setTimeout(() => {
+            this.menuItems = menu.getMenu();
+        },500)
 
     }
 
     ngOnInit() {
+        
+        setTimeout(() => {
+            this.router = this.injector.get(Router);
+    
+            this.router.events.subscribe((val) => {
+                // close any submenu opened when route changes
+                this.removeFloatingNav();
+                // scroll view to top
+                window.scrollTo(0, 0);
+                // close sidebar on route change
+                this.settings.setLayoutSetting('asideToggled', false);
+            });
+            // enable sidebar autoclose from extenal clicks
+            this.anyClickClose();
 
-        this.router = this.injector.get(Router);
-
-        this.router.events.subscribe((val) => {
-            // close any submenu opened when route changes
-            this.removeFloatingNav();
-            // scroll view to top
-            window.scrollTo(0, 0);
-            // close sidebar on route change
-            this.settings.setLayoutSetting('asideToggled', false);
-        });
-
-        // enable sidebar autoclose from extenal clicks
-        this.anyClickClose();
-
+        },500)
+        
+     
     }
 
     anyClickClose() {

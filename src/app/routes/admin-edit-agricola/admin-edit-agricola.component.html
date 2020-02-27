@@ -1,3 +1,99 @@
-<p>
-  admin-edit-agricola works!
-</p>
+<div class="content-heading">
+  <div>Agregar administrador agricola
+    <!-- <small>Native Angular input validation</small> -->
+  </div>
+</div>
+
+<div class="container-fluid mt-5">
+  <div class="row d-flex justify-content-center align-content-center ">
+    <div class="col-12 col-sm-10 col-md-9 col-lg-9 col-xl-8">
+      <form [formGroup]="adminagricola" (submit)="register(adminagricola.value)">
+        <div class="card ">
+          <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-group row">
+              <div class="col ">
+                <label>Nombre de usuario</label>
+                <input *ngIf="!id" class="form-control" formControlName="username" type="text"  />
+                <input *ngIf="id" class="form-control" formControlName="username" type="text" disabled />
+
+                <span class="text-danger" *ngIf="adminagricola.controls['username'].errors?.required">Ingresa un campo
+                  válido</span>
+                  <span class="text-danger" *ngIf="adminagricola.controls['username'].errors?.cannotContainSpace">
+                    No se permiten espacios en este campo</span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col" >
+                <label>Email</label>
+                <input *ngIf="!id" class="form-control" formControlName="email" type="email" placeholder="example@example.com" />
+                <input *ngIf="id" class="form-control" formControlName="email" type="email" placeholder="example@example.com" disabled/>
+
+                <span class="text-danger" *ngIf="adminagricola.controls['email'].errors?.email">Ingresa un correo
+                  válido</span>
+                <span class="text-danger" *ngIf="adminagricola.controls['email'].errors?.required">Ingresa un
+                  correo</span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <label>Nombre</label>
+                <input class="form-control" formControlName="name" type="text" />
+                <span class="text-danger" *ngIf="adminagricola.controls['name'].errors?.required">Ingresa un campo
+                  válido</span>
+              </div>
+            </div>
+            
+
+            <div class="form-group row">
+              <div class="col">
+                <label>Apellido</label>
+                <input class="form-control" formControlName="lastname" type="text" />
+                <span class="text-danger" *ngIf="adminagricola.controls['lastname'].errors?.required">Ingresa un
+                  campo
+                  válido</span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <label>Teléfono</label>
+                <input class="form-control" type="number" formControlName="number" />
+                <span class="text-danger" *ngIf="adminagricola.controls['number'].errors">Ingresa un numero
+                  válido</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">
+            <div class="main-container d-flex justify-content-center align-content-center mt-3">
+              <div class="row">
+                <div class="col p-2">
+                  <img-cropper *ngIf="mostrar == true" #cropper [image]="data1" [settings]="cropperSettings" (onCrop)="cropped($event)">
+                  </img-cropper>
+                  <div height="400" width="400" *ngIf="mostrar == false" >
+                    <img [src]="url+ photo" width="70%"  style="padding: 0px 30px 0px 30px;" >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class=" p-0 pos-item" >
+              <label for="file-upload" class="input-mod2 ">
+                <a class="fas fa-upload"></a> Selecciona una imagen
+              </label>
+              <input id="file-upload" (change)="fileChangeListener($event)" type="file" style='display: none;' />
+              <div class="btn-group btn-group-justified mb">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="adminagricola.valid" class="card-footer card-default text-center">
+        <button class="btn btn-info" type="submit"><em class="fa-2x mr-2 fas fa-plus font-13"></em>Guardar</button>
+      </div>
+    </div>
+      </form>
+
+  
+    </div>
+  </div>
+</div>

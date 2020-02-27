@@ -58,7 +58,7 @@
                     <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
                       [opacity]="marker.alpha" [markerDraggable]="true" (markerClick)="selectMarker($event)">
                     </agm-marker>
-                    <agm-polygon   [polyDraggable]="options" [paths]="nestedPaths"></agm-polygon>
+                    <agm-polygon [paths]="nestedPaths"></agm-polygon>
                   </agm-map>
                 </div>
 
@@ -74,10 +74,10 @@
 
           <div *ngIf="id !== null" class="row text-right p-2">
             <div class="col ">
-              <button class="btn btn-success" type="button" (click)="pol();Modal.show();">Agregar un sub lote</button>
+              <button *ngIf="newpaths.length >= 3" class="btn btn-success" type="button" (click)="pol();Modal.show();">Agregar un sub lote</button>
             </div>
           </div>
-          <div *ngIf="id !== null" class="row d-flex justify-content-center align-content-center ">
+          <div *ngIf="id !== null" class="row d-flex justify-content-center align-content-center">
             <div class="col">
               <div class="card-body">
                 <!-- START table-responsive-->
@@ -198,15 +198,18 @@
             <div class="col">
               <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" style="width: 474px;
                 height: 433px;">
-                <agm-polygon [paths]="paths"></agm-polygon>
+                <agm-polygon [paths]="newpaths"></agm-polygon>
               </agm-map> -->
               <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
                 (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
                 <agm-marker *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
-                  [opacity]="marker.alpha" [markerDraggable]="true" (markerClick)="selectMarker($event)">
+                  [opacity]="marker.alpha" [markerDraggable]="false" (markerClick)="selectMarker($event)">
                 </agm-marker>
-                <agm-polygon [paths]="paths"></agm-polygon>
+                <agm-polygon [paths]="newpaths"></agm-polygon>
               </agm-map>
+              <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                <agm-polygon [paths]="newpaths"></agm-polygon>
+              </agm-map> -->
             </div>
           </div>
         </div>

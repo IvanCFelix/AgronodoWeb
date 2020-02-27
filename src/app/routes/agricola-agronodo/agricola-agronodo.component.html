@@ -1,10 +1,18 @@
 
 
-  <div class="content-heading">
-    <div class=" text-25">Agrícola
-        <small class="text-15">Ve la lista de Agricolas, edita, habilita/deshabilita o agrega nuevos.</small>
+
+    <div class="row content-heading">
+      <div class="col">
+        <div class=" text-25">Agrícola
+          <small class="text-15">Ve la lista de Agricolas, edita, habilita/deshabilita o agrega nuevos.</small>
+        </div>
       </div>
-</div>
+      <div class="col">
+    
+      </div>
+    </div>
+ 
+
 
 <div class="main-container">
 <div class="row">
@@ -17,16 +25,24 @@
   </div>
 </div>
 
-  <div class="card card-default mt-5">
+  <div class="card card-default mt-3">
    
     <div class="card-body ">
-        <ngx-datatable #table class="bootstrap expandable "  [columnMode]="'force'"  [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarV]="true" [rows]='listagricola' (page)="onPage($event)">
+        <ngx-datatable #table class="bootstrap expandable material fullscreen "  style="    height: calc(82vh - 216px); box-shadow: none; width: 100%;"
+         [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+        [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='listagricola' (page)="onPage($event)">
             <!-- Column Templates -->
-            <ngx-datatable-column name="#">
+            <ngx-datatable-column name="#" [width]="50" [canAutoResize]="false">
               <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                <strong>{{rowIndex + 1}}</strong>
+                  <strong>{{rowIndex + 1}}</strong>
               </ng-template>
-            </ngx-datatable-column>
+          </ngx-datatable-column>
+            <ngx-datatable-column name="Logo" [width]="100" [canAutoResize]="false">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <img height="45px" width="45px" style="border-radius: 4px" [src]=" url + row.photo "
+                alt="">
+              </ng-template>
+          </ngx-datatable-column>
             <ngx-datatable-column name="Nombre" >
                 <ng-template let-row="row" ngx-datatable-cell-template>
                     <strong>{{row.agricola}}</strong>

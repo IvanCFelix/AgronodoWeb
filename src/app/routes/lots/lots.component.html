@@ -8,7 +8,6 @@
         <p class="text-18">Ve la lista de lotes, edita, habilita/deshabilita o agrega nuevos.</p>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -25,11 +24,12 @@
     </div>
   </div>
 
-  <div class="card card-default mt-5">
+  <div class="card card-default mt-4">
     <div class="card-body ">        
      
-      <ngx-datatable #table class="bootstrap expandable" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
-        [rowHeight]="50" [scrollbarV]="true" [rows]='listlots' (page)="onPage($event)">
+      <ngx-datatable #table class="bootstrap expandable material fullscreen "  style="height: calc(90vh - 270px); box-shadow: none; width: 100%;"
+      [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+     [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='listlots' (page)="onPage($event)">
         <!-- Column Templates -->
         <ngx-datatable-column name="#">
           <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>

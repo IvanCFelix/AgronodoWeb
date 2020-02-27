@@ -1,7 +1,9 @@
+import { Uris } from './../../Services/Uris';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { AgricolaAgronodo } from "../../Services/agricola-agronodo.service";
 import Swal from "sweetalert2";
+
 
 @Component({
   selector: "app-agricola-agronodo",
@@ -14,6 +16,7 @@ export class AgricolaAgronodoComponent implements OnInit {
   expanded: any = {};
   selected = [];
   temp = [];
+  url =  Uris.API_ENDPOINT
 
   constructor(public agricola:AgricolaAgronodo) {}
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -45,6 +48,7 @@ export class AgricolaAgronodoComponent implements OnInit {
     this.agricola.listadmin().subscribe(resp => {
       this.listagricola = resp;
       this.temp = resp;
+      
       console.log(resp)
     })
   }

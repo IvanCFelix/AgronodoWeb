@@ -1,6 +1,8 @@
+import { Menu } from './routes/menu';
+import { Router,NavigationStart } from '@angular/router';
 import { Component, HostBinding, OnInit } from '@angular/core';
-
 import { SettingsService } from './core/settings/settings.service';
+import { MenuService } from './core/menu/menu.service';
 
 @Component({
     selector: 'app-root',
@@ -20,7 +22,20 @@ export class AppComponent implements OnInit {
     @HostBinding('class.aside-toggled') get asideToggled() { return this.settings.getLayoutSetting('asideToggled'); };
     @HostBinding('class.aside-collapsed-text') get isCollapsedText() { return this.settings.getLayoutSetting('isCollapsedText'); };
 
-    constructor(public settings: SettingsService) { }
+    constructor(public settings: SettingsService, public route:Router,public menuService:MenuService) { 
+
+        this.route.events.forEach( event => {
+            if(event instanceof NavigationStart){
+                let user:any = <any>JSON.parse(localStorage.getItem("USER"));
+                let role =  user.user_type;
+                let menu = Menu.menu(role)
+                console.log("pene")
+                this.menuService.addMenu(menu)
+                
+            }
+        })
+
+    }
 
     ngOnInit() {
         document.addEventListener('click', e => {
