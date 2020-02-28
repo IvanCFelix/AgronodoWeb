@@ -53,7 +53,7 @@ export class Menu {
     var user = <any>JSON.parse(localStorage.getItem("USER"));
     if (!user) {
       role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
-    } else {
+    } else {      
       switch (user.user_type) {
         //Admin Agronodo
         case 2: {
@@ -88,5 +88,6 @@ export class Menu {
       }
       return role;
     }
+  
   }
 }

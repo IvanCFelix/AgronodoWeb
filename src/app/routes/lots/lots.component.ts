@@ -35,10 +35,10 @@ export class LotsComponent implements OnInit {
 }
 
   ngOnInit() {
-    this.LotsService.listlots().subscribe(resp => {
+    this.LotsService.listLots().subscribe(resp => {
+    console.log(resp)
       this.listlots = resp;
       this.temp = resp;
-      console.log(resp)
     })
   }
 

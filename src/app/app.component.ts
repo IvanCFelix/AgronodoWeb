@@ -27,12 +27,17 @@ export class AppComponent implements OnInit {
         this.route.events.forEach( event => {
             if(event instanceof NavigationStart){
                 let user:any = <any>JSON.parse(localStorage.getItem("USER"));
-                let role =  user.user_type;
-                let menu = Menu.menu(role)
-                console.log("pene")
-                this.menuService.addMenu(menu)
+                if(user){
+                    let role =  user.user_type;
+                    let menu = Menu.menu(role)
+                    this.menuService.addMenu(menu)
+                }else{
+                    console.log("no hay nada");
+                    
+                }
+                }
                 
-            }
+            
         })
 
     }

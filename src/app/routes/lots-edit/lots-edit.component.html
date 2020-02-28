@@ -98,7 +98,7 @@
                         <td>{{c + 1}}</td>
                         <td>{{items.nickname}}</td>
                         <td>{{items.agriculture_type}}</td>
-                        <td>{{items.TypeL}}</td>
+                        <td>{{items.crops}}</td>
                         <td><b>{{items.start_date}} </b> a <b> {{items.finish_date}}</b></td>
                         <td>
                           <button class="btn btn-success m-1" type="button" (click)="datasublote(items);Modal.show();">
@@ -143,7 +143,7 @@
         <div class="container">
           <div class="row">
             <div class="col">
-              <form [formGroup]="sublotesforms" (submit)="sublote(sublotesforms.value)">
+              <form [formGroup]="sublotesforms" >
                 <div class="form-group ">
                   <div class="col-12">
                     <label>Nombre</label>
@@ -156,9 +156,9 @@
                 <div class="form-group ">
                   <div class="col-12">
                     <label>Tipo de cultivo</label>
-                    <input class="form-control" formControlName="agriculture_type" type="text" />
+                    <input class="form-control" formControlName="crops" type="text" />
                     <span class="text-danger"
-                      *ngIf="sublotesforms.controls['agriculture_type'].errors?.required">Ingresa un campo
+                      *ngIf="sublotesforms.controls['crops'].errors?.required">Ingresa un campo
                       válido</span>
                   </div>
                 </div>
@@ -166,15 +166,15 @@
                   <div class="col-12">
                     <div data-intro="Selecciona tu ocupación." class="form-group">
                       <label>Tipo de lote</label><br>
-                      <select formControlName="TypeL" class="form-control">
+                      <select formControlName="agriculture_type" class="form-control">
                         <option value="" disabled>
                           Seleccione una ocupación...
                         </option>
-                        <option value="Protegida" class="form-control">Protegida</option>
-                        <option value="Tradicional">Tradicional</option>
+                        <option value="P" class="form-control">Protegida</option>
+                        <option value="T">Tradicional</option>
                       </select>
                     </div>
-                    <span class="text-danger" *ngIf="sublotesforms.controls['TypeL'].errors?.required">Ingresa un campo
+                    <span class="text-danger" *ngIf="sublotesforms.controls['agriculture_type'].errors?.required">Ingresa un campo
                       válido</span>
                   </div>
                 </div>
@@ -189,7 +189,7 @@
                   </div>
                 </div>
                 <div class="text-center mt-3">
-                  <button class="btn btn-success " type="submit" (click)="Modal.hide()">Agregar</button>
+                  <button class="btn btn-success" type="button" (click)="sublote(sublotesforms.value);Modal.hide();">Agregar</button>
                 </div>
 
 

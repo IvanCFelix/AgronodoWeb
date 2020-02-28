@@ -1,7 +1,9 @@
+import 'rxjs/add/operator/map'
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map'
 import { Uris } from './Uris';
+
 @Injectable({
   providedIn: "root"
 })
@@ -15,17 +17,19 @@ export class LotsAgricolaService {
     return this.http.post(`${Uris.API_LOTS_POST}`, admin,this.jwt()).map((response: Response) => response.json()) 
   }
 
-  listlots() {
+  listLots() {
     return this.http.get(`${Uris.API_LOTS_GET_LIST}`,this.jwt()).map((response: Response) => response.json()) 
   }
-  getLot(user) {
-    return this.http.get(`${Uris.API_LOTS_GET_USER}${user}/`,this.jwt()).map((response: Response) => response.json()) 
+
+
+  getLot(value) {
+    return this.http.get(`${Uris.API_LOTS_GET_LOT}${value}/`,this.jwt()).map((response: Response) => response.json()) 
+  }
+  delete(value) {
+    return this.http.delete(`${Uris.API_LOTS_DELETE}${value}/`,this.jwt()).map((response: Response) => response.json()) 
   }
 //   getRefresh() {
 //     return this.http.get(`${Uris.API_USER_GET}`,this.jwt()).map((response: Response) => response.json()) 
-//   }
-//   delete(user) {
-//     return this.http.delete(`${Uris.API_ABRONODO_DELETE}${user}/`,this.jwt()).map((response: Response) => response.json()) 
 //   }
 //   reset(password) {
 //     return this.http.post(`${Uris.PASSWORD_CHANGE}`,password,this.jwt()).map((response: Response) => response.json()) 

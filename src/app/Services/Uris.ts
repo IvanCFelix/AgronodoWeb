@@ -25,7 +25,9 @@ export class Uris {
 
     public static API_LOTS_POST = `${Uris.API_ENDPOINT}fields/`
     public static API_LOTS_GET_LIST= `${Uris.API_ENDPOINT}fields/`;
-    public static API_LOTS_GET_USER = `${Uris.API_ENDPOINT}fields/`;
+    public static API_LOTS_GET_LOT = `${Uris.API_ENDPOINT}fields/`;
+    public static API_LOTS_DELETE = `${Uris.API_ENDPOINT}fields/`;
+
 
 
 

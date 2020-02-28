@@ -60,10 +60,10 @@ export class LotsEditComponent implements OnInit {
     });
     this.sublotesforms = new FormGroup({
       nickname: new FormControl("", Validators.required),
-      agriculture_type: new FormControl("", Validators.required),
+      crops: new FormControl("", Validators.required),
       start_date: new FormControl(Date, Validators.required),
       finish_date: new FormControl(Date, Validators.required),
-      TypeL: new FormControl("", Validators.required)
+      agriculture_type: new FormControl("", Validators.required)
     });
   }
 
@@ -81,9 +81,10 @@ export class LotsEditComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get("id");
-
     if (id) {
+     
       this.lotService.getLot(id).subscribe((resp: any) => {
+        console.log(resp)
         this.sublotearray = resp.subfield;
         this.newpaths = resp.coordinates;
         console.log(resp);
@@ -175,32 +176,32 @@ export class LotsEditComponent implements OnInit {
 
   create(value: any) {
     let obj = {
-      name: "",
+      name: value.name,
       coordinates: this.newpaths,
       subfield: this.sublotearray
     };
     console.log(obj);
-    // this.lotService.register(obj).subscribe(
-    //   resp => {
-    //     Swal.fire({
-    //       text: "Se creó correctamente " + value.name,
-    //       icon: "success",
-    //       showConfirmButton: false,
-    //       timer: 1500,
-    //       width: '250px'
-    //     });
-    //     this.router.navigateByUrl("/Lotes");
-    //   },
-    //   (err: any) => {
-    //     Swal.fire({
-    //       text: "Error en el sevidor",
-    //       showConfirmButton: false,
-    //       timer: 1500,
-    //       icon:'error',
-    //       width: '250px'
-    //     });
-    //   }
-    // );
+    this.lotService.register(obj).subscribe(
+      resp => {
+        Swal.fire({
+          text: "Se creó correctamente " + value.name,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          width: '250px'
+        });
+        this.router.navigateByUrl("/Lotes");
+      },
+      (err: any) => {
+        Swal.fire({
+          text: "Error en el sevidor",
+          showConfirmButton: false,
+          timer: 1500,
+          icon:'error',
+          width: '250px'
+        });
+      }
+    );
   }
   datasublote(value) {
     console.log(value);
@@ -209,18 +210,21 @@ export class LotsEditComponent implements OnInit {
       agriculture_type: value.agriculture_type,
       start_date: value.start_date,
       finish_date: value.finish_date,
-      TypeL: "Protegida"
+      crops: value.crops
     });
     this.paths = value.subfieldCoordinates;
   }
-
+  
   sublote(value) {
     let obj = {
+      crops: {
+				name: value.crops
+			},
       agriculture_type: value.agriculture_type,
       start_date: value.start_date,
       finish_date: value.finish_date,
+      color:"#FFFFE0",
       nickname: value.nickname,
-      TypeL: value.TypeL,
       subfieldCoordinates: this.pathsSubLotes
     };
     console.log(obj);
@@ -230,7 +234,7 @@ export class LotsEditComponent implements OnInit {
       start_date: "",
       finish_date: "",
       nickname: "",
-      TypeL: ""
+      crops: ""
     });
     this.pathsSubLotes = [];
   }
