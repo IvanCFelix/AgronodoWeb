@@ -31,7 +31,7 @@
       [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
      [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='listlots' (page)="onPage($event)">
         <!-- Column Templates -->
-        <ngx-datatable-column name="#">
+        <ngx-datatable-column name="#"  [width]="50" [canAutoResize]="false">
           <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
             <strong>{{rowIndex + 1}}</strong>
           </ng-template>
