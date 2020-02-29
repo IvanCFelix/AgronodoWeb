@@ -113,8 +113,8 @@
                         <td>
                           <button class="btn btn-success m-1" type="button" (click)="datasublote(items);Modal.show();">
                             <a class="fas fa-pencil-alt"></a> </button>
-                          <button class="btn btn-danger">
-                            <a class="fas fa-trash-alt"></a>
+                          <button type="button" class="btn btn-danger">
+                            <a class="fas fa-trash-alt" (click)="deleteSublote(items)"></a>
                           </button>
                         </td>
                       </tr>

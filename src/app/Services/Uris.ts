@@ -28,6 +28,8 @@ export class Uris {
     public static API_LOTS_GET_LOT = `${Uris.API_ENDPOINT}fields/`;
     public static API_LOTS_DELETE = `${Uris.API_ENDPOINT}fields/`;
     public static API_LOTS_EDIT = `${Uris.API_ENDPOINT}fields/`;
+    public static API_SUB_LOTS_DELETE = `${Uris.API_ENDPOINT}subfields/`;
+
 
 
 

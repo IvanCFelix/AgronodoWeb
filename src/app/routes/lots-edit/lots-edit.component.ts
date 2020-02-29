@@ -427,4 +427,29 @@ export class LotsEditComponent implements OnInit {
     console.log(coords);
     console.log(event);
   }
+  
+  deleteSublote(value){
+    console.log(value)
+    Swal.fire({
+      title: 'Seguro que quieres eliminar a',
+      text: value.name,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'No, cancelar!',
+    }).then((result) => {
+      if (result.value) {
+        this.lotService.deleteSub(value.id)
+        .subscribe( resp => {
+          this.lotService.getLot(this.id).subscribe((resp: any) => {
+            this.sublotearray = resp.subfield;
+            console.log(resp)
+          })
+
+        })
+      }
+    })
+  }
 }
