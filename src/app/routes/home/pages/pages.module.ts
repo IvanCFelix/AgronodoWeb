@@ -1,6 +1,6 @@
 import { SharedModule } from './../../../shared/shared.module';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule} from '@angular/forms'
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -9,7 +9,7 @@ import { LockComponent } from './lock/lock.component';
 import { LandingComponent } from './landing/landing.component';
 import { Error404Component } from './error404/error404.component';
 import { Error500Component } from './error500/error500.component';
-import { ModalModule} from 'ngx-bootstrap/modal'
+import { ModalModule} from 'ngx-bootstrap/modal';
 
 /* Use this routes definition in case you want to make them lazy-loaded */
 /*const routes: Routes = [

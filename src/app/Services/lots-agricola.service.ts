@@ -28,6 +28,9 @@ export class LotsAgricolaService {
   delete(value) {
     return this.http.delete(`${Uris.API_LOTS_DELETE}${value}/`,this.jwt()).map((response: Response) => response.json()) 
   }
+  edit(value,id) {
+    return this.http.put(`${Uris.API_LOTS_EDIT}${id}/`, value,this.jwt()).map((response: Response) => response.json()) 
+  }
 //   getRefresh() {
 //     return this.http.get(`${Uris.API_USER_GET}`,this.jwt()).map((response: Response) => response.json()) 
 //   }

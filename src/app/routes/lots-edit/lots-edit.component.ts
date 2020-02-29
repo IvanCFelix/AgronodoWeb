@@ -81,6 +81,7 @@ export class LotsEditComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get("id");
+    this.id = id;
     if (id) {
      
       this.lotService.getLot(id).subscribe((resp: any) => {
@@ -168,9 +169,11 @@ export class LotsEditComponent implements OnInit {
     });
     Swal.showLoading();
     if (this.id == null) {
-      this.create(value);
+    console.log(this.id);
+    
+       this.create(value);
     } else {
-      // this.update(value);
+      this.update(value);
     }
   }
 
@@ -194,16 +197,50 @@ export class LotsEditComponent implements OnInit {
       },
       (err: any) => {
         console.log(err)
-        // Swal.fire({
-        //   text: "Error en el sevidor",
-        //   showConfirmButton: false,
-        //   timer: 1500,
-        //   icon:'error',
-        //   width: '250px'
-        // });
+        Swal.fire({
+          text: "Error en el sevidor",
+          showConfirmButton: false,
+          timer: 1500,
+          icon:'error',
+          width: '250px'
+        });
       }
     );
   }
+
+  update(value){
+    let obj = {
+      id:this.id,
+      coordinates: this.newpaths,
+      subfield: this.sublotearray,
+      name: value.name,
+    };           
+      console.log(obj)
+      this.lotService.edit(obj, this.id).subscribe(
+        resp => {
+          Swal.fire({
+            text: "Se Actualizó correctamente "+ value.name,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+            width: '250px'
+          });
+          this.router.navigateByUrl("/Lotes");
+        },
+        (err: any) => {
+          // Swal.fire({
+          //   text: "Error en el sevidor",
+          //   showConfirmButton: false,
+          //   timer: 1500,
+          //   icon:'error',
+          //   width: '250px'
+          // });
+        }
+      );
+    
+
+  }
+
   datasublote(value) {
     console.log(value);
     this.sublotesforms.setValue({

@@ -8,24 +8,29 @@
   <div class="row d-flex justify-content-center align-content-center ">
     <div class="col-12 col-sm-10 col-md-9 col-lg-9 col-xl-8">
       <form [formGroup]="lotesForms" (submit)="register(lotesForms.value)">
-        <div class="text-right p-4">
-          <button class="btn btn-info" type="submit"><em class="fa-2x mr-2 fas fa-plus font-13"></em>Guardar</button>
-        </div>
+       
         <div class="card ">
           <div class="card-body">
             <div class="row">
-              <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="form-group row">
                   <div class="col ">
                     <label>Nombre del lote</label>
-                    <input *ngIf="!id" class="form-control" formControlName="name" type="text" />
-                    <input *ngIf="id" class="form-control" formControlName="name" type="text" disabled />
+                   
+                    <input *ngIf="id" class="form-control" formControlName="name" type="text"  />
 
                     <span class="text-danger" *ngIf="lotesForms.controls['name'].errors?.required">Ingresa un
                       campo
                       válido</span>
                     <!-- <span class="text-danger" *ngIf="lotesForms.controls['name'].errors?.cannotContainSpace">
                       No se permiten espacios en este campo</span> -->
+                  </div>
+                  <div class="col">
+                    <div class="text-right p-4">
+                      <button *ngIf="!id" class="btn btn-info" type="submit"><em class="fa-2x mr-2 fas fa-plus font-13"></em>Guardar información</button>
+                      <button *ngIf="id" class="btn btn-info" type="submit"><em class="fa-2x mr-2 fas fa-pen font-13"></em>Guardar información</button>
+
+                    </div>
                   </div>
                 </div>
 
@@ -72,12 +77,12 @@
             </div>
           </div>
 
-          <div *ngIf="id !== null" class="row text-right p-2">
+          <div class="row text-right p-2">
             <div class="col ">
               <button *ngIf="newpaths.length >= 3" class="btn btn-success" type="button" (click)="pol();Modal.show();">Agregar un sub lote</button>
             </div>
           </div>
-          <div *ngIf="id !== null" class="row d-flex justify-content-center align-content-center">
+          <div class="row d-flex justify-content-center align-content-center">
             <div class="col">
               <div class="card-body">
                 <!-- START table-responsive-->
