@@ -193,13 +193,14 @@ export class LotsEditComponent implements OnInit {
         this.router.navigateByUrl("/Lotes");
       },
       (err: any) => {
-        Swal.fire({
-          text: "Error en el sevidor",
-          showConfirmButton: false,
-          timer: 1500,
-          icon:'error',
-          width: '250px'
-        });
+        console.log(err)
+        // Swal.fire({
+        //   text: "Error en el sevidor",
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        //   icon:'error',
+        //   width: '250px'
+        // });
       }
     );
   }
@@ -210,9 +211,9 @@ export class LotsEditComponent implements OnInit {
       agriculture_type: value.agriculture_type,
       start_date: value.start_date,
       finish_date: value.finish_date,
-      crops: value.crops
+      crops: value.crops.name
     });
-    this.paths = value.subfieldCoordinates;
+    this.pathsSubLotes = value.subfieldCoordinates;
   }
   
   sublote(value) {

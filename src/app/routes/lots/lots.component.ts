@@ -43,31 +43,31 @@ export class LotsComponent implements OnInit {
   }
 
   delete(value){
-    // console.log(value)
-    // Swal.fire({
-    //   title: 'Seguro que quieres eliminar a',
-    //   text: value.names,
-    //   icon: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonColor: '#3085d6',
-    //   cancelButtonColor: '#d33',
-    //   confirmButtonText: 'Si, eliminar!',
-    //   cancelButtonText: 'No, cancelar!',
-    // }).then((result) => {
-    //   if (result.value) {
-    //     console.log(result.value)
-    //     this.AdminagronodoService.delete(value.user.username)
-    //     .subscribe( resp => {
+    console.log(value)
+    Swal.fire({
+      title: 'Seguro que quieres eliminar a',
+      text: value.names,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'No, cancelar!',
+    }).then((result) => {
+      if (result.value) {
+        console.log(result.value)
+        this.LotsService.delete(value.id)
+        .subscribe( resp => {
           
-    //       this.AdminagronodoService.listadmin().subscribe(resp => {
-    //         this.listAdmin = resp;
-    //         this.temp = resp;
-    //         console.log(resp)
-    //       })
+          this.LotsService.listLots().subscribe(resp => {
+            this.listlots = resp;
+            this.temp = resp;
+            console.log(resp)
+          })
 
-    //     })
-    //   }
-    // })
+        })
+      }
+    })
   }
   
   onPage(event) {

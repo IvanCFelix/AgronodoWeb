@@ -97,8 +97,13 @@
                       <tr>
                         <td>{{c + 1}}</td>
                         <td>{{items.nickname}}</td>
-                        <td>{{items.agriculture_type}}</td>
-                        <td>{{items.crops}}</td>
+                        <td>
+                          <p *ngIf="items.agriculture_type == 'T'">Tradicional</p>
+                          <p *ngIf="items.agriculture_type == 'P'">Protegida</p>
+
+
+                        </td>
+                        <td>{{items.crops.name}}</td>
                         <td><b>{{items.start_date}} </b> a <b> {{items.finish_date}}</b></td>
                         <td>
                           <button class="btn btn-success m-1" type="button" (click)="datasublote(items);Modal.show();">
@@ -205,7 +210,8 @@
                 <agm-marker *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
                   [opacity]="marker.alpha" [markerDraggable]="false" (markerClick)="selectMarker($event)">
                 </agm-marker>
-                <agm-polygon [paths]="newpaths"></agm-polygon>
+                <agm-polygon [paths]="pathsSubLotes"></agm-polygon>
+                <agm-polygon [paths]="paths"></agm-polygon>
               </agm-map>
               <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
                 <agm-polygon [paths]="newpaths"></agm-polygon>
