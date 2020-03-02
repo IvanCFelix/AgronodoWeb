@@ -8,7 +8,7 @@
   <div class="row d-flex justify-content-center align-content-center ">
     <div class="col-12 col-sm-10 col-md-9 col-lg-9 col-xl-8">
       <form [formGroup]="lotesForms" (submit)="register(lotesForms.value)">
-       
+
         <div class="card ">
           <div class="card-body">
             <div class="row">
@@ -16,8 +16,8 @@
                 <div class="form-group row">
                   <div class="col ">
                     <label>Nombre del lote</label>
-                   
-                    <input *ngIf="id" class="form-control" formControlName="name" type="text"  />
+
+                    <input class="form-control" formControlName="name" type="text" />
 
                     <span class="text-danger" *ngIf="lotesForms.controls['name'].errors?.required">Ingresa un
                       campo
@@ -27,8 +27,10 @@
                   </div>
                   <div class="col">
                     <div class="text-right p-4">
-                      <button *ngIf="!id" class="btn btn-info" type="submit"><em class="fa-2x mr-2 fas fa-plus font-13"></em>Guardar información</button>
-                      <button *ngIf="id" class="btn btn-info" type="submit"><em class="fa-2x mr-2 fas fa-pen font-13"></em>Guardar información</button>
+                      <button *ngIf="!id" class="btn btn-info" type="submit"><em
+                          class="fa-2x mr-2 fas fa-plus font-13"></em>Guardar información</button>
+                      <button *ngIf="id" class="btn btn-info" type="submit"><em
+                          class="fa-2x mr-2 fas fa-pen font-13"></em>Guardar información</button>
 
                     </div>
                   </div>
@@ -42,33 +44,48 @@
                   <button class="btn btn-danger " type="button" (click)="clear()"><em
                       class="fa fas fa-trash"></em></button>
                 </div>
-                <div *ngIf="mostrar == false" class="text-right p-2" style="position: absolute;z-index: 1;right: 18px; top: 39px;">
+                <div *ngIf="mostrar == false" class="text-right p-2"
+                  style="position: absolute;z-index: 1;right: 18px; top: 39px;">
                   <button class="btn btn-success " type="button" (click)="savepath()"><em
                       class="fa fas fa-edit"></em></button>
                 </div>
-                <div *ngIf="mostrar == true" class="text-right p-2" style="position: absolute;z-index: 1;right: 18px; top: 39px;">
+                <div *ngIf="mostrar == true" class="text-right p-2"
+                  style="position: absolute;z-index: 1;right: 18px; top: 39px;">
                   <button class="btn btn-success " type="button" (click)="savepath()"><em
                       class="fa fas fa-eye"></em></button>
                 </div>
 
-                <div *ngIf="mostrar == false">
+                <!-- <div *ngIf="mostrar == false">
                   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
                     <agm-polygon [paths]="newpaths"></agm-polygon>
                   </agm-map>
                 </div>
 
                 <div *ngIf="mostrar == true">
-                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
-                    (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
+                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14" 
+                    (mapClick)="addMarker($event.coords.lat, $event.coords.lng)" >
+                    
                     <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
-                      [opacity]="marker.alpha" [markerDraggable]="true" (markerClick)="selectMarker($event)">
+                      [opacity]="marker.alpha" [markerDraggable]="true" (markerClick)="selectMarker($event)" >
                     </agm-marker>
                     <agm-polygon [paths]="nestedPaths"></agm-polygon>
+                    
                   </agm-map>
-                </div>
-
-
-
+                </div> -->
+                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+                  (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
+                  <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
+                    [opacity]="marker.alpha" [markerDraggable]="false">
+                  </agm-marker>
+                  <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#0000FF'">
+                    <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                    </agm-polyline-point>
+                  </agm-polyline>
+                    <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="	'	#006400'">
+                      <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                      </agm-polyline-point>
+                    </agm-polyline>
+                </agm-map>
 
                 <p *ngIf="selectedMarker">
                   Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
@@ -79,7 +96,8 @@
 
           <div class="row text-right p-2">
             <div class="col ">
-              <button *ngIf="newpaths.length >= 3" class="btn btn-success" type="button" (click)="pol();Modal.show();">Agregar un sub lote</button>
+              <button *ngIf="newpaths.length >= 3" class="btn btn-success" type="button"
+                (click)="pol();Modal.show();">Agregar un sub lote</button>
             </div>
           </div>
           <div class="row d-flex justify-content-center align-content-center">
@@ -113,8 +131,11 @@
                         <td>
                           <button class="btn btn-success m-1" type="button" (click)="datasublote(items);Modal.show();">
                             <a class="fas fa-pencil-alt"></a> </button>
-                          <button type="button" class="btn btn-danger">
-                            <a class="fas fa-trash-alt" (click)="deleteSublote(items)"></a>
+                          <button *ngIf="!id" type="button" class="btn btn-danger" (click)="DeletesubloteNOID(items,c)">
+                            <a class="fas fa-trash-alt" ></a>
+                          </button>
+                          <button *ngIf="id" type="button" class="btn btn-danger" (click)="deleteSublote(items)">
+                            <a class="fas fa-trash-alt" ></a>
                           </button>
                         </td>
                       </tr>
@@ -144,7 +165,7 @@
           <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
           Agregar un sublote
         </div>
-        <button type="button" class="close" aria-label="Close" (click)="Modal.hide()"
+        <button type="button" class="close" aria-label="Close" (click)="Modal.hide();clearform();"
           style="font-size: 34px;padding: 23px;">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -153,7 +174,7 @@
         <div class="container">
           <div class="row">
             <div class="col">
-              <form [formGroup]="sublotesforms" >
+              <form [formGroup]="sublotesforms">
                 <div class="form-group ">
                   <div class="col-12">
                     <label>Nombre</label>
@@ -167,8 +188,7 @@
                   <div class="col-12">
                     <label>Tipo de cultivo</label>
                     <input class="form-control" formControlName="crops" type="text" />
-                    <span class="text-danger"
-                      *ngIf="sublotesforms.controls['crops'].errors?.required">Ingresa un campo
+                    <span class="text-danger" *ngIf="sublotesforms.controls['crops'].errors?.required">Ingresa un campo
                       válido</span>
                   </div>
                 </div>
@@ -184,7 +204,8 @@
                         <option value="T">Tradicional</option>
                       </select>
                     </div>
-                    <span class="text-danger" *ngIf="sublotesforms.controls['agriculture_type'].errors?.required">Ingresa un campo
+                    <span class="text-danger"
+                      *ngIf="sublotesforms.controls['agriculture_type'].errors?.required">Ingresa un campo
                       válido</span>
                   </div>
                 </div>
@@ -199,28 +220,53 @@
                   </div>
                 </div>
                 <div class="text-center mt-3">
-                  <button class="btn btn-success" type="button" (click)="sublote(sublotesforms.value);Modal.hide();">Agregar</button>
+                  <button class="btn btn-success" type="button"
+                    (click)="sublote(sublotesforms.value);Modal.hide();">Agregar</button>
                 </div>
 
 
               </form>
             </div>
             <div class="col">
+             
               <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" style="width: 474px;
                 height: 433px;">
                 <agm-polygon [paths]="newpaths"></agm-polygon>
               </agm-map> -->
-              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
+              <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
                 (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
                 <agm-marker *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
                   [opacity]="marker.alpha" [markerDraggable]="false" (markerClick)="selectMarker($event)">
                 </agm-marker>
                 <agm-polygon [paths]="pathsSubLotes"></agm-polygon>
                 <agm-polygon [paths]="paths"></agm-polygon>
-              </agm-map>
+              </agm-map> -->
               <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
                 <agm-polygon [paths]="newpaths"></agm-polygon>
               </agm-map> -->
+
+              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+                (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
+                <agm-marker *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
+                  [opacity]="marker.alpha" [markerDraggable]="false">
+                </agm-marker>
+                <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#0000FF'">
+                  <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                  </agm-polyline-point>
+                </agm-polyline>
+                <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="	'	#006400'">
+                  <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                  </agm-polyline-point>
+                </agm-polyline>
+                <agm-polyline *ngFor="let polyline of pathSub;let i = index;" [strokeColor]="	'		#483D8B'">
+                  <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                  </agm-polyline-point>
+                  <div class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
+                    <button class="btn btn-danger " type="button" (click)="clearsublote()"><em
+                        class="fa fas fa-trash"></em></button>
+                  </div>
+                </agm-polyline>
+              </agm-map>
             </div>
           </div>
         </div>

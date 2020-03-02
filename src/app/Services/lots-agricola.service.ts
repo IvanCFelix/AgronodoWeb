@@ -33,7 +33,6 @@ export class LotsAgricolaService {
   }
   deleteSub(value){
     return this.http.delete(`${Uris.API_SUB_LOTS_DELETE}${value}/`,this.jwt()).map((response: Response) => response.json()) 
-
   }
 //   getRefresh() {
 //     return this.http.get(`${Uris.API_USER_GET}`,this.jwt()).map((response: Response) => response.json()) 

@@ -1,11 +1,5 @@
 import { BsModalService } from "ngx-bootstrap/modal";
-import { UsernameValidator } from "./../../validators/UsernameValidator ";
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormBuilder
-} from "@angular/forms";
+import { FormGroup, FormControl, Validators} from "@angular/forms";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
@@ -31,23 +25,31 @@ export class LotsEditComponent implements OnInit {
   zoom: number = 14;
   polygon: any;
   scrollwheel = false;
-  newpaths = [];
+  newpaths:any = [];
   pathsSubLotes = [];
+  pathSub =[];
+  mostrarsublotes = [];
   paths = [];
   nestedPaths = [
+    
     //   [
     //   { lat: 25.80317630952905, lng: -108.98491032228453 },
     //   { lat: 25.801746752090914, lng: -108.98598320589049 },
     //   { lat: 25.79966034001631, lng: -108.98233540163024 },
-    //   { lat: 25.801012648326893, lng: -108.9811766873358 }
+    //   { lat: 25.801012648326893, lng: -108.9811766873358 },
+    //   { lat: 25.80317630952905, lng: -108.98491032228453 },
     //   ],[
     //   { lat: 25.81224822827475, lng: -108.98349946020446 },
     //   { lat: 25.81417988733787, lng: -108.98959343908629 },
     //   { lat: 25.811398288307792, lng: -108.99216835974059 },
-    //   { lat: 25.808500719863055, lng: -108.98663228033385 }
+    //   { lat: 25.808500719863055, lng: -108.98663228033385 },
+    //   { lat: 25.81224822827475, lng: -108.98349946020446 },
+
     // ]
   ];
-
+  public polyline: Array<any>;
+  public polylines: Array<any>;
+  public maxSpeed: number;
   selectedMarker;
   constructor(
     private modalService: BsModalService,
@@ -67,17 +69,7 @@ export class LotsEditComponent implements OnInit {
     });
   }
 
-  managerOptions = {
-    drawingControl: true,
-    drawingControlOptions: {
-      drawingModes: ["polygon"]
-    },
-    polygonOptions: {
-      draggable: true,
-      editable: true
-    },
-    drawingMode: "polygon"
-  };
+
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get("id");
@@ -85,52 +77,57 @@ export class LotsEditComponent implements OnInit {
     if (id) {
      
       this.lotService.getLot(id).subscribe((resp: any) => {
-        console.log(resp)
         this.sublotearray = resp.subfield;
         this.newpaths = resp.coordinates;
-        console.log(resp);
-        let obj = [
-          { lat: 25.80317630952905, lng: -108.98491032228453 },
-          { lat: 25.801746752090914, lng: -108.98598320589049 },
-          { lat: 25.79966034001631, lng: -108.98233540163024 },
-          { lat: 25.801012648326893, lng: -108.9811766873358 }
-        ];
-
-        // this.example = resp.coordinates
-        // let newArray = this.newpaths.map( item => {})
-
-        // this.newpaths = newArray
-        // console.log(newArray)
-
-        //  for (let i = 0; i < this.example.length; i++) {
-        //     this.newpaths.push({i})
-
-        // }
-        // for(let item of resp.coordinates){
-
-        // }
-        //si jala
-        // this.example.map( item => {
-        // })
-        // console.log(this.example);
-
-        // this.newpaths = resp.coordinates
-
-        // const uwu =  Object.values(resp.coordinates)
-        // console.log(uwu)
-        // this.newpaths =resp.coordinates
-
-        //   this.photo = resp.photo;
-        //   this.mostrar = false;
+        const array: any[] = Array.of(this.newpaths);
+        this.nestedPaths = array
+          for (let item of resp.subfield) {
+            this.mostrarsublotes.push(item.subfieldCoordinates)
+        }
+  
 
         this.lotesForms.setValue({
           name: resp.name
         });
       });
     }
+    this.polyline = [
+  
+  ]
+  this.polylines = this.rebuildPolylines();
+
+
+ 
+  }
+  private rebuildPolylines() {
+    let polylines = [];
+    let i = 0;
+    let newPolyline = {path: [], color: 'blue'};
+    for (let point of this.polyline) {
+      console.log(point)
+      newPolyline.path.push(point);
+      const speedChanged = this.polyline[i+1] && (point.speed < this.maxSpeed && this.polyline[i+1].speed < this.maxSpeed) ||(point.speed > this.maxSpeed && this.polyline[i+1].speed > this.maxSpeed )
+      if (point.speed > this.maxSpeed) {
+        newPolyline.color = 'red';
+      }
+      if (speedChanged) {
+        newPolyline.path.push( this.polyline[i+1] );
+        polylines.push(newPolyline);
+        newPolyline = {path: [], color: 'green'};
+      }
+      i++;
+    }
+    return polylines;
+    
   }
   clear() {
     this.newpaths = [];
+    this.nestedPaths = [];
+  }
+  clearsublote(){
+    console.log("entro");
+    this.pathsSubLotes = []
+     this.pathSub = []
   }
   savepath() {
     if (this.mostrar == true) {
@@ -139,26 +136,35 @@ export class LotsEditComponent implements OnInit {
       this.mostrar = true;
     }
   }
+  clearform(){
+    this.sublotesforms.setValue({
+      agriculture_type: "",
+      start_date: "",
+      finish_date: "",
+      nickname: "",
+      crops: ""
+    });
+  }
   pol() {
-    console.log(this.newpaths);
-    this.pathsSubLotes = [];
-    let obj = [
-      [
-        { lat: 25.80317630952905, lng: -108.98491032228453 },
-        { lat: 25.801746752090914, lng: -108.98598320589049 },
-        { lat: 25.79966034001631, lng: -108.98233540163024 },
-        { lat: 25.801012648326893, lng: -108.9811766873358 }
-      ],
-      [
-        { lat: 25.81224822827475, lng: -108.98349946020446 },
-        { lat: 25.81417988733787, lng: -108.98959343908629 },
-        { lat: 25.811398288307792, lng: -108.99216835974059 },
-        { lat: 25.808500719863055, lng: -108.98663228033385 }
-      ]
-    ];
-    this.nestedPaths.push(obj);
+    // console.log(this.newpaths);
+    // this.pathsSubLotes = [];
+    // let obj = [
+    //   [
+    //     { lat: 25.80317630952905, lng: -108.98491032228453 },
+    //     { lat: 25.801746752090914, lng: -108.98598320589049 },
+    //     { lat: 25.79966034001631, lng: -108.98233540163024 },
+    //     { lat: 25.801012648326893, lng: -108.9811766873358 }
+    //   ],
+    //   [
+    //     { lat: 25.81224822827475, lng: -108.98349946020446 },
+    //     { lat: 25.81417988733787, lng: -108.98959343908629 },
+    //     { lat: 25.811398288307792, lng: -108.99216835974059 },
+    //     { lat: 25.808500719863055, lng: -108.98663228033385 }
+    //   ]
+    // ];
+    // // this.nestedPaths.push(obj);
 
-    console.log(this.nestedPaths);
+    // console.log(this.nestedPaths);
   }
 
   register(value: any) {
@@ -251,6 +257,7 @@ export class LotsEditComponent implements OnInit {
       crops: value.crops.name
     });
     this.pathsSubLotes = value.subfieldCoordinates;
+    this.pathSub = [value.subfieldCoordinates]
   }
   
   sublote(value) {
@@ -267,6 +274,12 @@ export class LotsEditComponent implements OnInit {
     };
     console.log(obj);
     this.sublotearray.push(obj);
+   
+    this.mostrarsublotes.push(this.pathsSubLotes)
+    console.log(this.mostrarsublotes)
+
+    // this.nestedPaths.push(array)
+    // this.pathSub.push(array)
     this.sublotesforms.setValue({
       agriculture_type: "",
       start_date: "",
@@ -278,10 +291,12 @@ export class LotsEditComponent implements OnInit {
   }
 
   onMapReady(map) {
+    
     this.initDrawingManager(map);
   }
 
   initDrawingManager(map: any) {
+    console.log(map)
     const options = {
       drawingControl: true,
       drawingControlOptions: {
@@ -298,6 +313,7 @@ export class LotsEditComponent implements OnInit {
     };
 
     const drawingManager = new google.maps.drawing.DrawingManager(options);
+    console.log(drawingManager)
     drawingManager.setMap(map);
   }
 
@@ -311,20 +327,7 @@ export class LotsEditComponent implements OnInit {
     visible: true
   };
 
-  polygonCreated($event) {
-    if (this.polygon) {
-      this.polygon.setMap(null);
-    }
-    this.polygon = $event;
-    this.addPolygonChangeEvent(this.polygon);
-    google.maps.event.addListener(this.polygon, "coordinates_changed", function(
-      index,
-      obj
-    ) {
-      // Polygon object: yourPolygon
-      console.log("coordinates_changed");
-    });
-  }
+
 
   getPaths() {
     if (this.polygon) {
@@ -344,43 +347,7 @@ export class LotsEditComponent implements OnInit {
     return [];
   }
 
-  addPolygonChangeEvent(polygon) {
-    var me = polygon,
-      isBeingDragged = false,
-      triggerCoordinatesChanged = function() {
-        // Broadcast normalized event
-        google.maps.event.trigger(me, "coordinates_changed");
-      };
-
-    // If  the overlay is being dragged, set_at gets called repeatedly,
-    // so either we can debounce that or igore while dragging,
-    // ignoring is more efficient
-    google.maps.event.addListener(me, "dragstart", function() {
-      isBeingDragged = true;
-    });
-
-    // If the overlay is dragged
-    google.maps.event.addListener(me, "dragend", function() {
-      triggerCoordinatesChanged();
-      isBeingDragged = false;
-    });
-
-    // Or vertices are added to any of the possible paths, or deleted
-    var paths = me.getPaths();
-    paths.forEach(function(path, i) {
-      google.maps.event.addListener(path, "insert_at", function() {
-        triggerCoordinatesChanged();
-      });
-      google.maps.event.addListener(path, "set_at", function() {
-        if (!isBeingDragged) {
-          triggerCoordinatesChanged();
-        }
-      });
-      google.maps.event.addListener(path, "remove_at", function() {
-        triggerCoordinatesChanged();
-      });
-    });
-  }
+ 
   men() {
     console.log("entro");
   }
@@ -393,8 +360,10 @@ export class LotsEditComponent implements OnInit {
       lat: lat,
       lng: lng
     };
-
+    
     this.newpaths.push(obj);
+    const array: any[] = Array.of(this.newpaths);
+    this.nestedPaths = array
   }
   addMakerSubLote(lat: number, lng: number) {
     console.log(lat);
@@ -405,6 +374,10 @@ export class LotsEditComponent implements OnInit {
       lng: lng
     };
     this.pathsSubLotes.push(obj);
+    const array: any[] = Array.of(this.pathsSubLotes);
+    this.pathSub = array;
+   
+   
   }
   campos() {}
 
@@ -445,11 +418,41 @@ export class LotsEditComponent implements OnInit {
         .subscribe( resp => {
           this.lotService.getLot(this.id).subscribe((resp: any) => {
             this.sublotearray = resp.subfield;
-            console.log(resp)
+            this.newpaths = resp.coordinates;
+            const array: any[] = Array.of(this.newpaths);
+            this.nestedPaths = array
+              for (let item of resp.subfield) {
+                this.mostrarsublotes.push(item.subfieldCoordinates)
+            }
           })
 
         })
       }
     })
   }
+
+  DeletesubloteNOID(value,p){
+    console.log(value)
+    const control = this.sublotearray
+    const controlsublote = this.mostrarsublotes
+
+    Swal.fire({
+      title: 'Seguro que quieres eliminar a',
+      text: value.name,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'No, cancelar!',
+    }).then((result) => {
+      if (result.value) {
+        control.splice(p,1);
+        controlsublote.splice(p,1)
+        
+      }
+    })
+  }
+
+
 }
