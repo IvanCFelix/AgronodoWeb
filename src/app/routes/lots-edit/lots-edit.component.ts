@@ -15,11 +15,13 @@ declare const google: any;
 export class LotsEditComponent implements OnInit {
   lotesForms: FormGroup;
   sublotesforms: FormGroup;
+  indice:number;
   example: any = [];
   mostrar: boolean = true;
   id ;
+  edit = false;
   sublotearray = [];
-  colorDemo1 = "#389fd0";
+  colorDemo1 = "";
   lat: number = 25.8132204;
   lng: number = -108.9858821;
   zoom: number = 14;
@@ -28,7 +30,7 @@ export class LotsEditComponent implements OnInit {
   newpaths:any = [];
   pathsSubLotes = [];
   pathSub =[];
-  mostrarsublotes = [];
+  mostrarsublotes:any = [];
   paths = [];
   nestedPaths = [
     
@@ -78,12 +80,15 @@ export class LotsEditComponent implements OnInit {
      
       this.lotService.getLot(id).subscribe((resp: any) => {
         this.sublotearray = resp.subfield;
+        this.mostrarsublotes = resp.subfield
+        console.log(resp.subfield);
+        
         this.newpaths = resp.coordinates;
         const array: any[] = Array.of(this.newpaths);
         this.nestedPaths = array
-          for (let item of resp.subfield) {
-            this.mostrarsublotes.push(item.subfieldCoordinates)
-        }
+        //   for (let item of resp.subfield) {
+        //     this.mostrarsublotes.push(item.subfieldCoordinates)
+        // }
   
 
         this.lotesForms.setValue({
@@ -125,9 +130,8 @@ export class LotsEditComponent implements OnInit {
     this.nestedPaths = [];
   }
   clearsublote(){
-    console.log("entro");
     this.pathsSubLotes = []
-     this.pathSub = []
+    this.pathSub = []
   }
   savepath() {
     if (this.mostrar == true) {
@@ -137,6 +141,8 @@ export class LotsEditComponent implements OnInit {
     }
   }
   clearform(){
+    this.pathsSubLotes = []
+    this.pathSub = []
     this.sublotesforms.setValue({
       agriculture_type: "",
       start_date: "",
@@ -146,6 +152,7 @@ export class LotsEditComponent implements OnInit {
     });
   }
   pol() {
+    this.edit = true;
     // console.log(this.newpaths);
     // this.pathsSubLotes = [];
     // let obj = [
@@ -249,18 +256,26 @@ export class LotsEditComponent implements OnInit {
 
   }
 
-  datasublote(value) {
-    this.colorDemo1 = value.color;
-    console.log(value);
-    this.sublotesforms.setValue({
-      nickname: value.nickname,
-      agriculture_type: value.agriculture_type,
-      start_date: value.start_date,
-      finish_date: value.finish_date,
-      crops: value.crops.name
-    });
-    this.pathsSubLotes = value.subfieldCoordinates;
-    this.pathSub = [value.subfieldCoordinates]
+  datasublote(value, p) {
+
+    this.indice = p;
+    
+    console.log(this.indice);
+    
+    if(value){
+      this.edit = true;
+      this.colorDemo1 = value.color;
+      console.log(value);
+      this.sublotesforms.setValue({
+        nickname: value.nickname,
+        agriculture_type: value.agriculture_type,
+        start_date: value.start_date,
+        finish_date: value.finish_date,
+        crops: value.crops.name
+      });
+      this.pathsSubLotes = value.subfieldCoordinates;
+      this.pathSub = [value.subfieldCoordinates]
+    }
   }
   
   sublote(value) {
@@ -274,33 +289,57 @@ export class LotsEditComponent implements OnInit {
         agriculture_type: value.agriculture_type,
         start_date: value.start_date,
         finish_date: value.finish_date,
-        color:"#FFFFE0",
+        color:this.colorDemo1,
         nickname: value.nickname,
         subfieldCoordinates: this.pathsSubLotes
       };
+      this.colorDemo1 = value.color
       console.log(obj);
       this.sublotearray.push(obj);
       this.lotService.SubloteRegister(obj).subscribe(resp =>{
-        console.log("entro")
-        console.log(resp)
+        this.lotService.getLot(this.id).subscribe((resp: any) => {
+          console.log(resp);
+          
+          this.sublotearray = resp.subfield;
+          this.newpaths = resp.coordinates;
+          this.mostrarsublotes = resp.subfield
+        })
       })
-      this.mostrarsublotes.push(this.pathsSubLotes)
-      console.log(this.mostrarsublotes)
+      // this.mostrarsublotes.push(this.pathsSubLotes)
 
-    }else{
+    }else{            
       let obj = {
-        crops: {
-          name: value.crops
-        },
-        agriculture_type: value.agriculture_type,
-        start_date: value.start_date,
-        finish_date: value.finish_date,
-        color:"#FFFFE0",
-        nickname: value.nickname,
-        subfieldCoordinates: this.pathsSubLotes
-      };
-      this.sublotearray.push(obj);
-      this.mostrarsublotes.push(this.pathsSubLotes)
+          crops: {
+            name: value.crops
+          },
+          agriculture_type: value.agriculture_type,
+          start_date: value.start_date,
+          finish_date: value.finish_date,
+          color:this.colorDemo1,
+          nickname: value.nickname,
+          subfieldCoordinates: this.pathsSubLotes
+        };
+        this.sublotearray.push(obj);
+     
+        let ara = {
+          color:this.colorDemo1,
+          subfieldCoordinates:this.pathsSubLotes
+        }
+       
+        
+        this.mostrarsublotes.push(ara)
+        console.log(this.mostrarsublotes);
+        
+        // this.mostrarsublotes.push(this.pathsSubLotes)
+
+
+      
+    
+      
+      // if(this.sublotearray.length > 2){
+      //   this.sublotearray.splice(this.newpaths.length - 2,1);
+   
+      // }
 
     }
 
@@ -494,13 +533,11 @@ export class LotsEditComponent implements OnInit {
         this.lotService.deleteSub(value.id)
         .subscribe( resp => {
           this.lotService.getLot(this.id).subscribe((resp: any) => {
+            console.log(resp);
+            
             this.sublotearray = resp.subfield;
             this.newpaths = resp.coordinates;
-            const array: any[] = Array.of(this.newpaths);
-            this.nestedPaths = array
-              for (let item of resp.subfield) {
-                this.mostrarsublotes.push(item.subfieldCoordinates)
-            }
+            this.mostrarsublotes = resp.subfield
           })
 
         })

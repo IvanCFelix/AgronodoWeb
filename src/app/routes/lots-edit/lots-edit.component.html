@@ -85,8 +85,8 @@
                       <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                       </agm-polyline-point>
                     </agm-polyline>
-                    <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="	'	#006400'">
-                      <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                    <agm-polyline *ngFor="let polyline of mostrarsublotes; let i = index;" [strokeColor]="polyline.color">
+                      <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat" [longitude]="point.lng">
                       </agm-polyline-point>
                     </agm-polyline>
                   </agm-map>
@@ -98,8 +98,8 @@
                     <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                     </agm-polyline-point>
                   </agm-polyline>
-                  <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="	'	#006400'">
-                    <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                  <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="polyline.color">
+                    <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat" [longitude]="point.lng">
                     </agm-polyline-point>
                   </agm-polyline>
                 </agm-map>
@@ -147,7 +147,7 @@
                         <td>{{items.crops.name}}</td>
                         <td><b>{{items.start_date}} </b> a <b> {{items.finish_date}}</b></td>
                         <td>
-                          <button class="btn btn-success m-1" type="button" (click)="datasublote(items);Modal.show();">
+                          <button class="btn btn-success m-1" type="button" (click)="datasublote(items,c);Modal.show();">
                             <a class="fas fa-pencil-alt"></a> </button>
                           <button *ngIf="!id" type="button" class="btn btn-danger" (click)="DeletesubloteNOID(items,c)">
                             <a class="fas fa-trash-alt"></a>
@@ -251,7 +251,7 @@
                   </div>
                 </div>
                 <div class="text-center mt-3">
-                  <button class="btn btn-success" type="button"
+                  <button *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid" class="btn btn-success" type="button"
                     (click)="sublote(sublotesforms.value);Modal.hide();">Agregar</button>
                 </div>
 
@@ -274,7 +274,10 @@
               <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
                 <agm-polygon [paths]="newpaths"></agm-polygon>
               </agm-map> -->
-
+              <div class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
+                <button class="btn btn-danger " type="button" (click)="clearsublote()"><em
+                    class="fa fas fa-trash"></em></button>
+              </div>
               <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
                 (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
                 <agm-marker  *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
@@ -284,17 +287,14 @@
                   <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                   </agm-polyline-point>
                 </agm-polyline>
-                <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="	'	#006400'">
-                  <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="polyline.color">
+                  <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat" [longitude]="point.lng">
                   </agm-polyline-point>
                 </agm-polyline>
                 <agm-polyline *ngFor="let polyline of pathSub;let i = index;" [strokeColor]="colorDemo1">
                   <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                   </agm-polyline-point>
-                  <div class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
-                    <button class="btn btn-danger " type="button" (click)="clearsublote(i)"><em
-                        class="fa fas fa-trash"></em></button>
-                  </div>
+                  
                 </agm-polyline>
               </agm-map>
             </div>
