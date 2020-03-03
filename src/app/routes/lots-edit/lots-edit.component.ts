@@ -379,8 +379,8 @@ export class LotsEditComponent implements OnInit {
   }
 
   addMarker(lat: number, lng: number) {
-    console.log(lat);
-    console.log(lng);
+    // console.log(lat);
+    // console.log(lng);
 
     let obj = {
       lat: lat,
@@ -388,14 +388,44 @@ export class LotsEditComponent implements OnInit {
     };
     
     this.newpaths.push(obj);
+    console.log(this.newpaths);
     
-    if(this.newpaths.length >= 4){
+
+    if(this.newpaths.length == 3){
       let path = this.newpaths[0]
       this.newpaths.push(path)
+      console.log(this.newpaths);
+  
     }
-   
+    if(this.newpaths.length > 4){
+      this.newpaths.splice(this.newpaths.length - 2,1);
+      let pos = this.newpaths.length - 1
+      let uwu = this.newpaths[pos]
+      this.newpaths.push(uwu)
+      let path = this.newpaths[0]
+      this.newpaths.push(path)
+       console.log(this.newpaths);
+       
+      // let pos = this.newpaths.length - 1
+      // console.log(this.newpaths);
+
+      // let path = this.newpaths[0]
+      // this.newpaths.push(path)
+      // let pos = this.newpaths.length 
+
+
+      // this.newpaths.splice(pos,1);
+      // let path2 = this.newpaths[0]
+      // this.newpaths.push(path2)
+        
+    //  this.newpaths[pos]
+  
+ 
+    }
     const array: any[] = Array.of(this.newpaths);
     this.nestedPaths = array
+   
+   
   }
   addMakerSubLote(lat: number, lng: number) {
     console.log(lat);
@@ -406,6 +436,22 @@ export class LotsEditComponent implements OnInit {
       lng: lng
     };
     this.pathsSubLotes.push(obj);
+
+    if(this.pathsSubLotes.length == 3){
+      let path = this.pathsSubLotes[0]
+      this.pathsSubLotes.push(path)
+      console.log(this.pathsSubLotes);
+  
+    }
+    if(this.pathsSubLotes.length > 4){
+      this.pathsSubLotes.splice(this.pathsSubLotes.length - 2,1);
+      let pos = this.pathsSubLotes.length - 1
+      let uwu = this.pathsSubLotes[pos]
+      this.pathsSubLotes.push(uwu)
+      let path = this.pathsSubLotes[0]
+      this.pathsSubLotes.push(path)
+       console.log(this.pathsSubLotes);
+    }
     const array: any[] = Array.of(this.pathsSubLotes);
     this.pathSub = array;
    

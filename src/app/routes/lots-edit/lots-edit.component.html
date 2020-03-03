@@ -26,8 +26,8 @@
                       No se permiten espacios en este campo</span> -->
                   </div>
                   <div class="col">
-                    <div class="text-right p-4">
-                      <button *ngIf="!id" class="btn btn-info" type="submit"><em
+                    <div class="text-right p-4" *ngIf=" newpaths.length > 3">
+                      <button *ngIf="!id " class="btn btn-info" type="submit"><em
                           class="fa-2x mr-2 fas fa-plus font-13"></em>Guardar información</button>
                       <button *ngIf="id" class="btn btn-info" type="submit"><em
                           class="fa-2x mr-2 fas fa-pen font-13"></em>Guardar información</button>
