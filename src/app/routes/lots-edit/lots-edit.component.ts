@@ -17,9 +17,9 @@ export class LotsEditComponent implements OnInit {
   sublotesforms: FormGroup;
   example: any = [];
   mostrar: boolean = true;
-  id;
+  id ;
   sublotearray = [];
-
+  colorDemo1 = "#389fd0";
   lat: number = 25.8132204;
   lng: number = -108.9858821;
   zoom: number = 14;
@@ -72,7 +72,7 @@ export class LotsEditComponent implements OnInit {
 
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get("id");
+    const id = this.route.snapshot.paramMap.get('id');
     this.id = id;
     if (id) {
      
@@ -215,10 +215,12 @@ export class LotsEditComponent implements OnInit {
   }
 
   update(value){
+  const id = Number(this.id)
     let obj = {
-      id:this.id,
+      id:id,
       coordinates: this.newpaths,
-      subfield: this.sublotearray,
+      // subfield: this.sublotearray,
+      subfield:[],
       name: value.name,
     };           
       console.log(obj)
@@ -248,6 +250,7 @@ export class LotsEditComponent implements OnInit {
   }
 
   datasublote(value) {
+    this.colorDemo1 = value.color;
     console.log(value);
     this.sublotesforms.setValue({
       nickname: value.nickname,
@@ -261,22 +264,45 @@ export class LotsEditComponent implements OnInit {
   }
   
   sublote(value) {
-    let obj = {
-      crops: {
-				name: value.crops
-			},
-      agriculture_type: value.agriculture_type,
-      start_date: value.start_date,
-      finish_date: value.finish_date,
-      color:"#FFFFE0",
-      nickname: value.nickname,
-      subfieldCoordinates: this.pathsSubLotes
-    };
-    console.log(obj);
-    this.sublotearray.push(obj);
-   
-    this.mostrarsublotes.push(this.pathsSubLotes)
-    console.log(this.mostrarsublotes)
+    if(this.id){
+      const id = Number(this.id)
+      let obj = {
+        father_field:id,
+        crops: {
+          name: value.crops
+        },
+        agriculture_type: value.agriculture_type,
+        start_date: value.start_date,
+        finish_date: value.finish_date,
+        color:"#FFFFE0",
+        nickname: value.nickname,
+        subfieldCoordinates: this.pathsSubLotes
+      };
+      console.log(obj);
+      this.sublotearray.push(obj);
+      this.lotService.SubloteRegister(obj).subscribe(resp =>{
+        console.log("entro")
+        console.log(resp)
+      })
+      this.mostrarsublotes.push(this.pathsSubLotes)
+      console.log(this.mostrarsublotes)
+
+    }else{
+      let obj = {
+        crops: {
+          name: value.crops
+        },
+        agriculture_type: value.agriculture_type,
+        start_date: value.start_date,
+        finish_date: value.finish_date,
+        color:"#FFFFE0",
+        nickname: value.nickname,
+        subfieldCoordinates: this.pathsSubLotes
+      };
+      this.sublotearray.push(obj);
+      this.mostrarsublotes.push(this.pathsSubLotes)
+
+    }
 
     // this.nestedPaths.push(array)
     // this.pathSub.push(array)
@@ -362,6 +388,12 @@ export class LotsEditComponent implements OnInit {
     };
     
     this.newpaths.push(obj);
+    
+    if(this.newpaths.length >= 4){
+      let path = this.newpaths[0]
+      this.newpaths.push(path)
+    }
+   
     const array: any[] = Array.of(this.newpaths);
     this.nestedPaths = array
   }
@@ -379,7 +411,6 @@ export class LotsEditComponent implements OnInit {
    
    
   }
-  campos() {}
 
   max(coordType: "lat" | "lng"): number {
     return Math.max(...this.newpaths.map(marker => marker[coordType]));

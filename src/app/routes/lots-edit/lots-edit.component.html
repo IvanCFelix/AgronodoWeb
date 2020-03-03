@@ -40,11 +40,11 @@
               <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
 
 
-                <div *ngIf="mostrar == true" class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
+                <div *ngIf="!id" class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
                   <button class="btn btn-danger " type="button" (click)="clear()"><em
                       class="fa fas fa-trash"></em></button>
                 </div>
-                <div *ngIf="mostrar == false" class="text-right p-2"
+                <!-- <div *ngIf="mostrar == false" class="text-right p-2"
                   style="position: absolute;z-index: 1;right: 18px; top: 39px;">
                   <button class="btn btn-success " type="button" (click)="savepath()"><em
                       class="fa fas fa-edit"></em></button>
@@ -53,7 +53,7 @@
                   style="position: absolute;z-index: 1;right: 18px; top: 39px;">
                   <button class="btn btn-success " type="button" (click)="savepath()"><em
                       class="fa fas fa-eye"></em></button>
-                </div>
+                </div> -->
 
                 <!-- <div *ngIf="mostrar == false">
                   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
@@ -72,20 +72,38 @@
                     
                   </agm-map>
                 </div> -->
-                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
-                  (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
-                  <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
-                    [opacity]="marker.alpha" [markerDraggable]="false">
-                  </agm-marker>
-                  <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#0000FF'">
-                    <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
-                    </agm-polyline-point>
-                  </agm-polyline>
+                
+                <div *ngIf="!id">
+                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+                    (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
+  
+                      <agm-marker  *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
+                        [opacity]="marker.alpha" [markerDraggable]="false">
+                      </agm-marker>
+                   
+                    <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#0000FF'">
+                      <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                      </agm-polyline-point>
+                    </agm-polyline>
                     <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="	'	#006400'">
                       <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                       </agm-polyline-point>
                     </agm-polyline>
+                  </agm-map>
+                </div>
+
+                <div *ngIf="id">
+                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">                
+                  <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#0000FF'">
+                    <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                    </agm-polyline-point>
+                  </agm-polyline>
+                  <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="	'	#006400'">
+                    <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                    </agm-polyline-point>
+                  </agm-polyline>
                 </agm-map>
+              </div>
 
                 <p *ngIf="selectedMarker">
                   Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
@@ -132,10 +150,10 @@
                           <button class="btn btn-success m-1" type="button" (click)="datasublote(items);Modal.show();">
                             <a class="fas fa-pencil-alt"></a> </button>
                           <button *ngIf="!id" type="button" class="btn btn-danger" (click)="DeletesubloteNOID(items,c)">
-                            <a class="fas fa-trash-alt" ></a>
+                            <a class="fas fa-trash-alt"></a>
                           </button>
                           <button *ngIf="id" type="button" class="btn btn-danger" (click)="deleteSublote(items)">
-                            <a class="fas fa-trash-alt" ></a>
+                            <a class="fas fa-trash-alt"></a>
                           </button>
                         </td>
                       </tr>
@@ -219,16 +237,28 @@
                     <input type="date" class="form-control" formControlName="finish_date">
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col text-center">
+                    Color principal:
+                  </div>
+                  <div class="col text-center">
+                    <div class="h1 clickable mt-lg" [(colorPicker)]="colorDemo1" [cpPosition]="'bottom'"
+                      [style.color]="colorDemo1" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true">
+                      <div>
+                        <a class="fas fa-square"></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="text-center mt-3">
                   <button class="btn btn-success" type="button"
                     (click)="sublote(sublotesforms.value);Modal.hide();">Agregar</button>
                 </div>
 
-
               </form>
             </div>
             <div class="col">
-             
+
               <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" style="width: 474px;
                 height: 433px;">
                 <agm-polygon [paths]="newpaths"></agm-polygon>
@@ -247,7 +277,7 @@
 
               <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
                 (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
-                <agm-marker *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
+                <agm-marker  *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
                   [opacity]="marker.alpha" [markerDraggable]="false">
                 </agm-marker>
                 <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#0000FF'">
@@ -258,11 +288,11 @@
                   <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                   </agm-polyline-point>
                 </agm-polyline>
-                <agm-polyline *ngFor="let polyline of pathSub;let i = index;" [strokeColor]="	'		#483D8B'">
+                <agm-polyline *ngFor="let polyline of pathSub;let i = index;" [strokeColor]="colorDemo1">
                   <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                   </agm-polyline-point>
                   <div class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
-                    <button class="btn btn-danger " type="button" (click)="clearsublote()"><em
+                    <button class="btn btn-danger " type="button" (click)="clearsublote(i)"><em
                         class="fa fas fa-trash"></em></button>
                   </div>
                 </agm-polyline>
