@@ -81,7 +81,7 @@
                         [opacity]="marker.alpha" [markerDraggable]="false">
                       </agm-marker>
                    
-                    <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#0000FF'">
+                    <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#4caf50'">
                       <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                       </agm-polyline-point>
                     </agm-polyline>
@@ -93,12 +93,12 @@
                 </div>
 
                 <div *ngIf="id">
-                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">                
-                  <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#0000FF'">
+                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false">                
+                  <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#4caf50'" [strokeWeight]="">
                     <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                     </agm-polyline-point>
                   </agm-polyline>
-                  <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="polyline.color">
+                  <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="polyline.color" [strokeWeight]="3">
                     <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat" [longitude]="point.lng">
                     </agm-polyline-point>
                   </agm-polyline>
@@ -194,6 +194,8 @@
             <div class="col">
               <form [formGroup]="sublotesforms">
                 <div class="form-group ">
+                  <input class="form-control d-none" formControlName="_id" type="text" />
+
                   <div class="col-12">
                     <label>Nombre</label>
                     <input class="form-control" formControlName="nickname" type="text" />
@@ -251,39 +253,26 @@
                   </div>
                 </div>
                 <div class="text-center mt-3">
-                  <button *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid" class="btn btn-success" type="button"
-                    (click)="sublote(sublotesforms.value);Modal.hide();">Agregar</button>
+                  <button *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid && id !== null" class="btn btn-success" type="button"
+                    (click)="sublote(sublotesforms.value);Modal.hide();">Guardar datos</button>
+                    <button *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid && id == null" class="btn btn-success" type="button"
+                      (click)="sublotenew(sublotesforms.value);Modal.hide();">Guardar datos</button>
                 </div>
 
               </form>
             </div>
             <div class="col">
 
-              <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" style="width: 474px;
-                height: 433px;">
-                <agm-polygon [paths]="newpaths"></agm-polygon>
-              </agm-map> -->
-              <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="14"
-                (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
-                <agm-marker *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
-                  [opacity]="marker.alpha" [markerDraggable]="false" (markerClick)="selectMarker($event)">
-                </agm-marker>
-                <agm-polygon [paths]="pathsSubLotes"></agm-polygon>
-                <agm-polygon [paths]="paths"></agm-polygon>
-              </agm-map> -->
-              <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                <agm-polygon [paths]="newpaths"></agm-polygon>
-              </agm-map> -->
-              <div class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
+              <!-- <div class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
                 <button class="btn btn-danger " type="button" (click)="clearsublote()"><em
                     class="fa fas fa-trash"></em></button>
-              </div>
+              </div> -->
               <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
                 (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
                 <agm-marker  *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
                   [opacity]="marker.alpha" [markerDraggable]="false">
                 </agm-marker>
-                <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#0000FF'">
+                <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#4caf50'">
                   <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                   </agm-polyline-point>
                 </agm-polyline>

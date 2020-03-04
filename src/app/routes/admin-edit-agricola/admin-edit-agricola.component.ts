@@ -33,7 +33,7 @@ export class AdminEditAgricolaComponent implements OnInit {
         name: new FormControl("", Validators.required),
         email: new FormControl("", [Validators.email, Validators.required]),
         lastname: new FormControl("", Validators.required),
-        number: new FormControl("", [Validators.required]),
+        phone: new FormControl("", [Validators.required]),
         username: new FormControl("", [Validators.required,UsernameValidator.cannotContainSpace]),
         prmsAltaIngenierosBool: new FormControl(false),
         prmsAltaIngenieros: new FormControl(1),
@@ -75,12 +75,12 @@ export class AdminEditAgricolaComponent implements OnInit {
           name: resp.names,
           email: resp.user.email,
           lastname: resp.lastnames,
-          number: resp.phone,
+          phone: resp.phone,
           username: resp.user.username,
           prmsAltaIngenierosBool:resp.prmsAltaIngenierosBool,
           prmsAltaIngenieros:resp.prmsAltaIngenieros,
-          prmsAgregarLotesBool:resp.prmsAtencionClienteBool,
-          prmsAgregarLotes:resp.prmsAtencionCliente,
+          prmsAgregarLotesBool:resp.prmsAgregarLotesBool,
+          prmsAgregarLotes:resp.prmsAgregarLotes,
           prmsAgregarAdminBool:resp.prmsAgregarAdminBool,
           prmsAgregarAdmin:resp.prmsAgregarAdmin
         });
@@ -93,12 +93,12 @@ export class AdminEditAgricolaComponent implements OnInit {
 
 
 register(value: any) {
-  // Swal.fire({
-  //   text: "Guardar información",
-  //   allowOutsideClick: false,
-  //   width: '270px'
-  // });
-  // Swal.showLoading();
+  Swal.fire({
+    text: "Guardar información",
+    allowOutsideClick: false,
+    width: '270px'
+  });
+  Swal.showLoading();
   if (this.id == null) {
     this.create(value);
   } else {
@@ -110,35 +110,42 @@ create(value: any) {
   let obj = {
     names: value.name,
     lastnames: value.lastname,
-    phone: value.number,
+    phone: value.phone,
     photo: this.filestring,
     user: {
       username: value.username,
       email: value.email
-    }
+    },
+    prmsAltaIngenierosBool:value.prmsAltaIngenierosBool,
+    prmsAltaIngenieros:value.prmsAltaIngenieros,
+    prmsAgregarLotesBool:value.prmsAgregarLotesBool,
+    prmsAgregarLotes:value.prmsAgregarLotes,
+    prmsAgregarAdminBool:value.prmsAgregarAdminBool,
+    prmsAgregarAdmin:value.prmsAgregarAdmin
+
   };
   console.log(obj)
-  // this.adminregister.register(obj).subscribe(
-  //   resp => {
-  //     Swal.fire({
-  //       text: "Se creó correctamente " + value.name,
-  //       icon: "success",
-  //       showConfirmButton: false,
-  //       timer: 1500,
-  //       width: '250px'
-  //     });
-  //     this.router.navigateByUrl("/Admin-Agronodo");
-  //   },
-  //   (err: any) => {
-  //     Swal.fire({
-  //       text: "Error en el sevidor",
-  //       showConfirmButton: false,
-  //       timer: 1500,
-  //       icon:'error',
-  //       width: '250px'
-  //     });
-  //   }
-  // );
+  this.admin.register(obj).subscribe(
+    resp => {
+      Swal.fire({
+        text: "Se creó correctamente " + value.name,
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+        width: '250px'
+      });
+      this.router.navigateByUrl("/Ingeniero");
+    },
+    (err: any) => {
+      Swal.fire({
+        text: "Error en el sevidor",
+        showConfirmButton: false,
+        timer: 1500,
+        icon:'error',
+        width: '250px'
+      });
+    }
+  );
 }
 update(value: any) {
   console.log(value);
@@ -147,7 +154,13 @@ update(value: any) {
       names: value.name,
       lastnames: value.lastname,
       phone: value.number,
-      user: {  }
+      user: {  },
+      prmsAltaIngenierosBool:value.prmsAltaIngenierosBool,
+      prmsAltaIngenieros:value.prmsAltaIngenieros,
+      prmsAgregarLotesBool:value.prmsAgregarLotesBool,
+      prmsAgregarLotes:value.prmsAgregarLotes,
+      prmsAgregarAdminBool:value.prmsAgregarAdminBool,
+      prmsAgregarAdmin:value.prmsAgregarAdmin
     };
     let user = {
       user: {
@@ -163,7 +176,7 @@ update(value: any) {
           timer: 1500,
           width: '250px'
         });
-        this.router.navigateByUrl("/Admin-Agronodo");
+        this.router.navigateByUrl("/Ingeniero");
       },
       (err: any) => {
         Swal.fire({
@@ -176,40 +189,46 @@ update(value: any) {
       }
     );
   } else {
-  //   let obj = {
-  //     names: value.name,
-  //     lastnames: value.lastname,
-  //     phone: value.number,
-  //     photo: this.filestring,
-  //     user: {}
-  //   };
-  //   let user = {
-  //     user: {
-  //       username: value.username
-  //     }
-  //   };
-  //   this.adminregister.edit(obj, user).subscribe(
-  //     resp => {
-  //       Swal.fire({
-  //         text: "Se actualizó correctamente" + value.names,
-  //         icon: "success",
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //         width: '250px'
-  //       });
-  //       this.router.navigateByUrl("/Admin-Agronodo");
-  //     },
-  //     (err: any) => {
-  //       Swal.fire({
-  //         text: "Error en el sevidor",
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //         icon:'error',
-  //         width: '250px'
-  //       });
-  //     }
-  //   );
-  // }
+    let obj = {
+      names: value.name,
+      lastnames: value.lastname,
+      phone: value.number,
+      photo: this.filestring,
+      user: {},
+      prmsAltaIngenierosBool:value.prmsAltaIngenierosBool,
+      prmsAltaIngenieros:value.prmsAltaIngenieros,
+      prmsAgregarLotesBool:value.prmsAgregarLotesBool,
+      prmsAgregarLotes:value.prmsAgregarLotes,
+      prmsAgregarAdminBool:value.prmsAgregarAdminBool,
+      prmsAgregarAdmin:value.prmsAgregarAdmin
+    };
+    let user = {
+      user: {
+        username: value.username
+      }
+    };
+    this.admin.edit(obj, user).subscribe(
+      resp => {
+        Swal.fire({
+          text: "Se actualizó correctamente" + value.names,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          width: '250px'
+        });
+        this.router.navigateByUrl("/Ingeniero");
+      },
+      (err: any) => {
+        Swal.fire({
+          text: "Error en el sevidor",
+          showConfirmButton: false,
+          timer: 1500,
+          icon:'error',
+          width: '250px'
+        });
+      }
+    );
+  
   }
 }
 
