@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Uris } from "./../../Services/Uris";
 import { UsernameValidator } from "./../../validators/UsernameValidator ";
-import { AdminAgronodo } from "./../../Services/admin-agronodo.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormGroup, Validators, FormControl } from "@angular/forms";
 import { ImageCropperComponent, CropperSettings, Bounds } from "ng2-img-cropper";
 import Swal from "sweetalert2";
+import { AdminAgricola } from "../../Services/admin-agricola.service";
 @Component({
   selector: 'app-admin-edit-agricola',
   templateUrl: './admin-edit-agricola.component.html',
@@ -26,7 +26,7 @@ export class AdminEditAgricolaComponent implements OnInit {
   @ViewChild("cropper", undefined) cropper: ImageCropperComponent;
   constructor(    
     private route: ActivatedRoute,
-    public adminregister: AdminAgronodo,
+    public admin: AdminAgricola,
     public router: Router) {
 
       this.adminagricola = new FormGroup({
@@ -34,10 +34,14 @@ export class AdminEditAgricolaComponent implements OnInit {
         email: new FormControl("", [Validators.email, Validators.required]),
         lastname: new FormControl("", Validators.required),
         number: new FormControl("", [Validators.required]),
-        username: new FormControl("", [
-          Validators.required,
-          UsernameValidator.cannotContainSpace
-        ])
+        username: new FormControl("", [Validators.required,UsernameValidator.cannotContainSpace]),
+        prmsAltaIngenierosBool: new FormControl(false),
+        prmsAltaIngenieros: new FormControl(1),
+        prmsAgregarAdminBool: new FormControl(false),
+        prmsAgregarAdmin: new FormControl(1),
+        prmsAgregarLotesBool: new FormControl(false),
+        prmsAgregarLotes: new FormControl(1),
+  
       });
       this.name = "Angular2";
       this.cropperSettings = new CropperSettings();
@@ -62,7 +66,7 @@ export class AdminEditAgricolaComponent implements OnInit {
     this.id = id;
 
     if (id) {
-      this.adminregister.getadmin(id).subscribe((resp: any) => {
+      this.admin.getadmin(id).subscribe((resp: any) => {
         console.log(resp);
         this.photo = resp.photo;
         this.mostrar = false;
@@ -72,7 +76,13 @@ export class AdminEditAgricolaComponent implements OnInit {
           email: resp.user.email,
           lastname: resp.lastnames,
           number: resp.phone,
-          username: resp.user.username
+          username: resp.user.username,
+          prmsAltaIngenierosBool:resp.prmsAltaIngenierosBool,
+          prmsAltaIngenieros:resp.prmsAltaIngenieros,
+          prmsAgregarLotesBool:resp.prmsAtencionClienteBool,
+          prmsAgregarLotes:resp.prmsAtencionCliente,
+          prmsAgregarAdminBool:resp.prmsAgregarAdminBool,
+          prmsAgregarAdmin:resp.prmsAgregarAdmin
         });
       });
     } else {
@@ -132,40 +142,40 @@ create(value: any) {
 }
 update(value: any) {
   console.log(value);
-  // if (this.filestring == "") {
-  //   let obj = {
-  //     names: value.name,
-  //     lastnames: value.lastname,
-  //     phone: value.number,
-  //     user: {  }
-  //   };
-  //   let user = {
-  //     user: {
-  //       username: value.username
-  //     }
-  //   };
-  //   this.adminregister.edit(obj, user).subscribe(
-  //     resp => {
-  //       Swal.fire({
-  //         text: "Se actualizó correctamente \n"+value.name,
-  //         icon: "success",
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //         width: '250px'
-  //       });
-  //       this.router.navigateByUrl("/Admin-Agronodo");
-  //     },
-  //     (err: any) => {
-  //       Swal.fire({
-  //         text: "Error en el sevidor",
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //         icon:'error',
-  //         width: '250px'
-  //       });
-  //     }
-  //   );
-  // } else {
+  if (this.filestring == "") {
+    let obj = {
+      names: value.name,
+      lastnames: value.lastname,
+      phone: value.number,
+      user: {  }
+    };
+    let user = {
+      user: {
+        username: value.username
+      }
+    };
+    this.admin.edit(obj, user).subscribe(
+      resp => {
+        Swal.fire({
+          text: "Se actualizó correctamente \n"+value.name,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          width: '250px'
+        });
+        this.router.navigateByUrl("/Admin-Agronodo");
+      },
+      (err: any) => {
+        Swal.fire({
+          text: "Error en el sevidor",
+          showConfirmButton: false,
+          timer: 1500,
+          icon:'error',
+          width: '250px'
+        });
+      }
+    );
+  } else {
   //   let obj = {
   //     names: value.name,
   //     lastnames: value.lastname,
@@ -200,6 +210,7 @@ update(value: any) {
   //     }
   //   );
   // }
+  }
 }
 
 

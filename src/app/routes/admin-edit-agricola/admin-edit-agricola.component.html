@@ -71,17 +71,60 @@
                   <img-cropper *ngIf="mostrar == true" #cropper [image]="data1" [settings]="cropperSettings" (onCrop)="cropped($event)">
                   </img-cropper>
                   <div height="400" width="400" *ngIf="mostrar == false" >
-                    <img [src]="url+ photo" width="70%"  style="padding: 0px 30px 0px 30px;" >
+                    <img [src]="url + photo" width="70%"  style="padding: 0px 30px 0px 30px;" >
                   </div>
                 </div>
               </div>
             </div>
-            <div class=" p-0 pos-item" >
+            <div class="col-12 p-0 pos-item" >
               <label for="file-upload" class="input-mod2 ">
                 <a class="fas fa-upload"></a> Selecciona una imagen
               </label>
               <input id="file-upload" (change)="fileChangeListener($event)" type="file" style='display: none;' />
               <div class="btn-group btn-group-justified mb">
+              </div>
+            </div>
+            <div class="col-12 mt-3">
+              <h5 class="text-left">Permisos</h5>
+            
+              <div class="row mt-2">
+                <div class="col-6 col-sm-6 col-md-12 col-lg-9 col-xl-8  text-left col-height">
+                  <div class="checkbox c-checkbox">
+                    <label>
+                      <input type="checkbox" formControlName="prmsAltaIngenierosBool" />
+                      <span class="fa fa-check"></span>Ingenieros</label>
+                  </div>
+                </div>
+                <div class="col-6 col-sm-6 col-sm-6 col-lg-3 col-xl-4 text-left" *ngIf="adminagricola.value.prmsAltaIngenierosBool == true">
+                  <input class="form-control" type="number" formControlName="prmsAltaIngenieros" />
+                </div>
+              </div>
+
+              <div class="row mt-2">
+                <div class="col-6 col-sm-6 col-md-12 col-lg-9 col-xl-8 text-left col-height">
+                  <div class="checkbox c-checkbox">
+                    <label>
+                      <input type="checkbox" formControlName="prmsAgregarLotesBool" />
+                      <span class="fa fa-check"></span>Lotes</label>
+                  </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-12 col-lg-3 col-xl-4" *ngIf="adminagricola.value.prmsAgregarLotesBool == true">
+                  <input class="form-control" type="number" formControlName="prmsAgregarLotes" />
+
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-6 col-sm-6 col-md-12 col-lg-9 col-xl-8 text-left col-height">
+                  <div class="checkbox c-checkbox">
+                    <label>
+                      <input type="checkbox" formControlName="prmsAgregarAdminBool" />
+                      <span class="fa fa-check"></span>Administradores</label>
+                  </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-12 col-lg-3 col-xl-4" *ngIf="adminagricola.value.prmsAgregarAdminBool == true">
+                  <input class="form-control" type="number" formControlName="prmsAgregarAdmin" />
+
+                </div>
               </div>
             </div>
           </div>

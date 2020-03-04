@@ -1,8 +1,8 @@
-import { AdminIngAgricola } from '../../Services/admin-ing-agricola.service';
-import { AdminAgronodo } from '../../Services/admin-agronodo.service';
+
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import Swal from "sweetalert2";
+import { AdminAgricola } from '../../Services/admin-agricola.service';
 
 @Component({
   selector: 'app-admin-ing-agricola',
@@ -21,7 +21,7 @@ export class AdminIngAgricolaComponent implements OnInit {
   timeout: any;
   expanded: any = {};
   selected = [];
-  constructor(public AdminagronodoService:AdminIngAgricola) {
+  constructor(public Agricola:AdminAgricola) {
     
   }
   updateFilter(event) {
@@ -37,44 +37,41 @@ export class AdminIngAgricolaComponent implements OnInit {
 }
 
   ngOnInit() {
-    // this.AdminagronodoService.listadmin().subscribe(resp => {
-    //   this.listAdmin = resp;
-    //   this.temp = resp;
-    //   console.log(resp)
-    // })
+    this.Agricola.listadmin().subscribe(resp => {
+      this.listAdmin = resp;
+      this.temp = resp;
+      console.log(resp)
+    })
+  
   }
 
   delete(value){
-    console.log(value)
-    Swal.fire({
-      title: 'Seguro que quieres eliminar a',
-      text: value.names,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminar!',
-      cancelButtonText: 'No, cancelar!',
-    }).then((result) => {
-      if (result.value) {
-        console.log(result.value)
-        this.AdminagronodoService.delete(value.user.username)
-        .subscribe( resp => {
+    // console.log(value)
+    // Swal.fire({
+    //   title: 'Seguro que quieres eliminar a',
+    //   text: value.names,
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: 'Si, eliminar!',
+    //   cancelButtonText: 'No, cancelar!',
+    // }).then((result) => {
+    //   if (result.value) {
+    //     console.log(result.value)
+    //     this.AdminagronodoService.delete(value.user.username)
+    //     .subscribe( resp => {
           
-          this.AdminagronodoService.listadmin().subscribe(resp => {
-            this.listAdmin = resp;
-            this.temp = resp;
-            console.log(resp)
-          })
+    //       this.AdminagronodoService.listadmin().subscribe(resp => {
+    //         this.listAdmin = resp;
+    //         this.temp = resp;
+    //         console.log(resp)
+    //       })
 
-        })
-        // Swal.fire(
-        //   'Deleted!',
-        //   'Your file has been deleted.',
-        //   'success',
-        // )
-      }
-    })
+    //     })
+    
+    //   }
+    // })
   }
   
   onPage(event) {

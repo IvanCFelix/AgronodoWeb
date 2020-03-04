@@ -31,6 +31,11 @@ export class Uris {
     public static API_SUB_LOTS_DELETE = `${Uris.API_ENDPOINT}subfields/`;
     public static API_SUB_LOTS_REGISTER = `${Uris.API_ENDPOINT}subfields/`;
 
+    public static API_ADMIN_AGRICOLA_POST = `${Uris.API_ENDPOINT}adminagricola/`
+    public static API_ADMIN_AGRICOLA_GET_LIST= `${Uris.API_ENDPOINT}adminagricola/`;
+    public static API_ADMIN_AGRICOLA_GET_USER = `${Uris.API_ENDPOINT}adminagricola/`;
+    public static API_ADMIN_AGRICOLA_DELETE = `${Uris.API_ENDPOINT}adminagricola/`;
+    public static API_ADMIN_AGRICOLA_EDIT = `${Uris.API_ENDPOINT}adminagricola/`;
 
 
 
