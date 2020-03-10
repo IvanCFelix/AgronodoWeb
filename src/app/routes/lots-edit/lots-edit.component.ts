@@ -38,7 +38,6 @@ export class LotsEditComponent implements OnInit {
   public maxSpeed: number;
   selectedMarker;
   constructor(
-    private modalService: BsModalService,
     public router: Router,
     private route: ActivatedRoute,
     public lotService: LotsAgricolaService
@@ -66,9 +65,9 @@ export class LotsEditComponent implements OnInit {
       this.lotService.getLot(id).subscribe((resp: any) => {
         this.sublotearray = resp.subfield;
         this.mostrarsublotes = resp.subfield
+        console.log(resp)
         this.lat = resp.coordinates[0].lat
         this.lng = resp.coordinates[0].lng
-        console.log(resp.coordinates[0].lat);
         
         this.newpaths = resp.coordinates;
         const array: any[] = Array.of(this.newpaths);
@@ -245,7 +244,6 @@ export class LotsEditComponent implements OnInit {
   }
 
   datasublote(value, p) {
-    
     if(value){
      if(this.id){
        this.edit = true;
@@ -282,8 +280,6 @@ export class LotsEditComponent implements OnInit {
   sublotenew(value){
     console.log(value._id);
     console.log(this.sublotesforms.value._id );
-    
-    
     if(this.sublotesforms.value._id !== -1){
       let obj = {
         crops: {
@@ -299,10 +295,6 @@ export class LotsEditComponent implements OnInit {
 
       let pos = this.sublotesforms.value._id
       this.sublotearray[pos] = obj
-
-
-      console.log(this.mostrarsublotes);
-      
     }else{
       let obj = {
           crops: {

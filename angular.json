@@ -27,6 +27,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/animate.css/animate.min.css", 
               "src/app/core/preloader/preloader.scss",
               "src/styles.scss"
             ],

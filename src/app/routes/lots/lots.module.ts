@@ -6,6 +6,7 @@ import { LotsComponent  } from './lots.component'
 import { ReactiveFormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ng2-img-cropper';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { AgmCoreModule  } from '@agm/core';
 
 const routes: Routes = [
   { path: '', component: LotsComponent },
@@ -18,7 +19,11 @@ const routes: Routes = [
     ImageCropperModule,
     CommonModule,
     NgxDatatableModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBNs42Rt_CyxAqdbIBK0a5Ut83QiauESPA',
+      libraries: ['places', 'drawing', 'geometry'],
+  })
   ]
 })
 export class LotsModule { }

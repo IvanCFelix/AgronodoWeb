@@ -7,7 +7,6 @@ export class Uris {
     public static PASSWORD_CHANGE = `${Uris.API_ENDPOINT}password/change/`;
 
 
-
     public static API_LOGIN = `${Uris.API_ENDPOINT}login/`;
     public static API_AGRONODO_POST = `${Uris.API_ENDPOINT}adminagronodo/`
     public static API_AGRONODO_GET_LIST= `${Uris.API_ENDPOINT}adminagronodo/`;
@@ -15,7 +14,6 @@ export class Uris {
     public static API_ABRONODO_DELETE = `${Uris.API_ENDPOINT}adminagronodo/`
     public static API_AGRONODO_EDIT = `${Uris.API_ENDPOINT}adminagronodo/`
     public static API_USER_GET = `${Uris.API_ENDPOINT}refresh/`
-
 
     public static API_AGRICOLA_POST = `${Uris.API_ENDPOINT}agricola/`;
     public static API_AGRICOLA_GET_LIST= `${Uris.API_ENDPOINT}agricola/`;
@@ -32,8 +30,6 @@ export class Uris {
     public static API_SUB_LOTS_REGISTER = `${Uris.API_ENDPOINT}subfields/`;
     public static API_SUB_LOTS_EDIT = `${Uris.API_ENDPOINT}subfields/`;
     public static API_SUB_LOTS_GET_LIST = `${Uris.API_ENDPOINT}subfields/`;
-
-
 
     public static API_ADMIN_AGRICOLA_POST = `${Uris.API_ENDPOINT}adminagricola/`
     public static API_ADMIN_AGRICOLA_GET_LIST= `${Uris.API_ENDPOINT}adminagricola/`;

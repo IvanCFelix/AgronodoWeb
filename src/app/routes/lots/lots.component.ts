@@ -17,6 +17,11 @@ export class LotsComponent implements OnInit {
   timeout: any;
   expanded: any = {};
   selected = [];
+  lat: number = 25.8132204;
+  lng: number = -108.9858821;
+  zoom: number = 14;
+  mostrarsublotes:any = [];
+  nestedPaths = [];
 
 
   constructor(public LotsService:LotsAgricolaService) { }
@@ -85,8 +90,23 @@ export class LotsComponent implements OnInit {
     this.selected.push(...selected);
   }
 
-  onActivate(event) {
+
+
+  showmap(value){
+  console.log(value);
+  this.LotsService.getLot(value).subscribe((resp: any) => {
+    this.mostrarsublotes = resp.subfield
+    this.lat = resp.coordinates[0].lat
+    this.lng = resp.coordinates[0].lng
+
+    this.nestedPaths = resp.coordinates;
+    const array: any[] = Array.of(this.nestedPaths);
+    this.nestedPaths = array
+  });
+
   }
+
+  
 }
 
 
