@@ -13,7 +13,7 @@
 
 <div class="main-container">
   <div class="row">
-    <div class="col-4">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
       <em class="fa-2x mr-2 fas fa-search pos-icon"></em>
       <input class="form-control mb-2" type="text" placeholder="Buscar..." (keyup)='updateFilter($event)'
         style="border-radius: 21px;" />
@@ -27,8 +27,8 @@
   <div class="main-container">
     <div class="card card-default mt-4">
     <div class="row">
-      <div class="col p-0">
-        <div class="card-body pr-0">       
+      <div class="col-12 col-md-12 col-lg-12 col-xl-6 p-0">
+        <div class="card-body pr-0" style="height: 100%;">       
           <ngx-datatable #table class="bootstrap expandable material fullscreen "  style="height: calc(90vh - 270px); box-shadow: none; width: 100%;"
           [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
          [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='listlots' (page)="onPage($event)">
@@ -44,11 +44,11 @@
             </ngx-datatable-column>
             <ngx-datatable-column name="Acción">
               <ng-template let-row="row" ngx-datatable-cell-template>
-                <button class="btn btn-info m-1" type="button" (click)="showmap(row.id)">
+                <button class="btn btn-info m-1 respo" type="button" (click)="showmap(row.id)">
                   <a class="fas fa-eye"></a> </button>
-                <button class="btn btn-success m-1" type="button" [routerLink]="['/Lotes/',row.id]">
+                <button class="btn btn-success m-1 respo" type="button" [routerLink]="['/Lotes/',row.id]">
                   <a class="fas fa-pencil-alt"></a> </button>
-                <button class="btn btn-danger" (click)="delete(row)">
+                <button class="btn btn-danger respo" (click)="delete(row)">
                   <a class="fas fa-trash-alt" ></a>
                 </button>
               </ng-template>
@@ -69,16 +69,7 @@
           </agm-polyline>
         </agm-map>
         </div>
-        <div class="row">
-
-          <div class="col-6">
-            <p>hola</p>
-          </div>
-          <div class="col-6">
-            <p>hola</p>
-            
-          </div>
-        </div>
+      
     </div>
     </div>
   </div>

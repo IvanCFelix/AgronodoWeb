@@ -4,3 +4,16 @@ agm-map {
   .font-13{
     font-size: 13px;
 }
+
+
+@media screen and (max-width: 1312px) { 
+  .respon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  agm-map{
+   height: 412px;
+  }
+
+ }

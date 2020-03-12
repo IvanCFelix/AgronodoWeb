@@ -128,7 +128,7 @@
               <div class="card-body">
                 <!-- START table-responsive-->
                 <div class="table-responsive">
-                  <table class="table">
+                  <table class="table ">
                     <thead>
                       <tr>
                         <th>#</th>
@@ -157,7 +157,7 @@
                         </td>
                         <td>{{items.crops.name}}</td>
                         <td><b>{{items.start_date}} </b> a <b> {{items.finish_date}}</b></td>
-                        <td>
+                        <td class="respon">
                           <button class="btn btn-success m-1" type="button"
                             (click)="datasublote(items,c);Modal.show();">
                             <a class="fas fa-pencil-alt"></a> </button>
@@ -203,7 +203,7 @@
       <div class="modal-body">
         <div class="container">
           <div class="row">
-            <div class="col">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <form [formGroup]="sublotesforms">
                 <div class="form-group ">
                   <input class="form-control d-none" formControlName="_id" type="text" />
@@ -273,7 +273,7 @@
 
               </form>
             </div>
-            <div class="col">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 
               <!-- <div class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
                 <button class="btn btn-danger " type="button" (click)="clearsublote()"><em
