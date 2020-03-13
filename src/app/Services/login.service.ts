@@ -52,10 +52,7 @@ export class AuthService {
     ); 
   }
 
-  logout(){
-    localStorage.clear();
-  }
-
+ 
   private guardarToken(idToken: string) {
     this.userToken = idToken;
 

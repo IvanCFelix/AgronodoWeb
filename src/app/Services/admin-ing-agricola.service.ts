@@ -31,10 +31,9 @@ export class AdminIngAgricola {
     return this.http.post(`${Uris.PASSWORD_CHANGE}`,password,this.jwt()).map((response: Response) => response.json()) 
   }
    
- edit(admin,user) {
-
+  edit(admin,user) {
   return this.http.patch(`${Uris.API_AGRONODO_EDIT}${user.user.username}/`, admin,this.jwt()).map((response: Response) => response.json()) 
-}
+  }
   
 
   errorHandler(error: any): void {

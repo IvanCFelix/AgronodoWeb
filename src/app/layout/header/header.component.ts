@@ -5,7 +5,7 @@ import { UserblockService } from "../sidebar/userblock/userblock.service";
 import { SettingsService } from "../../core/settings/settings.service";
 import { MenuService } from "../../core/menu/menu.service";
 import { Router } from '@angular/router';
-import { AdminAgricola } from './../../Services/admin-agricola.service';
+import { AdminAgronodo } from '../../Services/admin-agronodo.service';
 
 @Component({
   selector: "app-header",
@@ -15,7 +15,7 @@ import { AdminAgricola } from './../../Services/admin-agricola.service';
 export class HeaderComponent implements OnInit {
   navCollapsed = true; // for horizontal layout
   menuItems = []; // for horizontal layout
-
+  user:any;
   isNavSearchVisible: boolean;
   @ViewChild("fsbutton") fsbutton; // the fullscreen button
 
@@ -23,8 +23,8 @@ export class HeaderComponent implements OnInit {
     public menu: MenuService,
     public userblockService: UserblockService,
     public settings: SettingsService,
-    public auth:AdminAgricola,
-    private router: Router
+    private router: Router,
+    public admin:AdminAgronodo
   ) {
     
       router.events.subscribe(res => {
@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+   
     this.isNavSearchVisible = false;
 
     var ua = window.navigator.userAgent;
@@ -52,6 +53,11 @@ export class HeaderComponent implements OnInit {
           ? "fa fa-compress"
           : "fa fa-expand";
     });
+    this.admin.getRefresh().subscribe( (resp:any) => {
+      this.user = resp.user_type    
+       
+     })
+ 
   }
 
   toggleUserBlock(event) {
@@ -93,12 +99,11 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    localStorage.clear()
-    // this.auth.logout().subscribe(resp => {
-    //   console.log("entro");
-    // },err =>{
-    //   console.log(err);
-      
-    // } )
+   this.admin.logout().subscribe(resp => {
+
+   },err => {
+     console.log(err);
+   })
+  
   }
 }

@@ -42,7 +42,7 @@
     </ul>
     <!-- END Left navbar-->
     <!-- START Right Navbar-->
-    <ul class="navbar-nav flex-row">
+    <ul  class="navbar-nav flex-row">
         <!-- Search icon-->
         <li class="nav-item">
             <a class="nav-link" (click)="logout()" routerLink="/login">
@@ -50,11 +50,14 @@
             </a>
         </li>
       <!-- Home-->
-        <li class="nav-item d-none d-md-block">
-            <a class="nav-link" #fsbutton routerLink="/home">
-                <em class="fa fa-home"></em>
-            </a>
-        </li>
+    
+          <li  class="nav-item d-none d-md-block">
+              <a   class="nav-link" #fsbutton routerLink="/home">
+                  <em class="fa fa-home"></em>
+              </a>
+          </li>
+ 
+       
         <!-- Fullscreen (only desktops)-->
         <!-- <li class="nav-item d-none d-md-block">
             <a class="nav-link" #fsbutton (click)="toggleFullScreen($event)">

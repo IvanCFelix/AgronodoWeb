@@ -17,7 +17,6 @@ export class AuthGuard implements CanActivate {
         return true;
       }else{
          this.router.navigateByUrl("/login");
-        console.log("falta token")
       }
   
   }

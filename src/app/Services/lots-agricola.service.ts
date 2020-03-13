@@ -38,21 +38,12 @@ export class LotsAgricolaService {
     return this.http.post(`${Uris.API_SUB_LOTS_REGISTER}`, sublote,this.jwt()).map((response: Response) => response.json()) 
   }
   EditSublote(value,id) {  
-    console.log(value);
-      
     return this.http.put(`${Uris.API_SUB_LOTS_EDIT}${id}/`, value,this.jwt()).map((response: Response) => response.json()) 
   }
   GetSublot() {
     return this.http.get(`${Uris.API_SUB_LOTS_GET_LIST}`,this.jwt()).map((response: Response) => response.json()) 
   }
-//   getRefresh() {
-//     return this.http.get(`${Uris.API_USER_GET}`,this.jwt()).map((response: Response) => response.json()) 
-//   }
-//   reset(password) {
-//     return this.http.post(`${Uris.PASSWORD_CHANGE}`,password,this.jwt()).map((response: Response) => response.json()) 
-//   }
 
-  
 
   errorHandler(error: any): void {
     console.log("SUPER ERROR",error)
@@ -69,6 +60,7 @@ export class LotsAgricolaService {
         headers.append('Authorization', `token ${user.token}`);
       return new RequestOptions({ headers: headers });
     }
+   
   }
 }
 

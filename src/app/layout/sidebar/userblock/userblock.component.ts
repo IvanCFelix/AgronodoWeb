@@ -9,7 +9,7 @@ import {  AdminAgronodo  }  from '../../../Services/admin-agronodo.service'
     styleUrls: ['./userblock.component.scss']
 })
 export class UserblockComponent implements OnInit {
-    public link:string;
+    public link =Uris.API_ENDPOINT;
     public usuario:any
     public photo;
     public name;
@@ -20,7 +20,7 @@ export class UserblockComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.link = Uris.API_ENDPOINT
+
         // this.usuario = (<any>JSON.parse(localStorage.getItem('USER')))
 
         this.adminService.getRefresh().subscribe( resp => {

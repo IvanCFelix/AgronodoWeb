@@ -1,6 +1,6 @@
 export class Menu {
   public static menu(user) {
-    const HomeAgronodo = {
+    const Home = {
       text: "Home",
       link: "/home",
       icon: "icon-home"
@@ -8,11 +8,6 @@ export class Menu {
     const headingMain = {
       text: "Menú",
       heading: true
-    };
-    const HomeAgricola = {
-      text: "Home",
-      link: "/Home-agricola",
-      icon: "icon-home"
     };
     const AdminAgricola = {
       text: "Administradores",
@@ -52,37 +47,37 @@ export class Menu {
 
     var user = <any>JSON.parse(localStorage.getItem("USER"));
     if (!user) {
-      role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+      role = [headingMain, Home, UsuariosAgroindustriasAgronodo];
     } else {      
       switch (user.user_type) {
         //Admin Agronodo
         case 2: {
           console.log("Eres administrador de agronodo");
-          role = [headingMain, HomeAgronodo, UsuariosAgroindustriasAgronodo];
+          role = [headingMain, Home, UsuariosAgroindustriasAgronodo];
           break;
         }
         //Agricola
         case 3: {
-          role = [headingMain, HomeAgronodo, AdminAgricola];
+          role = [headingMain, Home, AdminAgricola];
           break;
         }
         //Admin Agricola
         case 4: {
-          role = [headingMain, HomeAgricola, AdminAgricola];
+          role = [headingMain, Home, AdminAgricola];
           break;
         }
         //Admin Ingeniero
         case 5: {
-          role = [headingMain, HomeAgronodo, AdminAgricola];
+          role = [headingMain, Home, AdminAgricola];
           break;
         }
         //Ingeniero
         case 6: {
-          role = [headingMain, HomeAgronodo, AdminAgricola];
+          role = [headingMain, Home, AdminAgricola];
           break;
         }
         default: {
-          role = [headingMain, HomeAgronodo, AdminAgricola];
+          role = [headingMain, Home, AdminAgricola];
           break;
         }
       }
