@@ -1,4 +1,3 @@
-import { AuthService } from './../../Services/login.service';
 import { Component, OnInit, ViewChild } from "@angular/core";
 const screenfull = require("screenfull");
 
@@ -6,6 +5,7 @@ import { UserblockService } from "../sidebar/userblock/userblock.service";
 import { SettingsService } from "../../core/settings/settings.service";
 import { MenuService } from "../../core/menu/menu.service";
 import { Router } from '@angular/router';
+import { AdminAgricola } from './../../Services/admin-agricola.service';
 
 @Component({
   selector: "app-header",
@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     public menu: MenuService,
     public userblockService: UserblockService,
     public settings: SettingsService,
-    public auth:AuthService,
+    public auth:AdminAgricola,
     private router: Router
   ) {
     
@@ -93,6 +93,12 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.auth.logout()
-}
+    localStorage.clear()
+    // this.auth.logout().subscribe(resp => {
+    //   console.log("entro");
+    // },err =>{
+    //   console.log(err);
+      
+    // } )
+  }
 }

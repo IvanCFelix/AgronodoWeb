@@ -30,7 +30,9 @@ export class AdminAgricola {
   return this.http.patch(`${Uris.API_ADMIN_AGRICOLA_EDIT}${user.user.username}/`, admin,this.jwt()).map((response: Response) => response.json()) 
 }
   
-
+logout(){
+  return this.http.post(`${Uris.API_LOGOUT}`,this.jwt()).map((response: Response) => response.json()) 
+}
   errorHandler(error: any): void {
     console.log("SUPER ERROR",error)
     if (localStorage.getItem('token') && error.status == 401) {

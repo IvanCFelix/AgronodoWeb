@@ -1,3 +1,4 @@
+import { ActivatedRoute } from "@angular/router";
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import Swal from "sweetalert2";
@@ -21,10 +22,13 @@ export class LotsComponent implements OnInit {
   lng: number = -108.9858821;
   zoom: number = 14;
   mostrarsublotes:any = [];
+  user;
   nestedPaths = [];
 
 
-  constructor(public LotsService:LotsAgricolaService) { }
+  constructor(
+    public LotsService:LotsAgricolaService,
+    public route:ActivatedRoute) { }
 
 
   updateFilter(event) {
@@ -40,6 +44,10 @@ export class LotsComponent implements OnInit {
 }
 
   ngOnInit() {
+    const user = JSON.parse(localStorage.getItem("USER"));
+    this.user = user 
+    console.log(this.user.profile.prmsLotes)
+
     this.LotsService.listLots().subscribe(resp => {
     console.log(resp)
       this.listlots = resp;

@@ -26,28 +26,32 @@ export class UserblockComponent implements OnInit {
         this.adminService.getRefresh().subscribe( resp => {
             this.usuario = resp
             this.type = resp.user_type_name
+            console.log(resp)
             switch (resp.user_type) {
-                //Admin Agronodo
+                // Agronodo
                 case 2: {
                     this.photo = resp.profile.photo
                     this.name = resp.profile.names
                   break;
                 }
-                //Agricola
+                //Admin agronodo
                 case 3: {
                   break;
                 }
-                //Admin Agricola
+                //Agricola
                 case 4: {
                     this.photo = resp.profile.photo
                     this.name = resp.profile.agricola
                   break;
                 }
-                //Admin Ingeniero
+                // Admin Agricola
                 case 5: {
+                  this.photo = resp.profile.photo
+                  this.name = resp.profile.names
+
                   break;
                 }
-                //Ingeniero
+                //Admin Ingeniero
                 case 6: {
                   break;
                 }

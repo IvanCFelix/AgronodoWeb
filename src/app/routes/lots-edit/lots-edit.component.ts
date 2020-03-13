@@ -140,25 +140,8 @@ export class LotsEditComponent implements OnInit {
   }
   pol() {
     this.edit = true;
-    // console.log(this.newpaths);
-    // this.pathsSubLotes = [];
-    // let obj = [
-    //   [
-    //     { lat: 25.80317630952905, lng: -108.98491032228453 },
-    //     { lat: 25.801746752090914, lng: -108.98598320589049 },
-    //     { lat: 25.79966034001631, lng: -108.98233540163024 },
-    //     { lat: 25.801012648326893, lng: -108.9811766873358 }
-    //   ],
-    //   [
-    //     { lat: 25.81224822827475, lng: -108.98349946020446 },
-    //     { lat: 25.81417988733787, lng: -108.98959343908629 },
-    //     { lat: 25.811398288307792, lng: -108.99216835974059 },
-    //     { lat: 25.808500719863055, lng: -108.98663228033385 }
-    //   ]
-    // ];
-    // // this.nestedPaths.push(obj);
-
-    // console.log(this.nestedPaths);
+   this.lat = this.newpaths[0].lat
+   this.lng = this.newpaths[0].lng
   }
 
   register(value: any) {
@@ -198,9 +181,8 @@ export class LotsEditComponent implements OnInit {
       (err: any) => {
         console.log(err)
         Swal.fire({
-          text: "Error en el sevidor",
-          showConfirmButton: false,
-          timer: 1500,
+          text: err._body,
+          showConfirmButton: true,
           icon:'error',
           width: '250px'
         });
@@ -259,7 +241,6 @@ export class LotsEditComponent implements OnInit {
        this.pathsSubLotes = value.subfieldCoordinates;
        this.pathSub = [value.subfieldCoordinates]
      }else{
-      this.edit = true;
       this.colorDemo1 = value.color;
       this.sublotesforms.setValue({
         _id:p,
@@ -270,7 +251,7 @@ export class LotsEditComponent implements OnInit {
         crops: value.crops.name
       });
      console.log(this.sublotesforms.value._id);
-     
+    
       this.pathsSubLotes = value.subfieldCoordinates;
       this.pathSub = [value.subfieldCoordinates]
      }
