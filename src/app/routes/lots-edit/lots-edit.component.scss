@@ -5,6 +5,14 @@ agm-map {
     font-size: 13px;
 }
 
+.pos-button{
+  position: absolute;
+  z-index: 1;
+  right: 32px;
+  top: 14px;
+}
+
+
 
 @media screen and (max-width: 1312px) { 
   .respon{

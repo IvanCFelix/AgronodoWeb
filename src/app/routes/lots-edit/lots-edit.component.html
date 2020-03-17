@@ -8,7 +8,6 @@
   <div class="row d-flex justify-content-center align-content-center ">
     <div class="col-12 col-sm-10 col-md-9 col-lg-9 col-xl-8">
       <form [formGroup]="lotesForms" (submit)="register(lotesForms.value)">
-
         <div class="card ">
           <div class="card-body">
             <div class="row">
@@ -16,10 +15,13 @@
                 <div class="form-group row">
                   <div class="col ">
                     <label>Nombre del lote</label>
-
-                    <input class="form-control" formControlName="name" type="text" />
-
-                    <span class="text-danger" *ngIf="lotesForms.controls['name'].errors?.required">Ingresa un
+                    <div *ngIf="!url">
+                      <input disabled class="form-control" formControlName="name" type="text" />
+                    </div>
+                    <div *ngIf="url">
+                      <input  class="form-control" formControlName="name" type="text" />
+                    </div>
+                    <span  class="text-danger" *ngIf="lotesForms.controls['name'].errors?.required">Ingresa un
                       campo
                       válido</span>
                     <!-- <span class="text-danger" *ngIf="lotesForms.controls['name'].errors?.cannotContainSpace">
@@ -73,7 +75,9 @@
                   </agm-map>
                 </div> -->
 
-                <div *ngIf="!id">
+                <div *ngIf="url">
+                  <button class="btn btn-danger pos-button" type="button" (click)="back()"><em
+                    class="fa fas fa-backward"></em></button>
                   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
                     (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
 
@@ -85,16 +89,11 @@
                       <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                       </agm-polyline-point>
                     </agm-polyline>
-                    <agm-polyline *ngFor="let polyline of mostrarsublotes; let i = index;"
-                      [strokeColor]="polyline.color">
-                      <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat"
-                        [longitude]="point.lng">
-                      </agm-polyline-point>
-                    </agm-polyline>
+                   
                   </agm-map>
                 </div>
 
-                <div *ngIf="id">
+                <div *ngIf="id && !url">
                   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false">
                     <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#4caf50'"
                       [strokeWeight]="">
@@ -119,11 +118,11 @@
 
           <div class="row text-right p-2">
             <div class="col ">
-              <button *ngIf="newpaths.length >= 3" class="btn btn-success" type="button"
+              <button *ngIf="newpaths.length >= 3 && !url" class="btn btn-success" type="button"
                 (click)="pol();Modal.show();">Agregar un sub lote</button>
             </div>
           </div>
-          <div class="row d-flex justify-content-center align-content-center">
+          <div class="row d-flex justify-content-center align-content-center" *ngIf="!url">
             <div class="col">
               <div class="card-body">
                 <!-- START table-responsive-->

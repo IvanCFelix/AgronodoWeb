@@ -18,7 +18,8 @@ export class LotsEditComponent implements OnInit {
   indice:number;
   example: any = [];
   mostrar: boolean = true;
-  id ;
+  id;
+  url;
   edit = false;
   sublotearray = [];
   colorDemo1 = "";
@@ -59,6 +60,9 @@ export class LotsEditComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
+    const url = this.route.snapshot.paramMap.get('lot')
+    this.url = url;
+    
     this.id = id;
     if (id) {
      
@@ -259,8 +263,6 @@ export class LotsEditComponent implements OnInit {
   }
   
   sublotenew(value){
-    console.log(value._id);
-    console.log(this.sublotesforms.value._id );
     if(this.sublotesforms.value._id !== -1){
       let obj = {
         crops: {
@@ -522,5 +524,19 @@ export class LotsEditComponent implements OnInit {
         controlsublote.splice(p,1)
       }
     })
+  }
+  back(){
+      const num1 = this.newpaths.length - 1
+      const num2 = this.newpaths.length - 2
+      const num3 = this.newpaths.length -3
+      if(this.newpaths.length < 5){
+       this.newpaths.splice(num1,1)  
+       this.newpaths.splice(num2,1)  
+        console.log("entro");
+      }
+      if(this.newpaths.length >= 5){
+      this.newpaths.splice(num2,1)  
+      this.newpaths.splice(num3,1) 
+    }
   }
 }
