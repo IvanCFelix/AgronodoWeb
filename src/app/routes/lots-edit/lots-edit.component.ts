@@ -539,4 +539,19 @@ export class LotsEditComponent implements OnInit {
       this.newpaths.splice(num3,1) 
     }
   }
+  backsubfield(){
+    
+    const num1 = this.pathsSubLotes.length - 1
+      const num2 = this.pathsSubLotes.length - 2
+      const num3 = this.pathsSubLotes.length -3
+      if(this.pathsSubLotes.length < 5){
+       this.pathsSubLotes.splice(num1,1)  
+       this.pathsSubLotes.splice(num2,1)  
+        console.log("entro");
+      }
+      if(this.pathsSubLotes.length >= 5){
+      this.pathsSubLotes.splice(num2,1)  
+      this.pathsSubLotes.splice(num3,1) 
+    }
+  }
 }

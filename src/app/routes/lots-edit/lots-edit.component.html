@@ -15,10 +15,10 @@
                 <div class="form-group row">
                   <div class="col ">
                     <label>Nombre del lote</label>
-                    <div *ngIf="!url">
+                    <div *ngIf="!url && id">
                       <input disabled class="form-control" formControlName="name" type="text" />
                     </div>
-                    <div *ngIf="url">
+                    <div *ngIf="!id || url">
                       <input  class="form-control" formControlName="name" type="text" />
                     </div>
                     <span  class="text-danger" *ngIf="lotesForms.controls['name'].errors?.required">Ingresa un
@@ -42,10 +42,7 @@
               <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
 
 
-                <div *ngIf="!id" class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
-                  <button class="btn btn-danger " type="button" (click)="clear()"><em
-                      class="fa fas fa-trash"></em></button>
-                </div>
+               
                 <!-- <div *ngIf="mostrar == false" class="text-right p-2"
                   style="position: absolute;z-index: 1;right: 18px; top: 39px;">
                   <button class="btn btn-success " type="button" (click)="savepath()"><em
@@ -75,21 +72,24 @@
                   </agm-map>
                 </div> -->
 
-                <div *ngIf="url">
+                <div *ngIf="!id || url">
                   <button class="btn btn-danger pos-button" type="button" (click)="back()"><em
                     class="fa fas fa-backward"></em></button>
                   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
                     (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
-
                     <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
                       [opacity]="marker.alpha" [markerDraggable]="false">
                     </agm-marker>
-
                     <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#4caf50'">
                       <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                       </agm-polyline-point>
                     </agm-polyline>
-                   
+                    <!-- <agm-polyline *ngFor="let polyline of mostrarsublotes; let i = index;"
+                      [strokeColor]="polyline.color">
+                      <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat"
+                        [longitude]="point.lng">
+                      </agm-polyline-point>
+                    </agm-polyline> -->
                   </agm-map>
                 </div>
 
@@ -273,7 +273,8 @@
               </form>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-
+              <button class="btn btn-danger pos-button" type="button" (click)="backsubfield()"><em
+                class="fa fas fa-backward"></em></button>
               <!-- <div class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
                 <button class="btn btn-danger " type="button" (click)="clearsublote()"><em
                     class="fa fas fa-trash"></em></button>

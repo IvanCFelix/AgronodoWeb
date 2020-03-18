@@ -62,7 +62,8 @@
       </div>
       <div class="col">
           <div class="card-body">  
-        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false">                
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false"> 
+          <agm-polygon [paths]="allLots" [fillOpacity]="0.1" [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'"></agm-polygon>               
           <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#4caf50'" [strokeWeight]="">
             <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
             </agm-polyline-point>
