@@ -84,12 +84,12 @@
                       <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                       </agm-polyline-point>
                     </agm-polyline>
-                    <!-- <agm-polyline *ngFor="let polyline of mostrarsublotes; let i = index;"
+                    <agm-polyline *ngFor="let polyline of mostrarsublotes; let i = index;"
                       [strokeColor]="polyline.color">
                       <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat"
                         [longitude]="point.lng">
                       </agm-polyline-point>
-                    </agm-polyline> -->
+                    </agm-polyline>
                   </agm-map>
                 </div>
 
@@ -135,7 +135,7 @@
                         <th>Nombre</th>
                         <th>Tipo de cultivo</th>
                         <th>Tipo de lote</th>
-                        <th>Fechas</th>
+                        <th>Ciclos</th>
                         <th>Acciones</th>
                       </tr>
                     </thead>
@@ -281,7 +281,7 @@
               </div> -->
               <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
                 (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
-                <agm-marker *ngFor="let marker of pathsSubLotes" [latitude]="marker.lat" [longitude]="marker.lng"
+                <agm-marker *ngFor="let marker of pathsSubLotes" [label]="'holamun'"  [latitude]="marker.lat" [longitude]="marker.lng"
                   [opacity]="marker.alpha" [markerDraggable]="false">
                 </agm-marker>
                 <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#4caf50'">

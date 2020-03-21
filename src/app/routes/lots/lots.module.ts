@@ -7,6 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ng2-img-cropper';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AgmCoreModule  } from '@agm/core';
+import { ColorPickerModule, ColorPickerService } from 'ngx-color-picker';
+import { ModalModule} from 'ngx-bootstrap/modal'
 
 const routes: Routes = [
   { path: '', component: LotsComponent },
@@ -14,11 +16,14 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [LotsComponent],
+  providers: [ColorPickerService],
   imports: [
+    ColorPickerModule,
     ReactiveFormsModule,
     ImageCropperModule,
     CommonModule,
     NgxDatatableModule,
+    ModalModule.forRoot(),
     RouterModule.forChild(routes),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBNs42Rt_CyxAqdbIBK0a5Ut83QiauESPA',

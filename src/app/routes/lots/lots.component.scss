@@ -5,11 +5,33 @@
     top: 9px;
     right: 20px;
 }
+.border-td{
+  border:1px solid #eee
+}
+.text-29{
+  font-size: 29px;
+}
+.card-header{
+ border: 1px solid rgba(0, 0, 0, 0.125)!important;
+}
 agm-map {
-    height: 617px;
+  height: 727px;
   }
-
-
+.card-modal {
+  agm-map{
+    height:450px ;
+  }
+}
+.font-13{
+  font-size: 13px;
+}
+.scroll{
+    height: 829px; 
+    overflow: auto;
+    padding: 10px;
+    margin-left: 5px;
+  
+}
   @media screen and (max-width: 642px) { 
    .respo{
     padding: 4px 8px;
@@ -23,3 +45,30 @@ agm-map {
     background-color: rgba(0, 0, 0, 0.025) !important;
     width: 97%!important;
   }
+
+
+ 
+  .font-13{
+    font-size: 13px;
+}
+
+.pos-button{
+  position: absolute;
+  z-index: 1;
+  right: 32px;
+  top: 14px;
+}
+
+
+
+@media screen and (max-width: 1312px) { 
+  .respon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  agm-map{
+   height: 412px;
+  }
+
+ }
