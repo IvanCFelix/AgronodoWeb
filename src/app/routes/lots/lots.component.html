@@ -1,12 +1,12 @@
 <div class="alt">
   <div class="main-container">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 animated fadeIn">
         <h3 *ngIf="mostrar == true" class="m-0">Lotes</h3>
         <h3 *ngIf="mostrar == false" class="m-0">Lote: {{showlote.name}}</h3>
 
       </div>
-      <div class="col">
+      <div class="col animated fadeIn">
         <p *ngIf="mostrar" class="text-18">Ve la lista de lotes, edita, habilita/deshabilita o agrega nuevos.</p>
         <p *ngIf="mostrar == false" class="text-18">Ver, editar, agregar y eliminar sublotes.</p>
 
@@ -24,12 +24,12 @@
           style="border-radius: 21px;" />
       </div>
       <div *ngIf="mostrar == false">
-        <button class="mb-1 mr-1 btn btn-info " type="button" (click)="mostrar = !mostrar"  > <em class=" fa mr-2 fas fa-arrow-left  font-13"></em>
+        <button class="mb-1 mr-1 btn btn-info " type="button" (click)="Allpolygon()"  > <em class=" fa mr-2 fas fa-arrow-left  font-13"></em>
           Lista de lotes</button>
       </div>
     </div>
     <div class="col text-right">
-      <button class="mb-1 mr-1 btn btn-success" type="button" routerLink="/Lotes/new" *ngIf="listlots.length < this.user.profile.prmsLotes">Agregar nuevo
+      <button class="mb-1 mr-1 btn btn-success" type="button" routerLink="/Lotes/new" *ngIf="listlots.length < this.user.profile.prmsLotes && mostrar == true">Agregar nuevo
         Lote</button>
         <button class="mb-1 mr-1 btn btn-success" type="button" (click)="Modal.show();clearform();" *ngIf="mostrar == false">Agregar nuevo
           SubLote</button>
@@ -125,8 +125,11 @@
       <div class="col">
           <div class=" card-body ">  
         <agm-map  [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false"> 
-          <agm-polygon [paths]="allLots" [fillOpacity]="0.1" [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'"></agm-polygon>               
-          <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#4caf50'" [strokeWeight]="">
+          <div *ngFor="let item of allLots; let i = index">
+            <agm-polygon *ngIf="mostrar == true" [paths]="item" [fillOpacity]="0.1"  [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'" (polyClick)="onPolyClick($event,i);" ></agm-polygon>               
+            <agm-polygon *ngIf="mostrar == false" [paths]="item" [fillOpacity]="0.1" [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'"  ></agm-polygon>               
+          </div>
+          <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	 '#4caf50'" [clickable]=true>
             <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
             </agm-polyline-point>
           </agm-polyline>
@@ -290,7 +293,7 @@
               </div> -->
               <agm-map  [latitude]="lat" [longitude]="lng" [zoom]="zoom"
                 (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
-                <agm-marker *ngFor="let marker of pathsSubLotes" [label]="'holamun'"  [latitude]="marker.lat" [longitude]="marker.lng"
+                <agm-marker *ngFor="let marker of pathsSubLotes" [iconUrl]="iconmap.iconUrl"   [latitude]="marker.lat" [longitude]="marker.lng"
                   [opacity]="marker.alpha" [markerDraggable]="false">
                 </agm-marker>
                 <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#4caf50'">

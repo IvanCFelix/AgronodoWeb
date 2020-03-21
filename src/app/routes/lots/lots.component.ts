@@ -49,7 +49,10 @@ export class LotsComponent implements OnInit {
     // ]
     
   ]
-
+  iconmap = {
+    iconUrl: '../../assets/img/market.png',
+    iconHeigh:10
+  }
 
   constructor(
     public LotsService:LotsAgricolaService,
@@ -84,7 +87,6 @@ export class LotsComponent implements OnInit {
     console.log(this.user.profile.prmsLotes)
 
     this.LotsService.listLots().subscribe(resp => {
-
      this.allLots = this.allmaps(resp)
     console.log(resp)
       this.listlots = resp;
@@ -108,11 +110,11 @@ export class LotsComponent implements OnInit {
         console.log(result.value)
         this.LotsService.delete(value.id)
         .subscribe( resp => {
-          this.LotsService.listLots().subscribe((resp:any) => {
-            this.listlots = resp;
-            this.temp = resp;
-            console.log(resp)
-          })
+          this.LotsService.listLots().subscribe(resp => {
+            this.allLots = this.allmaps(resp)
+             this.listlots = resp;
+             this.temp = resp;
+           })
 
         })
       }
@@ -123,11 +125,8 @@ export class LotsComponent implements OnInit {
       lat: lat,
       lng: lng
     };
-    
     this.newpaths.push(obj);
-    console.log(this.newpaths);
     
-
     if(this.newpaths.length == 3){
       let path = this.newpaths[0]
       this.newpaths.push(path)
@@ -180,9 +179,6 @@ export class LotsComponent implements OnInit {
     this.timeout = setTimeout(() => {
     }, 100);
   }
-  onDetailToggle(event) {
-    console.log('Detail Toggled', event);
-}
  
   onSelect({ selected }) {
     this.selected.splice(0, this.selected.length);
@@ -192,12 +188,10 @@ export class LotsComponent implements OnInit {
 
   showmap(value){
     this.id = value
-    
     this.mostrar = false
     this.LotsService.getLot(value).subscribe((resp: any) => {
       this.allLots = this.solomap(resp)
       this.showlote = resp;
-      console.log(this.showlote);
       this.zoom = 13
       this.mostrarsublotes = resp.subfield
       this.lat = resp.coordinates[0].lat
@@ -220,14 +214,10 @@ export class LotsComponent implements OnInit {
   }
   solomap(value){
     let jun = []
-      jun.push(value.coordinates)
-    
-    console.log(jun);
+    jun.push(value.coordinates)
     return jun
   }
-  datasublote(value, p) {
-    console.log(value.id);
-    
+  datasublote(value) {
       this.colorDemo1 = value.color;
       this.sublotesforms.setValue({
         _id:value.id,
@@ -239,7 +229,6 @@ export class LotsComponent implements OnInit {
       });    
       this.pathsSubLotes = value.subfieldCoordinates;
       this.pathSub = [value.subfieldCoordinates]
-   
   }
   sublote(value){   
     console.log("El id es"+this.id);
@@ -302,10 +291,9 @@ export class LotsComponent implements OnInit {
     }
   }
   backsubfield(){
-    
-    const num1 = this.pathsSubLotes.length - 1
+      const num1 = this.pathsSubLotes.length - 1
       const num2 = this.pathsSubLotes.length - 2
-      const num3 = this.pathsSubLotes.length -3
+      const num3 = this.pathsSubLotes.length - 3
       if(this.pathsSubLotes.length < 5){
        this.pathsSubLotes.splice(num1,1)  
        this.pathsSubLotes.splice(num2,1)  
@@ -326,6 +314,24 @@ export class LotsComponent implements OnInit {
       crops: ""
     });
     this.pathsSubLotes = [];
+  }
+  Allpolygon(){
+    this.mostrar = !this.mostrar
+    this.LotsService.listLots().subscribe(resp => {
+      this.allLots = this.allmaps(resp)
+       this.listlots = resp;
+       this.temp = resp;
+       this.mostrarsublotes = []
+     
+     })
+  }
+  onPolyClick($event,index){
+
+  const value = this.listlots[index]
+ console.log(value);
+ 
+  this.showmap(value.id)
+    
   }
 }
 
