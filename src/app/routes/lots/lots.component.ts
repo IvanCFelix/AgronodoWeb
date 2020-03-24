@@ -189,8 +189,9 @@ export class LotsComponent implements OnInit {
   showmap(value){
     this.id = value
     this.mostrar = false
-    this.LotsService.getLot(value).subscribe((resp: any) => {
+    this.LotsService.getLot(this.id).subscribe((resp: any) => {
       this.allLots = this.solomap(resp)
+      
       this.showlote = resp;
       this.zoom = 13
       this.mostrarsublotes = resp.subfield
@@ -213,11 +214,19 @@ export class LotsComponent implements OnInit {
     return jun
   }
   solomap(value){
+    console.log(value)
     let jun = []
-    jun.push(value.coordinates)
+    for(let item of value.subfield){
+      const arrays = item.subfieldCoordinates
+      jun.push(arrays)
+    }
+    console.log(jun);
     return jun
   }
   datasublote(value) {
+    console.log(value);
+    this.lat = value.subfieldCoordinates[0].lat
+    this.lng = value.subfieldCoordinates[0].lng
       this.colorDemo1 = value.color;
       this.sublotesforms.setValue({
         _id:value.id,
@@ -252,6 +261,7 @@ export class LotsComponent implements OnInit {
        this.LotsService.EditSublote(obj,value._id).subscribe(resp =>{
          this.LotsService.getLot(this.id).subscribe((resp: any) => {
            console.log(resp);
+           this.allLots = this.solomap(resp)
            this.showlote = resp
            this.newpaths = resp.coordinates;
            this.mostrarsublotes = resp.subfield
@@ -280,8 +290,8 @@ export class LotsComponent implements OnInit {
         console.log(obj);
         this.LotsService.SubloteRegister(obj).subscribe(resp =>{
           this.LotsService.getLot(this.id).subscribe((resp: any) => {
+            this.allLots = this.solomap(resp)
             console.log(resp);
-            
             this.showlote = resp
             this.newpaths = resp.coordinates;
             this.mostrarsublotes = resp.subfield
@@ -325,13 +335,16 @@ export class LotsComponent implements OnInit {
      
      })
   }
-  onPolyClick($event,index){
+  getsubfield(value){
 
+  }
+  onPolyClickLote($event,index){
   const value = this.listlots[index]
- console.log(value);
- 
   this.showmap(value.id)
-    
+  }
+  onPolyClickSublote(index){
+  const value = this.showlote.subfield[index]
+  this.datasublote(value)
   }
 }
 

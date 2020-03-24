@@ -64,9 +64,6 @@
                 <button class="btn btn-danger m-1 respo" (click)="delete(row)">
                   <a class="fas fa-trash-alt" ></a>
                 </button>
-                <button class="btn btn-info respo" *ngIf="row.subfield.length > 0" [routerLink]="['/Sublote/',row.id]">
-                  Seleccionar
-                </button>
               </ng-template>
             </ngx-datatable-column>
           </ngx-datatable>
@@ -126,8 +123,8 @@
           <div class=" card-body ">  
         <agm-map  [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false"> 
           <div *ngFor="let item of allLots; let i = index">
-            <agm-polygon *ngIf="mostrar == true" [paths]="item" [fillOpacity]="0.1"  [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'" (polyClick)="onPolyClick($event,i);" ></agm-polygon>               
-            <agm-polygon *ngIf="mostrar == false" [paths]="item" [fillOpacity]="0.1" [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'"  ></agm-polygon>               
+            <agm-polygon *ngIf="mostrar == true" [paths]="item" [fillOpacity]="0.1"  [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'" (polyClick)="onPolyClickLote($event,i);" ></agm-polygon>               
+            <agm-polygon *ngIf="mostrar == false" [paths]="item" [fillOpacity]="0.1" [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'" (polyClick)="onPolyClickSublote(i);Modal.show();"   ></agm-polygon>               
           </div>
           <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	 '#4caf50'" [clickable]=true>
             <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
