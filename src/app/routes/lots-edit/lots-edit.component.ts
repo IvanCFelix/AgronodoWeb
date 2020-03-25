@@ -150,6 +150,7 @@ export class LotsEditComponent implements OnInit {
         this.router.navigateByUrl("/Lotes");
       },
       (err: any) => {
+        console.log(err)
         Swal.fire({
           text: err._body,
           showConfirmButton: true,

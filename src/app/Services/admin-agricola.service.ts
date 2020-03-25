@@ -43,6 +43,7 @@ export class AdminAgricola {
         let headers = new Headers();
         let user = JSON.parse(localStorage.getItem('USER'));
         headers.append('Content-Type', 'application/json');
+        headers.append('Accept-Language', 'es');
         headers.append('Authorization', `token ${user.token}`);
       return new RequestOptions({ headers: headers });
     }
