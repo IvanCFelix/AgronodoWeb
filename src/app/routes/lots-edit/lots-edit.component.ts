@@ -1,11 +1,12 @@
-import { BsModalService } from "ngx-bootstrap/modal";
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl, Validators} from "@angular/forms";
-import { Component, OnInit } from "@angular/core";
+import { OnInit,ViewChild,Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import Swal from "sweetalert2";
 import { LotsAgricolaService } from "../../Services/lots-agricola.service";
 declare const google: any;
+
 
 @Component({
   selector: "app-lots-edit",
@@ -13,7 +14,10 @@ declare const google: any;
   styleUrls: ["./lots-edit.component.scss"]
 })
 export class LotsEditComponent implements OnInit {
+  @ViewChild('Modal') public contentModal;
+  public name:string;
   lotesForms: FormGroup;
+  sololote:boolean = false
   sublotesforms: FormGroup;
   indice:number;
   example: any = [];
@@ -33,6 +37,7 @@ export class LotsEditComponent implements OnInit {
   pathSub =[];
   mostrarsublotes:any = [];
   paths = [];
+  allLots:any =[]
   nestedPaths = [];
   public polyline: Array<any>;
   public polylines: Array<any>;
@@ -41,7 +46,9 @@ export class LotsEditComponent implements OnInit {
   constructor(
     public router: Router,
     private route: ActivatedRoute,
-    public lotService: LotsAgricolaService
+    public lotService: LotsAgricolaService,
+    private modalService:BsModalService
+
   ) {
     this.lotesForms = new FormGroup({
       name: new FormControl("", [Validators.required])
@@ -50,8 +57,8 @@ export class LotsEditComponent implements OnInit {
       _id: new FormControl(-1),
       nickname: new FormControl("", Validators.required),
       crops: new FormControl("", Validators.required),
-      start_date: new FormControl(Date, Validators.required),
-      finish_date: new FormControl(Date, Validators.required),
+      // start_date: new FormControl(Date, Validators.required),
+      // finish_date: new FormControl(Date, Validators.required),
       agriculture_type: new FormControl("", Validators.required)
     });
   }
@@ -63,12 +70,11 @@ export class LotsEditComponent implements OnInit {
     const url = this.route.snapshot.paramMap.get('lot')
     this.url = url;
     this.id = id;
-    if (id) {
+    if (id !== null) {
      
       this.lotService.getLot(id).subscribe((resp: any) => {
         this.sublotearray = resp.subfield;
         this.mostrarsublotes = resp.subfield
-        console.log(resp)
         this.lat = resp.coordinates[0].lat
         this.lng = resp.coordinates[0].lng
         
@@ -92,6 +98,33 @@ export class LotsEditComponent implements OnInit {
  
   }
  
+  modalshow(value:string){
+    this.name = value;
+    this.contentModal.show();
+  }
+  allmaps(){
+  
+    let jun = []
+    jun = this.newpaths
+    return jun
+  }
+  confirmsublote(value){
+    Swal.fire({
+      title: 'Campos necesarios',
+      text: "Si no se registran sublotes el lote se tomara como si fuera uno",
+      icon: 'warning',
+      confirmButtonText: 'Guardar lote',
+      confirmButtonColor: '#27c24c',
+    }).then((result) => {
+      if(result.value){
+        this.modalshow('@getbootstrap')
+        this.allLots = this.allmaps()
+        this.pathsSubLotes = this.allmaps()
+       
+        this.sololote = true
+      }
+    })
+  }
   clear() {
     this.newpaths = [];
     this.nestedPaths = [];
@@ -101,19 +134,21 @@ export class LotsEditComponent implements OnInit {
     this.pathSub = []
   }
   clearform(){
+    this.sololote = false
     this.pathsSubLotes = []
     this.pathSub = []
     this.sublotesforms.setValue({
       _id:0,
       agriculture_type: "",
-      start_date: "",
-      finish_date: "",
+      // start_date: "",
+      // finish_date: "",
       nickname: "",
       crops: ""
     });
   }
   pol() {
-    this.edit = true;
+   this.sololote = false
+   this.edit = true;
    this.lat = this.newpaths[0].lat
    this.lng = this.newpaths[0].lng
   }
@@ -195,29 +230,38 @@ export class LotsEditComponent implements OnInit {
 
   }
 
+  Lotesub(){
+    this.pathSub = this.nestedPaths
+  }
+
   datasublote(value, p) {
-      this.colorDemo1 = value.color;
-      this.sublotesforms.setValue({
-        _id:p,
-        nickname: value.nickname,
-        agriculture_type: value.agriculture_type,
-        start_date: value.start_date,
-        finish_date: value.finish_date,
-        crops: value.crops.name
-      });    
-      this.pathsSubLotes = value.subfieldCoordinates;
+    this.sololote = false
+   
+    this.colorDemo1 = value.color;
+    this.sublotesforms.setValue({
+      _id:p,
+      nickname: value.nickname,
+      agriculture_type: value.agriculture_type,
+      // start_date: value.start_date,
+      // finish_date: value.finish_date,
+      crops: value.crops.name
+    });    
+    
+    this.pathsSubLotes = value.subfieldCoordinates;
       this.pathSub = [value.subfieldCoordinates]
   }
   
   sublotenew(value){
+    console.log(value);
+    
     if(this.sublotesforms.value._id !== -1){
       let obj = {
         crops: {
           name: value.crops
         },
         agriculture_type: value.agriculture_type,
-        start_date: value.start_date,
-        finish_date: value.finish_date,
+        // start_date: value.start_date,
+        // finish_date: value.finish_date,
         color:this.colorDemo1,
         nickname: value.nickname,
         subfieldCoordinates: this.pathsSubLotes
@@ -231,8 +275,8 @@ export class LotsEditComponent implements OnInit {
             name: value.crops
           },
           agriculture_type: value.agriculture_type,
-          start_date: value.start_date,
-          finish_date: value.finish_date,
+          // start_date: value.start_date,
+          // finish_date: value.finish_date,
           color:this.colorDemo1,
           nickname: value.nickname,
           subfieldCoordinates: this.pathsSubLotes
@@ -248,8 +292,8 @@ export class LotsEditComponent implements OnInit {
     this.sublotesforms.setValue({
       _id: -1 ,
       agriculture_type: "",
-      start_date: "",
-      finish_date: "",
+      // start_date: "",
+      // finish_date: "",
       nickname: "",
       crops: ""
     });
@@ -279,26 +323,28 @@ export class LotsEditComponent implements OnInit {
    
   }
   addMakerSubLote(lat: number, lng: number) {
-    let obj = {
-      lat: lat,
-      lng: lng
-    };
-    this.pathsSubLotes.push(obj);
-
-    if(this.pathsSubLotes.length == 3){
-      let path = this.pathsSubLotes[0]
-      this.pathsSubLotes.push(path)  
+    if(this.sololote == false){
+      let obj = {
+        lat: lat,
+        lng: lng
+      };
+      this.pathsSubLotes.push(obj);
+  
+      if(this.pathsSubLotes.length == 3){
+        let path = this.pathsSubLotes[0]
+        this.pathsSubLotes.push(path)  
+      }
+      if(this.pathsSubLotes.length > 4){
+        this.pathsSubLotes.splice(this.pathsSubLotes.length - 2,1);
+        let pos = this.pathsSubLotes.length - 1
+        let uwu = this.pathsSubLotes[pos]
+        this.pathsSubLotes.push(uwu)
+        let path = this.pathsSubLotes[0]
+        this.pathsSubLotes.push(path)
+      }
+      const array: any[] = Array.of(this.pathsSubLotes);
+      this.pathSub = array;
     }
-    if(this.pathsSubLotes.length > 4){
-      this.pathsSubLotes.splice(this.pathsSubLotes.length - 2,1);
-      let pos = this.pathsSubLotes.length - 1
-      let uwu = this.pathsSubLotes[pos]
-      this.pathsSubLotes.push(uwu)
-      let path = this.pathsSubLotes[0]
-      this.pathsSubLotes.push(path)
-    }
-    const array: any[] = Array.of(this.pathsSubLotes);
-    this.pathSub = array;
   }
 
 
@@ -354,5 +400,15 @@ export class LotsEditComponent implements OnInit {
       this.pathsSubLotes.splice(num2,1)  
       this.pathsSubLotes.splice(num3,1) 
     }
+  }
+  submitsoloLote(value){
+      this.sublotenew(value)
+        let obj = {
+          name: this.lotesForms.value.name,
+          coordinates: this.newpaths,
+          subfield: this.sublotearray
+        };
+        this.create(obj)
+      
   }
 }

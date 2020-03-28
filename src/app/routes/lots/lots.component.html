@@ -83,10 +83,12 @@
                   <div class=" ">
                     <div class="row ">
                       <div class="col-6 ">
-                        <strong>Inicio del ciclo:  </strong>{{item.start_date}}
+                        <strong>Inicio del ciclo:  </strong>
+                        <!-- {{item.start_date}} -->
                       </div>
                       <div class="col-6  ">
-                        <strong>Fin del ciclo:  </strong>{{item.finish_date}}
+                        <strong>Fin del ciclo:  </strong>
+                        <!-- {{item.finish_date}} -->
                       </div>
                     </div>  
                 </div>
@@ -107,9 +109,9 @@
                 </div>
                 <div class="card-footer text-right bt0">
                   <button class="btn btn-success m-1" type="button"
-                  (click)="datasublote(item,i);Modal.show();">
+                  (click)="datasublote(item,i);Modal.show()">
                   <a class="fas fa-pencil-alt"></a> </button>
-                <button  type="button" class="btn btn-danger" >
+                <button (click)="deletesublote(item)" type="button" class="btn btn-danger" >
                   <a class="fas fa-trash-alt"></a>
                 </button>
               </div>
@@ -196,7 +198,8 @@
   
 
 <div bsModal #Modal="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-  aria-hidden="true">
+  aria-hidden="false" [config]="{ ignoreBackdropClick: true }" >
+
   <div class="modal-dialog modal-lg " style="height: 52%;width: 100%;">
     <div class="modal-content" style="width: 116%;">
       <div class="modal-header p-0">
@@ -204,7 +207,7 @@
           <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
           Agregar un sublote
         </div>
-        <button type="button" class="close" aria-label="Close" (click)="Modal.hide();"
+        <button type="button" class="close" aria-label="Close" (click)="Modal.hide();getLot();"
           style="font-size: 34px;padding: 23px;">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -250,7 +253,7 @@
                       válido</span>
                   </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                   <div class="col-6" style="padding: 1px 3px 3px 30px;">
                     <label>Fecha de inicio</label>
                     <input type="date" class="form-control" formControlName="start_date">
@@ -259,7 +262,7 @@
                     <label>Fecha final</label>
                     <input type="date" class="form-control" formControlName="finish_date">
                   </div>
-                </div>
+                </div> -->
                 <div class="row">
                   <div class="col text-center">
                     Color principal:
@@ -274,7 +277,7 @@
                   </div>
                 </div>
                 <div class="text-center mt-3">
-                  <button  class="btn btn-success"
+                  <button *ngIf="pathsSubLotes.length >= 3" class="btn btn-success"
                     type="button" (click)="sublote(sublotesforms.value);Modal.hide();">Guardar datos</button>
                 
                 </div>
@@ -293,6 +296,9 @@
                 <agm-marker *ngFor="let marker of pathsSubLotes" [iconUrl]="iconmap.iconUrl"   [latitude]="marker.lat" [longitude]="marker.lng"
                   [opacity]="marker.alpha" [markerDraggable]="false">
                 </agm-marker>
+                <div *ngFor="let item of allLots; let i = index">
+                  <agm-polygon  [paths]="item" [fillOpacity]="0.1"  [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'"  ></agm-polygon>               
+                </div>
                 <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#4caf50'">
                   <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                   </agm-polyline-point>

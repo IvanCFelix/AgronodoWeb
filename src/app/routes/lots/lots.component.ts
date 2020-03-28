@@ -1,15 +1,20 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from "@angular/router";
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewChild,ElementRef  } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import Swal from "sweetalert2";
 import { LotsAgricolaService } from '../../Services/lots-agricola.service';
+
 @Component({
   selector: 'app-lots',
   templateUrl: './lots.component.html',
   styleUrls: ['./lots.component.scss']
 })
+
 export class LotsComponent implements OnInit {
+  
+  
+
   @ViewChild("table") tableExp: any;
   @ViewChild(DatatableComponent) table: DatatableComponent;
   newpaths:any = [];
@@ -32,6 +37,7 @@ export class LotsComponent implements OnInit {
   user;
   showlote:any={}
   nestedPaths = [];
+  editlots =[]
   allLots:any = [
     // [
     //   {lat: 25.8161924011166, lng: -108.992683343871},
@@ -49,6 +55,7 @@ export class LotsComponent implements OnInit {
     // ]
     
   ]
+  
   iconmap = {
     iconUrl: '../../assets/img/market.png',
     iconHeigh:10
@@ -62,8 +69,8 @@ export class LotsComponent implements OnInit {
         _id: new FormControl(-1),
         nickname: new FormControl("", Validators.required),
         crops: new FormControl("", Validators.required),
-        start_date: new FormControl(Date, Validators.required),
-        finish_date: new FormControl(Date, Validators.required),
+        // start_date: new FormControl(Date, Validators.required),
+        // finish_date: new FormControl(Date, Validators.required),
         agriculture_type: new FormControl("", Validators.required)
       });
     }
@@ -82,6 +89,7 @@ export class LotsComponent implements OnInit {
 }
 
   ngOnInit() {
+ 
     const user = JSON.parse(localStorage.getItem("USER"));
     this.user = user 
     console.log(this.user.profile.prmsLotes)
@@ -116,6 +124,27 @@ export class LotsComponent implements OnInit {
              this.temp = resp;
            })
 
+        })
+      }
+    })
+  }
+  deletesublote(value){
+    console.log(value)
+    Swal.fire({
+      title: 'Seguro que quieres eliminar a',
+      text: value.names,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'No, cancelar!',
+    }).then((result) => {
+      if (result.value) {
+        console.log(result.value)
+        this.LotsService.deleteSub(value.id)
+        .subscribe( resp => {
+          this.getLot()
         })
       }
     })
@@ -223,8 +252,11 @@ export class LotsComponent implements OnInit {
     console.log(jun);
     return jun
   }
-  datasublote(value) {
-    console.log(value);
+
+  
+  datasublote(value,i) {
+    this.allLots.splice(i,1)
+    
     this.lat = value.subfieldCoordinates[0].lat
     this.lng = value.subfieldCoordinates[0].lng
       this.colorDemo1 = value.color;
@@ -232,8 +264,8 @@ export class LotsComponent implements OnInit {
         _id:value.id,
         nickname: value.nickname,
         agriculture_type: value.agriculture_type,
-        start_date: value.start_date,
-        finish_date: value.finish_date,
+        // start_date: value.start_date,
+        // finish_date: value.finish_date,
         crops: value.crops.name
       });    
       this.pathsSubLotes = value.subfieldCoordinates;
@@ -250,8 +282,9 @@ export class LotsComponent implements OnInit {
            name: value.crops
          },
          agriculture_type: value.agriculture_type,
-         start_date: value.start_date,
-         finish_date: value.finish_date,
+         cicle:[],
+        //  start_date: value.start_date,
+        //  finish_date: value.finish_date,
          color:this.colorDemo1,
          nickname: value.nickname,
          subfieldCoordinates: this.pathsSubLotes
@@ -259,14 +292,7 @@ export class LotsComponent implements OnInit {
        this.colorDemo1 = value.color
        console.log(obj)
        this.LotsService.EditSublote(obj,value._id).subscribe(resp =>{
-         this.LotsService.getLot(this.id).subscribe((resp: any) => {
-           console.log(resp);
-           this.allLots = this.solomap(resp)
-           this.showlote = resp
-           this.newpaths = resp.coordinates;
-           this.mostrarsublotes = resp.subfield
-
-         })
+        this.getLot()
        }, err => {
          console.log("error");
          
@@ -280,8 +306,8 @@ export class LotsComponent implements OnInit {
             name: value.crops
           },
           agriculture_type: value.agriculture_type,
-          start_date: value.start_date,
-          finish_date: value.finish_date,
+          // start_date: value.start_date,
+          // finish_date: value.finish_date,
           color:this.colorDemo1,
           nickname: value.nickname,
           subfieldCoordinates: this.pathsSubLotes
@@ -289,13 +315,7 @@ export class LotsComponent implements OnInit {
         this.colorDemo1 = value.color
         console.log(obj);
         this.LotsService.SubloteRegister(obj).subscribe(resp =>{
-          this.LotsService.getLot(this.id).subscribe((resp: any) => {
-            this.allLots = this.solomap(resp)
-            console.log(resp);
-            this.showlote = resp
-            this.newpaths = resp.coordinates;
-            this.mostrarsublotes = resp.subfield
-          })
+          this.getLot()
         })
       }
     }
@@ -318,8 +338,8 @@ export class LotsComponent implements OnInit {
     this.sublotesforms.setValue({
       _id: -1 ,
       agriculture_type: "",
-      start_date: "",
-      finish_date: "",
+      // start_date: "",
+      // finish_date: "",
       nickname: "",
       crops: ""
     });
@@ -344,7 +364,16 @@ export class LotsComponent implements OnInit {
   }
   onPolyClickSublote(index){
   const value = this.showlote.subfield[index]
-  this.datasublote(value)
+  this.datasublote(value,index)
+  }
+  getLot(){
+    this.LotsService.getLot(this.id).subscribe((resp: any) => {
+      this.allLots = this.solomap(resp)
+      console.log(resp);
+      this.showlote = resp
+      this.newpaths = resp.coordinates;
+      this.mostrarsublotes = resp.subfield
+    })
   }
 }
 
