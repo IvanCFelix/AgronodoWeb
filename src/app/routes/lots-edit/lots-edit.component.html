@@ -74,7 +74,7 @@
                 (click)="pol();Modal.show();">Agregar un sub lote</button>
             </div>
           </div>
-          <div class="row d-flex justify-content-center align-content-center" *ngIf="!url">
+          <div class="row d-flex justify-content-center align-content-center" *ngIf="!url && sublotearray.length > 0">
             <div class="col">
               <div class="card-body">
                 <!-- START table-responsive-->

@@ -214,13 +214,25 @@ export class LotsComponent implements OnInit {
     this.selected.push(...selected);
   }
 
-
+  verify:boolean = true
+  verifylot(value){
+    console.log(value);
+    let cordi = value.coordinates[0]
+    let subfi =  value.subfield[0].subfieldCoordinates[0]
+    if(cordi.lat == subfi.lat){
+      this.verify = false
+    }else {
+      this.verify = true
+    }
+    
+    
+  }
   showmap(value){
     this.id = value
     this.mostrar = false
     this.LotsService.getLot(this.id).subscribe((resp: any) => {
       this.allLots = this.solomap(resp)
-      
+      this.verifylot(resp)
       this.showlote = resp;
       this.zoom = 13
       this.mostrarsublotes = resp.subfield
@@ -243,7 +255,6 @@ export class LotsComponent implements OnInit {
     return jun
   }
   solomap(value){
-    console.log(value)
     let jun = []
     for(let item of value.subfield){
       const arrays = item.subfieldCoordinates

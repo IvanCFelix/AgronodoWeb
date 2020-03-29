@@ -113,15 +113,18 @@ export class LotsEditComponent implements OnInit {
       title: 'Campos necesarios',
       text: "Si no se registran sublotes el lote se tomara como si fuera uno",
       icon: 'warning',
-      confirmButtonText: 'Guardar lote',
+      confirmButtonText: 'Llenar información',
+      showCancelButton: true,
+      cancelButtonText:'Agregar sublotes',
       confirmButtonColor: '#27c24c',
     }).then((result) => {
       if(result.value){
         this.modalshow('@getbootstrap')
         this.allLots = this.allmaps()
         this.pathsSubLotes = this.allmaps()
-       
         this.sololote = true
+      }else{
+        this.modalshow('@getbootstrap')
       }
     })
   }
