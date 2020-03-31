@@ -286,6 +286,8 @@ export class LotsComponent implements OnInit {
          subfieldCoordinates: this.pathsSubLotes
        };
        this.colorDemo1 = value.color
+       console.log("el objeto es");
+       
        console.log(obj)
        this.LotsService.EditSublote(obj,value._id).subscribe(resp =>{
         this.getLot()
