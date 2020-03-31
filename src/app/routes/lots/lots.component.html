@@ -1,15 +1,59 @@
 <div class="alt">
   <div class="main-container">
     <div class="row">
-      <div class="col-12 animated fadeIn">
+
+      <div class="col-6 animated fadeIn">
+       
         <h3 *ngIf="mostrar == true" class="m-0">Lotes</h3>
         <h3 *ngIf="mostrar == false" class="m-0">Lote: {{showlote.name}}</h3>
+        <div *ngIf="verify == false " >
+          <div class="text-29" [ngStyle]="{'color': lotSublote.color}">
+            <a class="fas fa-square"></a>
+          </div>
+          <small   class="text-muted">{{lotSublote.last_modifield_date}}</small>
+          <div class=" ">
+            <div class="row ">
+              <div class="col ">
+                <strong>Inicio del ciclo:  </strong>
+                <!-- {{item.start_date}} -->
+              </div>
+              <div class="col  ">
+                <strong>Fin del ciclo:  </strong>
+                <!-- {{item.finish_date}} -->
+              </div>
+            </div>  
+        </div>
+        <div class=" ">
+          <div class="row ">
+            <div class="col  ">
+              <strong>Tipo de cultivo:  </strong> 
+              <p *ngIf="lotSublote.agriculture_type === 'P'"> Protegida</p>
+              <p *ngIf="lotSublote.agriculture_type === 'T'"> Tradicional</p>
+            </div>
+            <div class="col" >
+              <strong>Tipo de agricultura:</strong> 
+             <p> {{lotSublote.crops.name}} </p>
+            </div>
+      
+          </div>  
+      </div>
+        </div>
 
+      </div>
+      <div class="col-6 d-flex justify-content-end align-items-end">
+        <div *ngIf="mostrar == false && verify == false">
+          <button class="mb-1 mr-1 btn btn-info " type="button" (click)="Allpolygon()"  > <em class=" fa mr-2 fas fa-arrow-left  font-13"></em>
+            Lista de lotes</button>
+        </div>
+        <button class="btn btn-success m-1 text-right" type="button"
+        [routerLink]="['/Lotes/','lote',id]" *ngIf="verify == false ">
+        <a class="fas fa-pencil-alt"></a>  Editar lote</button>
+       
       </div>
       <div class="col animated fadeIn">
         <p *ngIf="mostrar" class="text-18">Ve la lista de lotes, edita, habilita/deshabilita o agrega nuevos.</p>
-        <p *ngIf="mostrar == false" class="text-18">Ver, editar, agregar y eliminar sublotes.</p>
-
+        <p *ngIf="mostrar == false && verify == true" class="text-18">Ver, editar, agregar y eliminar sublotes.</p>
+       
       </div>
     </div>
   </div>
@@ -18,15 +62,16 @@
 <div class="main-container">
   <div class="row">
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+      <div *ngIf="mostrar == false && verify == true">
+        <button class="mb-1 mr-1 btn btn-info " type="button" (click)="Allpolygon()"  > <em class=" fa mr-2 fas fa-arrow-left  font-13"></em>
+          Lista de lotes2</button>
+      </div>
       <div *ngIf="mostrar">
         <em class="fa-2x mr-2 fas fa-search pos-icon"></em>
         <input  class="form-control mb-2" type="text" placeholder="Buscar..." (keyup)='updateFilter($event)'
           style="border-radius: 21px;" />
       </div>
-      <div *ngIf="mostrar == false">
-        <button class="mb-1 mr-1 btn btn-info " type="button" (click)="Allpolygon()"  > <em class=" fa mr-2 fas fa-arrow-left  font-13"></em>
-          Lista de lotes</button>
-      </div>
+    
     </div>
     <div class="col text-right">
       <button class="mb-1 mr-1 btn btn-success" type="button" routerLink="/Lotes/new" *ngIf="listlots.length < this.user.profile.prmsLotes && mostrar == true">Agregar nuevo
@@ -34,6 +79,7 @@
         <button class="mb-1 mr-1 btn btn-success" type="button" (click)="Modal.show();clearform();" *ngIf="mostrar == false && verify">Agregar nuevo
           SubLote</button>
         <span class="text-danger p-4" *ngIf="listlots.length == this.user.profile.prmsLotes && mostrar == true">No puedes agregar mas lotes llegaste al limite de registros {{this.user.profile.prmsLotes}}</span>
+       
     </div>
   </div>
 
@@ -59,7 +105,7 @@
               <ng-template let-row="row" ngx-datatable-cell-template>
                 <button class="btn btn-primary m-1 respo" type="button" (click)="showmap(row.id)">
                   <a class="fas fa-eye"></a> </button>
-                <button class="btn btn-success m-1 respo" type="button" [routerLink]="['/Lotes/','lote',row.id]">
+                <button  class="btn btn-success m-1 respo" type="button" [routerLink]="['/Lotes/','lote',row.id]">
                   <a class="fas fa-pencil-alt"></a> </button>
                 <button class="btn btn-danger m-1 respo" (click)="delete(row)">
                   <a class="fas fa-trash-alt" ></a>
@@ -69,6 +115,7 @@
           </ngx-datatable>
           <div *ngIf="mostrar == false">
             <div class="scroll">
+              <div *ngIf="verify == true">
               <div *ngFor="let item of showlote.subfield;let i = index"  class="card b m-3 animated fadeIn">
                 <div class="card-header">
                     <div class="float-right">
@@ -109,7 +156,10 @@
                 </div>
                 <div class="card-footer text-right bt0">
                   <button class="btn btn-success m-1" type="button"
-                  (click)="datasublote(item,i);Modal.show()">
+                  [routerLink]="['/Lotes/','lote',id]" *ngIf="verify == false">
+                  <a class="fas fa-pencil-alt"></a> </button>
+                  <button class="btn btn-success m-1" type="button"
+                  (click)="datasublote(item,i);Modal.show()" *ngIf="verify == true">
                   <a class="fas fa-pencil-alt"></a> </button>
                 <button (click)="deletesublote(item)" type="button" class="btn btn-danger" >
                   <a class="fas fa-trash-alt"></a>
@@ -117,6 +167,7 @@
               </div>
           
             </div>
+          </div>
             </div>
         </div>
         </div>
@@ -279,9 +330,7 @@
                 <div class="text-center mt-3">
                   <button *ngIf="pathsSubLotes.length >= 3" class="btn btn-success"
                     type="button" (click)="sublote(sublotesforms.value);Modal.hide();">Guardar datos</button>
-                
                 </div>
-
               </form>
             </div>
             <div  class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 card-modal">

@@ -30,7 +30,7 @@
                           class="fa-2x mr-2 fas fa-plus font-13"></em>Guardar información</button>
                     </div>
                     <div class="text-right p-4" *ngIf=" newpaths.length > 3 && lotesForms.valid && sublotearray.length > 0">
-                      <button (click)="register(lotesForms.value);"  class="btn btn-info" type="button"><em
+                      <button (click)="register(lotesForms.value,sublotearray);"  class="btn btn-info" type="button"><em
                           class="fa-2x mr-2 fas fa-plus font-13"></em>Guardar información</button>
                     </div>
                   </div>
@@ -46,7 +46,7 @@
                     <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
                       [opacity]="marker.alpha" [markerDraggable]="false">
                     </agm-marker>
-                    <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#4caf50'">
+                    <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="'#4caf50'">
                       <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                       </agm-polyline-point>
                     </agm-polyline>
@@ -74,7 +74,7 @@
                 (click)="pol();Modal.show();">Agregar un sub lote</button>
             </div>
           </div>
-          <div class="row d-flex justify-content-center align-content-center" *ngIf="!url && sublotearray.length > 0">
+          <div class="row d-flex justify-content-center align-content-center" *ngIf="!url && sublotearray.length > 0 || verify == true">
             <div class="col">
               <div class="card-body">
                 <!-- START table-responsive-->
@@ -111,8 +111,11 @@
                           <!-- <b>{{items.start_date}} </b> a <b> {{items.finish_date}}</b> -->
                         </td>
                         <td class="respon">
-                          <button class="btn btn-success m-1" type="button"
+                          <button *ngIf="verify == false" class="btn btn-success m-1" type="button"
                             (click)="datasublote(items,c);Modal.show();">
+                            <a class="fas fa-pencil-alt"></a> </button>
+                            <button *ngIf="verify == true" class="btn btn-success m-1" type="button"
+                            (click)="datasolosublote(items,c);Modal.show();">
                             <a class="fas fa-pencil-alt"></a> </button>
                           <button  type="button" class="btn btn-danger" (click)="DeletesubloteNOID(items,c)">
                             <a class="fas fa-trash-alt"></a>
@@ -138,7 +141,10 @@
 <!-- END row-->
 <div bsModal #Modal="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
   aria-hidden="true" [config]="{ ignoreBackdropClick: true }" >
-  <div class="modal-dialog modal-lg " style="height: 52%;width: 100%;">
+
+  
+  <div class="modal-dialog modal-lg " style="height: 52%;width: 100%;" >
+
     <div class="modal-content" style="width: 116%;">
       <div class="modal-header p-0">
         <div class="brand-logo" style="font-size: 20px;padding: 8px;">
@@ -153,14 +159,16 @@
       <div class="modal-body">
         <div class="container">
           <div class="row">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" >
               <form [formGroup]="sublotesforms">
                 <div class="form-group ">
                   <input class="form-control d-none" formControlName="_id" type="text" />
 
                   <div class="col-12">
                     <label>Nombre</label>
-                    <input class="form-control" formControlName="nickname" type="text" />
+                    <input class="form-control" formControlName="nickname" type="text"  *ngIf="sololote == false && verify == false" />
+                    <input class="form-control" formControlName="nickname" type="text" disabled *ngIf="sololote == false || verify == true"  />
+
                     <span class="text-danger" *ngIf="sublotesforms.controls['nickname'].errors?.required">Ingresa un
                       campo
                       válido</span>
@@ -215,46 +223,59 @@
                   </div>
                 </div>
                 <div class="text-center mt-3">
-                  <button *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid && sololote == false " class="btn btn-success"
-                    type="button" (click)="sublotenew(sublotesforms.value);Modal.hide();">Guardar datos</button>
-                    <button *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid && sololote == true" class="btn btn-success"
-                      type="button" (click)="submitsoloLote(sublotesforms.value);Modal.hide();">Guardar datos</button>
+                  <button *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid && sololote == false && verify == false" class="btn btn-success"
+                    type="button" (click)="sublotenew(sublotesforms.value);Modal.hide();" >Guardar datos</button>
+                    <button *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid && sololote && sublotearray.length == 0" class="btn btn-success"
+                      type="button" (click)="submitsololot(sublotesforms.value);Modal.hide();" >Guardar datos 2</button>
+                      <button *ngIf=" sublotesforms.valid && verify && sololote == false" class="btn btn-success"
+                        type="button" (click)="sendSublotesolo(sublotesforms.value);Modal.hide();" >Guardar datos 3</button>
                 </div>
 
               </form>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-              <button *ngIf="sololote == false" class="btn btn-danger pos-button" type="button" (click)="backsubfield()"><em
+            <div  class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <button *ngIf="sololote == false && verify == false " class="btn btn-danger pos-button" type="button" (click)="backsubfield()"><em
                 class="fa fas fa-backward"></em></button>
               <!-- <div class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
                 <button class="btn btn-danger " type="button" (click)="clearsublote()"><em
                     class="fa fas fa-trash"></em></button>
               </div> -->
            
-                          
-         
-              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+
+              <agm-map  [latitude]="lat" [longitude]="lng" [zoom]="zoom"
                 (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
-                <agm-polygon  [fillOpacity]="0.1"  [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'"  [paths]="allLots"></agm-polygon  > 
-                  <div *ngIf="sololote == false">
+                <agm-polygon  [fillOpacity]="0.1"  [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'"  [paths]="allLots"></agm-polygon> 
+                  <div  >
                     <agm-marker  *ngFor="let marker of pathsSubLotes"   [latitude]="marker.lat" [longitude]="marker.lng"
                       [opacity]="marker.alpha" [markerDraggable]="false">
                     </agm-marker>
                   </div>  
+                  <div *ngIf="sololote == false">
                     <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	'#4caf50'">
                       <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                       </agm-polyline-point>
                     </agm-polyline>
-                <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="polyline.color">
-                  <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat"
-                    [longitude]="point.lng">
-                  </agm-polyline-point>
-                </agm-polyline>
-                <agm-polyline *ngFor="let polyline of pathSub;let i = index;" [strokeColor]="colorDemo1">
-                  <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
-                  </agm-polyline-point>
-
-                </agm-polyline>
+                    <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="polyline.color">
+                      <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat"
+                        [longitude]="point.lng">
+                      </agm-polyline-point>
+                    </agm-polyline>
+                  </div>
+                  <div *ngIf="sololote == true">
+                    <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="	colorDemo1">
+                      <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                      </agm-polyline-point>
+                    </agm-polyline>
+                    <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="polyline.color">
+                      <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat"
+                        [longitude]="point.lng">
+                      </agm-polyline-point>
+                    </agm-polyline>
+                  </div>
+                      <agm-polyline *ngFor="let polyline of pathSub;let i = index;" [strokeColor]="colorDemo1">
+                        <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                        </agm-polyline-point>
+                      </agm-polyline>
               </agm-map>
             </div>
           </div>
@@ -262,4 +283,5 @@
       </div>
     </div>
   </div>
-</div>
+
+

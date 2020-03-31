@@ -38,23 +38,7 @@ export class LotsComponent implements OnInit {
   showlote:any={}
   nestedPaths = [];
   editlots =[]
-  allLots:any = [
-    // [
-    //   {lat: 25.8161924011166, lng: -108.992683343871},
-    //   {lat: 25.8120973160838, lng: -108.986160211547},
-    //   {lat: 25.8059930586355, lng: -108.99388497351},
-    //   {lat: 25.8161924011166, lng: -108.992683343871}
-    // ],
-    // [
-    //   {lat: 25.8165787225848, lng: -108.997791108026},
-    //   {lat: 25.8125609177224, lng: -108.986375626459},
-    //   {lat: 25.803288540246, lng: -108.997361954584},
-    //   {lat: 25.8102788090671, lng: -109.004400071039},
-    //   {lat: 25.8102788090671, lng: -109.004400071039},
-    //   {lat: 25.8165787225848, lng: -108.997791108026}
-    // ]
-    
-  ]
+  allLots:any = []
   
   iconmap = {
     iconUrl: '../../assets/img/market.png',
@@ -215,8 +199,9 @@ export class LotsComponent implements OnInit {
   }
 
   verify:boolean = true
+  lotSublote:any;
   verifylot(value){
-    console.log(value);
+    this.lotSublote = value.subfield[0];    
     let cordi = value.coordinates[0]
     let subfi =  value.subfield[0].subfieldCoordinates[0]
     if(cordi.lat == subfi.lat){
@@ -225,14 +210,14 @@ export class LotsComponent implements OnInit {
       this.verify = true
     }
     
-    
   }
   showmap(value){
     this.id = value
     this.mostrar = false
     this.LotsService.getLot(this.id).subscribe((resp: any) => {
       this.allLots = this.solomap(resp)
-      this.verifylot(resp)
+       this.verifylot(resp)
+      console.log(resp)
       this.showlote = resp;
       this.zoom = 13
       this.mostrarsublotes = resp.subfield
@@ -357,6 +342,7 @@ export class LotsComponent implements OnInit {
     this.pathsSubLotes = [];
   }
   Allpolygon(){
+    this.verify = true
     this.mostrar = !this.mostrar
     this.LotsService.listLots().subscribe(resp => {
       this.allLots = this.allmaps(resp)

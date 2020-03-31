@@ -26,7 +26,7 @@ export class LotsEditComponent implements OnInit {
   url;
   edit = false;
   sublotearray = [];
-  colorDemo1 = "";
+  colorDemo1 = '#4caf50';
   lat: number = 25.8132204;
   lng: number = -108.9858821;
   zoom: number = 14;
@@ -70,9 +70,11 @@ export class LotsEditComponent implements OnInit {
     const url = this.route.snapshot.paramMap.get('lot')
     this.url = url;
     this.id = id;
-    if (id !== null) {
-     
+    if (id !== null) { 
       this.lotService.getLot(id).subscribe((resp: any) => {
+        this.verifylot(resp)
+        console.log(resp);
+        
         this.sublotearray = resp.subfield;
         this.mostrarsublotes = resp.subfield
         this.lat = resp.coordinates[0].lat
@@ -83,19 +85,13 @@ export class LotsEditComponent implements OnInit {
         this.nestedPaths = array
         //   for (let item of resp.subfield) {
         //     this.mostrarsublotes.push(item.subfieldCoordinates)
-        // }
-  
-
+        // 
         this.lotesForms.setValue({
           name: resp.name
         });
       });
     }
-    this.polyline = [
-  
-  ]
-
- 
+    this.polyline = [] 
   }
  
   modalshow(value:string){
@@ -122,6 +118,16 @@ export class LotsEditComponent implements OnInit {
         this.modalshow('@getbootstrap')
         this.allLots = this.allmaps()
         this.pathsSubLotes = this.allmaps()
+        console.log(this.lotesForms.value.name)
+        this.lotesForms.controls['name'].disable();
+        this.sublotesforms.setValue({
+          _id:0,
+          agriculture_type: "",
+          // start_date: "",
+          // finish_date: "",
+          nickname: this.lotesForms.value.name,
+          crops: ""
+        });
         this.sololote = true
       }else{
         this.modalshow('@getbootstrap')
@@ -156,21 +162,31 @@ export class LotsEditComponent implements OnInit {
    this.lng = this.newpaths[0].lng
   }
 
-  register(value: any) {
-    Swal.fire({
-      text: "Guardar información",
-      allowOutsideClick: false,
-      width: "270px"
-    });
-    Swal.showLoading();
+  register(value: any , sublote:any) {
+   
+    
+    // Swal.fire({
+    //   text: "Guardar información",
+    //   allowOutsideClick: false,
+    //   width: "270px"
+    // });
+    // Swal.showLoading();
     if (this.id == null) {    
        this.create(value);
     } else {
-      this.update(value);
+      if(this.verify){
+        const sub = sublote[0]
+        this.saveAlllote(sub)
+      }else{
+        this.update(value);
+
+      }
     }
   }
 
   create(value: any) {
+    console.log(value);
+    
     let obj = {
       name: value.name,
       coordinates: this.newpaths,
@@ -200,6 +216,7 @@ export class LotsEditComponent implements OnInit {
   }
 
   update(value){
+    
   const id = Number(this.id)
     let obj = {
       id:id,
@@ -238,42 +255,28 @@ export class LotsEditComponent implements OnInit {
   }
 
   datasublote(value, p) {
-    this.sololote = false
+      this.sololote = false
    
-    this.colorDemo1 = value.color;
-    this.sublotesforms.setValue({
-      _id:p,
-      nickname: value.nickname,
-      agriculture_type: value.agriculture_type,
-      // start_date: value.start_date,
-      // finish_date: value.finish_date,
-      crops: value.crops.name
-    });    
+      this.colorDemo1 = value.color;
+      this.sublotesforms.setValue({
+        _id:p,
+        nickname: value.nickname,
+        agriculture_type: value.agriculture_type,
+        // start_date: value.start_date,
+        // finish_date: value.finish_date,
+        crops: value.crops.name
+      });    
+      
+      this.pathsSubLotes = value.subfieldCoordinates;
+        this.pathSub = [value.subfieldCoordinates]
     
-    this.pathsSubLotes = value.subfieldCoordinates;
-      this.pathSub = [value.subfieldCoordinates]
+    
   }
   
   sublotenew(value){
     console.log(value);
-    
-    if(this.sublotesforms.value._id !== -1){
-      let obj = {
-        crops: {
-          name: value.crops
-        },
-        agriculture_type: value.agriculture_type,
-        // start_date: value.start_date,
-        // finish_date: value.finish_date,
-        color:this.colorDemo1,
-        nickname: value.nickname,
-        subfieldCoordinates: this.pathsSubLotes
-      };
-
-      let pos = this.sublotesforms.value._id
-      this.sublotearray[pos] = obj
-    }else{
-      let obj = {
+      if(this.sublotesforms.value._id !== -1){
+        let obj = {
           crops: {
             name: value.crops
           },
@@ -284,14 +287,29 @@ export class LotsEditComponent implements OnInit {
           nickname: value.nickname,
           subfieldCoordinates: this.pathsSubLotes
         };
-        this.sublotearray.push(obj);
-        let ara = {
-          color:this.colorDemo1,
-          subfieldCoordinates:this.pathsSubLotes
-        }  
-        this.mostrarsublotes.push(ara)
-
+  
+        let pos = this.sublotesforms.value._id
+        this.sublotearray[pos] = obj
+      }else{
+        let obj = {
+            crops: {
+              name: value.crops
+            },
+            agriculture_type: value.agriculture_type,
+            // start_date: value.start_date,
+            // finish_date: value.finish_date,
+            color:this.colorDemo1,
+            nickname: value.nickname,
+            subfieldCoordinates: this.pathsSubLotes
+          };
+          this.sublotearray.push(obj);
+          let ara = {
+            color:this.colorDemo1,
+            subfieldCoordinates:this.pathsSubLotes
+          }  
+          this.mostrarsublotes.push(ara)
     }
+   
     this.sublotesforms.setValue({
       _id: -1 ,
       agriculture_type: "",
@@ -304,50 +322,70 @@ export class LotsEditComponent implements OnInit {
   }
 
   addMarker(lat: number, lng: number) {
-    let obj = {
-      lat: lat,
-      lng: lng
-    };
-    this.newpaths.push(obj);
-    if(this.newpaths.length == 3){
-      let path = this.newpaths[0]
-      this.newpaths.push(path)
-    }
-    if(this.newpaths.length > 4){
-      this.newpaths.splice(this.newpaths.length - 2,1);
-      let pos = this.newpaths.length - 1
-      let uwu = this.newpaths[pos]
-      this.newpaths.push(uwu)
-      let path = this.newpaths[0]
-      this.newpaths.push(path) 
-    }
-    const array: any[] = Array.of(this.newpaths);
-    this.nestedPaths = array
-   
-  }
-  addMakerSubLote(lat: number, lng: number) {
-    if(this.sololote == false){
       let obj = {
         lat: lat,
         lng: lng
       };
-      this.pathsSubLotes.push(obj);
-  
-      if(this.pathsSubLotes.length == 3){
-        let path = this.pathsSubLotes[0]
-        this.pathsSubLotes.push(path)  
+      this.newpaths.push(obj);
+      if(this.newpaths.length == 3){
+        let path = this.newpaths[0]
+        this.newpaths.push(path)
       }
-      if(this.pathsSubLotes.length > 4){
-        this.pathsSubLotes.splice(this.pathsSubLotes.length - 2,1);
-        let pos = this.pathsSubLotes.length - 1
-        let uwu = this.pathsSubLotes[pos]
-        this.pathsSubLotes.push(uwu)
-        let path = this.pathsSubLotes[0]
-        this.pathsSubLotes.push(path)
+      if(this.newpaths.length > 4){
+        this.newpaths.splice(this.newpaths.length - 2,1);
+        let pos = this.newpaths.length - 1
+        let uwu = this.newpaths[pos]
+        this.newpaths.push(uwu)
+        let path = this.newpaths[0]
+        this.newpaths.push(path) 
       }
-      const array: any[] = Array.of(this.pathsSubLotes);
-      this.pathSub = array;
+      const array: any[] = Array.of(this.newpaths);
+      this.nestedPaths = array
+      this.pathsSubLotes = array
+     if(this.verify && this.sublotearray.length == 1){
+       console.log("entro");
+       
+       this.mostrarsublotes = array
+       this.sublotearray[0].subfieldCoordinates =  this.newpaths
+       this.pathSub = array
+       console.log(this.sublotearray[0].subfieldCoordinates);
+        // this.nestedPaths = this.lotSublote.subfieldCoordinates
+        // console.log(this.sublotearray);
+     
     }
+  }
+  addMakerSubLote(lat: number, lng: number) {
+  
+      if(this.sololote == false){
+        if(this.verify == false){
+          let obj = {
+            lat: lat,
+            lng: lng
+          };
+          this.pathsSubLotes.push(obj);
+      
+          if(this.pathsSubLotes.length == 3){
+            let path = this.pathsSubLotes[0]
+            this.pathsSubLotes.push(path)  
+          }
+          if(this.pathsSubLotes.length > 4){
+            this.pathsSubLotes.splice(this.pathsSubLotes.length - 2,1);
+            let pos = this.pathsSubLotes.length - 1
+            let uwu = this.pathsSubLotes[pos]
+            this.pathsSubLotes.push(uwu)
+            let path = this.pathsSubLotes[0]
+            this.pathsSubLotes.push(path)
+          }
+          const array: any[] = Array.of(this.pathsSubLotes);
+          this.pathSub = array;
+        }else{
+
+          
+        }
+      
+      }
+
+    
   }
 
 
@@ -404,14 +442,153 @@ export class LotsEditComponent implements OnInit {
       this.pathsSubLotes.splice(num3,1) 
     }
   }
-  submitsoloLote(value){
-      this.sublotenew(value)
-        let obj = {
-          name: this.lotesForms.value.name,
-          coordinates: this.newpaths,
-          subfield: this.sublotearray
-        };
-        this.create(obj)
-      
+  verify:boolean = true
+  lotSublote:any;
+  verifylot(value){
+    this.lotSublote = value.subfield[0];
+    let cordi = value.coordinates[0]
+    let subfi =  value.subfield[0].subfieldCoordinates[0]
+    if(cordi.lat == subfi.lat){
+      this.verify = true
+    }else {
+      this.verify = false
+    }
   }
+  pusssublote(value){
+    const id = Number(this.id)
+    let obj = {
+      father_field:this.id,
+      crops: {
+        name: value.crops
+      },
+      agriculture_type: value.agriculture_type,
+      cicle:[],
+     //  start_date: value.start_date,
+     //  finish_date: value.finish_date,
+      color:this.colorDemo1,
+      nickname: value.nickname,
+      subfieldCoordinates: this.pathsSubLotes
+    };
+    this.colorDemo1 = value.color
+    console.log(obj)
+    this.lotService.EditSublote(obj,value._id).subscribe(resp =>{
+    }, err => {
+      console.log("error");
+      
+    })
+  }
+  submitsololot(value){
+    let obj = {
+      crops: {
+        name: value.crops
+      },
+      agriculture_type: value.agriculture_type,
+      // start_date: value.start_date,
+      // finish_date: value.finish_date,
+      color:this.colorDemo1,
+      nickname: value.nickname,
+      subfieldCoordinates: this.newpaths
+    };
+    this.sublotearray.push(obj);
+    let ara = {
+      color:this.colorDemo1,
+      subfieldCoordinates:this.pathsSubLotes
+    }  
+    this.mostrarsublotes.push(ara)
+    this.create(this.lotesForms.value)
+  }
+  sendSublotesolo(value){
+    const id = Number(this.id)
+       let obj = {
+         father_field:id,
+         crops: {
+           name: value.crops
+         },
+         agriculture_type: value.agriculture_type,
+        //  start_date: value.start_date,
+        //  finish_date: value.finish_date,
+         color:this.colorDemo1,
+         nickname: value.nickname,
+         subfieldCoordinates: this.sublotearray[0].subfieldCoordinates
+       };
+       console.log(obj);
+       
+       this.colorDemo1 = value.color       
+       this.lotService.EditSublote(obj,value._id).subscribe(resp =>{
+        this.lotService.getLot(id).subscribe((resp: any) => {
+          console.log(resp);
+          this.update(this.lotesForms.value)
+          
+          this.sublotearray = resp.subfield;
+          this.mostrarsublotes = resp.subfield
+          this.lat = resp.coordinates[0].lat
+          this.lng = resp.coordinates[0].lng
+          this.newpaths = resp.coordinates;
+          const array: any[] = Array.of(this.newpaths);
+          this.nestedPaths = array
+          this.lotesForms.setValue({
+            name: resp.name
+          });
+        });
+       }, err => {
+         console.log("error");
+         
+       })
+  }
+  saveAlllote(value){
+    console.log(value);
+    
+    const id = Number(this.id)
+    let obj = {
+      father_field:id,
+      crops: {
+        name: value.crops
+      },
+      agriculture_type: value.agriculture_type,
+     //  start_date: value.start_date,
+     //  finish_date: value.finish_date,
+      color:this.colorDemo1,
+      nickname: value.nickname,
+      subfieldCoordinates: value.subfieldCoordinates
+    };
+    console.log(obj);
+    
+    this.colorDemo1 = value.color       
+    this.lotService.EditSublote(obj,value.id).subscribe(resp =>{
+      this.update(this.lotesForms.value)
+     this.lotService.getLot(id).subscribe((resp: any) => {
+      this.update(this.lotesForms.value)
+       console.log(resp);
+       
+       this.sublotearray = resp.subfield;
+       this.mostrarsublotes = resp.subfield
+       this.lat = resp.coordinates[0].lat
+       this.lng = resp.coordinates[0].lng
+       this.newpaths = resp.coordinates;
+       const array: any[] = Array.of(this.newpaths);
+       this.nestedPaths = array
+       this.lotesForms.setValue({
+         name: resp.name
+       });
+     });
+    }, err => {
+      console.log("error");
+      
+    })
+  }
+  datasolosublote(value){
+    console.log(value)
+    const array: any[] = Array.of(this.newpaths);
+    this.pathsSubLotes = array
+    this.colorDemo1 = value.color
+    this.sublotesforms.setValue({
+      _id: value.id ,
+      agriculture_type: value.agriculture_type,
+      // start_date: "",
+      // finish_date: "",
+      nickname: value.nickname,
+      crops: value.crops.name
+    });
+  }
+
 }
