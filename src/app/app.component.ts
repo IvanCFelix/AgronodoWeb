@@ -32,7 +32,6 @@ export class AppComponent implements OnInit {
                         let menu = Menu.menu(role)
                         this.menuService.push(menu)
                         // this.menuService.addMenu(menu)
-                         console.log(menu);
                          
                     } else {
     

@@ -23,7 +23,7 @@ export const routes = [
             { path: 'Agricola/new', canActivate:[ AuthGuard ],loadChildren: './agricola-edit-agronodo/agricola-edit-agronodo.module#AgricolaEditAgronodoModule'},
             { path: 'Agricola/:id',canActivate:[ AuthGuard ], loadChildren: './agricola-edit-agronodo/agricola-edit-agronodo.module#AgricolaEditAgronodoModule'},
             { path: 'profile/:id', loadChildren: './profile/profile.component.module#ProfileAgronodoModule'},
-            { path: 'Ingeniero',canActivate:[ AuthGuard ], loadChildren: './admin-agricola/admin-agricola.module#AdminIngAgricolaModule' },
+            { path: 'Admin-Agricola',canActivate:[ AuthGuard ], loadChildren: './admin-agricola/admin-agricola.module#AdminIngAgricolaModule' },
             { path: 'Admin-Agricola/new',canActivate:[ AuthGuard ], loadChildren: './admin-edit-agricola/admin-edit-agricola.module#AdminEditAgricolaModule'},
             { path: 'Admin-Agricola/:id',canActivate:[ AuthGuard ], loadChildren: './admin-edit-agricola/admin-edit-agricola.module#AdminEditAgricolaModule'},
 
@@ -36,7 +36,9 @@ export const routes = [
             { path: 'Admin-Ingeniero/new',canActivate:[ AuthGuard ], loadChildren: './admin-edit-engineer/admin-edit-engineer.module#AdminEditEngineerModule'},
             { path: 'Admin-Ingeniero/:id',canActivate:[ AuthGuard ], loadChildren: './admin-edit-engineer/admin-edit-engineer.module#AdminEditEngineerModule' },
 
-
+            { path: 'Ingeniero', canActivate:[ AuthGuard ],loadChildren: './engineer/engineer.module#EngineerModule' },
+            { path: 'Ingeniero/new',canActivate:[ AuthGuard ], loadChildren: './engineer-edit/engineer-edit.module#EditEngineerModule'},
+            { path: 'Ingeniero/:id',canActivate:[ AuthGuard ], loadChildren: './engineer-edit/engineer-edit.module#EditEngineerModule' },
 
 
 

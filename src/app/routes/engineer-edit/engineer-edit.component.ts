@@ -1,3 +1,4 @@
+import { Engineer } from './../../Services/engineer.service';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Uris } from "./../../Services/Uris";
 import { UsernameValidator } from "./../../validators/UsernameValidator ";
@@ -5,13 +6,13 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FormGroup, Validators, FormControl } from "@angular/forms";
 import { ImageCropperComponent, CropperSettings, Bounds } from "ng2-img-cropper";
 import Swal from "sweetalert2";
-import { AdminAgricola } from "../../Services/admin-agricola.service";
+
 @Component({
-  selector: 'app-admin-edit-agricola',
-  templateUrl: './admin-edit-agricola.component.html',
-  styleUrls: ['./admin-edit-agricola.component.scss']
+  selector: 'app-engineer-edit',
+  templateUrl: './engineer-edit.component.html',
+  styleUrls: ['./engineer-edit.component.scss']
 })
-export class AdminEditAgricolaComponent implements OnInit {
+export class EngineerEditComponent implements OnInit {
   id;
   adminagricola: FormGroup;
   mostrar: boolean;
@@ -26,21 +27,19 @@ export class AdminEditAgricolaComponent implements OnInit {
   @ViewChild("cropper", undefined) cropper: ImageCropperComponent;
   constructor(    
     private route: ActivatedRoute,
-    public admin: AdminAgricola,
+    public Engineer: Engineer,
     public router: Router) {
 
       this.adminagricola = new FormGroup({
         name: new FormControl("", Validators.required),
-        email: new FormControl("", [Validators.email, Validators.required]),
         lastname: new FormControl("", Validators.required),
         phone: new FormControl("", [Validators.required]),
+        email: new FormControl("", [Validators.email, Validators.required]),
         username: new FormControl("", [Validators.required,UsernameValidator.cannotContainSpace]),
-        prmsAltaIngenierosBool: new FormControl(false),
-        prmsAltaIngenieros: new FormControl(1),
-        prmsAgregarAdminBool: new FormControl(false),
-        prmsAgregarAdmin: new FormControl(1),
-        prmsAgregarLotesBool: new FormControl(false),
-        prmsAgregarLotes: new FormControl(1),
+        canSeeReports: new FormControl(false),
+        canEditEngineers: new FormControl(false),
+        canAddField: new FormControl(false),
+        role: new FormControl("", Validators.required)
   
       });
       this.name = "Angular2";
@@ -64,10 +63,12 @@ export class AdminEditAgricolaComponent implements OnInit {
 
     const id = this.route.snapshot.paramMap.get("id");
     this.id = id;
-
+    console.log(id);
     if (id) {
-      this.admin.getadmin(id).subscribe((resp: any) => {
+      this.Engineer.getadmin(id).subscribe((resp: any) => {
         console.log(resp);
+    
+        
         this.photo = resp.photo;
         this.mostrar = false;
 
@@ -77,12 +78,10 @@ export class AdminEditAgricolaComponent implements OnInit {
           lastname: resp.lastnames,
           phone: resp.phone,
           username: resp.user.username,
-          prmsAltaIngenierosBool:resp.prmsAltaIngenierosBool,
-          prmsAltaIngenieros:resp.prmsAltaIngenieros,
-          prmsAgregarLotesBool:resp.prmsAgregarLotesBool,
-          prmsAgregarLotes:resp.prmsAgregarLotes,
-          prmsAgregarAdminBool:resp.prmsAgregarAdminBool,
-          prmsAgregarAdmin:resp.prmsAgregarAdmin
+          canSeeReports:resp.canSeeReports,
+          canAddField:resp.canAddField,
+          canEditEngineers:resp.canEditEngineers,
+          role:resp.role.name
         });
       });
     } else {
@@ -112,20 +111,20 @@ create(value: any) {
     lastnames: value.lastname,
     phone: value.phone,
     photo: this.filestring,
+    role:{
+      name:value.role
+    },
     user: {
       username: value.username,
       email: value.email
     },
-    prmsAltaIngenierosBool:value.prmsAltaIngenierosBool,
-    prmsAltaIngenieros:value.prmsAltaIngenieros,
-    prmsAgregarLotesBool:value.prmsAgregarLotesBool,
-    prmsAgregarLotes:value.prmsAgregarLotes,
-    prmsAgregarAdminBool:value.prmsAgregarAdminBool,
-    prmsAgregarAdmin:value.prmsAgregarAdmin
+    canAddField:value.canAddField,
+    canEditEngineers:value.canEditEngineers,
+    canSeeReports:value.canSeeReports,
 
   };
   console.log(obj)
-  this.admin.register(obj).subscribe(
+  this.Engineer.register(obj).subscribe(
     resp => {
       Swal.fire({
         text: "Se creó correctamente " + value.name,
@@ -134,9 +133,11 @@ create(value: any) {
         timer: 1500,
         width: '250px'
       });
-      this.router.navigateByUrl("/Admin-Agricola");
+      this.router.navigateByUrl("/Ingeniero");
     },
     (err: any) => {
+      console.log(err);
+      
       Swal.fire({
         text: "Error en el sevidor",
         showConfirmButton: false,
@@ -149,25 +150,24 @@ create(value: any) {
 }
 update(value: any) {
   console.log(value);
-  if (this.filestring == "") {
+  if (this.filestring == "" ) {
     let obj = {
       names: value.name,
       lastnames: value.lastname,
-      phone: value.number,
-      user: {  },
-      prmsAltaIngenierosBool:value.prmsAltaIngenierosBool,
-      prmsAltaIngenieros:value.prmsAltaIngenieros,
-      prmsAgregarLotesBool:value.prmsAgregarLotesBool,
-      prmsAgregarLotes:value.prmsAgregarLotes,
-      prmsAgregarAdminBool:value.prmsAgregarAdminBool,
-      prmsAgregarAdmin:value.prmsAgregarAdmin
+      phone: value.phone,
+      role:{
+        name:value.name
+       },
+      canSeeReports:value.canSeeReports,
+      canAddField:value.canAddField,
+      canEditEngineers:value.canEditEngineers,
     };
     let user = {
       user: {
         username: value.username
       }
     };
-    this.admin.edit(obj, user).subscribe(
+    this.Engineer.edit(obj, user).subscribe(
       resp => {
         Swal.fire({
           text: "Se actualizó correctamente \n"+value.name,
@@ -176,9 +176,11 @@ update(value: any) {
           timer: 1500,
           width: '250px'
         });
-        this.router.navigateByUrl("/Admin-Agricola");
+        this.router.navigateByUrl("/Ingeniero");
       },
       (err: any) => {
+        console.log(err._body);
+        
         Swal.fire({
           text: "Error en el sevidor",
           showConfirmButton: false,
@@ -194,20 +196,21 @@ update(value: any) {
       lastnames: value.lastname,
       phone: value.number,
       photo: this.filestring,
-      user: {},
-      prmsAltaIngenierosBool:value.prmsAltaIngenierosBool,
-      prmsAltaIngenieros:value.prmsAltaIngenieros,
-      prmsAgregarLotesBool:value.prmsAgregarLotesBool,
-      prmsAgregarLotes:value.prmsAgregarLotes,
-      prmsAgregarAdminBool:value.prmsAgregarAdminBool,
-      prmsAgregarAdmin:value.prmsAgregarAdmin
+      role:{
+        name:value.role
+      },
+      canSeeReports:value.canSeeReports,
+      canAddField:value.canAddField,
+      canEditEngineers:value.canEditEngineers,
     };
     let user = {
       user: {
         username: value.username
       }
     };
-    this.admin.edit(obj, user).subscribe(
+      console.log(obj);
+
+    this.Engineer.edit(obj, user).subscribe(
       resp => {
         Swal.fire({
           text: "Se actualizó correctamente" + value.names,
@@ -216,9 +219,10 @@ update(value: any) {
           timer: 1500,
           width: '250px'
         });
-        this.router.navigateByUrl("/Admin-Agricola");
+        this.router.navigateByUrl("/Ingeniero");
       },
       (err: any) => {
+        console.log(err._body)
         Swal.fire({
           text: "Error en el sevidor",
           showConfirmButton: false,
@@ -249,7 +253,8 @@ fileChangeListener($event) {
   var reader = new FileReader();
   reader.onload = this._handleReaderLoaded.bind(this);
   reader.readAsBinaryString(this.files[0]);
-
+ 
+  
   //codigo para seleccionar la imagen y mandarla al input
   let image: any = new Image();
   let file: File = $event.target.files[0];
@@ -259,6 +264,8 @@ fileChangeListener($event) {
   myReader.onloadend = function(loadEvent: any) {
     image.src = loadEvent.target.result;
     that.cropper.setImage(image);
+    
+    
   };
 
   myReader.readAsDataURL(file);

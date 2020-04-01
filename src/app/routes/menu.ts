@@ -15,7 +15,7 @@ export class Menu {
       submenu: [
         {
           text: "Agricolas",
-          link: "/Ingeniero",
+          link: "/Admin-Agricola",
           icon: "icon-user"
         },
         {
@@ -25,12 +25,20 @@ export class Menu {
         }
       ]
     };
+
+    const Ingenieros = {
+      text: "Ingenieros",
+      link: "/Ingeniero",
+      icon: "icon-user"
+    
+  }
     const lotes = {
         text: "Lotes",
         link: "/Lotes",
         icon: "icon-user"
       
     }
+  
 
     const UsuariosAgroindustriasAgronodo = {
       text: "Usuarios",
@@ -79,7 +87,7 @@ export class Menu {
         }
         //Ingeniero
         case 6: {
- 
+          role = [headingMain, Home,Ingenieros];
 
           break;
         }

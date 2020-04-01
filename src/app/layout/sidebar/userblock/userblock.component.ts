@@ -53,6 +53,8 @@ export class UserblockComponent implements OnInit {
                 }
                 //Admin Ingeniero
                 case 6: {
+                  this.photo = resp.profile.photo
+                  this.name = resp.profile.names
                   break;
                 }
                 default: {

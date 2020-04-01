@@ -123,7 +123,6 @@ export class LotsEditComponent implements OnInit {
         this.allLots = this.allmaps()
         this.pathsSubLotes = this.allmaps()
         console.log(this.lotesForms.value.name)
-        this.lotesForms.controls['name'].disable();
         this.sublotesforms.setValue({
           _id:0,
           agriculture_type: "",
@@ -147,6 +146,7 @@ export class LotsEditComponent implements OnInit {
     this.pathSub = []
   }
   clearform(){
+    this.sololote = false;
     this.pathsSubLotes = []
     this.pathSub = []
     this.sublotesforms.setValue({
@@ -168,12 +168,12 @@ export class LotsEditComponent implements OnInit {
   register(value: any , sublote:any) {
    
     
-    // Swal.fire({
-    //   text: "Guardar información",
-    //   allowOutsideClick: false,
-    //   width: "270px"
-    // });
-    // Swal.showLoading();
+    Swal.fire({
+      text: "Guardar información",
+      allowOutsideClick: false,
+      width: "270px"
+    });
+    Swal.showLoading();
     if (this.id == null) {    
        this.create(value);
     } else {
@@ -421,16 +421,32 @@ export class LotsEditComponent implements OnInit {
     })
   }
   back(){
-      const num1 = this.newpaths.length - 1
-      const num2 = this.newpaths.length - 2
-      const num3 = this.newpaths.length -3
+    const num1 = this.newpaths.length - 1
+    const num2 = this.newpaths.length - 2
+    const num3 = this.newpaths.length -3
+    
+    if(this.verify){
       if(this.newpaths.length < 5){
-       this.newpaths.splice(num1,1)  
+        this.newpaths.splice(num1,1)  
+        this.newpaths.splice(num2,1)  
+       }
+       if(this.newpaths.length >= 5){
        this.newpaths.splice(num2,1)  
-      }
-      if(this.newpaths.length >= 5){
-      this.newpaths.splice(num2,1)  
-      this.newpaths.splice(num3,1) 
+       this.newpaths.splice(num3,1) 
+     }
+      this.mostrarsublotes = this.newpaths
+      this.sublotearray[0].subfieldCoordinates =  this.newpaths
+
+
+    }else{
+      if(this.newpaths.length < 5){
+        this.newpaths.splice(num1,1)  
+        this.newpaths.splice(num2,1)  
+       }
+       if(this.newpaths.length >= 5){
+       this.newpaths.splice(num2,1)  
+       this.newpaths.splice(num3,1) 
+     }
     }
   }
   backsubfield(){

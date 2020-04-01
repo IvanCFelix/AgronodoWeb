@@ -44,7 +44,11 @@ export class Uris {
     public static API_ADMIN_ENGINEER_AGRICOLA_DELETE = `${Uris.API_ENDPOINT}adminengineer/`;
     public static API_ADMIN_ENGINEER_AGRICOLA_EDIT = `${Uris.API_ENDPOINT}adminengineer/`;
 
-
+    public static API_ENGINEER_POST = `${Uris.API_ENDPOINT}engineer/`
+    public static API_ENGINEER_GET_LIST= `${Uris.API_ENDPOINT}engineer/`;
+    public static API_ENGINEER_GET_USER = `${Uris.API_ENDPOINT}engineer/`;
+    public static API_ENGINEER_DELETE = `${Uris.API_ENDPOINT}engineer/`;
+    public static API_ENGINEER_EDIT = `${Uris.API_ENDPOINT}engineer/`;
 
 
 

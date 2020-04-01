@@ -1,17 +1,17 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminEngineerComponent} from './admin-engineer.component'
+import { EngineerComponent } from './engineer.component'
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {FormsModule} from '@angular/forms';
 
 
 const routes: Routes = [
-  { path: '', component: AdminEngineerComponent },
+  { path: '', component: EngineerComponent },
 ];
 
 @NgModule({
-  declarations: [AdminEngineerComponent],
+  declarations: [EngineerComponent],
   imports: [
     CommonModule,
     NgxDatatableModule,
@@ -19,4 +19,4 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ]
 })
-export class AdminEnginerModule { }
+export class EngineerModule { }
