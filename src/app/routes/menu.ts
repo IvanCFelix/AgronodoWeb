@@ -19,12 +19,18 @@ export class Menu {
           icon: "icon-user"
         },
         {
-          text: "Lotes",
-          link: "/Lotes",
-          icon: "icon-user"
+          text: "Ingenieros",
+          link: "/Admin-Ingeniero",
+          icon: "fas fa-industry"
         }
       ]
     };
+    const lotes = {
+        text: "Lotes",
+        link: "/Lotes",
+        icon: "icon-user"
+      
+    }
 
     const UsuariosAgroindustriasAgronodo = {
       text: "Usuarios",
@@ -63,7 +69,7 @@ export class Menu {
         }
         //Admin Agricola
         case 4: {
-          role = [headingMain, Home, AdminAgricola];
+          role = [headingMain, Home, lotes, AdminAgricola];
           break;
         }
         //Admin Ingeniero

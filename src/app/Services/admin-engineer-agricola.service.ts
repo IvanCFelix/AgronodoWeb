@@ -5,34 +5,26 @@ import { Uris } from './Uris';
 @Injectable({
   providedIn: "root"
 })
-export class AdminIngAgricola {
+export class AdminEngineerAgricola {
   private token: String;
   constructor(public http: Http) { 
     this.token = (localStorage.getItem('token') ? (<any>JSON.parse(localStorage.getItem('USER')).token) : null);
   }
   
  register(admin) {
-    return this.http.post(`${Uris.API_AGRONODO_POST}`, admin,this.jwt()).map((response: Response) => response.json()) 
+    return this.http.post(`${Uris.API_ADMIN_ENGINEER_AGRICOLA_POST}`, admin,this.jwt()).map((response: Response) => response.json()) 
   }
-
   listadmin() {
-    return this.http.get(`${Uris.API_AGRONODO_GET_LIST}`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http.get(`${Uris.API_ADMIN_ENGINEER_AGRICOLA_GET_LIST}`,this.jwt()).map((response: Response) => response.json()) 
   }
   getadmin(user) {
-    return this.http.get(`${Uris.API_AGRONODO_GET_USER}${user}/`,this.jwt()).map((response: Response) => response.json()) 
-  }
-  getRefresh() {
-    return this.http.get(`${Uris.API_USER_GET}`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http.get(`${Uris.API_ADMIN_ENGINEER_AGRICOLA_GET_USER}${user}/`,this.jwt()).map((response: Response) => response.json()) 
   }
   delete(user) {
-    return this.http.delete(`${Uris.API_ABRONODO_DELETE}${user}/`,this.jwt()).map((response: Response) => response.json()) 
-  }
-  reset(password) {
-    return this.http.post(`${Uris.PASSWORD_CHANGE}`,password,this.jwt()).map((response: Response) => response.json()) 
-  }
-   
+    return this.http.delete(`${Uris.API_ADMIN_ENGINEER_AGRICOLA_DELETE}${user}/`,this.jwt()).map((response: Response) => response.json()) 
+  }  
   edit(admin,user) {
-  return this.http.patch(`${Uris.API_AGRONODO_EDIT}${user.user.username}/`, admin,this.jwt()).map((response: Response) => response.json()) 
+  return this.http.patch(`${Uris.API_ADMIN_ENGINEER_AGRICOLA_EDIT}${user.user.username}/`, admin,this.jwt()).map((response: Response) => response.json()) 
   }
   
 

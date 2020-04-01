@@ -32,6 +32,9 @@ export const routes = [
             { path: 'Lotes/:lot/:id',canActivate:[ AuthGuard ], loadChildren: './lots-edit/lots-edit.module#LotsEditModule'},
             { path: 'Sublote/:id',canActivate:[ AuthGuard ], loadChildren: './lots-edit/lots-edit.module#LotsEditModule'},
 
+            { path: 'Admin-Ingeniero', canActivate:[ AuthGuard ],loadChildren: './admin-engineer/admin-engineer.module#AdminEnginerModule' },
+            { path: 'Admin-Ingeniero/new',canActivate:[ AuthGuard ], loadChildren: './admin-edit-engineer/admin-edit-engineer.module#AdminEditEngineerModule'},
+            { path: 'Admin-Ingeniero/:id',canActivate:[ AuthGuard ], loadChildren: './admin-edit-engineer/admin-edit-engineer.module#AdminEditEngineerModule' },
 
 
 
