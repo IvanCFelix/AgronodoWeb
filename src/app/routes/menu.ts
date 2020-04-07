@@ -77,7 +77,7 @@ export class Menu {
         }
         //Admin Agricola
         case 4: {
-          role = [headingMain, Home, lotes, AdminAgricola];
+          role = [headingMain, Home, lotes, AdminAgricola,Ingenieros];
           break;
         }
         //Admin Ingeniero
@@ -87,8 +87,7 @@ export class Menu {
         }
         //Ingeniero
         case 6: {
-          role = [headingMain, Home,Ingenieros];
-
+          role = [headingMain, Home,Ingenieros,lotes];
           break;
         }
         default: {

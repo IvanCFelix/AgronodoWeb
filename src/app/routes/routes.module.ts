@@ -5,6 +5,7 @@ import { TranslatorService } from '../core/translator/translator.service';
 import { MenuService } from '../core/menu/menu.service';
 import { SharedModule } from '../shared/shared.module';
 import { routes } from './routes';
+import { RoleGuard } from '../guard/role.guard';
 
 @NgModule({
     imports: [
@@ -12,6 +13,9 @@ import { routes } from './routes';
         RouterModule.forRoot(routes),
         PagesModule
     ],
+    providers: [
+        RoleGuard
+      ],
     declarations: [],
     exports: [
         RouterModule
