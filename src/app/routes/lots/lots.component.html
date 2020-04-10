@@ -127,18 +127,51 @@
                     <small class="text-muted">{{item.last_modifield_date}}</small>
                 </div>
                 <div class="card-body" style="font-size: 17px;">
-                  <div class=" ">
-                    <div class="row ">
+                  <div>
+                    <div class="row" *ngIf="item.cicle.length == 0">
+                     
+                      <button (click)="Ciclo.show();ciclo(item.id)" class="btn btn-sm btn-secondary" style="position: absolute;right: 52px;z-index: 1;" type="button" >
+                        <em class=" far fa-calendar-plus"></em>
+
+                    </button> 
                       <div class="col-6 ">
-                        <strong>Inicio del ciclo:  </strong>
-                        <!-- {{item.start_date}} -->
+                          <strong >
+                            Inicio del ciclo: 
+                            <small>No tiene ciclo activo</small> 
+                          
+                          </strong>
+                   
                       </div>
                       <div class="col-6  ">
-                        <strong>Fin del ciclo:  </strong>
-                        <!-- {{item.finish_date}} -->
+                        <strong >
+                          Fin del ciclo:
+                          <small>No tiene ciclo activo</small>  
+                        </strong>
+                       
+                       
                       </div>
+                      
                     </div>  
-                </div>
+                    <div *ngIf="item.cicle.length > 0">
+
+                      <div class="row"  *ngFor="let cicles of item.cicle">
+                        <div class="col-6 ">
+                            <strong *ngIf="cicles.isActive" >
+                              Inicio del ciclo: 
+                              <small>{{cicles.start_date}}</small>  
+                            </strong>
+                     
+                        </div>
+                        <div class="col-6  ">
+                          <strong *ngIf="cicles.isActive" >
+                            Fin del ciclo: 
+                            <small>{{cicles.finish_date}}</small>  
+                          </strong>
+                        </div>
+                      </div>  
+                    </div>
+                  </div>
+            
                 <div class=" ">
                   <div class="row ">
                     <div class="col-6  ">
@@ -304,16 +337,7 @@
                       válido</span>
                   </div>
                 </div>
-                <!-- <div class="row">
-                  <div class="col-6" style="padding: 1px 3px 3px 30px;">
-                    <label>Fecha de inicio</label>
-                    <input type="date" class="form-control" formControlName="start_date">
-                  </div>
-                  <div class="col-6" style="    padding: 0px 23px 13px 14px;">
-                    <label>Fecha final</label>
-                    <input type="date" class="form-control" formControlName="finish_date">
-                  </div>
-                </div> -->
+              
                 <div class="row">
                   <div class="col text-center">
                     Color principal:
@@ -365,6 +389,48 @@
               </agm-map>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div bsModal #Ciclo="bs-modal" class="modal fade "  tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+  aria-hidden="false" [config]="{ ignoreBackdropClick: true }" >
+
+  <div class="modal-dialog modal-lg " style="height: 52%;width:30%;">
+    <div class="modal-content" style="width: 116%;">
+      <div class="modal-header p-0">
+        <div class="brand-logo" style="font-size: 20px;padding: 8px;">
+          <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
+          Agregar ciclo del sublote
+        </div>
+        <button type="button" class="close" aria-label="Close" (click)="Ciclo.hide();"
+          style="font-size: 34px;padding: 23px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <form [formGroup]="cicloForm" (submit)="ciclo(subfieldID,cicloForm.value);Ciclo.hide()" >
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <label>Fecha de inicio</label>
+              <input type="date" class="form-control" formControlName="start_date">
+            </div>
+            <div  class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 card-modal">
+              <label>Fecha final</label>
+              <input type="date" class="form-control" formControlName="finish_date">
+            </div>
+            <div class="d-flex justify-content-end align-items-end"style="width:100%;">
+            <div class=" p-3">
+              <button *ngIf="cicloForm.valid" type="submit" class="btn btn-info">Guardar ciclo <em class=" far fa-calendar-plus p-1"></em></button>
+            </div>
+          </div>
+          </div>
+        </form>
         </div>
       </div>
     </div>

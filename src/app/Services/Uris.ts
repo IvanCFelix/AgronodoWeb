@@ -50,6 +50,9 @@ export class Uris {
     public static API_ENGINEER_DELETE = `${Uris.API_ENDPOINT}engineer/`;
     public static API_ENGINEER_EDIT = `${Uris.API_ENDPOINT}engineer/`;
 
+    public static API_CICLE_POST = `${Uris.API_ENDPOINT}subfields/`
+
+
 
 
 

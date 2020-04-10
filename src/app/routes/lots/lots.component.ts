@@ -39,7 +39,7 @@ export class LotsComponent implements OnInit {
   nestedPaths = [];
   editlots =[]
   allLots:any = []
-  
+  cicloForm:FormGroup;
   iconmap = {
     iconUrl: '../../assets/img/market.png',
     iconHeigh:10
@@ -53,11 +53,16 @@ export class LotsComponent implements OnInit {
         _id: new FormControl(-1),
         nickname: new FormControl("", Validators.required),
         crops: new FormControl("", Validators.required),
-        // start_date: new FormControl(Date, Validators.required),
-        // finish_date: new FormControl(Date, Validators.required),
         agriculture_type: new FormControl("", Validators.required)
       });
+      
+      this.cicloForm = new FormGroup({
+          start_date: new FormControl("", Validators.required),
+          finish_date: new FormControl("", Validators.required),
+      })
     }
+
+
 
 
   updateFilter(event) {
@@ -373,6 +378,19 @@ export class LotsComponent implements OnInit {
       this.newpaths = resp.coordinates;
       this.mostrarsublotes = resp.subfield
     })
+  }
+  subfieldID = '';
+  ciclo(id,value){
+    this.subfieldID = id
+    console.log(value,id);
+   
+    if(value){
+      this.LotsService.CicleRegister(id,value).subscribe((resp:any) => {
+       this.getLot()
+      })
+    }
+   
+    
   }
 }
 
