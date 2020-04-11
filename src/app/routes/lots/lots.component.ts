@@ -34,9 +34,9 @@ export class LotsComponent implements OnInit {
   lng: number = -108.9858821;
   zoom: number = 12;
   mostrarsublotes:any = [];
+  nestedPaths = [];
   user;
   showlote:any={}
-  nestedPaths = [];
   editlots =[]
   allLots:any = []
   cicloForm:FormGroup;
@@ -226,9 +226,9 @@ export class LotsComponent implements OnInit {
       this.showlote = resp;
       this.zoom = 13
       this.mostrarsublotes = resp.subfield
+      this.nestedPaths = resp.coordinates;
       this.lat = resp.coordinates[0].lat
       this.lng = resp.coordinates[0].lng
-      this.nestedPaths = resp.coordinates;
       const array: any[] = Array.of(this.nestedPaths);
       this.nestedPaths = array
   });

@@ -1,0 +1,148 @@
+<div class="main-container">
+  <div class="card card-default ">
+    <div class="row p-3">
+      <div class="col-4">
+        <h4>Nombre: 
+          <small>{{showsublote.nickname}}</small>
+      
+        </h4> 
+        <h4>Tipo de cultivo: 
+          <small *ngIf="showsublote.agriculture_type === 'P'"> Protegida</small>
+          <small *ngIf="showsublote.agriculture_type === 'T'"> Tradicional</small>
+        </h4> 
+        <h4>Tipo de agricultura:
+          <small>{{crops.name}}</small>
+        </h4> 
+    
+    
+      <p>{{showsublote.last_modifield_date}}</p>
+        <!-- <h2>{{showsublote.nickname}}</h2> -->
+    
+      </div>
+      <div class="col-2 text-center">
+         <strong> Color principal: </strong> 
+          <div class="h1 clickable mt-lg" [(colorPicker)]="showsublote.color" [cpPosition]="'bottom'"
+            [style.color]="showsublote.color" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true">
+            <div>
+              <a class="fas fa-square"></a>
+          </div>
+        </div>
+      </div>
+      <div class="col d-flex flex-row align-items-end">
+          <div class="w-100">
+              <progressbar class="progress-xs m-0" [value]=showlote.cicle_progress type="info" style="height: 20px;"></progressbar>
+          </div>
+          <div class="ml-auto">
+              <div class="col wd-xxs text-right">
+                  <div class="text-bold text-muted">{{showlote.cicle_progress}}%</div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-12 col-lg-12 col-xl-6 p-0">
+      <div class="card-body pr-0 pt-0" style="height: 100%;">       
+        <div class="pl-4 ">
+          <h4 >Ciclo por semanas</h4>
+        </div>
+        <div >
+          <div class="scroll">
+            <!-- Ciclo por semanas -->
+          <div *ngIf="mostrar">
+            <div *ngFor="let item of showlote.weeks;let i = index"  class="card b m-3 animated fadeIn">
+            
+              <div class="card-body" style="font-size: 17px;">
+                <div>
+                  <div class="row" >
+                    <div class="col-6 ">
+                        <strong >
+                          Inicio del ciclo: 
+                          <small>{{item.start_date}}</small> 
+                        </strong>
+                    </div>
+                    <div class="col-6  ">
+                      <strong >
+                        Fin del ciclo:
+                        <small>{{item.finish_date}}</small>  
+                      </strong>
+                    </div>
+                  </div> 
+                  <div class="row" >
+                    <div class="col-6 ">
+                        <strong >
+                          Inicio del ciclo: 
+                          <small>{{item.start_date}}</small> 
+                        </strong>
+                    </div>
+                    <div class="col-6  ">
+                      <strong >
+                        Fin del ciclo:
+                        <small>{{item.finish_date}}</small>  
+                      </strong>
+                    </div>
+                  </div>  
+                  <div class="row" >
+                    <div class="col-6 ">
+                      <Strong>
+                        Numero de recorridos:
+                        <small>{{item.pathings.length}}</small>
+                      </Strong>
+                    </div>
+                    <div class="col-6  ">
+                     
+                    </div>
+                  </div>  
+                  <div >
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer text-right bt0">
+                <button class="btn btn-success m-1" type="button"
+                [routerLink]="['/Lotes/','lote',id]">
+                <a class="fas fa-pencil-alt"></a> </button>
+                <button *ngIf="item.pathings.length > 0" class="btn btn-primary m-1 respo" type="button" (click)="mostrar = false">
+                  <a class="fas fa-eye"></a> </button>
+          
+            </div>
+        
+          </div>
+          </div>
+          <!-- Ciclo por rutas -->
+          <div *ngIf="mostrar == false">
+            <div *ngFor="let lote of rutas;let i = index"  class="card b m-3 animated fadeIn">
+              
+             
+                hola
+
+           
+        
+               
+        
+          </div>
+          </div>
+          </div>
+      </div>
+      </div>
+    </div>
+    <div class="col">
+        <div class=" card-body ">  
+          <agm-map  [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false"> 
+           
+              <agm-polygon  [paths]="allLots" [fillOpacity]="0.1" [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'"    ></agm-polygon>               
+        
+            <!-- <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="'#4caf50'" [clickable]=true>
+              <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat"   [longitude]="point.lng">
+              </agm-polyline-point>
+            </agm-polyline> -->
+            <agm-polyline   [strokeColor]="showsublote.color"  [strokeWeight]="3">
+              <agm-polyline-point *ngFor="let point of mostrarsublotes;let i = index;" [latitude]="point.lat" [longitude]="point.lng">
+              </agm-polyline-point>
+            </agm-polyline>
+          </agm-map>
+      </div>
+    
+  </div>
+  </div>
+</div>
+
+</div>

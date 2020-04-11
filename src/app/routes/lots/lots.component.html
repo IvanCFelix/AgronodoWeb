@@ -191,6 +191,8 @@
                   <button class="btn btn-success m-1" type="button"
                   [routerLink]="['/Lotes/','lote',id]" *ngIf="verify == false">
                   <a class="fas fa-pencil-alt"></a> </button>
+                  <button *ngIf="item.cicle.length !==0 " class="btn btn-primary m-1 respo" type="button" [routerLink]="['/Lotes/cicle/',id,item.id]">
+                    <a class="fas fa-eye"></a> </button>
                   <button class="btn btn-success m-1" type="button"
                   (click)="datasublote(item,i);Modal.show()" *ngIf="verify == true">
                   <a class="fas fa-pencil-alt"></a> </button>

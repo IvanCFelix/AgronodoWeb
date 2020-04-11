@@ -31,6 +31,8 @@ export class Uris {
     public static API_SUB_LOTS_REGISTER = `${Uris.API_ENDPOINT}subfields/`;
     public static API_SUB_LOTS_EDIT = `${Uris.API_ENDPOINT}subfields/`;
     public static API_SUB_LOTS_GET_LIST = `${Uris.API_ENDPOINT}subfields/`;
+    public static API_SUB_LOT_GET_ID = `${Uris.API_ENDPOINT}subfields/`;
+
 
     public static API_ADMIN_AGRICOLA_POST = `${Uris.API_ENDPOINT}adminagricola/`
     public static API_ADMIN_AGRICOLA_GET_LIST= `${Uris.API_ENDPOINT}adminagricola/`;
@@ -51,6 +53,8 @@ export class Uris {
     public static API_ENGINEER_EDIT = `${Uris.API_ENDPOINT}engineer/`;
 
     public static API_CICLE_POST = `${Uris.API_ENDPOINT}subfields/`
+    public static API_CICLE_WEEKS_GET = `${Uris.API_ENDPOINT}subfields/`
+
 
 
 

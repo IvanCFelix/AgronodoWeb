@@ -155,12 +155,12 @@ update(value: any) {
       names: value.name,
       lastnames: value.lastname,
       phone: value.phone,
-      role:{
-        name:value.name
-       },
+      // role:{
+      //   name:value.role
+      //  },
+       canAddField:value.canAddField,
+       canEditEngineers:value.canEditEngineers,
       canSeeReports:value.canSeeReports,
-      canAddField:value.canAddField,
-      canEditEngineers:value.canEditEngineers,
     };
     let user = {
       user: {
@@ -196,9 +196,9 @@ update(value: any) {
       lastnames: value.lastname,
       phone: value.number,
       photo: this.filestring,
-      role:{
-        name:value.role
-      },
+      // role:{
+      //   name:value.role
+      // },
       canSeeReports:value.canSeeReports,
       canAddField:value.canAddField,
       canEditEngineers:value.canEditEngineers,

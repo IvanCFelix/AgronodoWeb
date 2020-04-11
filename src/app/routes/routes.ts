@@ -44,6 +44,8 @@ export const routes = [
             { path: 'Ingeniero/new',canActivate:[ AuthGuard, RoleGuard ], data: {role:4, role2:6}, loadChildren: './engineer-edit/engineer-edit.module#EditEngineerModule'},
             { path: 'Ingeniero/:id',canActivate:[ AuthGuard, RoleGuard ], data: {role:4, role2:6}, loadChildren: './engineer-edit/engineer-edit.module#EditEngineerModule' },
 
+            { path: 'Lotes/cicle/:lot/:sub',canActivate:[ AuthGuard, RoleGuard ], data: {role:4, role2:6}, loadChildren: './cicle/cicle.module#CicleModule'},
+            
 
 
 

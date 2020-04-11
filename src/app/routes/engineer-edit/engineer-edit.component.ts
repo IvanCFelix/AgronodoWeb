@@ -111,9 +111,9 @@ create(value: any) {
     lastnames: value.lastname,
     phone: value.phone,
     photo: this.filestring,
-    role:{
-      name:value.role
-    },
+    // role:{
+    //   name:value.role
+    // },
     user: {
       username: value.username,
       email: value.email
@@ -155,9 +155,9 @@ update(value: any) {
       names: value.name,
       lastnames: value.lastname,
       phone: value.phone,
-      role:{
-        name:value.name
-       },
+      // role:{
+      //   name:value.name
+      //  },
       canSeeReports:value.canSeeReports,
       canAddField:value.canAddField,
       canEditEngineers:value.canEditEngineers,
@@ -196,9 +196,9 @@ update(value: any) {
       lastnames: value.lastname,
       phone: value.number,
       photo: this.filestring,
-      role:{
-        name:value.role
-      },
+      // role:{
+      //   name:value.role
+      // },
       canSeeReports:value.canSeeReports,
       canAddField:value.canAddField,
       canEditEngineers:value.canEditEngineers,

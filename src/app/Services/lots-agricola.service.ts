@@ -44,9 +44,14 @@ export class LotsAgricolaService {
     return this.http.get(`${Uris.API_SUB_LOTS_GET_LIST}`,this.jwt()).map((response: Response) => response.json()) 
   }
 
+  GetSubloteID(id) {  
+    return this.http.get(`${Uris.API_SUB_LOT_GET_ID}${id}/`,this.jwt()).map((response: Response) => response.json()) 
+  }
   CicleRegister(id,value){
     return this.http.post(`${Uris.API_CICLE_POST}${id}/cicles/`, value,this.jwt()).map((response: Response) => response.json()) 
-
+  }
+  GetCicleid(id) {
+    return this.http.get(`${Uris.API_CICLE_WEEKS_GET}${id}/pathingsweeks/`,this.jwt()).map((response: Response) => response.json()) 
   }
 
 
