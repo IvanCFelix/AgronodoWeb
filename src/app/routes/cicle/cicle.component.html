@@ -36,8 +36,8 @@
         <div class="ml-auto">
           <div class="col text-right">
             <div class="text-bold text-muted">
-           {{cicle.progress}}%         
-         </div>
+              {{cicle.progress}}%
+            </div>
           </div>
         </div>
       </div>
@@ -46,7 +46,8 @@
       <div class="col-12 col-md-12 col-lg-12 col-xl-6 p-0">
         <div class="card-body pr-0 pt-0" style="height: 100%;">
           <div class="pl-4 ">
-            <h4>Ciclo por semanas</h4>
+            <h4 *ngIf="mostrar">Ciclo por semanas</h4>
+            <h4 *ngIf="mostrar == false">Recorridos</h4>
           </div>
           <div>
             <div class="scroll">
@@ -114,8 +115,8 @@
                           </td>
                           <td>{{lote.done_date}} a las {{lote.pathingTime}}</td>
                           <td>
-                            <strong>Distancia Recorrida:</strong> 
-                            {{sumatotal(lote)}}
+                            <strong>Distancia Recorrida:</strong>
+                            {{sumatotal(lote,i)}}M.
                             <!-- {{calculatedistance(lote.pathingCoordinates[0],lote.pathingCoordinates[lote.pathingCoordinates.length -1] )}}M. -->
                           </td>
                         </tr>
@@ -127,7 +128,7 @@
                             {{lote.engineer}}
                           </td>
                           <td>
-                       
+
                           </td>
                         </tr>
                         <tr>
@@ -138,7 +139,7 @@
                             {{lote.engineer_role}}
                           </td>
                           <td>
-                         
+
                           </td>
                         </tr>
 
@@ -184,27 +185,50 @@
         <div class=" card-body ">
           <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false">
 
-            <agm-polygon [paths]="allLots" [fillOpacity]="0.1" [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'">
+            <agm-polygon [paths]="allLots" [fillOpacity]="0.1" [fillColor]="'transparent'"
+              [strokeColor]="showsublote.color">
             </agm-polygon>
             <div *ngIf="mostrar">
-              <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="'#4caf50'"
+              <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="showsublote.color"
                 [clickable]=true>
                 <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                 </agm-polyline-point>
               </agm-polyline>
             </div>
             <div *ngIf="mostrar == false">
+              <div *ngFor="let lote of rutas;">
+                <div *ngFor="let item of lote.reports">
+                  <agm-circle [latitude]="item.lat" [longitude]="item.lng" [clickable]="false" [draggable]="true"
+                    [editable]="false" [fillColor]="'#ff8000'" [fillOpacity]="1" [radius]="3">
+                  </agm-circle>
+    
+                </div>
+              </div>
+
               <agm-polyline *ngFor="let polyline of pathingCoordinates;let i = index;" [strokeColor]="'#4caf50'"
-                [clickable]=true>
-                <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                [clickable]=true >
+                <agm-marker [latitude]="polyline[0].lat" [longitude]="polyline[0].lng" 
+                  [label]="'Inicio'">
+                </agm-marker>
+                <agm-marker [latitude]="polyline[polyline.length -1 ].lat" [longitude]="polyline[polyline.length -1].lng" 
+                  [label]="'Fin'">
+                </agm-marker>
+                
+                <agm-polyline-point *ngFor="let point of polyline;let i = index" [latitude]="point.lat"
+                  [longitude]="point.lng">
+                  
+                
                 </agm-polyline-point>
               </agm-polyline>
-
+            
             </div>
           </agm-map>
+          <div class="row">
+            <!-- <mdb-image-modal [modalImages]="images" type="margin"></mdb-image-modal> -->
+          </div>
           <div>
             Distance: {{distance}}
-        </div>
+          </div>
         </div>
 
       </div>

@@ -13,6 +13,26 @@ declare var google: any;
 })
 export class CicleComponent implements OnInit {
 distance:any;
+images = [
+  { img: 'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg', thumb:
+  'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg', description: 'Image 1' },
+  { img: 'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(150).jpg', thumb:
+  'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(150).jpg', description: 'Image 2' },
+  { img: 'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(152).jpg', thumb:
+  'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(152).jpg', description: 'Image 3' },
+  { img: 'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(42).jpg', thumb:
+  'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(42).jpg', description: 'Image 4' },
+  { img: 'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(151).jpg', thumb:
+  'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(151).jpg', description: 'Image 5' },
+  { img: 'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(40).jpg', thumb:
+  'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(40).jpg', description: 'Image 6' },
+  { img: 'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(148).jpg', thumb:
+  'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(148).jpg', description: 'Image 7' },
+  { img: 'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(147).jpg', thumb:
+  'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(147).jpg', description: 'Image 8' },
+  { img: 'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(149).jpg', thumb:
+  'https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(149).jpg', description: 'Image 9' }
+];
 origin: any;
 destination: any;
   color;
@@ -123,22 +143,12 @@ destination: any;
     
   }
 
-  sumatotal(value){
-    let suma:any = 0
-    for (let i = 0; i < value.pathingCoordinates.length; i++) {
-      let leng = value.pathingCoordinates.length - 1
-     if(i == leng){
-      return suma
-     }
-     if(i !== leng){
-       suma = this.calculatedistance(value.pathingCoordinates[i],value.pathingCoordinates[i+1]);
-     }
-    }
+  sumatotal(value, i){
+    let suma:any = 0  
+       suma += (this.calculatedistance(value.pathingCoordinates[i],value.pathingCoordinates[i+1]));    
     return suma
   }
   calculatedistance(point1, point2) {
-    let value;
-    let total;
     const p1 = new google.maps.LatLng(
     point1.lat,
     point1.lng
@@ -147,10 +157,7 @@ destination: any;
     point2.lat,
     point2.lng
     );
-    value =  (google.maps.geometry.spherical.computeDistanceBetween(p1, p2)).toFixed(2);
-    total = value + value
-    console.log(total)
-    return total
+    return  (google.maps.geometry.spherical.computeDistanceBetween(p1, p2)).toFixed(2);
 }
 }
 
