@@ -53,6 +53,9 @@ export class LotsAgricolaService {
   GetCicleid(id) {
     return this.http.get(`${Uris.API_CICLE_WEEKS_GET}${id}/pathingsweeks/`,this.jwt()).map((response: Response) => response.json()) 
   }
+  GetReportListid(sub,rep) {
+    return this.http.get(`${Uris.API_REPORT_LIST_GET}${sub}/pathings/${rep}/reports`,this.jwt()).map((response: Response) => response.json()) 
+  }
 
 
   errorHandler(error: any): void {

@@ -100,7 +100,7 @@
                   <div class="col">
 
                     <div class="float-right">
-                      <button class="btn btn-labeled btn-warning " type="button">
+                      <button class="btn btn-labeled btn-warning " type="button" [routerLink]="['/Lotes/reportes/',lot,showsublote.id,lote.id]">
                         <span class="btn-label p-1"><i class="fas fa-exclamation-triangle"></i>
                         </span>({{lote.reports.length}}) Reportes</button>
 
@@ -196,17 +196,17 @@
               </agm-polyline>
             </div>
             <div *ngIf="mostrar == false">
-              <div *ngFor="let lote of rutas;">
-                <div *ngFor="let item of lote.reports">
-                  <agm-circle [latitude]="item.lat" [longitude]="item.lng" [clickable]="false" [draggable]="true"
-                    [editable]="false" [fillColor]="'#ff8000'" [fillOpacity]="1" [radius]="3">
-                  </agm-circle>
-    
-                </div>
-              </div>
+             
 
               <agm-polyline *ngFor="let polyline of pathingCoordinates;let i = index;" [strokeColor]="'#4caf50'"
                 [clickable]=true >
+                <div *ngFor="let lote of rutas;">
+                  <div *ngFor="let item of lote.reports">
+                    <agm-circle [latitude]="item.lat" [longitude]="item.lng" [clickable]="false" [draggable]="true"
+                      [editable]="false" [fillColor]="'#ff8000'" [fillOpacity]="1" [radius]="3">
+                    </agm-circle>
+                  </div>
+                </div>
                 <agm-marker [latitude]="polyline[0].lat" [longitude]="polyline[0].lng" 
                   [label]="'Inicio'">
                 </agm-marker>

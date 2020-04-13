@@ -54,6 +54,9 @@ export class Uris {
 
     public static API_CICLE_POST = `${Uris.API_ENDPOINT}subfields/`
     public static API_CICLE_WEEKS_GET = `${Uris.API_ENDPOINT}subfields/`
+    public static API_REPORT_LIST_GET = `${Uris.API_ENDPOINT}subfields/`
+
+
 
 
 

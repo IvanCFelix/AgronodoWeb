@@ -1,0 +1,129 @@
+<div class="main-container">
+  <div class="card card-default ">
+    <div class="row p-3">
+      <div class="col-4">
+        <h4>Nombre:
+          <small>hola</small>
+
+        </h4>
+        <h4>Tipo de cultivo:
+          <small > Protegida</small>
+          <small > Tradicional</small>
+        </h4>
+        <h4>Tipo de agricultura:
+          <small>hola</small>
+        </h4>
+      </div>
+      <div class="col-2 text-center">
+        <strong> Color principal: </strong>
+      
+      </div>
+      <div class="col d-flex flex-row align-items-end">
+   
+        <div class="ml-auto">
+          <div class="col text-right">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-6 p-0">
+        <div class="card-body pr-0 pt-0" style="height: 100%;">
+          <div class="pl-4 ">
+            <h4 >Ciclo por semanas</h4>
+
+          </div>
+          <div>
+            <div class="scroll">
+              <!-- Ciclo por semanas -->
+              <div >
+                <div *ngFor="let report of report;let i = index" class="card b m-3 animated fadeIn p-3">
+                  <div class="col">
+                    <h4 class="m-0">Reporte #{{i + 1}}</h4>
+                    <small class="text-muted">{{report.datetime}}</small>
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <td>
+                            <strong>Nombre</strong>
+                          </td>
+                          <td>{{report.title}}</td>
+                  
+                        </tr>
+                        <tr>
+                          <td>
+                            <strong>Observación</strong>
+                          </td>
+                          <td>
+                            {{report.observation}}
+                          </td>
+                        </tr>
+          
+                      </tbody>
+                    </table>
+                    <div class="card-footer text-center bt0">
+                      <button class="btn btn-info" type="button" >Ver recorridos</button>
+                    </div>
+                  </div>
+                  <!-- <div class="row">
+                    <div class="col">
+                      <strong>Nombre de la ruta:
+                        <small>{{lote.title}}</small>
+                      </strong>
+                    </div>
+                    <div class="col">
+                      <strong>Fin del recorrido:
+                        <small>{{lote.done_date}} a las {{lote.pathingTime}}</small>
+                      </strong>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <strong>Ingeniero:
+                        <small>{{lote.engineer}}</small>
+                      </strong>
+                    </div>
+                    <div class="col">
+                      <strong>Rol:
+                        <small>{{lote.engineer_role}}</small>
+                      </strong>
+                    </div>
+                  </div> -->
+
+
+                </div>
+              </div>
+         
+        
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class=" card-body ">
+          <p>hola</p>
+          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false">
+
+            <agm-polygon [paths]="allLots" [fillOpacity]="0.1" [fillColor]="'transparent'"
+              [strokeColor]="'#4caf50'">
+            </agm-polygon>
+    
+            <div >
+              <agm-polyline *ngFor="let polyline of pathingCoordinates;let i = index;" [strokeColor]="'#4caf50'"
+                [clickable]=true>
+                <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                </agm-polyline-point>
+              </agm-polyline>
+            
+            </div>
+       
+          </agm-map>
+     
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
