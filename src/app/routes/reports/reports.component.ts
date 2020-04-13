@@ -8,7 +8,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./reports.component.scss"],
 })
 export class ReportsComponent implements OnInit {
-  color;
+  sublote:any = {};
   allLots: any = [];
   ruta: any = {};
   report:any = [];
@@ -26,7 +26,7 @@ export class ReportsComponent implements OnInit {
 
   ngOnInit() {
     const sub = this.route.snapshot.paramMap.get("sub");
-    const rep = this.route.snapshot.paramMap.get("rep");
+    const rep = this.route.snapshot.paramMap.get("rut");
     this.showsub(sub);
     this.LotsService.GetReportListid(sub, rep).subscribe((resp: any) => {
       console.log(resp);
@@ -45,7 +45,7 @@ export class ReportsComponent implements OnInit {
       console.log(resp);
       this.report =  resp.reports
       this.allLots = resp.subfieldCoordinates;
-      this.color = resp.color
+      this.sublote = resp
       // this.showlote = resp;
       // this.rutas = this.recor();
       // const array: any[] = Array.of(this.nestedPaths);

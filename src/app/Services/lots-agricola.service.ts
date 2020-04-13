@@ -62,6 +62,9 @@ export class LotsAgricolaService {
    GetListPathingsList(sub) {
     return this.http.get(`${Uris.API_PATHINGS_LIST_GET}${sub}/pathings/`,this.jwt()).map((response: Response) => response.json()) 
   }
+  GetReportSolo(sub,rut,rep) {
+    return this.http.get(`${Uris.API_PATHINGS_LIST_GET}${sub}/pathings/${rut}/reports/${rep}/`,this.jwt()).map((response: Response) => response.json()) 
+  }
 
 
 

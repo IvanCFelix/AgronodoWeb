@@ -45,7 +45,9 @@ export const routes = [
             { path: 'Ingeniero/:id',canActivate:[ AuthGuard, RoleGuard ], data: {role:4, role2:6}, loadChildren: './engineer-edit/engineer-edit.module#EditEngineerModule' },
 
             { path: 'Lotes/cicle/:lot/:sub',canActivate:[ AuthGuard, RoleGuard ], data: {role:4, role2:6}, loadChildren: './cicle/cicle.module#CicleModule'},
-            { path: 'Lotes/reportes/:lot/:sub/:rep',canActivate:[ AuthGuard, RoleGuard ], data: {role:4, role2:6}, loadChildren: './reports/reports.module#ReportsModule'},
+            { path: 'Lotes/reportes/:lot/:sub/:rut',canActivate:[ AuthGuard, RoleGuard ], data: {role:4, role2:6}, loadChildren: './reports/reports.module#ReportsModule'},
+            { path: 'Lotes/reporte/:sub/:rut/:repso',canActivate:[ AuthGuard, RoleGuard ], data: {role:4, role2:6}, loadChildren: './reportsolo/reportsolo.module#ReportSoloModule'},
+
 
             
 
