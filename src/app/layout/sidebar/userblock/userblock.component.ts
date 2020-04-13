@@ -26,7 +26,6 @@ export class UserblockComponent implements OnInit {
         this.adminService.getRefresh().subscribe( resp => {
             this.usuario = resp
             this.type = resp.user_type_name
-            console.log(resp)
             switch (resp.user_type) {
                 // Agronodo
                 case 2: {

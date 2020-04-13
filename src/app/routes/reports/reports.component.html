@@ -3,23 +3,22 @@
     <div class="row p-3">
       <div class="col-4">
         <h4>Nombre:
-          <small>hola</small>
+          <small>{{ruta.title}}</small>
 
         </h4>
-        <h4>Tipo de cultivo:
-          <small > Protegida</small>
-          <small > Tradicional</small>
+        <h4>Final del ciclo:
+          <small> {{ruta.done_date}}</small>
         </h4>
-        <h4>Tipo de agricultura:
-          <small>hola</small>
+        <h4>Hora final:
+          <small>{{ruta.pathingTime}}</small>
         </h4>
       </div>
       <div class="col-2 text-center">
-        <strong> Color principal: </strong>
-      
+
+
       </div>
       <div class="col d-flex flex-row align-items-end">
-   
+
         <div class="ml-auto">
           <div class="col text-right">
 
@@ -31,13 +30,13 @@
       <div class="col-12 col-md-12 col-lg-12 col-xl-6 p-0">
         <div class="card-body pr-0 pt-0" style="height: 100%;">
           <div class="pl-4 ">
-            <h4 >Ciclo por semanas</h4>
+            <h4>Ciclo por semanas</h4>
 
           </div>
           <div>
             <div class="scroll">
               <!-- Ciclo por semanas -->
-              <div >
+              <div>
                 <div *ngFor="let report of report;let i = index" class="card b m-3 animated fadeIn p-3">
                   <div class="col">
                     <h4 class="m-0">Reporte #{{i + 1}}</h4>
@@ -49,7 +48,7 @@
                             <strong>Nombre</strong>
                           </td>
                           <td>{{report.title}}</td>
-                  
+
                         </tr>
                         <tr>
                           <td>
@@ -59,11 +58,11 @@
                             {{report.observation}}
                           </td>
                         </tr>
-          
+
                       </tbody>
                     </table>
                     <div class="card-footer text-center bt0">
-                      <button class="btn btn-info" type="button" >Ver recorridos</button>
+                      <button class="btn btn-info" type="button">Ver reporte</button>
                     </div>
                   </div>
                   <!-- <div class="row">
@@ -94,32 +93,46 @@
 
                 </div>
               </div>
-         
-        
+
+
             </div>
           </div>
         </div>
       </div>
       <div class="col">
         <div class=" card-body ">
-          <p>hola</p>
           <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false">
-
-            <agm-polygon [paths]="allLots" [fillOpacity]="0.1" [fillColor]="'transparent'"
-              [strokeColor]="'#4caf50'">
+            <agm-polygon [paths]="allLots" [fillOpacity]="0.1" [fillColor]="'transparent'" [clickable]=false
+              [strokeColor]="color">
             </agm-polygon>
-    
-            <div >
-              <agm-polyline *ngFor="let polyline of pathingCoordinates;let i = index;" [strokeColor]="'#4caf50'"
-                [clickable]=true>
-                <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+
+            <div>
+              <agm-polyline [strokeColor]="'#4caf50'" [clickable]=true>
+                <div *ngFor="let item of report">
+                  <agm-circle (mouseOver)="infoWindow.open();" (mouseOut)="infoWindow.close();" [clickable]=true
+                    [latitude]="item.lat" [longitude]="item.lng" [draggable]="true" [editable]="false"
+                    [fillColor]="'#ff8000'" [fillOpacity]="1" [radius]="3"
+                    (circleClick)="onCircleClicked($event,item.id)">
+                  </agm-circle>
+                  <agm-info-window [latitude]="item.lat" [longitude]="item.lng" [disableAutoPan]="false" #infoWindow>
+                    <div>
+                      <span>
+                        <h5>{{item.title}}</h5>
+                        <p>{{item.observation}}</p>
+                      </span>
+                    </div>
+
+                  </agm-info-window>
+                </div>
+                <agm-polyline-point *ngFor="let point of recorrido;let i = index;" [latitude]="point.lat"
+                  [longitude]="point.lng">
                 </agm-polyline-point>
               </agm-polyline>
-            
+
             </div>
-       
+
           </agm-map>
-     
+
         </div>
 
       </div>

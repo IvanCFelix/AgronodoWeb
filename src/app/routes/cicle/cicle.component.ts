@@ -41,6 +41,7 @@ destination: any;
     const sub = this.route.snapshot.paramMap.get("sub");
     const lot = this.route.snapshot.paramMap.get("lot");
     this.lot =  lot;
+    // this.ShowAllpathings(sub)
     this.datasublot(sub);
     this.LotsService.GetCicleid(sub).subscribe((resp: any) => {
       console.log(resp);
@@ -126,5 +127,14 @@ destination: any;
     );
     return  (google.maps.geometry.spherical.computeDistanceBetween(p1, p2)).toFixed(2);
 }
+// Mostrar todos los reportes
+// ShowAllpathings(sub){
+//   this.LotsService.GetListPathingsList(sub).subscribe((resp:any) => {
+//     console.log("rutas son  ");
+//     console.log(resp);
+//     this.nestedPaths = resp
+   
+//   })
+// }
 }
 

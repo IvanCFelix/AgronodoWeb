@@ -8,9 +8,11 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./reports.component.scss"],
 })
 export class ReportsComponent implements OnInit {
+  color;
   allLots: any = [];
-  rutas: any = [];
-  report;
+  ruta: any = {};
+  report:any = [];
+  recorrido: any = []
   showlote: any = {};
   nestedPaths:any = [];
   pathingCoordinates:any = [];
@@ -25,53 +27,41 @@ export class ReportsComponent implements OnInit {
   ngOnInit() {
     const sub = this.route.snapshot.paramMap.get("sub");
     const rep = this.route.snapshot.paramMap.get("rep");
-    console.log("el sublote es " + sub);
-    console.log("le reporte es " + rep);
     this.showsub(sub);
     this.LotsService.GetReportListid(sub, rep).subscribe((resp: any) => {
       console.log(resp);
       this.report = resp;
     });
-    this.pathingCoordinates = this.cicle(sub)
+    this.ShowReportId(sub,rep);
+    // this.ShowAllpathings(sub);
+
+    // this.pathingCoordinates = this.cicle(sub)
     const array: any[] = Array.of(this.pathingCoordinates);
     this.pathingCoordinates = array;
   }
+ 
   showsub(sub) {
     this.LotsService.GetSubloteID(sub).subscribe((resp: any) => {
       console.log(resp);
+      this.report =  resp.reports
       this.allLots = resp.subfieldCoordinates;
+      this.color = resp.color
       // this.showlote = resp;
       // this.rutas = this.recor();
       // const array: any[] = Array.of(this.nestedPaths);
       // this.nestedPaths = array;
     });
   }
-  recor() {
-    let arr = [];
-    for (let lot of this.showlote.weeks) {
-      for (let item of lot.pathings) {
-        const array = item;
-        arr.push(array);
-      }
-    }
-    console.log(arr);
-
-    return arr;
-  }
-  cicle(sub){
-    const array:any = []
-    this.LotsService.GetCicleid(sub).subscribe(resp => {
+  ShowReportId(sub,rep){
+    this.LotsService.GetListPathingsID(sub,rep).subscribe((resp:any) => {
+      console.log("ruta es");
       console.log(resp);
-      for(let item of resp.weeks){
-       for(let pathings of item.pathings){
-         for(let pathingCoordinates of pathings.pathingCoordinates){
-          array.push(pathingCoordinates)
-         }
-       }
-      }
-      console.log(array)
-      return array
-      
+      this.ruta = resp
+      this.recorrido =  resp.pathingCoordinates
     })
+  }
+  onCircleClicked(evento,id){
+    console.log(id);
+    
   }
 }
