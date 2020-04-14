@@ -224,7 +224,7 @@ export class LotsEditComponent implements OnInit {
     let obj = {
       id:id,
       coordinates: this.newpaths,
-      subfield:[],
+      // subfield:[],
       name: value.name,
     };           
       console.log(obj)

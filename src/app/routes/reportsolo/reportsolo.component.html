@@ -1,12 +1,46 @@
-<div class="main-container">
+<div class="main-container  ">
+  <div class="row justify-content-center">
+  <div class="col-9">
+
   <div class="card  ">
     <div class="row p-3">
       <div class="col">
-        hola
+        <!-- <gallery id="basic-test" fluid [items]="items"></gallery> -->
+          <div class="gallery" *ngFor="let item of data.images;let i = index;">
+                <img [src]="url + item.image" [alt]="i+1" width="600" height="400">
+          </div>
       </div>
-      <div class="col">
-        hola
+      <div class="col d-flex justify-content-center align-items-center">
+        <p *ngIf="video.length == 0">Lo sentimos no tienes videos disponibles</p>
+        <div *ngFor="let item of video;let i = index;">
+          <video  controls>
+            <source [src]="url+item.video" type="video/mp4">
+          </video>
+</div>
       </div>
     </div>
+    <div class="row p-3">
+      <div class="col">
+        <h4>Nombre:
+          <small>{{data.title}}</small>
+        </h4>
+        <h4>Descripción:
+          <small> {{data.observation}}</small>
+        </h4>
+        <h4>Fecha:
+          <small>{{data.datetime}}</small>
+        </h4>
+    </div>
   </div>
+  <h2 class="p-3">Incidencias</h2>
+  <div class="row p-3">
+    <div class="col">
+      Incidencia Agricultura
+    </div>
+    <div class="col">
+      Incidencia Técnica
+    </div>
+  </div>
+</div>
+</div>
 </div>
