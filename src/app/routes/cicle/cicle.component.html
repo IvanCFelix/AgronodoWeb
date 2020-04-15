@@ -10,14 +10,12 @@
 
         </h4>
         <h4>Tipo de cultivo:
+          <small>{{crops.name}}</small>
+        </h4>
+        <h4>Tipo de agricultura:
           <small *ngIf="showsublote.agriculture_type === 'P'"> Protegida</small>
           <small *ngIf="showsublote.agriculture_type === 'T'"> Tradicional</small>
         </h4>
-        <h4>Tipo de agricultura:
-          <small>{{crops.name}}</small>
-        </h4>
-
-
         <p>{{showsublote.last_modifield_date}}</p>
         <!-- <h2>{{showsublote.nickname}}</h2> -->
 
@@ -61,13 +59,13 @@
                       <div class="row">
                         <div class="col-6 ">
                           <strong>
-                            Inicio del ciclo:
+                            Inicio del la semana:
                             <small>{{item.start_date}}</small>
                           </strong>
                         </div>
                         <div class="col-6  ">
                           <strong>
-                            Fin del ciclo:
+                            Fin de la semana:
                             <small>{{item.finish_date}}</small>
                           </strong>
                         </div>

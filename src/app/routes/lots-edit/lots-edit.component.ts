@@ -595,5 +595,4 @@ export class LotsEditComponent implements OnInit {
       crops: value.crops.name
     });
   }
-
 }
