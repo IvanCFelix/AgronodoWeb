@@ -27,7 +27,7 @@ export function createTranslateLoader(http: HttpClient) {
         CustomFormsModule,
         HttpModule,
         BrowserAnimationsModule, // required for ng2-tag-input
-        CoreModule,
+        CoreModule, 
         LayoutModule,
         SharedModule.forRoot(),
         RoutesModule,

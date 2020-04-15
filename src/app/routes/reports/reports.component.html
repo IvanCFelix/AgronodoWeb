@@ -1,4 +1,7 @@
 <div class="main-container">
+  <button class="mr-1 btn btn-labeled btn-info mb-2" type="button"  [routerLink]="['/Lotes/','cicle',lote,sub]">
+    <span class="btn-label"><i class="fa fa-arrow-left"></i>
+</span>Regresar</button>
   <div class="card card-default ">
     <div class="row p-3">
       <div class="col-4">
@@ -30,7 +33,7 @@
       <div class="col-12 col-md-12 col-lg-12 col-xl-6 p-0">
         <div class="card-body pr-0 pt-0" style="height: 100%;">
           <div class="pl-4 ">
-            <h4>Ciclo por semanas</h4>
+            <h4>Reportes</h4>
 
           </div>
           <div>
@@ -62,7 +65,7 @@
                       </tbody>
                     </table>
                     <div class="card-footer text-center bt0">
-                      <button class="btn btn-info" type="button"  [routerLink]="['/Lotes/reporte/',sublote.id,ruta.id,report.id]">Ver reporte</button>
+                      <button class="btn btn-info" type="button"  [routerLink]="['/Lotes/reporte/',lote,sublote.id,ruta.id,report.id]">Ver reporte</button>
                     </div>
                   </div>
                   <!-- <div class="row">

@@ -11,6 +11,8 @@ export class ReportsComponent implements OnInit {
   sublote:any = {};
   allLots: any = [];
   ruta: any = {};
+  lote;
+  sub;
   report:any = [];
   recorrido: any = []
   showlote: any = {};
@@ -27,6 +29,10 @@ export class ReportsComponent implements OnInit {
   ngOnInit() {
     const sub = this.route.snapshot.paramMap.get("sub");
     const rep = this.route.snapshot.paramMap.get("rut");
+    const lot = this.route.snapshot.paramMap.get("lot");
+    this.lote = lot
+    this.sub = sub;
+
     this.showsub(sub);
     this.LotsService.GetReportListid(sub, rep).subscribe((resp: any) => {
       console.log(resp);

@@ -1,4 +1,7 @@
-<div class="main-container  ">
+<div class="main-container">
+  <button class="mr-1 btn btn-labeled btn-info mb-2" type="button"  [routerLink]="['/Lotes/','reportes',lote,sub,rut]">
+    <span class="btn-label"><i class="fa fa-arrow-left"></i>
+</span>Regresar</button>
   <div class="row justify-content-center">
   <div class="col-9">
 
@@ -32,13 +35,78 @@
         </h4>
     </div>
   </div>
-  <h2 class="p-3">Incidencias</h2>
+  <h2 class="p-3">Incidencia</h2>
   <div class="row p-3">
     <div class="col">
-      Incidencia Agricultura
-    </div>
-    <div class="col">
-      Incidencia Técnica
+      <div *ngIf="agriculturalIncidence" class="row">
+        <div class="col">
+          <div class="cent">
+            <img src="https://img.icons8.com/ios/50/000000/ground.png"/>
+            <p>Suelo</p>
+
+           <div *ngIf="agriculturalIncidence.ground == 1" class="icon" style="color: #008f39">
+            <a class="fas fa-square"></a>
+          </div>
+          <div *ngIf="agriculturalIncidence.ground == 2" class="icon" style="color: #ffff00 ">
+            <a class="fas fa-square"></a>
+          </div>
+          <div *ngIf="agriculturalIncidence.ground == 3" class="icon" style="color: #cb3234 ">
+            <a class="fas fa-square"></a>
+          </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="cent">
+            <img src="https://img.icons8.com/ios-filled/50/000000/sprout.png"/>
+            <p>Tallo</p>
+            <div *ngIf="agriculturalIncidence.stem == 1" class="icon" style="color: #008f39">
+              <a class="fas fa-square"></a>
+            </div>
+            <div *ngIf="agriculturalIncidence.stem == 2" class="icon" style="color: #ffff00 ">
+              <a class="fas fa-square"></a>
+            </div>
+            <div *ngIf="agriculturalIncidence.stem == 3" class="icon" style="color: #cb3234 ">
+              <a class="fas fa-square"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="cent">
+            <img src="https://img.icons8.com/ios-filled/50/000000/leaf.png"/>
+            <p>Hoja</p>
+            <div *ngIf="agriculturalIncidence.leaf == 1" class="icon" style="color: #008f39">
+              <a class="fas fa-square"></a>
+            </div>
+            <div *ngIf="agriculturalIncidence.leaf == 2" class="icon" style="color: #ffff00 ">
+              <a class="fas fa-square"></a>
+            </div>
+            <div *ngIf="agriculturalIncidence.leaf == 3" class="icon" style="color: #cb3234 ">
+              <a class="fas fa-square"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="cent">
+            <img src="https://img.icons8.com/ios-filled/50/000000/melon.png"/>
+            <p>Fruto</p>
+            <div *ngIf="agriculturalIncidence.fruit == 1" class="icon" style="color: #008f39">
+              <a class="fas fa-square"></a>
+            </div>
+            <div *ngIf="agriculturalIncidence.fruit == 2" class="icon" style="color: #ffff00 ">
+              <a class="fas fa-square"></a>
+            </div>
+            <div *ngIf="agriculturalIncidence.fruit == 3" class="icon" style="color: #cb3234 ">
+              <a class="fas fa-square"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+
+        </div>
+      </div>
+  
     </div>
   </div>
 </div>

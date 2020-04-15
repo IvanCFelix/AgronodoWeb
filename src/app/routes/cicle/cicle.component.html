@@ -1,4 +1,7 @@
 <div class="main-container">
+  <button class="mr-1 btn btn-labeled btn-info mb-2" type="button"  [routerLink]="['/Lotes']">
+    <span class="btn-label"><i class="fa fa-arrow-left"></i>
+</span>Regresar</button>
   <div class="card card-default ">
     <div class="row p-3">
       <div class="col-4">
@@ -21,12 +24,11 @@
       </div>
       <div class="col-2 text-center">
         <strong> Color principal: </strong>
-        <div class="h1 clickable mt-lg" [(colorPicker)]="showsublote.color" [cpPosition]="'bottom'"
-          [style.color]="showsublote.color" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true">
-          <div>
+       
+          <div class="text-29" [ngStyle]="{'color': showsublote.color}">
             <a class="fas fa-square"></a>
           </div>
-        </div>
+  
       </div>
       <div class="col d-flex flex-row align-items-end">
         <div class="w-100">
@@ -86,8 +88,8 @@
                     </div>
                   </div>
                   <div class="card-footer text-right bt0">
-                    <button class="btn btn-success m-1" type="button" [routerLink]="['/Lotes/','lote',id]">
-                      <a class="fas fa-pencil-alt"></a> </button>
+                    <!-- <button class="btn btn-success m-1" type="button" [routerLink]="['/Lotes/','lote',id]">
+                      <a class="fas fa-pencil-alt"></a> </button> -->
                     <button *ngIf="item.pathings.length > 0" class="btn btn-primary m-1 respo" type="button"
                       (click)="mostrar = false">
                       <a class="fas fa-eye"></a> </button>
@@ -214,15 +216,20 @@
                 
                 <agm-polyline-point *ngFor="let point of polyline;let i = index" [latitude]="point.lat"
                   [longitude]="point.lng">
-                  
-                
                 </agm-polyline-point>
               </agm-polyline>
+              <div>
+                <!-- <agm-polyline *ngFor="let polyline of mostrarsublotes;let i = index;" [strokeColor]="'#4caf50'"
+                [clickable]=true >              
+                <agm-polyline-point *ngFor="let point of polyline.pathingCoordinates;let i = index" [latitude]="point.lat"
+                  [longitude]="point.lng">
+                </agm-polyline-point>
+              </agm-polyline> -->
+              </div>
             
             </div>
           </agm-map>
           <div class="row">
-            <!-- <mdb-image-modal [modalImages]="images" type="margin"></mdb-image-modal> -->
           </div>
           <div>
             Distance: {{distance}}

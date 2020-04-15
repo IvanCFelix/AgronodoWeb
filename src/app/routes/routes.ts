@@ -46,7 +46,7 @@ export const routes = [
 
             { path: 'Lotes/cicle/:lot/:sub',canActivate:[ AuthGuard, RoleGuard ], data: {role:4, role2:6}, loadChildren: './cicle/cicle.module#CicleModule'},
             { path: 'Lotes/reportes/:lot/:sub/:rut',canActivate:[ AuthGuard, RoleGuard ], data: {role:4, role2:6}, loadChildren: './reports/reports.module#ReportsModule'},
-            { path: 'Lotes/reporte/:sub/:rut/:repso',canActivate:[ AuthGuard, RoleGuard ], data: {role:4, role2:6}, loadChildren: './reportsolo/reportsolo.module#ReportSoloModule'},
+            { path: 'Lotes/reporte/:lot/:sub/:rut/:repso',canActivate:[ AuthGuard, RoleGuard ], data: {role:4, role2:6}, loadChildren: './reportsolo/reportsolo.module#ReportSoloModule'},
 
 
             

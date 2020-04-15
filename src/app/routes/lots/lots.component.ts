@@ -13,7 +13,7 @@ import { LotsAgricolaService } from '../../Services/lots-agricola.service';
 
 export class LotsComponent implements OnInit {
   
-  
+ 
 
   @ViewChild("table") tableExp: any;
   @ViewChild(DatatableComponent) table: DatatableComponent;

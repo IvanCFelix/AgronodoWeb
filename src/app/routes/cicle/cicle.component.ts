@@ -1,7 +1,5 @@
-import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { DatatableComponent } from "@swimlane/ngx-datatable";
 import Swal from "sweetalert2";
 import { LotsAgricolaService } from "../../Services/lots-agricola.service";
 import {} from "googlemaps"
@@ -41,7 +39,7 @@ destination: any;
     const sub = this.route.snapshot.paramMap.get("sub");
     const lot = this.route.snapshot.paramMap.get("lot");
     this.lot =  lot;
-    // this.ShowAllpathings(sub)
+    this.ShowAllpathings(sub)
     this.datasublot(sub);
     this.LotsService.GetCicleid(sub).subscribe((resp: any) => {
       console.log(resp);
@@ -127,14 +125,14 @@ destination: any;
     );
     return  (google.maps.geometry.spherical.computeDistanceBetween(p1, p2)).toFixed(2);
 }
-// Mostrar todos los reportes
-// ShowAllpathings(sub){
-//   this.LotsService.GetListPathingsList(sub).subscribe((resp:any) => {
-//     console.log("rutas son  ");
-//     console.log(resp);
-//     this.nestedPaths = resp
-   
-//   })
-// }
+// Mostrar todos las rutas
+  ShowAllpathings(sub){
+    this.LotsService.GetListPathingsList(sub).subscribe((resp:any) => {
+    console.log("rutas son  ");
+    console.log(resp);
+     this.mostrarsublotes = resp
+
+  })
+}
 }
 
