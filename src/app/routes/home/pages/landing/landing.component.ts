@@ -18,5 +18,4 @@ export class LandingComponent implements OnInit {
   toggleNavbar () { 
     this.navbarOpen =! this.navbarOpen; 
   } 
-
 }
