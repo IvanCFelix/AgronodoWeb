@@ -19,6 +19,7 @@ export class LotsComponent implements OnInit {
   newpaths:any = [];
   mostrar = true;
   id;
+  crops = [];
   colorDemo1 = "";
   sublotesforms: FormGroup;
   filterPost = "";
@@ -90,6 +91,9 @@ export class LotsComponent implements OnInit {
       this.listlots = resp; 
       this.temp = resp;
     })
+    this.LotsService.Getcrops().subscribe((resp: any) => {
+      this.crops = resp      
+    });
   }
 
   delete(value){
@@ -210,12 +214,20 @@ export class LotsComponent implements OnInit {
   verify:boolean = true
   lotSublote:any;
   verifylot(value){
+    
     this.lotSublote = value.subfield[0];    
     let cordi = value.coordinates[0]
     let subfi =  value.subfield[0].subfieldCoordinates[0]
+    let cicle = value.subfield[0].cicle
+    console.log(cicle.length)
     if(cordi.lat == subfi.lat){
       this.verify = false
-      this.modalshow('@getbootstrap')
+      if(cicle.length == 0){
+        this.modalshow('@getbootstrap')
+      }else{
+        let url = '/Lotes/cicle/' + this.id + '/' + value.id
+        this.router.navigateByUrl(url);
+      }
     }else {
       this.verify = true
     }
@@ -389,14 +401,13 @@ export class LotsComponent implements OnInit {
   }
  
   ciclo(id, value,lote) {
+    console.log("entro");
+    
     console.log(value, id);
     console.log( lote.id);
     let url = '/Lotes/cicle/' + lote.id + '/' + id
     console.log(url);
-    
-    
     // this.router.navigateByUrl(url, id);
-
     
     if (value) {
       this.LotsService.CicleRegister(id, value).subscribe((resp: any) => {

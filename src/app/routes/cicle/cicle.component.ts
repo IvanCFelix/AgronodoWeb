@@ -34,6 +34,7 @@ export class CicleComponent implements OnInit {
   allLots: any = [];
   mostrarsublotes: any = [];
   nestedPaths = [];
+  cicleLength:any;
   constructor(
     public LotsService: LotsAgricolaService,
     public route: ActivatedRoute
@@ -54,6 +55,7 @@ export class CicleComponent implements OnInit {
 
     this.LotsService.GetSubloteID(sub).subscribe((resp: any) => {
       this.verify(resp)
+      
     })
 
   }
@@ -84,6 +86,7 @@ export class CicleComponent implements OnInit {
     });
 
   }
+  
   datacicle(sub, lot) {
     this.ShowAllpathings(sub)
     this.LotsService.GetSubloteID(sub).subscribe((resp: any) => {
@@ -99,8 +102,10 @@ export class CicleComponent implements OnInit {
       this.lng = resp.subfieldCoordinates[0].lng;
       this.zoom = 16;
     });
+    
     this.LotsService.GetCicleid(sub).subscribe((resp: any) => {
       this.showlote = resp;
+    
       this.rutas = this.recor();
       const array: any[] = Array.of(this.nestedPaths);
       this.nestedPaths = array;
@@ -202,6 +207,7 @@ export class CicleComponent implements OnInit {
     console.log(value, id);
     if (value) {
       this.LotsService.CicleRegister(id, value).subscribe((resp: any) => {
+        this.datacicle(id,value)
       })
     }
   }

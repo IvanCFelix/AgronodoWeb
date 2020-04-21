@@ -30,7 +30,7 @@
       </div>
       <div class="col d-flex flex-row align-items-end">
         <div class="w-100">
-          <progressbar class="progress-xs m-0" value="progress" type="info" style="height: 20px;">
+          <progressbar class="progress-xs m-0" [value]=cicle.progress type="info" style="height: 20px;">
           </progressbar>
         </div>
         <div class="ml-auto">
@@ -46,7 +46,7 @@
       <div class="col-12 col-md-12 col-lg-12 col-xl-6 p-0">
         <div class="card-body pr-0 pt-0" style="height: 100%;">
           <div class="pl-4 ">
-            <h4 *ngIf="mostrar">Ciclo por semanas</h4>
+            <h4 *ngIf="mostrar">Division por semanas</h4>
             <h4 *ngIf="mostrar == false">Recorridos</h4>
           </div>
           <div>
@@ -54,6 +54,9 @@
               <!-- Ciclo por semanas -->
               <div *ngIf="mostrar">
                 <div *ngFor="let item of showlote.weeks;let i = index" class="card b m-3 animated fadeIn">
+                  <div *ngIf="item.length == 0" class="d-flex justify-content-center align-items-center" style="height: 500px;">
+                    <p >Lo sentimos, este sublote no tiene recorridos </p>
+                  </div>
                   <div class="card-body" style="font-size: 17px;">
                     <div>
                       <div class="row">
@@ -128,7 +131,6 @@
                             {{lote.engineer}}
                           </td>
                           <td>
-
                           </td>
                         </tr>
                         <tr>
@@ -139,10 +141,8 @@
                             {{lote.engineer_role}}
                           </td>
                           <td>
-
                           </td>
                         </tr>
-
                       </tbody>
                     </table>
                     <div class="card-footer text-center bt0">
