@@ -1,5 +1,5 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Component, OnInit,ViewChild,ElementRef  } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import Swal from "sweetalert2";
@@ -13,8 +13,7 @@ import { LotsAgricolaService } from '../../Services/lots-agricola.service';
 
 export class LotsComponent implements OnInit {
   
- 
-
+  @ViewChild('Ciclo') public contentModal;
   @ViewChild("table") tableExp: any;
   @ViewChild(DatatableComponent) table: DatatableComponent;
   newpaths:any = [];
@@ -38,7 +37,8 @@ export class LotsComponent implements OnInit {
   user;
   showlote:any={}
   editlots =[]
-  allLots:any = []
+  allLots:any = [];
+  subloteSolo;
   cicloForm:FormGroup;
   iconmap = {
     iconUrl: '../../assets/img/market.png',
@@ -47,7 +47,8 @@ export class LotsComponent implements OnInit {
 
   constructor(
     public LotsService:LotsAgricolaService,
-    public route:ActivatedRoute) { 
+    public route:ActivatedRoute,
+    public router: Router) { 
 
       this.sublotesforms = new FormGroup({
         _id: new FormControl(-1),
@@ -85,8 +86,8 @@ export class LotsComponent implements OnInit {
 
     this.LotsService.listLots().subscribe(resp => {
      this.allLots = this.allmaps(resp)
-    console.log(resp)
-      this.listlots = resp;
+     console.log(resp)
+      this.listlots = resp; 
       this.temp = resp;
     })
   }
@@ -197,6 +198,9 @@ export class LotsComponent implements OnInit {
     this.timeout = setTimeout(() => {
     }, 100);
   }
+  modalshow(value:string){
+    this.contentModal.show();
+  }
  
   onSelect({ selected }) {
     this.selected.splice(0, this.selected.length);
@@ -211,6 +215,7 @@ export class LotsComponent implements OnInit {
     let subfi =  value.subfield[0].subfieldCoordinates[0]
     if(cordi.lat == subfi.lat){
       this.verify = false
+      this.modalshow('@getbootstrap')
     }else {
       this.verify = true
     }
@@ -220,8 +225,10 @@ export class LotsComponent implements OnInit {
     this.id = value
     this.mostrar = false
     this.LotsService.getLot(this.id).subscribe((resp: any) => {
+     this.subloteSolo =  resp.subfield[0].id
+      
       this.allLots = this.solomap(resp)
-       this.verifylot(resp)
+      this.verifylot(resp)
       console.log(resp)
       this.showlote = resp;
       this.zoom = 13
@@ -257,6 +264,7 @@ export class LotsComponent implements OnInit {
   
   datasublote(value,i) {
     this.allLots.splice(i,1)
+
     
     this.lat = value.subfieldCoordinates[0].lat
     this.lng = value.subfieldCoordinates[0].lng
@@ -379,18 +387,22 @@ export class LotsComponent implements OnInit {
       this.mostrarsublotes = resp.subfield
     })
   }
-  subfieldID = '';
-  ciclo(id,value){
-    this.subfieldID = id
-    console.log(value,id);
-   
-    if(value){
-      this.LotsService.CicleRegister(id,value).subscribe((resp:any) => {
-       this.getLot()
+ 
+  ciclo(id, value,lote) {
+    console.log(value, id);
+    console.log( lote.id);
+    let url = '/Lotes/cicle/' + lote.id + '/' + id
+    console.log(url);
+    
+    
+    // this.router.navigateByUrl(url, id);
+
+    
+    if (value) {
+      this.LotsService.CicleRegister(id, value).subscribe((resp: any) => {
+     this.router.navigateByUrl(url);
       })
     }
-   
-    
   }
 }
 

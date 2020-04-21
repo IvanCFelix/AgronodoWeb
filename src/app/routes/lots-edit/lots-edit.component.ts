@@ -18,6 +18,7 @@ export class LotsEditComponent implements OnInit {
   public name:string;
   lotesForms: FormGroup;
   sololote:boolean
+  crops:any = []
   sublotesforms: FormGroup;
   indice:number;
   example: any = [];
@@ -57,7 +58,7 @@ export class LotsEditComponent implements OnInit {
     this.sublotesforms = new FormGroup({
       _id: new FormControl(-1),
       nickname: new FormControl("", Validators.required),
-      crops: new FormControl("", Validators.required),
+      crops: new FormControl([""], Validators.required),
       // start_date: new FormControl(Date, Validators.required),
       // finish_date: new FormControl(Date, Validators.required),
       agriculture_type: new FormControl("", Validators.required)
@@ -71,6 +72,12 @@ export class LotsEditComponent implements OnInit {
     const url = this.route.snapshot.paramMap.get('lot')
     this.url = url;
     this.id = id;
+
+    this.lotService.Getcrops().subscribe((resp: any) => {
+      this.crops = resp      
+    });
+    
+    
     if(id == null){
       this.newlot = true;
     }

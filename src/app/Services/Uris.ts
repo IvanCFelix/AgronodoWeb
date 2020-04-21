@@ -58,6 +58,9 @@ export class Uris {
     public static API_PATHINGS_LIST_GET = `${Uris.API_ENDPOINT}subfields/`
     public static API_REPORTSOLO_LIST_GET = `${Uris.API_ENDPOINT}subfields/`
 
+    public static API_CROPS_LIST_GET = `${Uris.API_ENDPOINT}crops/`
+
+
 
 
 

@@ -130,10 +130,9 @@
                   <div>
                     <div class="row" *ngIf="item.cicle.length == 0">
                      
-                      <button (click)="Ciclo.show();ciclo(item.id)" class="btn btn-sm btn-secondary" style="position: absolute;right: 52px;z-index: 1;" type="button" >
+                      <!-- <button (click)="Ciclo.show();ciclo(item.id)" class="btn btn-sm btn-secondary" style="position: absolute;right: 52px;z-index: 1;" type="button" >
                         <em class=" far fa-calendar-plus"></em>
-
-                    </button> 
+                    </button>  -->
                       <div class="col-6 ">
                           <strong >
                             Inicio del ciclo: 
@@ -191,7 +190,7 @@
                   <button class="btn btn-success m-1" type="button"
                   [routerLink]="['/Lotes/','lote',id]" *ngIf="verify == false">
                   <a class="fas fa-pencil-alt"></a> </button>
-                  <button *ngIf="item.cicle.length !==0 " class="btn btn-primary m-1 respo" type="button" [routerLink]="['/Lotes/cicle/',id,item.id]">
+                  <button  class="btn btn-primary m-1 respo" type="button" [routerLink]="['/Lotes/cicle/',id,item.id]">
                     <a class="fas fa-eye"></a> </button>
                   <button class="btn btn-success m-1" type="button"
                   (click)="datasublote(item,i);Modal.show()" *ngIf="verify == true">
@@ -416,7 +415,7 @@
       </div>
       <div class="modal-body">
         <div class="container">
-          <form [formGroup]="cicloForm" (submit)="ciclo(subfieldID,cicloForm.value);Ciclo.hide()" >
+          <form [formGroup]="cicloForm" (submit)="ciclo(subloteSolo,cicloForm.value,showlote);Ciclo.hide()" >
           <div class="row">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <label>Fecha de inicio</label>
@@ -428,7 +427,7 @@
             </div>
             <div class="d-flex justify-content-end align-items-end"style="width:100%;">
             <div class=" p-3">
-              <button *ngIf="cicloForm.valid" type="submit" class="btn btn-info">Guardar ciclo <em class=" far fa-calendar-plus p-1"></em></button>
+              <button *ngIf="cicloForm.valid" type="submit" class="btn btn-info" >Guardar ciclo <em class=" far fa-calendar-plus p-1"></em></button>
             </div>
           </div>
           </div>
