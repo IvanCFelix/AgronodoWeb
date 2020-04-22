@@ -26,3 +26,26 @@ div.gallery {
     padding: 5px;
     font-size: 30px;
   }
+
+  .gallery{
+    border-radius: 9pc;
+    cursor: pointer;
+    img{
+        z-index: 1;
+        -webkit-transform: scale(1,1);
+        -webkit-transition-timing-function: ease-out;
+        -webkit-transition-duration: 250ms;
+        -moz-transform: scale(1,1);
+        -moz-transition-timing-function: ease-out;
+        -moz-transition-duration: 250ms;
+        
+    }
+    img:hover{
+      -webkit-transform: scale(1.12,1.12);
+      -webkit-transition-timing-function: ease-out;
+      -webkit-transition-duration: 100ms;
+      -moz-transform: scale(1.12,1.12);
+      -moz-transition-timing-function: ease-out;
+      -moz-transition-duration: 100ms;
+    }
+}
