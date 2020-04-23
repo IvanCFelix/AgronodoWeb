@@ -9,14 +9,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reportsolo.component.scss']
 })
 export class ReportsoloComponent implements OnInit {
-  data:any = {}
+  data: any = {}
   url = Uris.API_ENDPOINT
-  video:any = []
+  video: any = []
   lote;
   sub;
   rut;
-  agriculturalIncidence:any = {}
-  
+  agriculturalIncidence: any = {}
+  img;
   constructor(
     public LotsService: LotsAgricolaService,
     public route: ActivatedRoute
@@ -33,16 +33,27 @@ export class ReportsoloComponent implements OnInit {
     console.log(sub);
     console.log(rut);
     console.log(rep);
-    
-    this.LotsService.GetReportSolo(sub,rut,rep).subscribe((resp:any) => {
+
+    this.LotsService.GetReportSolo(sub, rut, rep).subscribe((resp: any) => {
       console.log(resp);
-      this.data = resp
+      const img = resp.images
+      this.data = resp      
+      if(resp.images.length == 0){
+        
+      }else{
+        this.img = img[0].image
+        console.log(this.img);
+        
+      }
       this.agriculturalIncidence = resp.incidence.agriculturalIncidence
       this.video = resp.videos
       console.log();
-     
-    
-  })
-}
-  
+
+
+    })
+  }
+  imagen(value) {
+    this.img = value.image
+  }
+
 }
