@@ -11,8 +11,10 @@
         <!-- <gallery id="basic-test" fluid [items]="items"></gallery> -->
        <div class="row">
          <div class="col-12 img-bigImage ">
-          <div class="bigImage" >
-            <img [src]="url + img" [alt]="img" width="600" height="400">
+          <div class="bigImage" target="_blank"  >
+            <a download    >
+            <img [src]="url + img" [alt]="img"   >
+            </a>
           </div>
          </div>
          <div class="col ">

@@ -37,10 +37,7 @@ div.desc {
 }
 
 
-.gallery {
 
-
-}
 
 .scrolling-wrapper {
   overflow-x: scroll;
@@ -53,6 +50,7 @@ div.desc {
     cursor: pointer;
     img {
       z-index: 1;
+      border-radius: 73px;
       -webkit-transform: scale(1, 1);
       -webkit-transition-timing-function: ease-out;
       -webkit-transition-duration: 250ms;
@@ -60,6 +58,7 @@ div.desc {
       -moz-transition-timing-function: ease-out;
       -moz-transition-duration: 250ms;
       width: 100px;
+      height: 89px;
   
     }
   
@@ -93,4 +92,7 @@ div.bigImage img {
   display: flex;
   justify-content: center;
   align-items: center;
+  img{
+    height: 20px;
+  }
 }
