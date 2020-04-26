@@ -1,0 +1,111 @@
+<div class="modal-body">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <form [formGroup]="tareasForm">
+          <div class="form-group ">
+            <input class="form-control d-none" formControlName="id" type="text" />
+            <div class="col-12">
+              <label>Nombre</label>
+              <input class="form-control" formControlName="name" type="text" />
+              <span class="text-danger" *ngIf="tareasForm.controls['name'].errors?.required">Ingresa un
+                dato válido</span>
+            </div>
+          </div>
+          <div class="form-group ">
+            <div class="col-12">
+              <label>Descripcion</label>
+              <textarea class="form-control" formControlName="description" type="text"></textarea>
+              <span class="text-danger" *ngIf="tareasForm.controls['description'].errors?.required">Ingresa un
+                dato válido</span>
+            </div>
+          </div>
+          <div class="form-group ">
+            <div class="col-12">
+              <div data-intro="Selecciona el ingeniero." class="form-group">
+                <label>Ingeniero</label><br>
+                <select formControlName="engineer" class="form-control">
+                  <option value="" disabled>
+                    Seleccione un ingeniero...
+                  </option>
+                    <option  *ngFor="let item of ingeniero"  class="form-control">{{item.names}}</option>
+                </select>
+              </div>
+              <span class="text-danger" *ngIf="tareasForm.controls['engineer'].errors?.required">Ingresa un
+                dato válido</span>     
+            </div>
+          </div> 
+         
+          <div class="form-group ">
+            <div class="col-12">
+              <label class="switch m-0">
+                <label class="mr-4">Establecer fecha limite:</label>
+                <input class="form-control ml-4" formControlName="swDate" type="checkbox" checked="checked" />
+                <span></span>
+              </label>
+            </div>
+          </div>
+
+          <div *ngIf="tareasForm.controls.swDate.value == true">
+            <div class="form-group ">
+              <div class="col-12">
+                <label>Fecha inicial:</label>
+                <input class="form-control" formControlName="startDate" type="date" />
+                <span class="text-danger" *ngIf="tareasForm.controls.startDate.value == '' ">Ingresa un
+                  dato válido</span>
+              </div>
+            </div>
+            <div class="form-group ">
+              <div class="col-12">
+                <label>Fecha final:</label>
+                <input class="form-control" formControlName="endDate" type="date" />
+                <span class="text-danger" *ngIf="tareasForm.controls.endDate.value == ''">Ingresa un
+                  dato válido</span>
+              </div>
+            </div>
+          </div>
+           
+
+          <div class="text-center mt-3">
+            <button class="btn btn-success" type="button" (click)="guardarTarea(tareasForm.value)">Guardar
+              datos</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 card-modal">
+        <button class="btn btn-danger pos-button" type="button" (click)="backsubfield()"><em
+            class="fa fas fa-backward"></em></button>
+        <!-- <div class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
+          <button class="btn btn-danger " type="button" (click)="clearsublote()"><em
+              class="fa fas fa-trash"></em></button>
+        </div> -->
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+          (mapClick)="addMakerTarea($event.coords.lat, $event.coords.lng)">
+
+        </agm-map>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #ModalIngeniero="bs-modal" class="modal fade "  tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+  aria-hidden="false" [config]="{ ignoreBackdropClick: true }" >
+  <div class="modal-dialog modal-lg " style="height: 52%;width:30%;">
+    <div class="modal-content" style="width: 116%;">
+      <div class="modal-header p-0">
+        <div class="brand-logo" style="font-size: 20px;padding: 8px;">
+          <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
+          Selecciona el lote:
+        </div>
+        <button type="button" class="close" aria-label="Close" (click)="Modal.hide();"
+          style="font-size: 34px;padding: 23px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+         <p>uuwu</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

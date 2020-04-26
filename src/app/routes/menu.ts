@@ -56,6 +56,18 @@ export class Menu {
         }
       ]
     };
+    const Tareas = {
+      text: "Tareas",
+      icon: "icon-user",
+      submenu: [
+        {
+          text: "Tareas",
+          link: "/Tareas",
+          icon: "icon-user"
+        }
+      ]
+    };
+
 
     var role = [];
 
@@ -77,7 +89,7 @@ export class Menu {
         }
         //Admin Agricola
         case 4: {
-          role = [headingMain, Home, lotes, AdminAgricola,Ingenieros];
+          role = [headingMain, Home, lotes, AdminAgricola,Ingenieros,Tareas];
           break;
         }
         //Admin Ingeniero
