@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportsoloComponent implements OnInit {
   data: any = {}
+  public myInterval: number = 5000;
   url = Uris.API_ENDPOINT
   video: any = []
   lote;

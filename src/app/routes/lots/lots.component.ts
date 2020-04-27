@@ -213,19 +213,18 @@ export class LotsComponent implements OnInit {
 
   verify:boolean = true
   lotSublote:any;
-  verifylot(value){
-    
+  verifylot(value){   
     this.lotSublote = value.subfield[0];    
     let cordi = value.coordinates[0]
     let subfi =  value.subfield[0].subfieldCoordinates[0]
     let cicle = value.subfield[0].cicle
-    console.log(cicle.length)
+    let id =  value.subfield[0].id
     if(cordi.lat == subfi.lat){
       this.verify = false
       if(cicle.length == 0){
         this.modalshow('@getbootstrap')
       }else{
-        let url = '/Lotes/cicle/' + this.id + '/' + value.id
+        let url = '/Lotes/cicle/' + value.id+ '/' + id
         this.router.navigateByUrl(url);
       }
     }else {
