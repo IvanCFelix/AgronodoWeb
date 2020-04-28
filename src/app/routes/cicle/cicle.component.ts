@@ -62,6 +62,7 @@ export class CicleComponent implements OnInit {
 
 
   verify(value) {
+    console.log(value)
     console.log("el valor para verificar es ");
     console.log(value);
     const sub = this.sub
@@ -77,6 +78,7 @@ export class CicleComponent implements OnInit {
     this.modalshow('@getbootstrap')
     console.log("el id es " + sub);
     this.LotsService.GetSubloteID(sub).subscribe((resp: any) => {
+      console.log(resp);
       this.showsublote = resp;
       this.allLots = resp.subfieldCoordinates;
       this.mostrarsublotes = resp.subfieldCoordinates;
@@ -92,6 +94,7 @@ export class CicleComponent implements OnInit {
     this.LotsService.GetSubloteID(sub).subscribe((resp: any) => {
       console.log(resp);
       this.cicle = resp.cicle
+      
       console.log(this.cicle);
       this.crops = resp.crops;
       this.progressvalue = this.crops.progress
@@ -105,7 +108,6 @@ export class CicleComponent implements OnInit {
     
     this.LotsService.GetCicleid(sub).subscribe((resp: any) => {
       this.showlote = resp;
-    
       this.rutas = this.recor();
       const array: any[] = Array.of(this.nestedPaths);
       this.nestedPaths = array;

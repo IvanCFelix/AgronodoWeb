@@ -91,6 +91,10 @@ export class LotsComponent implements OnInit {
       this.listlots = resp; 
       this.temp = resp;
     })
+   this.getCrops();
+  }
+
+  getCrops(){
     this.LotsService.Getcrops().subscribe((resp: any) => {
       this.crops = resp      
     });

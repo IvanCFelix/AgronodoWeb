@@ -10,6 +10,7 @@ import { ColorPickerModule, ColorPickerService } from 'ngx-color-picker';
 import { ModalModule} from 'ngx-bootstrap/modal'
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { AgmDirectionModule } from 'agm-direction';
+
 const routes: Routes = [
   { path: '', component: ReportsoloComponent },
 ];

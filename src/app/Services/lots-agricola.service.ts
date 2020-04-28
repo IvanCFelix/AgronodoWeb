@@ -69,6 +69,10 @@ export class LotsAgricolaService {
   Getcrops() {
     return this.http.get(`${Uris.API_CROPS_LIST_GET}`, this.jwt()).map((response: Response) => response.json())
   }
+  registerCrops(admin) {
+    return this.http.post(`${Uris.API_CROPS_LIST_GET}`, admin, this.jwt()).map((response: Response) => response.json())
+  }
+
 
 
 
