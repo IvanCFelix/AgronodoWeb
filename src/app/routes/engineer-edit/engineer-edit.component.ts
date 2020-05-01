@@ -111,9 +111,9 @@ create(value: any) {
     lastnames: value.lastname,
     phone: value.phone,
     photo: this.filestring,
-    // role:{
-    //   name:value.role
-    // },
+    role:{
+      name:value.role
+    },
     user: {
       username: value.username,
       email: value.email
