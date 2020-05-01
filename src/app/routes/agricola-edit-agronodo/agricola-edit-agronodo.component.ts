@@ -142,6 +142,15 @@ export class AgricolaEditAgronodoComponent implements OnInit {
         width: '270px'
       });
       this.router.navigateByUrl("/Agricola");
+    }, err => { 
+      Swal.fire({
+        text: err._body,
+        showConfirmButton: false,
+        timer: 1500,
+        icon: "error",
+        width: "250px",
+      });
+     
     })
   }
   update(value){

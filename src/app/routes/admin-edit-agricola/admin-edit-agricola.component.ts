@@ -138,12 +138,13 @@ create(value: any) {
     },
     (err: any) => {
       Swal.fire({
-        text: "Error en el sevidor",
+        text: err._body,
         showConfirmButton: false,
         timer: 1500,
-        icon:'error',
-        width: '250px'
+        icon: "error",
+        width: "250px",
       });
+     
     }
   );
 }
