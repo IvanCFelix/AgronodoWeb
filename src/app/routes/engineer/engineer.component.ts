@@ -20,6 +20,7 @@ export class EngineerComponent implements OnInit {
   timeout: any;
   expanded: any = {};
   selected = [];
+  user = {}
   constructor(public Engineer:Engineer) {
     
   }
@@ -36,6 +37,9 @@ export class EngineerComponent implements OnInit {
 }
 
   ngOnInit() {
+     const user = JSON.parse(localStorage.getItem("USER"));
+    this.user = user; 
+    console.log(user)
     this.Engineer.listadmin().subscribe(resp => {
       this.listAdmin = resp;
       this.temp = resp;
