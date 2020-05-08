@@ -32,7 +32,6 @@ export class EngineerEditComponent implements OnInit {
 
       this.adminagricola = new FormGroup({
         name: new FormControl("", Validators.required),
-        lastname: new FormControl("", Validators.required),
         phone: new FormControl("", [Validators.required]),
         email: new FormControl("", [Validators.email, Validators.required]),
         username: new FormControl("", [Validators.required,UsernameValidator.cannotContainSpace]),
@@ -75,7 +74,6 @@ export class EngineerEditComponent implements OnInit {
         this.adminagricola.setValue({
           name: resp.names,
           email: resp.user.email,
-          lastname: resp.lastnames,
           phone: resp.phone,
           username: resp.user.username,
           canSeeReports:resp.canSeeReports,
@@ -108,7 +106,6 @@ register(value: any) {
 create(value: any) {
   let obj = {
     names: value.name,
-    lastnames: value.lastname,
     phone: value.phone,
     photo: this.filestring,
     role:{
@@ -153,7 +150,6 @@ update(value: any) {
   if (this.filestring == "" ) {
     let obj = {
       names: value.name,
-      lastnames: value.lastname,
       phone: value.phone,
       // role:{
       //   name:value.name
@@ -193,7 +189,6 @@ update(value: any) {
   } else {
     let obj = {
       names: value.name,
-      lastnames: value.lastname,
       phone: value.number,
       photo: this.filestring,
       // role:{

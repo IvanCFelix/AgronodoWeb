@@ -35,7 +35,6 @@ export class AdminEditAgronodoComponent implements OnInit {
     this.adminagronodo = new FormGroup({
       name: new FormControl("", Validators.required),
       email: new FormControl("", [Validators.email, Validators.required]),
-      lastname: new FormControl("", Validators.required),
       number: new FormControl("", [Validators.required]),
       username: new FormControl("", [
         Validators.required,
@@ -75,7 +74,6 @@ export class AdminEditAgronodoComponent implements OnInit {
         this.adminagronodo.setValue({
           name: resp.names,
           email: resp.user.email,
-          lastname: resp.lastnames,
           number: resp.phone,
           username: resp.user.username
         });
@@ -102,7 +100,6 @@ export class AdminEditAgronodoComponent implements OnInit {
   create(value: any) {
     let obj = {
       names: value.name,
-      lastnames: value.lastname,
       phone: value.number,
       photo: this.filestring,
       user: {
@@ -138,7 +135,6 @@ export class AdminEditAgronodoComponent implements OnInit {
     if (this.filestring == "") {
       let obj = {
         names: value.name,
-        lastnames: value.lastname,
         phone: value.number,
         user: {  }
       };
@@ -171,7 +167,6 @@ export class AdminEditAgronodoComponent implements OnInit {
     } else {
       let obj = {
         names: value.name,
-        lastnames: value.lastname,
         phone: value.number,
         photo: this.filestring,
         user: {}
