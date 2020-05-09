@@ -32,7 +32,7 @@
         [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='listAdmin'
         (page)="onPage($event)">
         <!-- Column Templates -->
-        <ngx-datatable-column name="#">
+        <ngx-datatable-column name="#" [width]="50" [canAutoResize]="false">
           <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
             <strong>{{rowIndex + 1}}</strong>
           </ng-template>

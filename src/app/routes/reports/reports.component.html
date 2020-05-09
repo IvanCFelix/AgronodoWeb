@@ -1,7 +1,7 @@
 <div class="main-container">
-  <button class="mr-1 btn btn-labeled btn-info mb-2" type="button"  [routerLink]="['/Lotes/','cicle',lote,sub]">
+  <button class="mr-1 btn btn-labeled btn-info mb-2" type="button" (click)="goback()">
     <span class="btn-label"><i class="fa fa-arrow-left"></i>
-</span>Regresar</button>
+    </span>Regresar</button>
   <div class="card card-default ">
     <div class="row p-3">
       <div class="col-4">
@@ -65,7 +65,8 @@
                       </tbody>
                     </table>
                     <div class="card-footer text-center bt0">
-                      <button class="btn btn-info" type="button"  [routerLink]="['/Lotes/reporte/',lote,sublote.id,ruta.id,report.id]">Ver reporte</button>
+                      <button class="btn btn-info" type="button"
+                        [routerLink]="['/Lotes/reporte/',lote,sublote.id,ruta.id,report.id]">Ver reporte</button>
                     </div>
                   </div>
                   <!-- <div class="row">

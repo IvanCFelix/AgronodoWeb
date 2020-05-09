@@ -2,6 +2,7 @@ import { Uris } from './../../Services/Uris';
 import { ActivatedRoute } from '@angular/router';
 import { LotsAgricolaService } from './../../Services/lots-agricola.service';
 import { Component, OnInit } from '@angular/core';
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-reportsolo',
@@ -20,7 +21,8 @@ export class ReportsoloComponent implements OnInit {
   img;
   constructor(
     public LotsService: LotsAgricolaService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public router:Location
   ) { }
 
   ngOnInit() {
@@ -55,6 +57,9 @@ export class ReportsoloComponent implements OnInit {
   }
   imagen(value) {
     this.img = value.image
+  }
+  goback() {
+  this.router.back();
   }
 
 }
