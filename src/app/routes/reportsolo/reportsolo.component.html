@@ -7,15 +7,29 @@
 
       <div class="card  ">
         <div class="row p-3">
-          <div class="col">
+          <div class="col col-sm-12 col-md-7 col-lg-6 col-xl-6">
             <!-- <gallery id="basic-test" fluid [items]="items"></gallery> -->
             <div class="row">
-              <div class="col-12 img-bigImage ">
-                <div class="bigImage" target="_blank">
+              <div class="col ">
+                <!-- <div class="bigImage" target="_blank">
                   <a download>
                     <img [src]="url + img" [alt]="img">
                   </a>
+                </div> -->
+                <div class="carousel">
+                  <owl-carousel-o [options]="customOptions">
+                    <ng-container *ngFor="let slide of slides; let i = index">
+                      <ng-template carouselSlide [id]="i">
+                        <img [src]="url + slide.image" [alt]="i + 1 " [title]="i + 1"
+                          (click)="Image.show();imagen(slide.image)">
+                      </ng-template>
+                    </ng-container>
+                  </owl-carousel-o>
+
                 </div>
+
+
+
               </div>
               <div class="col ">
                 <!-- <div>
@@ -23,11 +37,11 @@
                <img [src]="url + item.image" [alt]="i+1" width="600" height="400" (click)="imagen(item)">
             </div>
            </div> -->
-                <div class="scrolling-wrapper">
+                <!-- <div class="scrolling-wrapper">
                   <div class="card" *ngFor="let item of data.images;let i = index;">
                     <img [src]="url + item.image" [alt]="i+1" width="600" height="400" (click)="imagen(item)">
                   </div>
-                </div>
+                </div> -->
 
               </div>
               <div>
@@ -134,6 +148,36 @@
               </div>
             </div>
 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div bsModal #Image="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="false">
+    <div class="modal-dialog modal-lg" style="height: 83%;
+    width: 50%;">
+      <div class="modal-content" style="width: 116%;">
+        <div class="modal-header p-0">
+          <div class="brand-logo" style="font-size: 20px; padding: 8px;">
+            <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
+            Imagen
+          </div>
+          <div>
+            <button type="button" class="close" aria-label="Close" (click)="Image.hide()"
+              style="font-size: 34px; padding: 23px;">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+        </div>
+        <div class="modal-body p-1">
+          <div class="container">
+            <div>
+
+              <img [src]="url + img" alt='' width="100%">
+            </div>
           </div>
         </div>
       </div>
