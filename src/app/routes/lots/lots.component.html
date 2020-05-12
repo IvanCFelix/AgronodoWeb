@@ -77,11 +77,14 @@
     </div>
     <div class="col text-right">
       <button class="mb-1 mr-1 btn btn-success" type="button" routerLink="/Lotes/new"
-        *ngIf="listlots.length < this.user.profile.prmsLotes && mostrar == true">Agregar nuevo
+        *ngIf="listlots.length < this.user.profile.prmsLotes && mostrar == true || profile.canAddField == true">Agregar
+        nuevo
         Lote</button>
-      <button class="mb-1 mr-1 btn btn-success" type="button" (click)="Modal.show();clearform();"
-        *ngIf="mostrar == false && verify">Agregar nuevo
-        SubLote</button>
+      <div>
+        <button class="mb-1 mr-1 btn btn-success" type="button" (click)="Modal.show();clearform();"
+          *ngIf="mostrar == false && verify ">Agregar nuevo
+          SubLote</button>
+      </div>
       <span class="text-danger p-4" *ngIf="listlots.length == this.user.profile.prmsLotes && mostrar == true">No puedes
         agregar mas lotes llegaste al limite de registros {{this.user.profile.prmsLotes}}</span>
 

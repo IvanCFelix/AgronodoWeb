@@ -40,6 +40,7 @@ export class LotsComponent implements OnInit {
   editlots =[]
   allLots:any = [];
   subloteSolo;
+  profile:any = {};
   cicloForm:FormGroup;
   iconmap = {
     iconUrl: '../../assets/img/market.png',
@@ -82,6 +83,7 @@ export class LotsComponent implements OnInit {
   ngOnInit() {
  
     const user = JSON.parse(localStorage.getItem("USER"));
+    this.profile = user.profile
     this.user = user 
     console.log(this.user.profile.prmsLotes)
 

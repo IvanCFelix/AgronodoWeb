@@ -1,239 +1,366 @@
-<h3 class="p-5">Aún no llegamos a esta etapa crack</h3>
-<!-- <div class="container-md">
-  <div class="row">
-
-    <div class="col-lg-8">
-      <div *ngIf="settingActive == 1">
-        <div class="card b">
-          <div class="card-header bg-gray-lighter text-bold">Profile</div>
-          <div class="card-body">
-            <div class="form-group">
-              <label>Picture</label>
-              <label for="image-input" class="file-upload">
-                <button class="btn btn-secondary">
-                  <em class="fa fa-upload mr"></em> Upload new picture</button>
-                <input id="image-input" type="file">
-              </label>
-            </div>
-            <form [formGroup]="user" (submit)="update(user.value)">
-              <div class="form-group">
-                <label>Nombre de usuario</label>
-                <input formControlName="username" class="form-control" type="text" />
-              </div>
-              <div class="form-group">
-                <label>Nombre</label>
-                <input formControlName="name" class="form-control" type="text" />
-              </div>
-              <div class="form-group">
-                <label>Apellido</label>
-                <input formControlName="lastname" class="form-control" type="text" />
-              </div>
-              <div class="form-group">
-                <label>Correo</label>
-                <input formControlName="email" class="form-control" type="text" />
-              </div>
-              <div class="form-group">
-                <label>Telefóno</label>
-                <input formControlName="number" class="form-control" type="number" />
-              </div>
-              <p class="text-center">
-
-                <button class="btn btn-info " type="submit">Guardar</button>
-              </p>
-            </form>
+<div class="row">
+  <div class="col-lg-4">
+    <div class="card card-default">
+      <div class="card-body text-center">
+        <div class="py-4">
+          <img *ngIf="filephoto === ''" class="img-fluid rounded-circle img-thumbnail thumb96"
+            [src]="Url+dataprofile.photo" alt="Contact" />
+          <img *ngIf="filephoto !== ''" class="img-fluid rounded-circle img-thumbnail thumb96"
+            [src]="'data:image/jpg;base64,'+ filephoto" alt="Contact" />
+        </div>
+        <div class=" p-0">
+          <label for="file-upload" class="input-mod2 ">
+            <a class="fas fa-upload"></a> Selecciona una imagen
+          </label>
+          <input id="file-upload" (change)="fileChangeListener($event)" type="file" style='display: none;' />
+          <div class="btn-group btn-group-justified mb">
           </div>
         </div>
-      </div>
-      <div *ngIf="settingActive == 2">
-        <div class="card b">
-          <div class="card-header bg-gray-lighter text-bold">Account</div>
-          <div class="card-body">
-            <div class="form-group">
-              <label>Current password</label>
-              <input class="form-control" type="password" />
+        <h3 *ngIf="role == 4" class="m-0 text-bold">{{dataprofile.agricola}}</h3>
+        <h3 *ngIf="role == 2" class="m-0 text-bold">{{dataprofile.names}}</h3>
+        <h4 *ngIf="role == 6" class="m-0 text-bold">{{dataprofile.names}}</h4>
+
+        <div>
+          <p class="m-1">{{dataUser.user_type_name}}</p>
+          <span *ngIf="role == 6"> {{dataprofile.role}}
+          </span>
+        </div>
+        <!-- Admin Agricola -->
+        <div *ngIf="dataUser.user_type === 4">
+          <div class="col-12 mt-3">
+            <hr>
+            <h4 class="text-center">Permisos</h4>
+            <div class="row  mt-2">
+              <div class="col-6 col-sm-6 col-md-12 col-lg-9 col-xl-8  text-left col-height ">
+                <label>Alta de ingenieros</label>
+              </div>
+              <div class="col-6 col-sm-6 col-sm-6 col-lg-3 col-xl-4 text-left">
+                <p>{{dataprofile.prmsAdminExtra}}</p>
+              </div>
             </div>
-            <div class="form-group">
-              <label>New password</label>
-              <input class="form-control" type="password" />
+            <div class="row mt-2">
+              <div class="col-6 col-sm-6 col-md-12 col-lg-9 col-xl-8  text-left col-height">
+                <label>Lotes</label>
+              </div>
+              <div class="col-6 col-sm-6 col-sm-6 col-lg-3 col-xl-4 text-left">
+                <p>{{dataprofile.prmsLotes}}</p>
+              </div>
             </div>
-            <div class="form-group">
-              <label>Confirm new password</label>
-              <input class="form-control" type="password" />
+            <div class="row mt-2">
+              <div class="col-6 col-sm-6 col-md-12 col-lg-9 col-xl-8 text-left col-height">
+                <div class="checkbox c-checkbox">
+                  <label>Administradores extras</label>
+                </div>
+              </div>
+              <div class="col-6 col-sm-6 col-sm-6 col-lg-3 col-xl-4 text-left">
+                <p>{{dataprofile.prmsAdminExtra}}</p>
+              </div>
             </div>
-            <button class="btn btn-info" type="button">Update password</button>
-            <p>
-              <small class="text-muted">* Integer fermentum accumsan metus, id sagittis ipsum molestie vitae</small>
-            </p>
 
           </div>
         </div>
-        <div class="card b">
-          <div class="card-header bg-danger text-bold">Delete account</div>
-          <div class="card-body bt">
-            <p>You will be asked for confirmation before delete account.</p>
-            <button class="btn btn-secondary" type="button">
-              <span class="text-danger">Delete account</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="settingActive == 3">
-        <div class="card b">
-          <div class="card-header bg-gray-lighter text-bold">Emails</div>
-          <div class="card-body">
-            <p>Etiam eros nibh, condimentum in auctor et, aliquam quis elit. Donec id libero eros. Ut fringilla, justo
-              id fringilla pretium, nibh nunc suscipit mauris, et suscipit nulla nisl ac dolor. Nam egestas, leo eu
-              gravida tincidunt, sem ipsum pellentesque quam, vel iaculis est quam et eros.</p>
-            <p>
-              <strong>Your email addresses</strong>
-            </p>
-            <p>
-              <span class="mr-2">email@someaddress.com</span>
-              <span class="badge badge-success">primary</span>
-            </p>
-            <p>
-              <span class="mr-2">another.email@someaddress.com</span>
-              <span class="badge bg-gray">private</span>
-            </p>
-          </div>
-          <div class="card-body bt">
-            <p>
-              <strong>Add email address</strong>
-            </p>
-
-            <div class="row mb-2">
-              <div class="col-xl-6">
-                <div class="form-group">
-                  <div class="input-group">
-                    <input class="form-control" type="email" placeholder="email@server.com" />
-                    <span class="input-group-btn">
-                      <button class="btn btn-secondary" type="button">Add</button>
-                    </span>
-                  </div>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" id="defaultCheck1" type="checkbox" value="" />
-                  <label class="form-check-label">Keep my email address private</label>
-                </div>
+        <!-- Admin Agronodo -->
+        <div *ngIf="dataUser.user_type === 2">
+          <div class="col-12 mt-3">
+            <hr>
+            <h4 class="text-center">Permisos</h4>
+            <div class="row  mt-2">
+              <div class="col-6 col-sm-6 col-md-12 col-lg-9 col-xl-8  text-left col-height ">
+                <label>Alta de administradores</label>
+              </div>
+              <div class="col-6 col-sm-6 col-sm-6 col-lg-3 col-xl-4 text-left">
+                <p>si</p>
               </div>
             </div>
-            <button class="btn btn-info" type="button">Update email</button>
-            <p>
-              <small class="text-muted">* Integer fermentum accumsan metus, id sagittis ipsum molestie vitae</small>
-            </p>
-
+            <div class="row mt-2">
+              <div class="col-6 col-sm-6 col-md-12 col-lg-9 col-xl-8  text-left col-height">
+                <label>Alta de agricolas</label>
+              </div>
+              <div class="col-6 col-sm-6 col-sm-6 col-lg-3 col-xl-4 text-left">
+                <p>si</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div *ngIf="settingActive == 4">
-
-        <div class="card b">
-          <div class="card-header bg-gray-lighter text-bold">Notifications</div>
-          <div class="card-body bb">
-            <div class="form-check">
-              <input class="form-check-input" id="defaultCheck2" type="checkbox" value="" />
-              <label class="form-check-label">
-                <strong>Disable email notifications</strong>
-              </label>
-            </div>
-          </div>
-          <div class="card-body">
-            <p>
-              <strong>Interaction</strong>
-            </p>
-            <div class="form-check">
-              <input class="form-check-input" id="defaultCheck3" type="checkbox" value="" />
-              <label class="form-check-label">Alert me when someone start to follow me</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" id="defaultCheck4" type="checkbox" value="" />
-              <label class="form-check-label">Alert me when someone star my work</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" id="defaultCheck5" type="checkbox" value="" />
-              <label class="form-check-label">Alert me when post a new comment</label>
-            </div>
-            <p class="my-2">
-              <strong>Marketing</strong>
-            </p>
-            <div class="form-check mb-2">
-              <input class="form-check-input" id="defaultCheck6" type="checkbox" value="" />
-              <label class="form-check-label">Send me news and interesting updates</label>
-            </div>
-            <button class="mb-3 btn btn-info" type="button">Update notifications</button>
-            <p>
-              <small class="text-muted">Mauris sodales accumsan erat, ut dapibus erat faucibus vitae.</small>
-            </p>
-          </div>
-        </div>
-
-      </div>
-      <div *ngIf="settingActive == 5">
-        <div class="card b">
-          <div class="card-header bg-gray-lighter text-bold">Applications</div>
-          <div class="card-body">
-            <p>
-              <span>You have granted access for</span>
-              <strong>3 applications</strong>
-              <span>to your account.</span>
-            </p>
-            <div class="list-group">
-              <div class="list-group-item d-flex align-items-center">
-                <img class="mr-2 img-fluid thumb48" src="" alt="App" />
-                <div>
-                  <p class="text-bold mb-0">Application #1</p>
-                  <small>Ut turpis urna, tristique sed adipiscing nec, luctus quis leo.</small>
-                </div>
-                <div class="ml-auto">
-                  <button class="btn btn-secondary" type="button">
-                    <strong>Revoke</strong>
-                  </button>
-                </div>
+        <!-- Admin Ingeniero -->
+        <div *ngIf="dataUser.user_type === 6">
+          <div class="col-12 mt-3">
+            <hr>
+            <h4 class="text-center">Permisos</h4>
+            <div class="row  mt-2">
+              <div class="col-6 col-sm-6 col-md-12 col-lg-9 col-xl-8  text-left col-height ">
+                <label>Agregar lotes</label>
               </div>
-              <div class="list-group-item d-flex align-items-center">
-                <img class="mr-2 img-fluid thumb48" src="" alt="App" />
-                <div>
-                  <p class="text-bold mb-0">Application #2</p>
-                  <small>Ut turpis urna, tristique sed adipiscing nec, luctus quis leo.</small>
-                </div>
-                <div class="ml-auto">
-                  <button class="btn btn-secondary" type="button">
-                    <strong>Revoke</strong>
-                  </button>
-                </div>
+              <div class="col-6 col-sm-6 col-sm-6 col-lg-3 col-xl-4 text-left">
+                <p *ngIf="dataprofile.canAddField == true">si</p>
+                <p *ngIf="dataprofile.canAddField == false">No</p>
               </div>
-              <div class="list-group-item d-flex align-items-center">
-                <img class="mr-2 img-fluid thumb48" src="" alt="App" />
-                <div>
-                  <p class="text-bold mb-0">Application #3</p>
-                  <small>Ut turpis urna, tristique sed adipiscing nec, luctus quis leo.</small>
-                </div>
-                <div class="ml-auto">
-                  <button class="btn btn-secondary" type="button">
-                    <strong>Revoke</strong>
-                  </button>
-                </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-6 col-sm-6 col-md-12 col-lg-9 col-xl-8  text-left col-height">
+                <label>Editar Ingenieros</label>
+              </div>
+              <div class="col-6 col-sm-6 col-sm-6 col-lg-3 col-xl-4 text-left">
+                <p *ngIf="dataprofile.canEditEngineers == true">si</p>
+                <p *ngIf="dataprofile.canEditEngineers == false">No</p>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-6 col-sm-6 col-md-12 col-lg-9 col-xl-8  text-left col-height">
+                <label>Ver reportes</label>
+              </div>
+              <div class="col-6 col-sm-6 col-sm-6 col-lg-3 col-xl-4 text-left">
+                <p *ngIf="dataprofile.canSeeReports == true">si</p>
+                <p *ngIf="dataprofile.canSeeReports == false">No</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-4">
-      <div class="card b">
-        <div class="card-header bg-gray-lighter text-bold">Configuracion personal</div>
-        <div class="list-group">
-          <a href="#" class="list-group-item" (click)="settingActive=1"
-            [ngClass]="{'active': (settingActive == 1)}">Perfil</a>
-          <a href="#" class="list-group-item" [routerLink]="['/reset/password']" >Restablecer Contraseña</a>
-          <a href="#" class="list-group-item" (click)="settingActive=3"
-            [ngClass]="{'active': (settingActive == 3)}">Emails</a>
-          <a href="#" class="list-group-item" (click)="settingActive=4"
-            [ngClass]="{'active': (settingActive == 4)}">Notifications</a>
-          <a href="#" class="list-group-item" (click)="settingActive=5"
-            [ngClass]="{'active': (settingActive == 5)}">Applications</a>
+
+  </div>
+  <!-- Agricola -->
+  <div class="col-lg-8" *ngIf="role == 4">
+    <div class="card card-default">
+      <div class="card-header d-flex align-items-center">
+        <div class="d-flex justify-content-center col">
+
+        </div>
+
+      </div>
+      <div class="card-body">
+        <div class="row py-4 justify-content-center">
+          <div class="col-12 col-sm-10">
+            <div class="form-horizontal">
+
+              <form [formGroup]="agricola" (submit)="submitFormAgricola(agricola.value)">
+                <!-- START card-->
+                <div class="card ">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group row">
+                          <div class="col">
+                            <label>Usuario de la Agricola</label>
+                            <input class="form-control" formControlName="username" type="text" disabled />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col">
+                            <label>Email</label>
+                            <input class="form-control" formControlName="email" type="email"
+                              placeholder="example@example.com" disabled />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col">
+                            <label>Agricola</label>
+                            <input class="form-control" formControlName="name" type="text" />
+                            <span class="text-danger" *ngIf="agricola.controls['name'].errors?.required">Ingresa un
+                              campo
+                              válido</span>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col">
+                            <label>Nombre de contacto</label>
+                            <input class="form-control" formControlName="contactName" type="text" />
+                            <span class="text-danger" *ngIf="agricola.controls['contactName'].errors?.required">Ingresa
+                              un
+                              campo
+                              válido</span>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col">
+                            <label>Teléfono</label>
+                            <input class="form-control" type="number" formControlName="phone" />
+                            <span class="text-danger" *ngIf="agricola.controls['phone'].errors">Ingresa un numero
+                              válido</span>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col">
+                            <label>Dirección</label>
+                            <input class="form-control" formControlName="address" type="text" />
+                            <span class="text-danger" *ngIf="agricola.controls['address'].errors?.required">Ingresa un
+                              correo</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class=" text-center">
+                    <button class="btn btn-info" type="submit" [disabled]="agricola.invalid"><em
+                        class="fa mr-2 fas fa-plus"></em>Agregar</button>
+                  </div>
+                </div>
+                <!-- END card-->
+              </form>
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div> -->
+  <!-- End Agricola -->
+
+  <!-- Admin Agronodo -->
+  <div class="col-lg-8" *ngIf="role == 2">
+    <div class="card card-default">
+      <div class="card-header d-flex align-items-center">
+        <div class="d-flex justify-content-center col">
+
+        </div>
+
+      </div>
+      <div class="card-body">
+        <div class="row py-4 justify-content-center">
+          <div class="col-12 col-sm-10">
+            <div class="form-horizontal">
+              <form [formGroup]="adminagronodo" (submit)="submitFormAdminAgronodo(adminagronodo.value)">
+                <div class="card ">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group row">
+                          <div class="col ">
+                            <label>Nombre de usuario</label>
+                            <input class="form-control" formControlName="username" type="text"
+                              placeholder="example@example.com" disabled />
+                            <span class="text-danger"
+                              *ngIf="adminagronodo.controls['username'].errors?.required">Ingresa un
+                              campo
+                              válido</span>
+                            <span class="text-danger"
+                              *ngIf="adminagronodo.controls['username'].errors?.cannotContainSpace">
+                              No se permiten espacios en este campo</span>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col">
+                            <label>Email</label>
+                            <input class="form-control" formControlName="email" type="email"
+                              placeholder="example@example.com" disabled />
+                            <span class="text-danger" *ngIf="adminagronodo.controls['email'].errors?.email">Ingresa un
+                              correo
+                              válido</span>
+                            <span class="text-danger" *ngIf="adminagronodo.controls['email'].errors?.required">Ingresa
+                              un
+                              correo</span>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col">
+                            <label>Nombre</label>
+                            <input class="form-control" formControlName="names" type="text" />
+                            <span class="text-danger" *ngIf="adminagronodo.controls['names'].errors?.required">Ingresa
+                              un campo
+                              válido</span>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <div class="col">
+                            <label>Teléfono</label>
+                            <input class="form-control" type="number" formControlName="phone" />
+                            <span class="text-danger" *ngIf="adminagronodo.controls['phone'].errors">Ingresa un numero
+                              válido</span>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <button class="btn btn-info" type="submit"><em
+                        class="fa mr-2 fas fa-plus font-13"></em>Guardar</button>
+                  </div>
+                </div>
+
+              </form>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Admin agronodo -->
+
+  <!-- Admin Enginner -->
+  <div class="col-lg-8" *ngIf="role == 6">
+    <div class="card card-default">
+      <div class="card-header d-flex align-items-center">
+        <div class="d-flex justify-content-center col">
+
+        </div>
+
+      </div>
+      <div class="card-body">
+        <div class="row py-4 justify-content-center">
+          <div class="col-12 col-sm-10">
+            <div class="form-horizontal">
+
+              <form [formGroup]="adminEngineers" (submit)="submitFormAdminEnginner(adminEngineers.value)">
+                <div class="card ">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+
+                        <div class="form-group row">
+                          <div class="col ">
+                            <label>Nombre de usuario</label>
+                            <input class="form-control" formControlName="username" type="text" disabled />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col">
+                            <label>Email</label>
+                            <input class="form-control" formControlName="email" type="email"
+                              placeholder="example@example.com" disabled />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col">
+                            <label>Nombre</label>
+                            <input class="form-control" formControlName="names" type="text" />
+                            <span class="text-danger" *ngIf="adminEngineers.controls['names'].errors?.required">Ingresa
+                              un campo
+                              válido</span>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col">
+                            <label>Teléfono</label>
+                            <input class="form-control" type="number" formControlName="phone" />
+                            <span class="text-danger" *ngIf="adminEngineers.controls['phone'].errors">Ingresa un
+                              numero
+                              válido</span>
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </div>
+                    <div class=" text-center">
+                      <button class="btn btn-info" type="submit"><em
+                          class="fa mr-2 fas fa-plus font-13"></em>Guardar</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Admin Enginner -->
+</div>

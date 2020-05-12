@@ -16,7 +16,7 @@ export const routes = [
         component: LayoutComponent,
         children: [
             { path: '', canActivate:[ AuthGuard ], redirectTo: '/landing', pathMatch: 'full' },
-            { path: 'home',canActivate:[ AuthGuard ], loadChildren: './home-global/home-global.module#HomeGlobalModule' },
+            { path: 'home',canActivate:[ AuthGuard,RoleGuard ],data: {role: 2, role2:4 ,role3:6}, loadChildren: './home-global/home-global.module#HomeGlobalModule' },
            
             { path: 'Admin-Agronodo', canActivate:[ AuthGuard , RoleGuard ], data: {role: 2},loadChildren: './admin-agronodo/admin-agronodo.module#AdminAgronodoModule' },
             { path: 'Admin-Edit/new',canActivate:[ AuthGuard, RoleGuard ], data: {role: 2}, loadChildren: './admin-edit-agronodo/admin-edit-agronodo.module#AdminEditAgronodoModule'},

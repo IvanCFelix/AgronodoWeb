@@ -21,6 +21,7 @@ export class EngineerComponent implements OnInit {
   expanded: any = {};
   selected = [];
   user = {}
+  profile: any = {};
   constructor(public Engineer:Engineer) {
     
   }
@@ -37,7 +38,8 @@ export class EngineerComponent implements OnInit {
 }
 
   ngOnInit() {
-     const user = JSON.parse(localStorage.getItem("USER"));
+    const user = JSON.parse(localStorage.getItem("USER"));
+    this.profile = user.profile
     this.user = user; 
     console.log(user)
     this.Engineer.listadmin().subscribe(resp => {

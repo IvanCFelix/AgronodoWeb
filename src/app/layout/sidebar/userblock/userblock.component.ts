@@ -14,16 +14,22 @@ export class UserblockComponent implements OnInit {
     public photo;
     public name;
     public type;
+    public username;
     constructor(public userblockService: UserblockService, public adminService:AdminAgronodo) {
        
        
     }
 
     ngOnInit() {
-
+      const user = <any>JSON.parse(localStorage.getItem("profile"));
+      this.username = user.username
+      
+      
         // this.usuario = (<any>JSON.parse(localStorage.getItem('USER')))
 
-        this.adminService.getRefresh().subscribe( resp => {
+      this.adminService.getRefresh().subscribe(resp => {
+        localStorage.setItem("profile", JSON.stringify(resp));
+       console.log(resp)
             this.usuario = resp
             this.type = resp.user_type_name
             switch (resp.user_type) {
@@ -64,6 +70,7 @@ export class UserblockComponent implements OnInit {
         })
     }
 
+ 
     userBlockIsVisible() {
         return this.userblockService.getVisibility();
     }
