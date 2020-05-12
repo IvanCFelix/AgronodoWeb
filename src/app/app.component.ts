@@ -51,11 +51,7 @@ export class AppComponent implements OnInit {
     this.route.events.forEach((event) => {
       if (event instanceof NavigationStart) {
         let user: any = <any>JSON.parse(localStorage.getItem("USER"));
-        let token: any = localStorage.getItem("token");
-          if (token) {   
-          this.getuser();
-        }
-
+        
         if (user) {
           let role = user.user_type;
           let menu = Menu.menu(role);
@@ -66,12 +62,7 @@ export class AppComponent implements OnInit {
       }
     });
   }
-  async getuser() {
-    await this.profile.getRefresh().subscribe((resp) => {
-       localStorage.setItem("profile", JSON.stringify(resp));
-        
-    });
-  }
+ 
   ngOnInit() {
     document.addEventListener("click", (e) => {
       const target = e.target as HTMLElement;
