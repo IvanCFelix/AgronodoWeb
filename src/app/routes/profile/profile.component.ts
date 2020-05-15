@@ -71,8 +71,21 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.profile.getRefresh().subscribe((resp) => {
+  async ngOnInit() {
+    console.log('init');
+    const id = this.route.snapshot.paramMap.get("id");
+    if (id) {
+      this.FetchData()
+    }
+      
+  }
+    ngAfterContentInit() {
+     this.FetchData();
+    }
+
+
+ async FetchData() {
+   await this.profile.getRefresh().subscribe((resp) => {
       this.dataUser = resp;
       switch (resp.user_type) {
         // Agronodo
@@ -131,6 +144,7 @@ export class ProfileComponent implements OnInit {
           break;
         }
       }
+      return resp
     });
   }
   setDataAgricola() {}

@@ -22,7 +22,7 @@ export class AdminAgronodo {
     return this.http.get(`${Uris.API_AGRONODO_GET_USER}${user}/`,this.jwt()).map((response: Response) => response.json()) 
   }
   getRefresh() {
-    return this.http.get(`${Uris.API_USER_GET}`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http.get(`${Uris.API_USER_GET}`, this.jwt()).map((response: Response) => response.json()); 
   }
   delete(user) {
     return this.http.delete(`${Uris.API_ABRONODO_DELETE}${user}/`,this.jwt()).map((response: Response) => response.json()) 
@@ -45,13 +45,14 @@ export class AdminAgronodo {
     }
   }
   
-  private jwt() {
+  private jwt() {    
     if (this.token) {
         let headers = new Headers();
         let user = JSON.parse(localStorage.getItem('USER'));
-        headers.append('Content-Type', 'application/json');
-        headers.append('Accept-Language', 'es');
-        headers.append('Authorization', `token ${user.token}`);
+        headers.append("Content-Type", "application/json");
+        headers.append("Accept-Language", "es");
+      headers.append("Authorization", `token ${user.token}`);
+      
       return new RequestOptions({ headers: headers });
     }
   }

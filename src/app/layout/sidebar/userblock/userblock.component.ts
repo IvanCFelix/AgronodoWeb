@@ -19,21 +19,24 @@ export class UserblockComponent implements OnInit {
        
        
     }
+  ngOnDestroy() {
 
+  
+}
     ngOnInit() {     
 
-      
-       const user = (<any>JSON.parse(localStorage.getItem('USER')))
-        this.username = user.username
-      if (user) {
-      
-         console.log("se realizo");
-         
-           // localStorage.setItem("profile", JSON.stringify(resp));
-           console.log(user);
-           this.usuario = user;
-           this.type = user.user_type_name;
-           // this.username = resp.username
+      this.adminService.getRefresh().subscribe((resp) => {
+        console.log(resp);
+        // const user = <any>JSON.parse(localStorage.getItem("USER"));
+        const user = resp;
+        this.username = user.username;
+        if (user) {
+          console.log("se realizo");
+          // localStorage.setItem("profile", JSON.stringify(resp));
+          console.log(user);
+          this.usuario = user;
+          this.type = user.user_type_name;
+          // this.username = resp.username
           switch (user.user_type) {
             // Agronodo
             case 2: {
@@ -55,7 +58,7 @@ export class UserblockComponent implements OnInit {
             case 5: {
               this.photo = user.profile.photo;
               this.name = user.profile.names;
-     
+
               break;
             }
             //Admin Ingeniero
@@ -68,8 +71,8 @@ export class UserblockComponent implements OnInit {
               break;
             }
           }
-         }
-          
+        }
+      });
         
     }
 
