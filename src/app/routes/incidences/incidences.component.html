@@ -1,0 +1,126 @@
+<div class="content-heading">
+  <div>Incidencias
+    <small>Datos por tiempo</small>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4 col-xl-4" *ngFor="let item of nuevo">
+      <div class="card-items m-2">
+        <div class="row m-2">
+          <div class="col-5 center">
+            <em *ngIf="item.technicalIncidence" class="fa-7x icon-settings "></em>
+            <em *ngIf="item.agriculturalIncidence " class="fa-7x fab fa-envira"></em>
+          </div>
+          <div class="col m-0 p-0 text-incidencia">
+            <div *ngIf="item.agriculturalIncidence">
+              <p><b>Tipo de incidencia:</b><small>Agricultura</small></p>
+              <p><b>Nombre:</b>{{item.agriculturalIncidence.name.name}}</p>
+              <p><b>Fecha:</b><small>10/6/2020</small></p>
+              <p><b>Nombre de lote:</b><small>SML</small></p>
+              <p><b>ID:</b>{{item.id}}</p>
+              <p><b>Lugar de peligro</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row center">
+            <div class="col-2 text-center">
+              <div class="icon " style="color: #008f39">
+                <a class="fas fa-2x fa-square"></a>
+                <b style="color:black">Planta</b>
+              </div>
+            </div>
+            <div class="col-2 text-center">
+              <div class="icon" style="color: #ffff00 ">
+                <a class="fas fa-2x fa-square"></a>
+                <b style="color:black">suelo</b>
+              </div>
+            </div>
+            <div class="col-2 text-center">
+              <div class="icon" style="color: #cb3234 ">
+                <a class="fas fa-2x fa-square"></a>
+                <b style="color:black">Tallo</b>
+              </div>
+            </div>
+            <div class="col-2 text-center">
+              <div class="icon" style="color: #008f39">
+                <a class="fas fa-2x fa-square"></a>
+                <b style="color:black">Hoja</b>
+              </div>
+            </div>
+          </div>
+          <div class="row ">
+            <div class="col m-3 center">
+              <button type="button" class="btn btn-info">Ver historial</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="content-heading">
+  <div>
+    <p class="p-0">Mayor peligro</p>
+  </div>
+</div>
+<div class="container">
+  <div class="row mb-3">
+    <div class="col-12 col-md-6 col-lg-4 col-xl-4" *ngFor="let item of nuevo">
+      <div class="card-items m-2">
+        <div class="row">
+          <div class="col-5 center">
+            <em *ngIf="item.technicalIncidence" class="fa-7x icon-settings "></em>
+            <em *ngIf="item.agriculturalIncidence " class="fa-7x fab fa-envira"></em>
+          </div>
+          <div class="col m-0 p-0 text-incidencia">
+            <div *ngIf="item.agriculturalIncidence">
+              <p><b>Tipo de incidencia:</b><small>Agricultura</small></p>
+              <p><b>{{item.agriculturalIncidence.name}}</b></p>
+              <p><b>Fecha:</b><small>10/6/2020</small></p>
+              <p><b>Nombre de lote:</b><small>SML</small></p>
+              <p><b>ID:</b>{{item.id}}</p>
+              <p><b>Lugar de peligro</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row center">
+            <div class="col-2 text-center">
+              <div class="icon " style="color: #008f39">
+                <a class="fas fa-2x fa-square"></a>
+                <b style="color:black">Planta</b>
+              </div>
+            </div>
+            <div class="col-2 text-center">
+              <div class="icon" style="color: #ffff00 ">
+                <a class="fas fa-2x fa-square"></a>
+                <b style="color:black">suelo</b>
+              </div>
+            </div>
+            <div class="col-2 text-center">
+              <div class="icon" style="color: #cb3234 ">
+                <a class="fas fa-2x fa-square"></a>
+                <b style="color:black">Tallo</b>
+              </div>
+            </div>
+            <div class="col-2 text-center">
+              <div class="icon" style="color: #008f39">
+                <a class="fas fa-2x fa-square"></a>
+                <b style="color:black">Hoja</b>
+              </div>
+            </div>
+          </div>
+          <div class="row ">
+            <div class="col m-3 center">
+              <button type="button" class="btn btn-info">Ver historial</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

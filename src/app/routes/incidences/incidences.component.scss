@@ -1,0 +1,27 @@
+.center {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.text-incidencia {
+  p {
+    margin: 5px;
+  }
+}
+
+.items {
+  height: 30pc;
+  overflow: auto;
+  overflow-y: hidden;
+  margin: 0 auto;
+
+
+}
+
+.card-items {
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
