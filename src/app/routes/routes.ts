@@ -127,21 +127,21 @@ export const routes = [
              {
                path: "Admin-Ingeniero",
                canActivate: [AuthGuard, RoleGuard],
-               data: { role: 4 },
+               data: { role: 4, role3:5 },
                loadChildren:
                  "./admin-engineer/admin-engineer.module#AdminEnginerModule",
              },
              {
                path: "Admin-Ingeniero/new",
                canActivate: [AuthGuard, RoleGuard],
-               data: { role: 4 },
+               data: { role: 4, role3:5 },
                loadChildren:
                  "./admin-edit-engineer/admin-edit-engineer.module#AdminEditEngineerModule",
              },
              {
                path: "Admin-Ingeniero/:id",
                canActivate: [AuthGuard, RoleGuard],
-               data: { role: 4 },
+               data: { role: 4, role3:5 },
                loadChildren:
                  "./admin-edit-engineer/admin-edit-engineer.module#AdminEditEngineerModule",
              },
@@ -149,20 +149,20 @@ export const routes = [
              {
                path: "Ingeniero",
                canActivate: [AuthGuard, RoleGuard],
-               data: { role: 4, role2: 6 },
+               data: { role: 4, role2: 6, role3: 5 },
                loadChildren: "./engineer/engineer.module#EngineerModule",
              },
              {
                path: "Ingeniero/new",
                canActivate: [AuthGuard, RoleGuard],
-               data: { role: 4, role2: 6 },
+               data: { role: 4, role2: 6, role3: 5 },
                loadChildren:
                  "./engineer-edit/engineer-edit.module#EditEngineerModule",
              },
              {
                path: "Ingeniero/:id",
                canActivate: [AuthGuard, RoleGuard],
-               data: { role: 4, role2: 6 },
+               data: { role: 4, role2: 6, role3: 5 },
                loadChildren:
                  "./engineer-edit/engineer-edit.module#EditEngineerModule",
              },
@@ -182,32 +182,32 @@ export const routes = [
              {
                path: "Lotes/reporte/:lot/:sub/:rut/:repso",
                canActivate: [AuthGuard, RoleGuard],
-               data: { role: 4, role2: 6 },
+               data: { role: 4, role2: 6, role3: 5 },
                loadChildren: "./reportsolo/reportsolo.module#ReportSoloModule",
              },
 
              {
                path: "Tareas",
                canActivate: [AuthGuard, RoleGuard],
-               data: { role: 4, role2: 6 },
+               data: { role: 4, role2: 6, role3: 5 },
                loadChildren: "./tasks/tasks.module#TaskModule",
              },
              {
                path: "Tareas/new",
                canActivate: [AuthGuard, RoleGuard],
-               data: { role: 4, role2: 6 },
+               data: { role: 4, role2: 6, role3: 5 },
                loadChildren: "./task-edit/task-edit.module#TaskEditModule",
              },
              {
                path: "Tareas/:id",
                canActivate: [AuthGuard, RoleGuard],
-               data: { role: 4, role2: 6 },
+               data: { role: 4, role2: 6, role3: 5 },
                loadChildren: "./task-edit/task-edit.module#TaskEditModule",
              },
              {
                path: "Incidencias",
                canActivate: [AuthGuard, RoleGuard],
-               data: { role: 4, role2: 6 },
+               data: { role: 4, role2: 6, role3: 5 },
                loadChildren: "./incidences/incidences.module#IncidencesModule",
              },
            ],

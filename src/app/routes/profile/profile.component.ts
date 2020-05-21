@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AgricolaAgronodo } from "../../Services/agricola-agronodo.service";
 import { AdminEngineerAgricola } from "../../Services/admin-engineer-agricola.service";
+import { AdminAgricola } from "../../Services/admin-agricola.service";
 
 @Component({
   selector: "app-profile",
@@ -17,6 +18,8 @@ export class ProfileComponent implements OnInit {
   settingActive = 1;
   adminagronodo: FormGroup;
   agricola: FormGroup;
+  Adminagricola: FormGroup;
+
   adminEngineers: FormGroup;
 
   role;
@@ -30,7 +33,8 @@ export class ProfileComponent implements OnInit {
     public router: Router,
     public agricolaService: AgricolaAgronodo,
     private route: ActivatedRoute,
-    public Engineer: AdminEngineerAgricola
+    public Engineer: AdminEngineerAgricola,
+    public AdminAgricola: AdminAgricola
   ) {
     this.adminagronodo = new FormGroup({
       names: new FormControl("", Validators.required),
@@ -69,23 +73,30 @@ export class ProfileComponent implements OnInit {
       admin: new FormControl(false),
       adminLenght: new FormControl(1),
     });
+    this.Adminagricola = new FormGroup({
+      username: new FormControl("", [
+        Validators.required,
+        UsernameValidator.cannotContainSpace,
+      ]),
+      email: new FormControl("", [Validators.email, Validators.required]),
+      contactName: new FormControl("", Validators.required),
+      phone: new FormControl("", [Validators.required]),
+    });
   }
 
   async ngOnInit() {
-    console.log('init');
+    console.log("init");
     const id = this.route.snapshot.paramMap.get("id");
     if (id) {
-      this.FetchData()
+      this.FetchData();
     }
-      
   }
-    ngAfterContentInit() {
-     this.FetchData();
-    }
+  ngAfterContentInit() {
+    this.FetchData();
+  }
 
-
- async FetchData() {
-   await this.profile.getRefresh().subscribe((resp) => {
+  async FetchData() {
+    await this.profile.getRefresh().subscribe((resp) => {
       this.dataUser = resp;
       switch (resp.user_type) {
         // Agronodo
@@ -126,6 +137,14 @@ export class ProfileComponent implements OnInit {
         }
         // Admin Agricola
         case 5: {
+          this.role = 5;
+          this.dataprofile = resp.profile;
+          this.Adminagricola.setValue({
+            username: resp.username,
+            email: resp.email,
+            contactName: resp.profile.names,
+            phone: resp.profile.phone,
+          });
           break;
         }
         //Admin Ingeniero
@@ -144,7 +163,7 @@ export class ProfileComponent implements OnInit {
           break;
         }
       }
-      return resp
+      return resp;
     });
   }
   setDataAgricola() {}
@@ -365,6 +384,79 @@ export class ProfileComponent implements OnInit {
         (resp) => {
           Swal.fire({
             text: "Se actualizó correctamente" + value.names,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+            width: "250px",
+          });
+          this.router.navigateByUrl("/home");
+        },
+        (err: any) => {
+          console.log(err._body);
+          Swal.fire({
+            text: "Error en el sevidor",
+            showConfirmButton: false,
+            timer: 1500,
+            icon: "error",
+            width: "250px",
+          });
+        }
+      );
+    }
+  }
+  submitFormAdminAgricola(value) {
+    console.log(value);
+
+    if (this.filephoto == "") {
+      let obj = {
+        names: value.contactName,
+        phone: value.phone,
+      };
+      let user = {
+        user: {
+          username: value.username,
+        },
+      };
+      this.AdminAgricola.edit(obj, user).subscribe(
+        (resp) => {
+          Swal.fire({
+            text: "Se actualizó correctamente \n" + value.contactName,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+            width: "250px",
+          });
+          this.router.navigateByUrl("/home");
+        },
+        (err: any) => {
+          console.log(err._body);
+
+          Swal.fire({
+            text: "Error en el sevidor",
+            showConfirmButton: false,
+            timer: 1500,
+            icon: "error",
+            width: "250px",
+          });
+        }
+      );
+    } else {
+      let obj = {
+        names: value.contactName,
+        phone: value.phone,
+        photo: this.filephoto,
+      };
+      let user = {
+        user: {
+          username: value.username,
+        },
+      };
+      console.log(obj);
+
+      this.AdminAgricola.edit(obj, user).subscribe(
+        (resp) => {
+          Swal.fire({
+            text: "Se actualizó correctamente" + value.contactName,
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
