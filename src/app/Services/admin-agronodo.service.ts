@@ -12,26 +12,36 @@ export class AdminAgronodo {
   }
   
  register(admin) {
-    return this.http.post(`${Uris.API_AGRONODO_POST}`, admin,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .post(`${Uris.API_AGRONODO}`, admin, this.jwt())
+      .map((response: Response) => response.json()); 
   }
 
   listadmin() {
-    return this.http.get(`${Uris.API_AGRONODO_GET_LIST}`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .get(`${Uris.API_AGRONODO}`, this.jwt())
+      .map((response: Response) => response.json()); 
   }
   getadmin(user) {
-    return this.http.get(`${Uris.API_AGRONODO_GET_USER}${user}/`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .get(`${Uris.API_AGRONODO}${user}/`, this.jwt())
+      .map((response: Response) => response.json()); 
   }
   getRefresh() {
     return this.http.get(`${Uris.API_USER_GET}`, this.jwt()).map((response: Response) => response.json()); 
   }
   delete(user) {
-    return this.http.delete(`${Uris.API_ABRONODO_DELETE}${user}/`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .delete(`${Uris.API_AGRONODO}${user}/`, this.jwt())
+      .map((response: Response) => response.json()); 
   }
   reset(password) {
     return this.http.post(`${Uris.PASSWORD_CHANGE}`,password,this.jwt()).map((response: Response) => response.json()) 
   }
   edit(admin,user) {
-    return this.http.patch(`${Uris.API_AGRONODO_EDIT}${user.user.username}/`, admin,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .patch(`${Uris.API_AGRONODO}${user.user.username}/`, admin, this.jwt())
+      .map((response: Response) => response.json()); 
   }
   logout(){
      return this.http.post(`${Uris.API_LOGOUT}`,this.token,this.jwt()).map((response: Response) => response.json()) 

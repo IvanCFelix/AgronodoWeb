@@ -15,16 +15,24 @@ export class TaskService {
     return this.http.post(`${Uris.API_TASK_POST}`, tarea,this.jwt()).map((response: Response) => response.json()) 
   }
   listTask() {
-    return this.http.get(`${Uris.API_TASK_GET_LIST}`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .get(`${Uris.API_TASK}`, this.jwt())
+      .map((response: Response) => response.json()); 
   }
   getTask(tarea) {
-    return this.http.get(`${Uris.API_TASK_GET_ID}${tarea}/`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .get(`${Uris.API_TASK}${tarea}/`, this.jwt())
+      .map((response: Response) => response.json()); 
   }
   delete(tarea) {
-    return this.http.delete(`${Uris.API_TASK_DELETE}${tarea}/`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .delete(`${Uris.API_TASK}${tarea}/`, this.jwt())
+      .map((response: Response) => response.json()); 
   }  
   edit(admin,user) {
-  return this.http.patch(`${Uris.API_ENGINEER_EDIT}${user.user.username}/`, admin,this.jwt()).map((response: Response) => response.json()) 
+  return this.http
+    .patch(`${Uris.API_TASK}${user.user.username}/`, admin, this.jwt())
+    .map((response: Response) => response.json()); 
   }
   
 

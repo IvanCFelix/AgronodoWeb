@@ -12,19 +12,29 @@ export class Engineer {
   }
   
  register(admin) {
-    return this.http.post(`${Uris.API_ENGINEER_POST}`, admin,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .post(`${Uris.API_ENGINEER}`, admin, this.jwt())
+      .map((response: Response) => response.json()); 
   }
   listadmin() {
-    return this.http.get(`${Uris.API_ENGINEER_GET_LIST}`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .get(`${Uris.API_ENGINEER}`, this.jwt())
+      .map((response: Response) => response.json()); 
   }
   getadmin(user) {
-    return this.http.get(`${Uris.API_ENGINEER_GET_USER}${user}/`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .get(`${Uris.API_ENGINEER}${user}/`, this.jwt())
+      .map((response: Response) => response.json()); 
   }
   delete(user) {
-    return this.http.delete(`${Uris.API_ENGINEER_DELETE}${user}/`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .delete(`${Uris.API_ENGINEER}${user}/`, this.jwt())
+      .map((response: Response) => response.json()); 
   }  
   edit(admin,user) {
-  return this.http.patch(`${Uris.API_ENGINEER_EDIT}${user.user.username}/`, admin,this.jwt()).map((response: Response) => response.json()) 
+  return this.http
+    .patch(`${Uris.API_ENGINEER}${user.user.username}/`, admin, this.jwt())
+    .map((response: Response) => response.json()); 
   }
   
 

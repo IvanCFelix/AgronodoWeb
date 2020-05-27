@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Incidences } from '../../Services/Incidences.service';
 
 @Component({
   selector: "app-incidences",
@@ -67,7 +68,9 @@ export class IncidencesComponent implements OnInit {
     },
    
   ];
-  constructor() {}
+  constructor(public IncidenceService:Incidences) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 }
