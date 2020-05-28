@@ -20,7 +20,8 @@ export class Uris {
          public static API_TASK_POST = `${Uris.API_ENDPOINT}tasks/subfield/`;
          public static API_TASK = `${Uris.API_ENDPOINT}tasks/`;
          public static API_INCIDENCES = `${Uris.API_ENDPOINT}incidences/`;
-    
+         public static API_INCIDENCES_SEARCH = `${Uris.API_ENDPOINT}incidences/search/`;
+
          public static API_INCIDENCES_BYDATE = `${Uris.API_ENDPOINT}incidences/bydate/`;
          public static API_INCIDENCES_BYRISK = `${Uris.API_ENDPOINT}incidences/byrisk/`;
 

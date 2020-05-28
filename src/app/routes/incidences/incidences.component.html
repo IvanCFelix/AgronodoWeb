@@ -1,52 +1,103 @@
 <div class="content-heading">
-  <div>Incidencias
-    <small>Datos por tiempo</small>
+  <div class="row">
+    <div class="col">
+      <div>Incidencias</div>
+    </div>
+  </div>
+</div>
+<div class="row d-flex justify-content-end align-content-end">
+  <div class="col  text-left">
+    <p>Datos por tiempo</p>
+  </div>
+
+  <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 ">
+    <div class="d-flex justify-content-end align-content-end ">
+      <select class="form-control " [ngModel]="order" (ngModelChange)="changeOrderIncidence($event)">
+        <option value="asc" class="form-control">Más recientes</option>
+        <option value="desc">Más antiguas</option>
+      </select>
+    </div>
   </div>
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-12 col-md-6 col-lg-4 col-xl-4" *ngFor="let item of nuevo">
+    <div class="col-12 col-md-6 col-lg-4 col-xl-4" *ngFor="let item of Incidencesbydate">
       <div class="card-items m-2">
         <div class="row m-2">
           <div class="col-5 center">
-            <em *ngIf="item.technicalIncidence" class="fa-7x icon-settings "></em>
-            <em *ngIf="item.agriculturalIncidence " class="fa-7x fab fa-envira"></em>
+            <em *ngIf="item.technicalIncidence.length > 0" class="fa-7x icon-settings "></em>
+            <em *ngIf="item.agriculturalIncidence.length  > 0 " class="fa-7x fab fa-envira"></em>
           </div>
           <div class="col m-0 p-0 text-incidencia">
-            <div *ngIf="item.agriculturalIncidence">
+            <div *ngIf="item.agriculturalIncidence.length  > 0">
               <p><b>Tipo de incidencia:</b><small>Agricultura</small></p>
-              <p><b>Nombre:</b>{{item.agriculturalIncidence.name.name}}</p>
-              <p><b>Fecha:</b><small>10/6/2020</small></p>
+              <p><b>ciclo:</b>{{item.field_name}}</p>
+              <p><b>Fecha:</b><small>{{item.datetime | date: ' dd/MM/yyyy'}}</small></p>
               <p><b>Nombre de lote:</b><small>SML</small></p>
               <p><b>ID:</b>{{item.id}}</p>
-              <p><b>Lugar de peligro</b></p>
+              <p>{{item.description}}</p>
             </div>
           </div>
         </div>
         <div class="container">
-          <div class="row center">
-            <div class="col-2 text-center">
-              <div class="icon " style="color: #008f39">
-                <a class="fas fa-2x fa-square"></a>
-                <b style="color:black">Planta</b>
+          <div *ngFor="let item of item.agriculturalIncidence">
+
+            <div class="row center">
+              <div class="col-2 text-center">
+                <div *ngIf="item.fruit == 1" class="icon " style="color: #008f39">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Planta</b>
+                </div>
+                <div *ngIf="item.fruit == 2" class="icon " style="color: #ffff00">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Planta</b>
+                </div>
+                <div *ngIf="item.fruit == 3" class="icon " style="color: #cb3234">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Planta</b>
+                </div>
               </div>
-            </div>
-            <div class="col-2 text-center">
-              <div class="icon" style="color: #ffff00 ">
-                <a class="fas fa-2x fa-square"></a>
-                <b style="color:black">suelo</b>
+              <div class="col-2 text-center">
+                <div *ngIf="item.ground == 1" class="icon" style="color: #008f39 ">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">suelo</b>
+                </div>
+                <div *ngIf="item.ground == 2" class="icon" style="color: #ffff00 ">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">suelo</b>
+                </div>
+                <div *ngIf="item.ground == 3" class="icon" style="color: #cb3234 ">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">suelo</b>
+                </div>
               </div>
-            </div>
-            <div class="col-2 text-center">
-              <div class="icon" style="color: #cb3234 ">
-                <a class="fas fa-2x fa-square"></a>
-                <b style="color:black">Tallo</b>
+              <div class="col-2 text-center">
+                <div *ngIf="item.stem === 1" class="icon" style="color: #008f39 ">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Tallo</b>
+                </div>
+                <div *ngIf="item.stem === 2" class="icon" style="color: #ffff00 ">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Tallo</b>
+                </div>
+                <div *ngIf="item.stem === 3" class="icon" style="color: #cb3234 ">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Tallo</b>
+                </div>
               </div>
-            </div>
-            <div class="col-2 text-center">
-              <div class="icon" style="color: #008f39">
-                <a class="fas fa-2x fa-square"></a>
-                <b style="color:black">Hoja</b>
+              <div class="col-2 text-center">
+                <div *ngIf="item.leaf == 1" class="icon" style="color: #008f39">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Hoja</b>
+                </div>
+                <div *ngIf="item.leaf == 2" class="icon" style="color: #ffff00">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Hoja</b>
+                </div>
+                <div *ngIf="item.leaf == 3" class="icon" style="color: #cb3234">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Hoja</b>
+                </div>
               </div>
             </div>
           </div>
@@ -63,53 +114,100 @@
 </div>
 <div class="content-heading">
   <div>
-    <p class="p-0">Mayor peligro</p>
+    <p class="m-0">Mayor peligro</p>
+  </div>
+</div>
+<div class="row d-flex justify-content-end align-content-end">
+  <div class="col  text-left">
+    <p>Datos por riesgo</p>
+  </div>
+  <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 ">
+    <div class="d-flex justify-content-end align-content-end ">
+      <select class="form-control " [ngModel]="Inputorderbyrisk" (ngModelChange)="changeOrderbyrisk($event)">
+        <option value="asc" class="form-control">Menor peligro</option>
+        <option value="desc">Mayor peligro</option>
+      </select>
+    </div>
   </div>
 </div>
 <div class="container">
-  <div class="row mb-3">
-    <div class="col-12 col-md-6 col-lg-4 col-xl-4" *ngFor="let item of nuevo">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4 col-xl-4" *ngFor="let item of byrisk">
       <div class="card-items m-2">
-        <div class="row">
+        <div class="row m-2">
           <div class="col-5 center">
-            <em *ngIf="item.technicalIncidence" class="fa-7x icon-settings "></em>
-            <em *ngIf="item.agriculturalIncidence " class="fa-7x fab fa-envira"></em>
+            <em *ngIf="item.technicalIncidence.length > 0" class="fa-7x icon-settings"></em>
+            <em *ngIf="item.agriculturalIncidence.length  > 0 " class="fa-7x fab fa-envira"></em>
           </div>
           <div class="col m-0 p-0 text-incidencia">
-            <div *ngIf="item.agriculturalIncidence">
+            <div *ngIf="item.agriculturalIncidence.length  > 0">
               <p><b>Tipo de incidencia:</b><small>Agricultura</small></p>
-              <p><b>{{item.agriculturalIncidence.name}}</b></p>
-              <p><b>Fecha:</b><small>10/6/2020</small></p>
+              <p><b>ciclo:</b>{{item.field_name}}</p>
+              <p><b>Fecha:</b><small>{{item.datetime | date: ' dd/MM/yyyy'}}</small></p>
               <p><b>Nombre de lote:</b><small>SML</small></p>
               <p><b>ID:</b>{{item.id}}</p>
-              <p><b>Lugar de peligro</b></p>
+              <p>{{item.description}}</p>
             </div>
           </div>
         </div>
         <div class="container">
-          <div class="row center">
-            <div class="col-2 text-center">
-              <div class="icon " style="color: #008f39">
-                <a class="fas fa-2x fa-square"></a>
-                <b style="color:black">Planta</b>
+          <div *ngFor="let item of item.agriculturalIncidence">
+            <div class="row center">
+              <div class="col-2 text-center">
+                <div *ngIf="item.fruit == 1" class="icon " style="color: #008f39">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Planta</b>
+                </div>
+                <div *ngIf="item.fruit == 2" class="icon " style="color: #ffff00">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Planta</b>
+                </div>
+                <div *ngIf="item.fruit == 3" class="icon " style="color: #cb3234">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Planta</b>
+                </div>
               </div>
-            </div>
-            <div class="col-2 text-center">
-              <div class="icon" style="color: #ffff00 ">
-                <a class="fas fa-2x fa-square"></a>
-                <b style="color:black">suelo</b>
+              <div class="col-2 text-center">
+                <div *ngIf="item.ground == 1" class="icon" style="color: #008f39 ">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">suelo</b>
+                </div>
+                <div *ngIf="item.ground == 2" class="icon" style="color: #ffff00 ">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">suelo</b>
+                </div>
+                <div *ngIf="item.ground == 3" class="icon" style="color: #cb3234 ">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">suelo</b>
+                </div>
               </div>
-            </div>
-            <div class="col-2 text-center">
-              <div class="icon" style="color: #cb3234 ">
-                <a class="fas fa-2x fa-square"></a>
-                <b style="color:black">Tallo</b>
+              <div class="col-2 text-center">
+                <div *ngIf="item.stem === 1" class="icon" style="color: #008f39 ">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Tallo</b>
+                </div>
+                <div *ngIf="item.stem === 2" class="icon" style="color: #ffff00 ">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Tallo</b>
+                </div>
+                <div *ngIf="item.stem === 3" class="icon" style="color: #cb3234 ">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Tallo</b>
+                </div>
               </div>
-            </div>
-            <div class="col-2 text-center">
-              <div class="icon" style="color: #008f39">
-                <a class="fas fa-2x fa-square"></a>
-                <b style="color:black">Hoja</b>
+              <div class="col-2 text-center">
+                <div *ngIf="item.leaf == 1" class="icon" style="color: #008f39">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Hoja</b>
+                </div>
+                <div *ngIf="item.leaf == 2" class="icon" style="color: #ffff00">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Hoja</b>
+                </div>
+                <div *ngIf="item.leaf == 3" class="icon" style="color: #cb3234">
+                  <a class="fas fa-2x fa-square"></a>
+                  <b style="color:black">Hoja</b>
+                </div>
               </div>
             </div>
           </div>
@@ -121,6 +219,112 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="card card-default mt-4">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+      <em class="fa-2x mr-2 fas fa-search pos-icon"></em>
+      <input class="form-control m-3" type="text" placeholder="Buscar..." (keyup)='updateFilter($event)'
+        style="border-radius: 21px;" />
+    </div>
+    <div class="row p-3">
+      <div class="col">
+        <select class="form-control " [ngModel]="typeIncidence"
+          (ngModelChange)="SearchIncidence($event,field,status,orderincidence)">
+          <option value=''>tipo</option>
+          <option value="A">Agricola</option>
+          <option value="T">Tecnica</option>
+        </select>
+      </div>
+      <div class="col">
+        <select class="form-control " [ngModel]="field"
+          (ngModelChange)="SearchIncidence(typeIncidence,$event,status,orderincidence)">
+          <option value=''>Lote</option>
+          <option *ngFor="let item of lots" [value]="item.id" class="form-control">{{item.name}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <select class="form-control " [ngModel]="status"
+          (ngModelChange)="SearchIncidence(typeIncidence,field,$event,orderincidence)">
+          <option value="true" class="form-control">Activas</option>
+          <option value="false" class="form-control">Inactivas</option>
+        </select>
+      </div>
+      <div class="col">
+        <select class="form-control " [ngModel]="orderincidence"
+          (ngModelChange)="SearchIncidence(typeIncidence,field,status,$event)">
+          <option value="" class="form-control" disabled>Orden</option>
+          <option value="asc" class="form-control">Menor peligro</option>
+          <option value="desc">Mayor peligro</option>
+        </select>
+      </div>
+    </div>
+  </div>
 
+  <div class="card-body ">
+    <ngx-datatable #table class="bootstrap expandable material fullscreen "
+      style="height: calc(90vh - 270px); box-shadow: none; width: 100%;" [columnMode]="'force'" [headerHeight]="50"
+      [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='Incidences'
+      (page)="onPage($event)">
+      <!-- Column Templates -->
+      <ngx-datatable-column name="#" [width]="50" [canAutoResize]="false">
+        <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+          <strong>{{rowIndex + 1}}</strong>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Titulo de incidencia">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div *ngIf="row.technicalIncidence.length > 0">
+            <div *ngFor="let item of row.technicalIncidence">
+              <p>{{item.name.name}}</p>
+            </div>
+          </div>
+          <div *ngIf="row.agriculturalIncidence.length > 0">
+            <div *ngFor="let item of row.agriculturalIncidence">
+              <p>{{item.name.name}}</p>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Tipo">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div *ngIf="row.type === 'A'">
+            <p>Agricola</p>
+          </div>
+          <div *ngIf="row.type === 'T'">
+            <p>Técnica</p>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Cantidad de reportes">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div *ngIf="row.reports === null">
+            no hay reportes
+          </div>
+          <div *ngIf="row.reports !== null">
+            {{row.reports.length}}
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Lote">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div>
+            <p>{{row.field_name}}</p>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Fecha">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.datetime | date: ' dd/MM/yyyy'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acción">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <button class="btn btn-primary m-1" type="button">
+            Ver historial </button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
   </div>
 </div>

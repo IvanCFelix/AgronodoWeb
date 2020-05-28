@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers, Response, RequestOptions } from "@angular/http";
+import { HttpParams, HttpClient } from "@angular/common/http";
 import "rxjs/add/operator/map";
 import { Uris } from "./Uris";
 @Injectable({
@@ -20,17 +21,22 @@ export class Incidences {
   }
   list() {
     return this.http
-      .get(`${Uris.API_INCIDENCES}`, this.jwt())
+      .get(`${Uris.API_INCIDENCES}list`, this.jwt())
       .map((response: Response) => response.json());
   }
-  listBydate() {
+  listBydate(value) {
     return this.http
-      .get(`${Uris.API_INCIDENCES_BYDATE}`, this.jwt())
+      .get(`${Uris.API_INCIDENCES_BYDATE}${value}`, this.jwt())
       .map((response: Response) => response.json());
   }
-  listBybyrisk() {
+  listBybyrisk(value) {
     return this.http
-      .get(`${Uris.API_INCIDENCES_BYRISK}`, this.jwt())
+      .get(`${Uris.API_INCIDENCES_BYRISK}${value}`, this.jwt())
+      .map((response: Response) => response.json());
+  }
+  listIncidenceSearch(value) {
+    return this.http
+      .get(`${Uris.API_INCIDENCES_SEARCH}${value}`, this.jwt())
       .map((response: Response) => response.json());
   }
   get(item) {

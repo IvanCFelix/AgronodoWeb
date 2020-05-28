@@ -26,14 +26,11 @@ export class UserblockComponent implements OnInit {
     ngOnInit() {     
 
       this.adminService.getRefresh().subscribe((resp) => {
-        console.log(resp);
         // const user = <any>JSON.parse(localStorage.getItem("USER"));
         const user = resp;
         this.username = user.username;
         if (user) {
-          console.log("se realizo");
           // localStorage.setItem("profile", JSON.stringify(resp));
-          console.log(user);
           this.usuario = user;
           this.type = user.user_type_name;
           // this.username = resp.username

@@ -9,6 +9,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AgmCoreModule  } from '@agm/core';
 import { ColorPickerModule, ColorPickerService } from 'ngx-color-picker';
 import { ModalModule} from 'ngx-bootstrap/modal'
+import { FormsModule } from "@angular/forms";
 
 const routes: Routes = [{ path: "", component: IncidencesComponent }];
 
@@ -18,6 +19,7 @@ const routes: Routes = [{ path: "", component: IncidencesComponent }];
   imports: [
     ColorPickerModule,
     ReactiveFormsModule,
+    FormsModule,
     ImageCropperModule,
     CommonModule,
     NgxDatatableModule,
