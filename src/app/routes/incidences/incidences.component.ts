@@ -27,6 +27,7 @@ export class IncidencesComponent implements OnInit {
     public IncidenceService: Incidences,
     public lotService: LotsAgricolaService
   ) {}
+ 
   ngOnInit() {
     this.orderIncidence(this.order);
     this.orderbyrisk(this.Inputorderbyrisk);
