@@ -31,10 +31,38 @@
                     <option  *ngFor="let item of ingeniero"  class="form-control">{{item.names}}</option>
                 </select>
               </div>
-              <span class="text-danger" *ngIf="tareasForm.controls['engineer'].errors?.required">Ingresa un
-                dato válido</span>     
+            <span class="text-danger" *ngIf="tareasForm.controls['engineer'].errors?.required">Ingresa un
+                dato válido</span>    
             </div>
           </div> 
+          <div class="form-group ">
+            <div class="col-12">
+              <div data-intro="Selecciona el lote" class="form-group">
+                <label>Lote</label><br>
+               <select (change)="changeOrderIncidence($event.target.value)" formControlName="lotes" class="form-control" >
+                        <option value="" disabled>
+                          Seleccione un lote...
+                        </option>
+                        <option *ngFor="let item of lote" [value]="item.id" class="form-control">{{item.name}}</option>
+                      </select>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="form-group ">
+            <div class="col-12">
+              <div data-intro="Selecciona el Sublote." class="form-group">
+                <label>SubLote</label><br>
+                <select formControlName="sublotes" class="form-control">
+                  <option value="" disabled>
+                    Seleccione un sublote...
+                  </option>
+                    <option  *ngFor="let item of sublote"  class="form-control">{{item.names}}</option>
+                </select>
+              </div>
+              <span class="text-danger" *ngIf="tareasForm.controls['sublote'].errors?.required">Ingresa un
+                dato válido</span>     
+            </div>
+          </div> -->
          
           <div class="form-group ">
             <div class="col-12">
@@ -74,37 +102,18 @@
       </div>
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 card-modal">
         <button class="btn btn-danger pos-button" type="button" (click)="backsubfield()"><em
-            class="fa fas fa-backward"></em></button>
-        <!-- <div class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
-          <button class="btn btn-danger " type="button" (click)="clearsublote()"><em
-              class="fa fas fa-trash"></em></button>
-        </div> -->
-        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
-          (mapClick)="addMakerTarea($event.coords.lat, $event.coords.lng)">
-
+            class="fa fas fa-backward"></em></button> 
+            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+            (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
+          <agm-marker *ngFor="let item of newTask" [latitude]="item.lat" [longitude]="item.lng"
+                    [opacity]="1" [markerDraggable]="true">
+                  </agm-marker>
+        <agm-polyline *ngFor="let polyline of nestedField;let i = index;" [strokeColor]="'#4caf50'">
+          <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+          </agm-polyline-point>
+        </agm-polyline>
         </agm-map>
-      </div>
-    </div>
-  </div>
-</div>
-<div bsModal #ModalIngeniero="bs-modal" class="modal fade "  tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-  aria-hidden="false" [config]="{ ignoreBackdropClick: true }" >
-  <div class="modal-dialog modal-lg " style="height: 52%;width:30%;">
-    <div class="modal-content" style="width: 116%;">
-      <div class="modal-header p-0">
-        <div class="brand-logo" style="font-size: 20px;padding: 8px;">
-          <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
-          Selecciona el lote:
-        </div>
-        <button type="button" class="close" aria-label="Close" (click)="Modal.hide();"
-          style="font-size: 34px;padding: 23px;">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="container">
-         <p>uuwu</p>
-        </div>
+      
       </div>
     </div>
   </div>

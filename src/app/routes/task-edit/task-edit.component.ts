@@ -9,12 +9,16 @@ import { Engineer } from '../../Services/engineer.service';
 })
 
 export class TaskEditComponent implements OnInit {
-  @ViewChild('ModalIngeniero') public contentModal;
   lat: number = 25.8132204;
   lng: number = -108.9858821;
-  zoom: number = 12;
+  zoom: number = 14;
   tareasForm : FormGroup;
   ingeniero:any=[];
+  lote:any=[];
+  sublote:any=[];
+  field:any=[];
+  nestedField:any=[];
+  newTask:any=[];
 
   constructor(public ingenieroServicio:Engineer) {
     this.tareasForm = new FormGroup({
@@ -24,29 +28,54 @@ export class TaskEditComponent implements OnInit {
       engineer:new FormControl("",Validators.required),
       swDate: new FormControl("",Validators.required),
       startDate: new FormControl(""),
-      endDate: new FormControl("")
-    
+      endDate: new FormControl(""),
+      lotes: new FormControl("",Validators.required),
+      sublotes: new FormControl("",Validators.required)
+
 
     })
    }
 
   ngOnInit() {
-    this.modalshow('@getbootstrap');
   this.ingenieroServicio.listadmin().subscribe((Resp:any )=> {
     console.log(Resp);
     this.ingeniero = Resp;
   })
+  this.ingenieroServicio.listField().subscribe((Resp:any )=> {
+    console.log(Resp);
+    this.lote= Resp;
+  })
+  this.ingenieroServicio.listSubfield().subscribe((Resp:any )=> {
+    console.log(Resp);
+  })
   }
 
-  addMarkerTarea(Lat,Lng){
-    console.log(Lat+"- "+ Lng)
+  addMarker(lat: number, lng: number){
+    let obj = {
+      lat: lat,
+      lng: lng
+    };
+      this.newTask.push(obj);
   }
  
   guardarTarea(value){
     console.log(value);
   }
 
-  modalshow(value:string){
-  this.contentModal.show(value);
+  changeOrderIncidence(value){
+    //  this.ingenieroServicio.getSubloteID(value).subscribe((Resp:any)=> {
+    //     console.log(Resp);
+    //    })
+
+    this.ingenieroServicio.getLoteID(value).subscribe((Resp:any)=>{
+        this.field = Resp.coordinates;
+        this.zoom =  10;
+        this.lat = Resp.coordinates[0].lat;
+        this.lng =Resp.coordinates[0].lng;
+        this.zoom = 15;
+        const array: any[] = Array.of(this.field);
+        this.nestedField = array
+    })
   }
+  
 }

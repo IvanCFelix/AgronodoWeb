@@ -36,6 +36,27 @@ export class Engineer {
     .patch(`${Uris.API_ENGINEER}${user.user.username}/`, admin, this.jwt())
     .map((response: Response) => response.json()); 
   }
+  listSubfield() {
+    return this.http
+      .get(`${Uris.API_CICLE}`, this.jwt())
+      .map((response: Response) => response.json());
+  }
+  listField() {
+    return this.http
+      .get(`${Uris.API_LOTS}`, this.jwt())
+      .map((response: Response) => response.json());
+  }
+  getSubloteID(id) {
+    return this.http
+      .get(`${Uris.API_SUB_LOTS}${id}/`, this.jwt())
+      .map((response: Response) => response.json());
+  } 
+  getLoteID(id) {
+    return this.http
+      .get(`${Uris.API_LOTS}${id}/`, this.jwt())
+      .map((response: Response) => response.json());
+  }
+  
   
 
   errorHandler(error: any): void {
