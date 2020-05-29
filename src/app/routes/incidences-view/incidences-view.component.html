@@ -1,0 +1,93 @@
+<div class="main-container">
+  <div class="row">
+    <div class="col">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="row">
+              <div class="col-3 center ">
+                <em *ngIf="technicalIncidence.length > 0" class="fa-7x icon-settings "></em>
+                <em *ngIf="agriculturalIncidence.length  > 0 " class="fa-7x fab fa-envira "></em>
+              </div>
+              <div class="col p-0">
+                <div *ngIf="Incidence">
+                  <h4>Reporte de origen</h4>
+                  <div class="row">
+                    <div class="col p-0">
+                      <p>{{Incidence.description}}</p>
+                      <p>{{Incidence.datetime | date: 'dd/mm/yyyy'}}</p>
+                      <p>{{Incidence.field_name}}</p>
+                    </div>
+                    <div class="col">
+                      <p>{{Incidence.id}}</p>
+                      <p>Estado actual:</p>
+                      <p *ngIf="Incidence.type === 'A'">Agricola</p>
+                      <p *ngIf="Incidence.type === 'T'">Técnica</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body ">
+              <ngx-datatable #table class="bootstrap expandable material fullscreen "
+                style="height: calc(90vh - 270px); box-shadow: none; width: 100%;" [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true"
+                [rows]='reports' (page)="onPage($event)">
+                <!-- Column Templates -->
+                <ngx-datatable-column name="#" [width]="50" [canAutoResize]="false">
+                  <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <strong>{{rowIndex + 1}}</strong>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Titulo de incidencia">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <p>{{row.title}}</p>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Observation">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <p>{{row.observation}}</p>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Fecha">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.datetime | date: 'dd/MM/yyyy'}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Acción">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <button class="btn btn-primary m-1" type="button" (click)="ViewReport(row)">
+                      Ver historial </button>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false">
+          <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
+            [opacity]="marker.alpha" [markerDraggable]="false">
+          </agm-marker>
+          <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="'#4caf50'">
+            <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+            </agm-polyline-point>
+          </agm-polyline>
+          <agm-polyline *ngFor="let polyline of mostrarsublotes; let i = index;" [strokeColor]="polyline.color">
+            <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat"
+              [longitude]="point.lng">
+            </agm-polyline-point>
+          </agm-polyline>
+
+        </agm-map>
+      </div>
+    </div>
+  </div>
+</div>
