@@ -374,8 +374,6 @@ export class LotsEditComponent implements OnInit {
     }
   }
   addMakerSubLote(lat: number, lng: number) {
-
-
     if (this.newlot && this.sololote == false) {
       let obj = {
         lat: lat,
@@ -398,13 +396,7 @@ export class LotsEditComponent implements OnInit {
       const array: any[] = Array.of(this.pathsSubLotes);
       this.pathSub = array;
     } else {
-
-
     }
-
-
-
-
   }
 
 
@@ -435,6 +427,7 @@ export class LotsEditComponent implements OnInit {
       }
     })
   }
+
   back() {
     const num1 = this.newpaths.length - 1
     const num2 = this.newpaths.length - 2
@@ -553,7 +546,6 @@ export class LotsEditComponent implements OnInit {
       this.lotService.getLot(id).subscribe((resp: any) => {
         console.log(resp);
         this.update(this.lotesForms.value)
-
         this.sublotearray = resp.subfield;
         this.mostrarsublotes = resp.subfield
         this.lat = resp.coordinates[0].lat
