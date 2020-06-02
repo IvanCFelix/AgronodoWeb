@@ -6,8 +6,7 @@ import { HomeAgricolaComponent  } from './home-agricola.component'
 import { ReactiveFormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ng2-img-cropper';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { SharedModule } from "../../shared/shared.module";
-import { ChartsModule as Ng2ChartsModule } from "ng2-charts/ng2-charts";
+
 
 
 
@@ -18,10 +17,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [HomeAgricolaComponent],
   imports: [
-    SharedModule,
+ 
     ReactiveFormsModule,
     ImageCropperModule,
-    Ng2ChartsModule,
     CommonModule,
     NgxDatatableModule,
     RouterModule.forChild(routes),
