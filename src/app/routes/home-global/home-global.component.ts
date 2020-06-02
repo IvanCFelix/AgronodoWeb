@@ -10,10 +10,10 @@ user:any;
   constructor( public AdminService:AdminAgronodo) { }
 
   ngOnInit() {
-    // this.AdminService.getRefresh().subscribe(resp => {
-    //  this.user = resp.user_type
+    this.AdminService.getRefresh().subscribe(resp => {
+     this.user = resp.user_type
       
-    // })
+    })
   }
 
 }

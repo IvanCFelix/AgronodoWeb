@@ -14,8 +14,8 @@ export class IncidencesViewComponent implements OnInit {
   agriculturalIncidence = [];
   reports = [];
   report = {};
-  lat: number = 25.8132204;
-  lng: number = -108.9858821;
+  lat: any = 25.8132204;
+  lng: any = -108.9858821;
   zoom: number = 14;
   newpaths = [];
   nestedPaths = [];
@@ -40,13 +40,17 @@ export class IncidencesViewComponent implements OnInit {
   }
   ViewReport(value) {
     this.report = value;
-    console.log(value);
+    this.lat = value.lat;
+    this.lng = value.lng
+    this.zoom = 15
   }
   Lot(id) {
     this.LotsService.getLot(id).subscribe((resp) => {
       this.newpaths = resp.coordinates;
       const array: any[] = Array.of(this.newpaths);
       this.nestedPaths = array;
+      this.lat = resp.coordinates[0].lat;
+      this.lng = resp.coordinates[0].lng;
     });
   }
 }

@@ -1,3 +1,73 @@
-<p>
-  home-agricola works!
-</p>
+<div class="container-fluid mt-5">
+  <div class="row">
+    <div class="col">
+      <div class="row">
+        <div class="col-6">
+          <div class="card flex-row align-items-center align-items-stretch border-0">
+            <div class="col-4 d-flex align-items-center bg-primary-dark justify-content-center rounded-left">
+              <a class="icon-user fa-3x text-white" routerLink="/Admin-Agronodo"></a>
+            </div>
+            <div class="col-8 py-3 bg-primary rounded-right">
+              <div class="h2 mt-0">1700</div>
+              <div class="text-uppercase">Reportes por ciclo</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card flex-row align-items-center align-items-stretch border-0">
+            <div class="col-4 d-flex align-items-center bg-purple-dark justify-content-center rounded-left">
+              <a class="fas fa-industry fa-3x text-white" routerLink="/Agricola"></a>
+            </div>
+            <div class="col-8 py-3 bg-purple rounded-right">
+              <div class="h2 mt-0">700 </div>
+              <div class="text-uppercase">Recorridos por ciclo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="row">
+        <h4>Line Chart</h4>
+        <div>
+          <canvas baseChart [chartType]="'line'" [options]="lineOptions" [datasets]="lineData.datasets"
+            [colors]="lineColors" [labels]="lineData.labels" [legend]="false" height="120"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-xl-6">
+    <h4>Polar Area Chart</h4>
+    <div>
+      <canvas baseChart [chartType]="'polarArea'" [options]="polarOptions" [datasets]="polarData.datasets"
+        [labels]="polarData.labels" [colors]="polarColors" [legend]="false" height="180"></canvas>
+    </div>
+  </div>
+  <div class="col-xl-6">
+    <h4>Radar Chart</h4>
+    <div>
+      <canvas baseChart [chartType]="'radar'" [options]="radarOptions" [datasets]="radarData.datasets"
+        [colors]="radarColors" [labels]="radarData.labels" [legend]="false" height="180"></canvas>
+    </div>
+  </div>
+</div>
+<div class="row mb-4">
+  <div class="col-xl-6">
+    <h4>Pie Chart</h4>
+    <div>
+      <canvas baseChart [chartType]="'pie'" [options]="pieOptions" [datasets]="pieData.datasets" [colors]="pieColors"
+        [labels]="pieData.labels" [legend]="false" height="80"></canvas>
+    </div>
+  </div>
+  <div class="col-xl-6">
+    <h4>Doughnut Chart</h4>
+    <div>
+      <canvas baseChart [chartType]="'doughnut'" [options]="doughnutOptions" [datasets]="doughnutData.datasets"
+        [colors]="doughnutColors" [labels]="doughnutData.labels" [legend]="false" height="80"></canvas>
+    </div>
+  </div>
+</div>

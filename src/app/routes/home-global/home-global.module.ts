@@ -8,6 +8,7 @@ import { ImageCropperModule } from 'ng2-img-cropper';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { HomeAgricolaComponent  } from '../home-agricola/home-agricola.component'
 import { HomeAgronodoComponent  } from '../home-agronodo/home-agronodo.component'
+import { ChartsModule as Ng2ChartsModule } from "ng2-charts/ng2-charts";
 
 const routes: Routes = [
   { path: '', component: HomeGlobalComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   imports: [
     ReactiveFormsModule,
     ImageCropperModule,
+    Ng2ChartsModule,
     CommonModule,
     NgxDatatableModule,
     RouterModule.forChild(routes)
