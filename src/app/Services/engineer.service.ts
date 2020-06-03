@@ -56,7 +56,22 @@ export class Engineer {
       .get(`${Uris.API_LOTS}${id}/`, this.jwt())
       .map((response: Response) => response.json());
   }
-  
+  registerTask(task, subfield) {
+    return this.http
+      .post(`${Uris.API_TASK_POST}${subfield}/`, task, this.jwt())
+      .map((response: Response) => response.json()); 
+  }
+  getTask(id) {
+    return this.http
+      .get(`${Uris.API_TASK}${id}/`, this.jwt())
+      .map((response: Response) => response.json());
+  }
+
+  editTask(task) {
+    return this.http
+      .patch(`${Uris.API_TASK}${task.id}/`, task, this.jwt())
+      .map((response: Response) => response.json()); 
+    }
   
 
   errorHandler(error: any): void {

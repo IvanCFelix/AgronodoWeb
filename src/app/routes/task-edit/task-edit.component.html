@@ -28,14 +28,14 @@
                   <option value="" disabled>
                     Seleccione un ingeniero...
                   </option>
-                    <option  *ngFor="let item of ingeniero"  class="form-control">{{item.names}}</option>
+                    <option  *ngFor="let item of ingeniero"  [value]="item.user.username" class="form-control">{{item.names}}</option>
                 </select>
               </div>
-            <span class="text-danger" *ngIf="tareasForm.controls['engineer'].errors?.required">Ingresa un
+            <span class="text-danger"  *ngIf="tareasForm.controls['engineer'].errors?.required">Ingresa un
                 dato válido</span>    
             </div>
           </div> 
-          <div class="form-group ">
+          <div class="form-group" *ngIf="tareasForm.id != null">
             <div class="col-12">
               <div data-intro="Selecciona el lote" class="form-group">
                 <label>Lote</label><br>
@@ -48,7 +48,7 @@
               </div>
             </div>
           </div>
-          <div class="form-group ">
+          <div class="form-group " *ngIf="tareasForm.id != null">
             <div class="col-12">
               <div data-intro="Selecciona el Sublote." class="form-group">
                 <label>SubLote</label><br>
@@ -93,7 +93,7 @@
            
 
           <div class="text-center mt-3">
-            <button class="btn btn-success" type="button" (click)="guardarTarea(tareasForm.value)">Guardar
+            <button class="btn btn-success" type="button" (click)="registrar(tareasForm.value)">Guardar
               datos</button>
           </div>
         </form>
@@ -124,17 +124,34 @@
   </div>
 </div>
 <!-- MODAL -->
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Introduzca un objetivo</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+<div bsModal #description="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+aria-hidden="false" [config]="{ ignoreBackdropClick: true }">
+
+<div class="modal-dialog modal-lg " style="height: 52%;width:30%;">
+  <div class="modal-content" style="width: 116%;">
+    <div class="modal-header p-0">
+      <div class="brand-logo" style="font-size: 20px;padding: 8px;">
+        <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
+        Agregar un objetivo
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="container">
+        <form [formGroup]="descriptionForm">
+          <div class="form-group ">
+            <div class="col-12">
+              <label>Nombre</label>
+              <input class="form-control" formControlName="description" type="text" />
+              <span class="text-danger" *ngIf="descriptionForm.controls['description'].errors?.required">Ingresa un
+                dato válido</span>
+            </div>
+          </div>
+          <div class="text-center mt-3">
+            <button class="btn btn-success" [disabled]="!descriptionForm.valid" type="button" (click)="submitDescription(descriptionForm.value); description.hide()">Aceptar</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-  <div class="modal-body">
-   <input type="text">
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-  </div>
-</ng-template>
+</div>
+</div>

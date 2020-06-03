@@ -12,15 +12,13 @@ export class TasksComponent implements OnInit {
   constructor(public taskService:TaskService) { }
 
   ngOnInit() {
-    this.taskService.listTask().subscribe(resp => {
-      console.log(resp)
+       this.taskService.listTask().subscribe(resp => {
       this.listTareas = resp
 })
 
   }
   
   delete(value){
-    console.log(value)
     Swal.fire({
       title: 'Seguro que quieres eliminar esta tarea',
       icon: 'warning',
@@ -31,8 +29,11 @@ export class TasksComponent implements OnInit {
       cancelButtonText: 'No, cancelar!',
     }).then((result) => {
       if (result.value) {
-        console.log(result.value)
-    
+          this.taskService.delete(value.id).subscribe(resp=>{
+            this.taskService.listTask().subscribe(resp => {
+              this.listTareas = resp
+            })
+          })
       }
     })
   }
