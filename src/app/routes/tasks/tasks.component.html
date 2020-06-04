@@ -57,7 +57,7 @@
         </ngx-datatable-column>
         <ngx-datatable-column name="Acción">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            <button class="btn btn-primary m-1 respo" (click)="delete(row)">
+            <button class="btn btn-primary m-1 respo" (click)="modalshow();contentId(row);">
               <a class="fas fa-eye"></a>
             </button>
             <button class="btn btn-success m-1" type="button" [routerLink]="['/Tareas/',row.id]">
@@ -71,28 +71,74 @@
     </div>
   </div>
 </div>
+<!-- MODAL -->
+<div bsModal #infoTask="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+  aria-hidden="true" [config]="{ ignoreBackdropClick: true }">
+  <div class="modal-dialog modal-lg " style="height: 52%;width: 100%;">
 
-
-<div bsModal #Modal="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-    aria-hidden="false" [config]="{ ignoreBackdropClick: true }">
-    <div class="modal-dialog modal-lg " style="height: 52%;width: 100%;">
-      <div class="modal-content" style="width: 116%;">
-        <div class="modal-header p-0">
-          <div class="brand-logo" style="font-size: 20px;padding: 8px;">
-            <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
-            Agregar un sublote
+    <div class="modal-content" style="width: 116%;">
+      <div class="modal-header p-0">
+        <div class="brand-logo" style="font-size: 20px;padding: 8px;">
+          <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
+          Información
+        </div>
+        <button type="button" class="close" aria-label="Close" (click)="infoTask.hide();limpiarListas();"
+          style="font-size: 34px;padding: 23px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <div class="container">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <form [formGroup]="infoTaskForm">
+              <div class="form-group ">
+                <input class="form-control d-none" formControlName="id" type="text" />
+                <div class="col-12">
+                  <label>Titulo:</label>
+                  <input class="form-control" formControlName="title" type="text" disabled/>
+                  
+                </div>
+                <div class="row p-3">
+                  <div class="col">
+                    <label>Descripcion:</label>
+                    <input class="form-control" formControlName="description" type="textarea" disabled/>
+                  </div>
+                </div>
+                <div class="row p-3">
+                  <div class="col">
+                    <label>Ingeniero:</label>
+                    <input class="form-control" formControlName="engineer" type="text" disabled/>
+                  </div>
+                </div>
+                <div class="row p-2 pt-3">
+                  <div class="col">
+                    <label>Fecha limite:</label>
+                    <input class="form-control" formControlName="end_date" type="date" disabled />
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
-          <button type="button" class="close" aria-label="Close" (click)="Modal.hide();"
-            style="font-size: 34px;padding: 23px;">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+            <agm-marker *ngFor="let item of taskMarkers" [latitude]="item.lat" [longitude]="item.lng"
+                    [opacity]="1" [markerDraggable]="true">
+                  </agm-marker>
+                  <agm-polyline *ngFor="let polyline of nestedSubfield; let i = index;" [strokeColor]="polyline.color">
+                    <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                    </agm-polyline-point>
+                  </agm-polyline>
+                  <agm-polyline *ngFor="let polyline of nestedField; let i = index;" [strokeColor]="'#4caf50'">
+                    <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                    </agm-polyline-point>
+                  </agm-polyline>
+          </agm-map>
           
+          </div>
+          </div>
         </div>
+       </div>
       </div>
     </div>
   </div>
-
-
- 

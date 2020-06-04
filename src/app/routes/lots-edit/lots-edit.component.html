@@ -143,8 +143,6 @@
 <!-- END row-->
 <div bsModal #Modal="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
   aria-hidden="true" [config]="{ ignoreBackdropClick: true }">
-
-
   <div class="modal-dialog modal-lg " style="height: 52%;width: 100%;">
 
     <div class="modal-content" style="width: 116%;">
@@ -269,12 +267,6 @@
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <button *ngIf="sololote == false && verify == false " class="btn btn-danger pos-button" type="button"
                 (click)="backsubfield()"><em class="fa fas fa-backward"></em></button>
-              <!-- <div class="text-right p-2" style="position: absolute;z-index: 1;right: 18px;">
-                <button class="btn btn-danger " type="button" (click)="clearsublote()"><em
-                    class="fa fas fa-trash"></em></button>
-              </div> -->
-
-
               <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
                 (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
                 <agm-polygon [fillOpacity]="0.1" [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'" [paths]="allLots">
