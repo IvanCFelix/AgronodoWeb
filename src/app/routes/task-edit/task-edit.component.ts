@@ -56,7 +56,8 @@ export class TaskEditComponent implements OnInit {
     let JsonSwDate = false;
     let arrayTask:any[];
     this.id = id;
-    if (id) {
+    console.log(this.id);
+    if (id!=null) {
       this.ingenieroServicio.getTask(id).subscribe((Resp: any) => {
         for(let item of Resp.objectives){
           let obj = {
@@ -66,7 +67,6 @@ export class TaskEditComponent implements OnInit {
           this.descriptionsObjetives.push(item.description);
           this.newTask.push(obj);
         }
-        console.log(this.descriptionsObjetives);
         this.ingenieroServicio.getSubloteID(Resp.subfield).subscribe((resp2: any) => {
           if(Resp.due_date !=null){
            JsonSwDate = true;
@@ -78,7 +78,7 @@ export class TaskEditComponent implements OnInit {
           engineer: Resp.engineer,
           swDate: JsonSwDate,
           endDate: Resp.due_date,
-          startDate: "",
+          startDate: Resp.start_date,
           lotes: "",
           sublotes: resp2.nickname,
         })
@@ -86,7 +86,6 @@ export class TaskEditComponent implements OnInit {
         const array: any[] = Array.of(this.subloteCoordinates);
         this.nestedSubfield = array;
         this.centrarCamara(resp2.subfieldCoordinates[0].lat,resp2.subfieldCoordinates[0].lng)
-        console.log(resp2);
         this.ingenieroServicio.getLoteID(resp2.father_field).subscribe((loteResp: any)=>{
           this.field = loteResp.coordinates;
           const array: any[] = Array.of(this.field);
@@ -113,13 +112,16 @@ export class TaskEditComponent implements OnInit {
   }
 
   addMarker(lat: number, lng: number) {
-    this.modalshow('@getbootstrap');
-    let obj = {
-      lat: lat,
-      lng: lng,
-
-    };
-    this.newTask.push(obj);
+    if(this.subloteCoordinates.length==0){
+    }else{
+      this.modalshow('@getbootstrap');
+      let obj = {
+        lat: lat,
+        lng: lng,
+  
+      };
+      this.newTask.push(obj);
+    }
   }
 
   registrar(value: any) {
@@ -153,6 +155,7 @@ export class TaskEditComponent implements OnInit {
       title: value.name,
       description: value.description,
       objectives: this.objetives,
+      start_date: value.startDate,
       due_date: value.endDate,
     }
     this.id_subfield = value.sublotes;
