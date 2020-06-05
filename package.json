@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@agm/core": "1.0.0-beta.5",
+    "@angular-devkit/core": "^9.1.7",
     "@angular/animations": "7.0.0",
     "@angular/common": "7.0.0",
     "@angular/compiler": "7.0.0",
