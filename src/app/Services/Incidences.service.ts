@@ -39,7 +39,7 @@ export class Incidences {
       .get(`${Uris.API_INCIDENCES_SEARCH}${value}`, this.jwt())
       .map((response: Response) => response.json());
   }
-  get(item) {
+  getIncidenceId(item) {
     return this.http
       .get(`${Uris.API_INCIDENCES}${item}/`, this.jwt())
       .map((response: Response) => response.json());

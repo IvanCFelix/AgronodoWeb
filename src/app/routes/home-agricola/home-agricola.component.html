@@ -1,3 +1,130 @@
-<p>
-  home-agricola works!
-</p>
+<div class="content-heading">
+  <div>
+    <h3>
+      Bienvenido a
+    </h3>
+    <small>¿Que deseas hacer hoy?</small>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-4">
+    <div data-intro="Selecciona tu lote." class="form-group">
+      <label>Tipo de lote</label><br>
+      <select class="form-control">
+        <option value="" disabled>
+          Seleccione un lote...
+        </option>
+        <option value='' class="form-control">hola</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-4">
+    <div data-intro="Selecciona tu lote." class="form-group">
+      <label>Tipo de lote</label><br>
+      <select class="form-control">
+        <option value="" disabled>
+          Seleccione un lote...
+        </option>
+        <option value='' class="form-control">hola</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <h3>Lote seleccionado</h3>
+    <small>Fecha</small>
+  </div>
+  <div class="col"></div>
+</div>
+<div class="container-fluid mt-5">
+  <div class="row ">
+    <div class="col">
+
+      <div class="card flex-row align-items-center align-items-stretch border-0 ">
+        <div class="col-4 d-flex align-items-center bg-info-dark justify-content-center rounded-left">
+          <a class="icon-user fa-3x text-white" routerLink="/Admin-Agronodo"></a>
+        </div>
+        <div class="col-8 py-3 bg-info rounded-right">
+          <div class="h2 mt-0">1700</div>
+          <div class="text-uppercase">Reportes</div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card flex-row align-items-center align-items-stretch border-0">
+        <div class="col-4 d-flex align-items-center bg-warning-dark justify-content-center rounded-left">
+          <a class="icon-user fa-3x text-white" routerLink="/Admin-Agronodo"></a>
+        </div>
+        <div class="col-8 py-3 bg-warning rounded-right">
+          <div class="h2 mt-0">1700</div>
+          <div class="text-uppercase">Recorridos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="card flex-row align-items-center align-items-stretch border-0">
+      <div class="col-4 d-flex align-items-center bg-success justify-content-center rounded-left">
+        <a class="icon-user fa-3x text-white" routerLink="/Admin-Agronodo"></a>
+      </div>
+      <div class="col-8 py-3 bg-success-dark rounded-right">
+        <div class="h2 mt-0">1700</div>
+        <div class="text-uppercase">Total de incidencias</div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card flex-row align-items-center align-items-stretch border-0">
+      <div class="col-4 d-flex align-items-center bg-danger justify-content-center rounded-left">
+        <a class="icon-user fa-3x text-white" routerLink="/Admin-Agronodo"></a>
+      </div>
+      <div class="col-8 py-3 bg-danger-dark rounded-right">
+        <div class="h2 mt-0">1700</div>
+        <div class="text-uppercase">Incidencias activas</div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card flex-row align-items-center align-items-stretch border-0">
+      <div class="col-4 d-flex align-items-center bg-primary justify-content-center rounded-left">
+        <a class="icon-user fa-3x text-white" routerLink="/Admin-Agronodo"></a>
+      </div>
+      <div class="col-8 py-3 bg-primary-dark rounded-right">
+        <div class="h2 mt-0">1700</div>
+        <div class="text-uppercase">Incidencias resueltas</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <div style="display: block">
+      <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+        [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
+  <div class="col-6">
+    <div style="display: block">
+      <canvas baseChart [datasets]="barChartData2" [labels]="barChartLabels2" [options]="barChartOptions2"
+        [legend]="barChartLegend2" [chartType]="barChartType2" (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="col">
+          <div class="row">
+            <h4>Line Chart</h4>
+            <div>
+              <canvas baseChart [chartType]="'line'" [options]="lineOptions" [datasets]="lineData.datasets"
+                [colors]="lineColors" [labels]="lineData.labels" [legend]="false" height="120"></canvas>
+            </div>
+          </div>
+        </div> -->

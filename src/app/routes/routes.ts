@@ -127,21 +127,21 @@ export const routes = [
              {
                path: "Admin-Ingeniero",
                canActivate: [AuthGuard, RoleGuard],
-               data: { role: 4, role3:5 },
+               data: { role: 4, role3: 5 },
                loadChildren:
                  "./admin-engineer/admin-engineer.module#AdminEnginerModule",
              },
              {
                path: "Admin-Ingeniero/new",
                canActivate: [AuthGuard, RoleGuard],
-               data: { role: 4, role3:5 },
+               data: { role: 4, role3: 5 },
                loadChildren:
                  "./admin-edit-engineer/admin-edit-engineer.module#AdminEditEngineerModule",
              },
              {
                path: "Admin-Ingeniero/:id",
                canActivate: [AuthGuard, RoleGuard],
-               data: { role: 4, role3:5 },
+               data: { role: 4, role3: 5 },
                loadChildren:
                  "./admin-edit-engineer/admin-edit-engineer.module#AdminEditEngineerModule",
              },
@@ -209,6 +209,13 @@ export const routes = [
                canActivate: [AuthGuard, RoleGuard],
                data: { role: 4, role2: 6, role3: 5 },
                loadChildren: "./incidences/incidences.module#IncidencesModule",
+             },
+             {
+               path: "Incidencias/:id",
+               canActivate: [AuthGuard, RoleGuard],
+               data: { role: 4, role2: 6, role3: 5 },
+               loadChildren:
+                 "./incidences-view/incidences.view.module#IncidencesViewModule",
              },
            ],
          },

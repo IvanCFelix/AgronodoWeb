@@ -7,6 +7,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ng2-img-cropper';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
+
+
+
 const routes: Routes = [
   { path: '', component: HomeAgricolaComponent },
 ];
@@ -14,11 +17,12 @@ const routes: Routes = [
 @NgModule({
   declarations: [HomeAgricolaComponent],
   imports: [
+ 
     ReactiveFormsModule,
     ImageCropperModule,
     CommonModule,
     NgxDatatableModule,
-    RouterModule.forChild(routes)
-  ]
+    RouterModule.forChild(routes),
+  ],
 })
-export class HomeAgricolaModule { }
+export class HomeAgricolaModule {}

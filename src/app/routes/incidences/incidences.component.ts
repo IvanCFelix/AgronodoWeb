@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Incidences } from '../../Services/Incidences.service';
-import { LotsAgricolaService } from '../../Services/lots-agricola.service';
-import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Incidences } from "../../Services/Incidences.service";
+import { LotsAgricolaService } from "../../Services/lots-agricola.service";
+import { DatatableComponent } from "@swimlane/ngx-datatable";
 
 @Component({
   selector: "app-incidences",
@@ -14,7 +14,7 @@ export class IncidencesComponent implements OnInit {
   Incidencesbydate = [];
   byrisk = [];
   Incidences = [];
-  temp:any = [];
+  temp: any = [];
   order = "asc";
   orderincidence = "asc";
   typeIncidence = "";
@@ -27,7 +27,7 @@ export class IncidencesComponent implements OnInit {
     public IncidenceService: Incidences,
     public lotService: LotsAgricolaService
   ) {}
- 
+
   ngOnInit() {
     this.orderIncidence(this.order);
     this.orderbyrisk(this.Inputorderbyrisk);
@@ -40,13 +40,19 @@ export class IncidencesComponent implements OnInit {
   }
   orderIncidence(value) {
     this.Incidencesbydate = [];
-    this.IncidenceService.listBydate(`?order=${value}`).subscribe((resp) => {
-      let res = resp;
-      for (let i = 0; i < 3; i++) {
-        let item = res[i];
-        this.Incidencesbydate.push(item);
+    this.IncidenceService.listBydate(`?order=${value}`).subscribe(
+      (resp) => {
+        let res = resp;
+        if (res.length > 3) {
+          for (let i = 0; i < 3; i++) {
+            let item = res[i];
+            this.Incidencesbydate.push(item);
+          }
+        } else {
+          this.Incidencesbydate = resp
+        }
       }
-    });
+    );
   }
   changeOrderbyrisk(event) {
     this.orderbyrisk(event);
@@ -55,16 +61,20 @@ export class IncidencesComponent implements OnInit {
     this.byrisk = [];
     this.IncidenceService.listBybyrisk(`?order=${value}`).subscribe((resp) => {
       let res = resp;
-      for (let i = 0; i < 3; i++) {
-        let item = res[i];
-        this.byrisk.push(item);
+      if (res.length > 3) {
+        for (let i = 0; i < 3; i++) {
+          let item = res[i];
+          this.byrisk.push(item);
+        }
+      } else {
+        this.byrisk = resp;
       }
     });
   }
   listIncidences() {
     this.IncidenceService.list().subscribe((resp) => {
       this.Incidences = resp;
-           this.temp = resp;
+      this.temp = resp;
     });
   }
   listLots() {
