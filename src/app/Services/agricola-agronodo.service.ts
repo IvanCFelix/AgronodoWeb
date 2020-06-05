@@ -16,23 +16,33 @@ export class AgricolaAgronodo {
   }
   
  register(agricola) {
-    return this.http.post(`${Uris.API_AGRICOLA_POST}`, agricola,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .post(`${Uris.API_AGRICOLA}`, agricola, this.jwt())
+      .map((response: Response) => response.json()); 
   }
 
   listadmin() {
-    return this.http.get(`${Uris.API_AGRICOLA_GET_LIST}`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .get(`${Uris.API_AGRICOLA}`, this.jwt())
+      .map((response: Response) => response.json()); 
   }
   getadmin(user) {
-    return this.http.get(`${Uris.API_AGRICOLA_GET_USER}${user}/`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .get(`${Uris.API_AGRICOLA}${user}/`, this.jwt())
+      .map((response: Response) => response.json()); 
   }
   delete(user) {
-    return this.http.delete(`${Uris.API_AGRICOLA_DELETE}${user}/`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .delete(`${Uris.API_AGRICOLA}${user}/`, this.jwt())
+      .map((response: Response) => response.json()); 
   }
   reset(password) {
     return this.http.post(`${Uris.PASSWORD_CHANGE}`,password,this.jwt()).map((response: Response) => response.json()) 
   }
  edit(agricola,user) {
-  return this.http.patch(`${Uris.API_AGRICOLA_EDIT}${user.user.username}/`, agricola,this.jwt()).map((response: Response) => response.json()) 
+  return this.http
+    .patch(`${Uris.API_AGRICOLA}${user.user.username}/`, agricola, this.jwt())
+    .map((response: Response) => response.json()); 
 }
   
 

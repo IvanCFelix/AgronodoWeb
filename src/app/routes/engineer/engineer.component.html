@@ -20,18 +20,22 @@
         style="border-radius: 21px;" />
     </div>
     <div class="col text-right">
-      <button class="mb-1 mr-1 btn btn-success" type="button" routerLink="/Ingeniero/new">Agregar nuevo
+      <button class="mb-1 mr-1 btn btn-success" type="button" routerLink="/Ingeniero/new"
+        *ngIf="listAdmin.length < this.user.profile.prmsIngenieros">Agregar nuevo
         Ingeniero</button>
+      <span class="text-danger p-4" *ngIf="listAdmin.length == this.user.profile.prmsIngenieros">No puedes
+        agregar mas ingenieros llegaste al limite de registros </span>
     </div>
   </div>
 
   <div class="card card-default mt-4">
-    <div class="card-body ">        
-      <ngx-datatable #table class="bootstrap expandable material fullscreen "  style="height: calc(90vh - 270px); box-shadow: none; width: 100%;"
-      [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
-     [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='listAdmin' (page)="onPage($event)">
+    <div class="card-body ">
+      <ngx-datatable #table class="bootstrap expandable material fullscreen "
+        style="height: calc(90vh - 270px); box-shadow: none; width: 100%;" [columnMode]="'force'" [headerHeight]="50"
+        [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='listAdmin'
+        (page)="onPage($event)">
         <!-- Column Templates -->
-        <ngx-datatable-column name="#">
+        <ngx-datatable-column name="#" [width]="50" [canAutoResize]="false">
           <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
             <strong>{{rowIndex + 1}}</strong>
           </ng-template>
@@ -39,11 +43,6 @@
         <ngx-datatable-column name="Nombre(s)">
           <ng-template let-row="row" ngx-datatable-cell-template>
             {{row.names}}
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Apellido">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            <strong>{{row.lastnames }}</strong>
           </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Correo">
@@ -58,10 +57,11 @@
         </ngx-datatable-column>
         <ngx-datatable-column name="Acción">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            <button class="btn btn-success m-1" type="button" [routerLink]="['/Ingeniero/',row.user.username]">
+            <button *ngIf="profile.canEditEngineers == true || profile.prmsAdminExtraBool == true "
+              class="btn btn-success m-1" type="button" [routerLink]="['/Ingeniero/',row.user.username]">
               <a class="fas fa-pencil-alt"></a> </button>
             <button class="btn btn-danger" (click)="delete(row)">
-              <a class="fas fa-trash-alt" ></a>
+              <a class="fas fa-trash-alt"></a>
             </button>
           </ng-template>
         </ngx-datatable-column>

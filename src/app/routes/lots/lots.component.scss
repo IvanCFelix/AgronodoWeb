@@ -1,59 +1,68 @@
-.pos-icon{
-    color: #A6ACAF;
-    position: absolute;
-    font-size: 19px;
-    top: 9px;
-    right: 20px;
+.pos-icon {
+  color: #A6ACAF;
+  position: absolute;
+  font-size: 19px;
+  top: 9px;
+  right: 20px;
 }
-.border-td{
-  border:1px solid #eee
+
+.border-td {
+  border: 1px solid #eee
 }
-.text-29{
+
+.text-29 {
   font-size: 29px;
 }
-.card-header{
- border: 1px solid rgba(0, 0, 0, 0.125)!important;
+
+.card-header {
+  border: 1px solid rgba(0, 0, 0, 0.125) !important;
 }
+
 agm-map {
   height: 727px;
-  }
+}
+
 .card-modal {
-  agm-map{
-    height:450px ;
+  agm-map {
+    height: 450px;
   }
 }
-.font-13{
+
+.font-13 {
   font-size: 13px;
 }
-.scroll{
-    height: 829px; 
-    overflow: auto;
-    padding: 10px;
-    margin-left: 5px;
-  
+
+.scroll {
+  height: 829px;
+  overflow: auto;
+  padding: 10px;
+  margin-left: 5px;
+
 }
 
-  @media screen and (max-width: 642px) { 
-   .respo{
+@media screen and (max-width: 642px) {
+  .respo {
     padding: 4px 8px;
-   }
-   agm-map{
+  }
+
+  agm-map {
     height: 412px;
-   }
- 
-  }
-  .ngx-datatable.bootstrap .datatable-body .datatable-body-row.datatable-row-even {
-    background-color: rgba(0, 0, 0, 0.025) !important;
-    width: 97%!important;
   }
 
-
- 
-  .font-13{
-    font-size: 13px;
 }
 
-.pos-button{
+.ngx-datatable.bootstrap .datatable-body .datatable-body-row.datatable-row-even {
+  background-color: rgba(0, 0, 0, 0.025) !important;
+  width: 97% !important;
+}
+
+
+
+.font-13 {
+  font-size: 13px;
+}
+
+.pos-button {
   position: absolute;
   z-index: 1;
   right: 32px;
@@ -62,14 +71,15 @@ agm-map {
 
 
 
-@media screen and (max-width: 1312px) { 
-  .respon{
+@media screen and (max-width: 1312px) {
+  .respon {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  agm-map{
-   height: 412px;
+
+  agm-map {
+    height: 412px;
   }
 
- }
+}

@@ -12,22 +12,36 @@ export class AdminAgricola {
   }
   
  register(admin) {
-    return this.http.post(`${Uris.API_ADMIN_AGRICOLA_POST}`, admin,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .post(`${Uris.API_ADMIN_AGRICOLA}`, admin, this.jwt())
+      .map((response: Response) => response.json()); 
   }
 
   listadmin() {
-    return this.http.get(`${Uris.API_ADMIN_AGRICOLA_GET_LIST}`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .get(`${Uris.API_ADMIN_AGRICOLA}`, this.jwt())
+      .map((response: Response) => response.json()); 
   }
   getadmin(user) {
-    return this.http.get(`${Uris.API_ADMIN_AGRICOLA_GET_USER}${user}/`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .get(`${Uris.API_ADMIN_AGRICOLA}${user}/`, this.jwt())
+      .map((response: Response) => response.json()); 
   }
 
   delete(user) {
-    return this.http.delete(`${Uris.API_ADMIN_AGRICOLA_DELETE}${user}/`,this.jwt()).map((response: Response) => response.json()) 
+    return this.http
+      .delete(`${Uris.API_ADMIN_AGRICOLA}${user}/`, this.jwt())
+      .map((response: Response) => response.json()); 
   }
 
  edit(admin,user) {
-  return this.http.patch(`${Uris.API_ADMIN_AGRICOLA_EDIT}${user.user.username}/`, admin,this.jwt()).map((response: Response) => response.json()) 
+  return this.http
+    .patch(
+      `${Uris.API_ADMIN_AGRICOLA}${user.user.username}/`,
+      admin,
+      this.jwt()
+    )
+    .map((response: Response) => response.json()); 
 }
   
 

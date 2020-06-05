@@ -1,0 +1,71 @@
+<div class="alt">
+  <div class="main-container">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="m-0">Tareas</h3>
+      </div>
+      <div class="col">
+        <p class="text-18">Ve la lista de Tareas, edita, elimina o agrega nuevas.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="main-container">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+      <em class="fa-2x mr-2 fas fa-search pos-icon"></em>
+      <input class="form-control mb-2" type="text" placeholder="Buscar..." (keyup)='updateFilter($event)'
+        style="border-radius: 21px;" />
+    </div>
+    <div class="col text-right">
+      <button class="mb-1 mr-1 btn btn-success" type="button" routerLink="/Tareas/new">Agregar tarea</button>
+    </div>
+  </div>
+
+  <div class="card card-default mt-4">
+    <div class="card-body ">        
+      <ngx-datatable #table class="bootstrap expandable material fullscreen "  style="height: calc(90vh - 270px); box-shadow: none; width: 100%;"
+      [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+     [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='listTareas' (page)="onPage($event)">
+        <!-- Column Templates -->
+        <ngx-datatable-column name="#">
+          <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+            <strong>{{rowIndex + 1}}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Titulo">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.title}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Ingeniero">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <strong>{{row.engineer }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Descripcion">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.description}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Fecha final">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.due_date}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Acción">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <button class="btn btn-success m-1" type="button" [routerLink]="['/Tareas/',row.id]"
+            >
+              <a class="fas fa-pencil-alt"></a> </button>
+            <button class="btn btn-danger" (click)="delete(row)">
+              <a class="fas fa-trash-alt" ></a>
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,221 @@
+<div class="main-container">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0">
+
+      <div class="col-12 p-0">
+        <div class="card">
+          <div class="row">
+            <div class="col-3 center ">
+              <em *ngIf="technicalIncidence.length > 0" class="fa-7x icon-settings "></em>
+              <em *ngIf="agriculturalIncidence.length  > 0 " class="fa-7x fab fa-envira "></em>
+            </div>
+            <div class="col p-0">
+              <div *ngIf="Incidence">
+                <h4>Reporte de origen</h4>
+                <div class="row">
+                  <div class="col p-0">
+                    <p>{{Incidence.description}}</p>
+                    <p>{{Incidence.datetime | date: 'dd/mm/yyyy'}}</p>
+                    <p>{{Incidence.field_name}}</p>
+                  </div>
+                  <div class="col">
+                    <p>{{Incidence.id}}</p>
+                    <p>Estado actual:</p>
+                    <p *ngIf="Incidence.type === 'A'">Agricola</p>
+                    <p *ngIf="Incidence.type === 'T'">Técnica</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <div class="col-12 p-0   ">
+          <div class="card">
+            <div class="card-body  p-0">
+              <ngx-datatable #table class="bootstrap expandable material fullscreen "
+                style="height: calc(90vh - 270px); box-shadow: none; width: 100%;" [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true"
+                [rows]='reports' (page)="onPage($event)">
+                <!-- Column Templates -->
+                <ngx-datatable-column name="#" [width]="50" [canAutoResize]="false">
+                  <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <strong>{{rowIndex + 1}}</strong>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Titulo de incidencia">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <p>{{row.title}}</p>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Observation">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <p>{{row.observation}}</p>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Fecha">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.datetime | date: 'dd/MM/yyyy'}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Acción">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <button class="btn btn-primary m-1" type="button" (click)="ViewReport(row)">
+                      Ver historial </button>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+      <div class="card">
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false">
+          <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
+            [opacity]="marker.alpha" [markerDraggable]="false">
+          </agm-marker>
+          <agm-marker *ngIf="report.lat" [latitude]="report.lat" [longitude]="report.lng" [opacity]="0.9"
+            [markerDraggable]="false">
+          </agm-marker>
+          <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="'#4caf50'">
+            <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+            </agm-polyline-point>
+          </agm-polyline>
+          <agm-polyline *ngFor="let polyline of mostrarsublotes; let i = index;" [strokeColor]="polyline.color">
+            <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat"
+              [longitude]="point.lng">
+            </agm-polyline-point>
+          </agm-polyline>
+        </agm-map>
+      </div>
+
+      <div class="col ">
+        <div class="card">
+          <div class="card-header">
+            Datos del reporte
+          </div>
+          <div class="card-body">
+            <div *ngIf="report.title">
+              <b>Titulo:</b> {{report.title}}
+            </div>
+            <div *ngIf="report.observation">
+              <b>Obsevación:</b>{{report.observation}}<br>
+            </div>
+            <div *ngIf="report.number">
+              <b>Numero de reporte:</b>{{report.number}}
+            </div>
+            <div *ngIf="!report.title" class="center">
+              <div>
+                Reporte no seleccionado
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col ">
+        <div *ngIf="agriculturalIncidence.length > 0">
+          <div *ngFor="let item of agriculturalIncidence">
+            <div class="card ">
+              <div class="row m-3">
+                <div class="col-3 center">
+                  <em class="fa-6x fab fa-envira"></em>
+                </div>
+                <div class="col m-0 p-0 text-incidencia">
+                  <div>
+                    <p><b>Tipo de incidencia:</b><small>{{item.name.name}}</small></p>
+                    <p><b>Fecha:</b><small>{{item.datetime | date: 'dd/MM/yyyy'}}</small></p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="container text-center m-3">
+                  <div class="row center">
+                    <div class="col-2 text-center">
+                      <div *ngIf="item.fruit == 1" class="icon center" style="color: #008f39">
+                        <a class="fas fa-2x fa-square"></a>
+                        <b style="color:black;margin-left:4px;">Planta</b>
+                      </div>
+                      <div *ngIf="item.fruit == 2" class="icon center" style="color: #ffff00">
+                        <a class="fas fa-2x fa-square"></a>
+                        <b style="color:black;margin-left:4px;">Planta</b>
+                      </div>
+                      <div *ngIf="item.fruit == 3" class="icon center" style="color: #cb3234">
+                        <a class="fas fa-2x fa-square"></a>
+                        <b style="color:black;margin-left:4px;">Planta</b>
+                      </div>
+                    </div>
+                    <div class="col-2 text-center">
+                      <div *ngIf="item.ground == 1" class="icon center" style="color: #008f39 ">
+                        <a class="fas fa-2x fa-square"></a>
+                        <b style="color:black;margin-left:4px;">suelo</b>
+                      </div>
+                      <div *ngIf="item.ground == 2" class="icon center" style="color: #ffff00 ">
+                        <a class="fas fa-2x fa-square"></a>
+                        <b style="color:black;margin-left:4px;">suelo</b>
+                      </div>
+                      <div *ngIf="item.ground == 3" class="icon center" style="color: #cb3234 ">
+                        <a class="fas fa-2x fa-square"></a>
+                        <b style="color:black;margin-left:4px;">suelo</b>
+                      </div>
+                    </div>
+                    <div class="col-2 text-center">
+                      <div *ngIf="item.stem === 1" class="icon center" style="color: #008f39 ">
+                        <a class="fas fa-2x fa-square"></a>
+                        <b style="color:black;margin-left:4px;">Tallo</b>
+                      </div>
+                      <div *ngIf="item.stem === 2" class="icon center" style="color: #ffff00 ">
+                        <a class="fas fa-2x fa-square"></a>
+                        <b style="color:black;margin-left:4px;">Tallo</b>
+                      </div>
+                      <div *ngIf="item.stem === 3" class="icon center" style="color: #cb3234 ">
+                        <a class="fas fa-2x fa-square"></a>
+                        <b style="color:black;margin-left:4px;">Tallo</b>
+                      </div>
+                    </div>
+                    <div class="col-2 text-center">
+                      <div *ngIf="item.leaf == 1" class="icon center" style="color: #008f39">
+                        <a class="fas fa-2x fa-square"></a>
+                        <b style="color:black;margin-left:4px;">Hoja</b>
+                      </div>
+                      <div *ngIf="item.leaf == 2" class="icon center" style="color: #ffff00">
+                        <a class="fas fa-2x fa-square"></a>
+                        <b style="color:black;margin-left:4px;">Hoja</b>
+                      </div>
+                      <div *ngIf="item.leaf == 3" class="icon center" style="color: #cb3234">
+                        <a class="fas fa-2x fa-square"></a>
+                        <b style="color:black;margin-left:4px;">Hoja</b>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="technicalIncidence.length > 0">
+          <div *ngFor="let item of technicalIncidence">
+            <div class="card ">
+              <div class="row m-3">
+                <div class="col-3 center">
+                  <em class="fa-6x fab icon-settings"></em>
+                </div>
+                <div class="col m-0 p-0 text-incidencia">
+                  <div>
+                    <p><b>Tipo de incidencia:</b><small>{{item.name.name}}</small></p>
+                    <p><b>Fecha:</b><small>{{item.datetime | date: 'dd/MM/yyyy'}}</small></p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

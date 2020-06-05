@@ -14,17 +14,21 @@ export class RoleGuard implements CanActivate {
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
         const user = JSON.parse(window.localStorage.getItem('USER'));
-        if (user.user_type === next.data.role || next.data.role2) {
-            return true;
+        if (
+          user.user_type === next.data.role ||
+          next.data.role2 ||
+          next.data.role3
+        ) {
+          return true;
         } else {
-            Swal.fire({
-                text: "No tienes acceso a esta pantalla",
-                showConfirmButton: false,
-                width: '250px',
-                timer: 2500
-            });
+          Swal.fire({
+            text: "No tienes acceso a esta pantalla",
+            showConfirmButton: false,
+            width: "250px",
+            timer: 2500,
+          });
 
-            this._router.navigate(['/home']);
+          this._router.navigate(["/home"]);
         }
         // navigate to not found page   
 

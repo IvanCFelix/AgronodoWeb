@@ -10,6 +10,7 @@ import { ColorPickerModule, ColorPickerService } from 'ngx-color-picker';
 import { ModalModule} from 'ngx-bootstrap/modal'
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { AgmDirectionModule } from 'agm-direction';
+import { CarouselModule } from "ngx-owl-carousel-o";
 const routes: Routes = [
   { path: '', component: ReportsoloComponent },
 ];
@@ -18,6 +19,7 @@ const routes: Routes = [
   declarations: [ReportsoloComponent],
   imports: [
     ColorPickerModule,
+    CarouselModule,
     ReactiveFormsModule,
     AgmDirectionModule,
     ImageCropperModule,
@@ -27,9 +29,9 @@ const routes: Routes = [
     ModalModule.forRoot(),
     ProgressbarModule.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBNs42Rt_CyxAqdbIBK0a5Ut83QiauESPA',
-      libraries: ['places', 'drawing', 'geometry'],
-  })
-  ]
+      apiKey: "AIzaSyBNs42Rt_CyxAqdbIBK0a5Ut83QiauESPA",
+      libraries: ["places", "drawing", "geometry"],
+    }),
+  ],
 })
-export class ReportSoloModule { }
+export class ReportSoloModule {}

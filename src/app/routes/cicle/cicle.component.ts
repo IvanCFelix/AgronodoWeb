@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { LotsAgricolaService } from "../../Services/lots-agricola.service";
 import { } from "googlemaps"
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import {Location}from '@angular/common'
 declare var google: any;
 @Component({
   selector: "app-cicle",
@@ -11,7 +12,7 @@ declare var google: any;
   styleUrls: ["./cicle.component.scss"],
 })
 export class CicleComponent implements OnInit {
-  @ViewChild('Ciclo') public contentModal;
+  @ViewChild("Ciclo") public contentModal;
   cicloForm: FormGroup;
   distance: any;
   public lot: any;
@@ -34,49 +35,46 @@ export class CicleComponent implements OnInit {
   allLots: any = [];
   mostrarsublotes: any = [];
   nestedPaths = [];
-  cicleLength:any;
+  cicleLength: any;
   constructor(
     public LotsService: LotsAgricolaService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public Location: Location
   ) {
-
     this.cicloForm = new FormGroup({
       start_date: new FormControl("", Validators.required),
       finish_date: new FormControl("", Validators.required),
-    })
+    });
   }
 
   ngOnInit() {
-
     const sub = this.route.snapshot.paramMap.get("sub");
     const lot = this.route.snapshot.paramMap.get("lot");
     this.lot = lot;
-    this.sub = sub
+    this.sub = sub;
 
     this.LotsService.GetSubloteID(sub).subscribe((resp: any) => {
-      this.verify(resp)
-      
-    })
-
+      this.verify(resp);
+    });
   }
-
 
   verify(value) {
+    console.log(value);
     console.log("el valor para verificar es ");
     console.log(value);
-    const sub = this.sub
-    const lot = this.lot
+    const sub = this.sub;
+    const lot = this.lot;
     if (value.cicle !== null) {
-      this.datacicle(sub, lot)
+      this.datacicle(sub, lot);
     } else {
-      this.DataNoCicle(sub)
+      this.DataNoCicle(sub);
     }
-
   }
   DataNoCicle(sub) {
-    this.modalshow('@getbootstrap')
+    this.modalshow("@getbootstrap");
     console.log("el id es " + sub);
     this.LotsService.GetSubloteID(sub).subscribe((resp: any) => {
+      console.log(resp);
       this.showsublote = resp;
       this.allLots = resp.subfieldCoordinates;
       this.mostrarsublotes = resp.subfieldCoordinates;
@@ -84,17 +82,17 @@ export class CicleComponent implements OnInit {
       this.lng = resp.subfieldCoordinates[0].lng;
       this.zoom = 16;
     });
-
   }
-  
+
   datacicle(sub, lot) {
-    this.ShowAllpathings(sub)
+    this.ShowAllpathings(sub);
     this.LotsService.GetSubloteID(sub).subscribe((resp: any) => {
       console.log(resp);
-      this.cicle = resp.cicle
+      this.cicle = resp.cicle;
+
       console.log(this.cicle);
       this.crops = resp.crops;
-      this.progressvalue = this.crops.progress
+      this.progressvalue = this.crops.progress;
       this.showsublote = resp;
       this.allLots = resp.subfieldCoordinates;
       this.mostrarsublotes = resp.subfieldCoordinates;
@@ -102,22 +100,23 @@ export class CicleComponent implements OnInit {
       this.lng = resp.subfieldCoordinates[0].lng;
       this.zoom = 16;
     });
-    
-    this.LotsService.GetCicleid(sub).subscribe((resp: any) => {
-      this.showlote = resp;
-    
-      this.rutas = this.recor();
-      const array: any[] = Array.of(this.nestedPaths);
-      this.nestedPaths = array;
-    }, (err: any) => {
-      Swal.fire({
-        text: err._body,
-        showConfirmButton: true,
-        icon: 'error',
-        width: '250px'
-      });
-    })
 
+    this.LotsService.GetCicleid(sub).subscribe(
+      (resp: any) => {
+        this.showlote = resp;
+        this.rutas = this.recor();
+        const array: any[] = Array.of(this.nestedPaths);
+        this.nestedPaths = array;
+      },
+      (err: any) => {
+        Swal.fire({
+          text: err._body,
+          showConfirmButton: true,
+          icon: "error",
+          width: "250px",
+        });
+      }
+    );
   }
   solomap(value) {
     let jun = [];
@@ -147,69 +146,71 @@ export class CicleComponent implements OnInit {
   showpathings(value) {
     console.log(value);
 
-    this.pathingCoordinates = value.pathingCoordinates
+    this.pathingCoordinates = value.pathingCoordinates;
     const array: any[] = Array.of(this.pathingCoordinates);
     this.pathingCoordinates = array;
-    this.lat = value.pathingCoordinates[0].lat
-    this.lng = value.pathingCoordinates[0].lng
-    this.zoom = 14
+    this.lat = value.pathingCoordinates[0].lat;
+    this.lng = value.pathingCoordinates[0].lng;
+    this.zoom = 14;
     // this.destin( value.pathingCoordinates)
-
   }
   destin(value) {
-    const inicial = value[0]
-    const ultmo = value.length - 1
-    const final = value[ultmo]
+    const inicial = value[0];
+    const ultmo = value.length - 1;
+    const final = value[ultmo];
 
-    this.origin = inicial
-    this.destination = final
-    this.distance = this.calculatedistance(this.origin, this.destination)
+    this.origin = inicial;
+    this.destination = final;
+    this.distance = this.calculatedistance(this.origin, this.destination);
     console.log(this.distance);
-
   }
 
   sumatotal(value, i) {
-    let suma: any = 0
-    suma += (this.calculatedistance(value.pathingCoordinates[i], value.pathingCoordinates[i + 1]));
-    return suma
+    let suma: any = 0;
+    suma += this.calculatedistance(
+      value.pathingCoordinates[i],
+      value.pathingCoordinates[i + 1]
+    );
+    return suma;
   }
   calculatedistance(point1, point2) {
-    const p1 = new google.maps.LatLng(
-      point1.lat,
-      point1.lng
-    );
-    const p2 = new google.maps.LatLng(
-      point2.lat,
-      point2.lng
-    );
-    return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2)).toFixed(2);
+    const p1 = new google.maps.LatLng(point1.lat, point1.lng);
+    const p2 = new google.maps.LatLng(point2.lat, point2.lng);
+    return google.maps.geometry.spherical
+      .computeDistanceBetween(p1, p2)
+      .toFixed(2);
   }
   // Mostrar todos las rutas
   ShowAllpathings(sub) {
-    this.LotsService.GetListPathingsList(sub).subscribe((resp: any) => {
-      console.log("rutas son  ");
-      console.log(resp);
-      this.mostrarsublotes = resp
-
-    }, (err: any) => {
-      Swal.fire({
-        text: err._body,
-        showConfirmButton: true,
-        icon: 'error',
-        width: '250px'
-      });
-    })
+    this.LotsService.GetListPathingsList(sub).subscribe(
+      (resp: any) => {
+        console.log("rutas son  ");
+        console.log(resp);
+        this.mostrarsublotes = resp;
+      },
+      (err: any) => {
+        Swal.fire({
+          text: err._body,
+          showConfirmButton: true,
+          icon: "error",
+          width: "250px",
+        });
+      }
+    );
   }
 
-  subfieldID = '';
+  subfieldID = "";
   ciclo(id, value) {
-    this.subfieldID = id
+    this.subfieldID = id;
     console.log(value, id);
     if (value) {
       this.LotsService.CicleRegister(id, value).subscribe((resp: any) => {
-        this.datacicle(id,value)
-      })
+        this.datacicle(id, value);
+      });
     }
+  }
+  goback() {
+    return this.Location.back();
   }
 }
 

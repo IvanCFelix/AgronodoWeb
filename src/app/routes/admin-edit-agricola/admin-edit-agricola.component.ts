@@ -32,7 +32,6 @@ export class AdminEditAgricolaComponent implements OnInit {
       this.adminagricola = new FormGroup({
         name: new FormControl("", Validators.required),
         email: new FormControl("", [Validators.email, Validators.required]),
-        lastname: new FormControl("", Validators.required),
         phone: new FormControl("", [Validators.required]),
         username: new FormControl("", [Validators.required,UsernameValidator.cannotContainSpace]),
         prmsAltaIngenierosBool: new FormControl(false),
@@ -74,7 +73,6 @@ export class AdminEditAgricolaComponent implements OnInit {
         this.adminagricola.setValue({
           name: resp.names,
           email: resp.user.email,
-          lastname: resp.lastnames,
           phone: resp.phone,
           username: resp.user.username,
           prmsAltaIngenierosBool:resp.prmsAltaIngenierosBool,
@@ -109,7 +107,6 @@ register(value: any) {
 create(value: any) {
   let obj = {
     names: value.name,
-    lastnames: value.lastname,
     phone: value.phone,
     photo: this.filestring,
     user: {
@@ -138,12 +135,13 @@ create(value: any) {
     },
     (err: any) => {
       Swal.fire({
-        text: "Error en el sevidor",
+        text: err._body,
         showConfirmButton: false,
         timer: 1500,
-        icon:'error',
-        width: '250px'
+        icon: "error",
+        width: "250px",
       });
+     
     }
   );
 }
@@ -152,7 +150,6 @@ update(value: any) {
   if (this.filestring == "") {
     let obj = {
       names: value.name,
-      lastnames: value.lastname,
       phone: value.number,
       user: {  },
       prmsAltaIngenierosBool:value.prmsAltaIngenierosBool,
@@ -191,7 +188,6 @@ update(value: any) {
   } else {
     let obj = {
       names: value.name,
-      lastnames: value.lastname,
       phone: value.number,
       photo: this.filestring,
       user: {},

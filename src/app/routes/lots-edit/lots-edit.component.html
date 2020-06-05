@@ -168,7 +168,8 @@
 
                   <div class="col-12">
                     <label>Nombre</label>
-                    <input class="form-control" formControlName="nickname" type="text" *ngIf="newlot && sololote == false" />
+                    <input class="form-control" formControlName="nickname" type="text"
+                      *ngIf="newlot && sololote == false" />
                     <input class="form-control" formControlName="nickname" type="text" *ngIf="newlot == false" />
 
                     <input class="form-control" formControlName="nickname" type="text" disabled
@@ -179,33 +180,41 @@
                       válido</span>
                   </div>
                 </div>
-                <div class="form-group ">
-                  <div class="col-12">
-                    <label>Tipo de cultivo</label>
-                    <input class="form-control" formControlName="crops" type="text" />
-                    <span class="text-danger" *ngIf="sublotesforms.controls['crops'].errors?.required">Ingresa un campo
-                      válido</span>
-                  </div>
-                </div>
-                <div class="form-group ">
-                  <div class="col-12">
+                <div class="row p-3">
+
+
+
+                  <div class="col">
                     <div data-intro="Selecciona tu ocupación." class="form-group">
                       <label>Tipo de lote</label><br>
                       <select formControlName="crops" class="form-control">
                         <option value="" disabled>
                           Seleccione una ocupación...
                         </option>
-                          <option  *ngFor="let item of crops"  class="form-control">{{item.name}}</option>
+                        <option *ngFor="let item of crops" class="form-control">{{item.name}}</option>
                       </select>
+                      <span class="text-danger" *ngIf="sublotesforms.controls['crops'].errors?.required">Ingresa un
+                        campo
+                        válido</span>
                     </div>
-                    <span class="text-danger" *ngIf="sublotesforms.controls['crops'].errors?.required">Ingresa un campo
-                      válido</span>
                   </div>
+                  <div class="col-1 m-0 d-flex justify-content-center align-items-center" style="height: 90px;">
+                    <button type="button" class="btn btn-warning " (click)="Crops.show()">+</button>
+                  </div>
+                </div>
+                <div>
+                  <!-- <div class="form-group " *ngIf="sublotesforms.controls.crops.value == 'otro' && sublotesforms.controls.crops.value !== crops ">
+                    <div class="col-12">
+                      <label>Tipo de lote(Otro..)</label>
+                      <input class="form-control" formControlName="crops" type="text" />
+                    </div>
+                  </div> -->
+
                 </div>
                 <div class="form-group ">
                   <div class="col-12">
                     <div data-intro="Selecciona tu ocupación." class="form-group">
-                      <label>Tipo de lote</label><br>
+                      <label>Tipo de agricultura</label><br>
                       <select formControlName="agriculture_type" class="form-control">
                         <option value="" disabled>
                           Seleccione una ocupación...
@@ -213,10 +222,11 @@
                         <option value="P" class="form-control">Protegida</option>
                         <option value="T">Tradicional</option>
                       </select>
+
+                      <span class="text-danger"
+                        *ngIf="sublotesforms.controls['agriculture_type'].errors?.required">Ingresa un campo
+                        válido</span>
                     </div>
-                    <span class="text-danger"
-                      *ngIf="sublotesforms.controls['agriculture_type'].errors?.required">Ingresa un campo
-                      válido</span>
                   </div>
                 </div>
                 <!-- <div class="row">
@@ -243,14 +253,15 @@
                   </div>
                 </div>
                 <div class="text-center mt-3">
-                  <button
-                    *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid && newlot && sololote == false "
+                  <button *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid && newlot && sololote == false "
                     class="btn btn-success" type="button"
                     (click)="sublotenew(sublotesforms.value);Modal.hide();">Guardar datos</button>
-                  <button *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid && sololote && sublotearray.length == 0 && newlot" class="btn btn-success"
-                      type="button" (click)="submitsololot(sublotesforms.value);Modal.hide();" >Guardar datos 2</button>
-                      <button *ngIf=" sublotesforms.valid && verify  && newlot == false" class="btn btn-success"
-                        type="button" (click)="sendSublotesolo(sublotesforms.value);Modal.hide();" >Guardar datos 3</button>
+                  <button
+                    *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid && sololote && sublotearray.length == 0 && newlot"
+                    class="btn btn-success" type="button"
+                    (click)="submitsololot(sublotesforms.value);Modal.hide();">Guardar datos 2</button>
+                  <button *ngIf=" sublotesforms.valid && verify  && newlot == false" class="btn btn-success"
+                    type="button" (click)="sendSublotesolo(sublotesforms.value);Modal.hide();">Guardar datos 3</button>
                 </div>
 
               </form>
@@ -319,3 +330,43 @@
       </div>
     </div>
   </div>
+
+
+  <div bsModal #Crops="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true" [config]="{ ignoreBackdropClick: true }">
+
+
+    <div class="modal-dialog modal-lg " style="height: 52%;width: 100%;">
+
+      <div class="modal-content" style="width: 116%;">
+        <div class="modal-header p-0">
+          <div class="brand-logo" style="font-size: 20px;padding: 8px;">
+            <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
+            Agregar un nuevo cultivo
+          </div>
+          <button type="button" class="close" aria-label="Close" (click)="Crops.hide();"
+            style="font-size: 34px;padding: 23px;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <form  [formGroup]="CropsForms" >
+              <div class="row ">
+                <div class="col-9">
+                  <label>Cultivo</label>
+                  <input class="form-control" formControlName="name" type="text"/>
+                  <span class="text-danger" *ngIf="CropsForms.controls['name'].errors?.required">Ingresa un
+                    campo
+                    válido</span>
+                </div>
+                <div class="col-3 d-flex justify-content-center align-items-end">
+                  <button class="btn btn-success" type="submit" (click)="saveCrops(CropsForms.value)">Guardar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

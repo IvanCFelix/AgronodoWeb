@@ -1,6 +1,6 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from "@angular/router";
-import { Component, OnInit,ViewChild,ElementRef  } from '@angular/core';
+import { Component, OnInit,ViewChild, ElementRef  } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import Swal from "sweetalert2";
 import { LotsAgricolaService } from '../../Services/lots-agricola.service';
@@ -40,6 +40,7 @@ export class LotsComponent implements OnInit {
   editlots =[]
   allLots:any = [];
   subloteSolo;
+  profile:any = {};
   cicloForm:FormGroup;
   iconmap = {
     iconUrl: '../../assets/img/market.png',
@@ -82,6 +83,7 @@ export class LotsComponent implements OnInit {
   ngOnInit() {
  
     const user = JSON.parse(localStorage.getItem("USER"));
+    this.profile = user.profile
     this.user = user 
     console.log(this.user.profile.prmsLotes)
 
@@ -91,6 +93,10 @@ export class LotsComponent implements OnInit {
       this.listlots = resp; 
       this.temp = resp;
     })
+   this.getCrops();
+  }
+
+  getCrops(){
     this.LotsService.Getcrops().subscribe((resp: any) => {
       this.crops = resp      
     });
@@ -213,19 +219,18 @@ export class LotsComponent implements OnInit {
 
   verify:boolean = true
   lotSublote:any;
-  verifylot(value){
-    
+  verifylot(value){   
     this.lotSublote = value.subfield[0];    
     let cordi = value.coordinates[0]
     let subfi =  value.subfield[0].subfieldCoordinates[0]
     let cicle = value.subfield[0].cicle
-    console.log(cicle.length)
+    let id =  value.subfield[0].id
     if(cordi.lat == subfi.lat){
       this.verify = false
       if(cicle.length == 0){
         this.modalshow('@getbootstrap')
       }else{
-        let url = '/Lotes/cicle/' + this.id + '/' + value.id
+        let url = '/Lotes/cicle/' + value.id+ '/' + id
         this.router.navigateByUrl(url);
       }
     }else {

@@ -53,10 +53,10 @@ export class HeaderComponent implements OnInit {
           ? "fa fa-compress"
           : "fa fa-expand";
     });
-    this.admin.getRefresh().subscribe( (resp:any) => {
-      this.user = resp.user_type    
+    // this.admin.getRefresh().subscribe( (resp:any) => {
+    //   this.user = resp.user_type    
        
-     })
+    //  })
  
   }
 

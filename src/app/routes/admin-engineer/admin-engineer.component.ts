@@ -20,6 +20,7 @@ export class AdminEngineerComponent implements OnInit {
   timeout: any;
   expanded: any = {};
   selected = [];
+  user = {};
   constructor(public Engineer:AdminEngineerAgricola) {
     
   }
@@ -27,7 +28,7 @@ export class AdminEngineerComponent implements OnInit {
     const val = event.target.value.toLowerCase();
     // filter our data
     const temp = this.temp.filter(function(d) {
-        return d.names.toLowerCase().indexOf(val) !== -1  || d.lastnames.toLowerCase().indexOf(val) !== -1  || d.user.username.toLowerCase().indexOf(val) !== -1 || d.user.email.toLowerCase().indexOf(val) !== -1 || d.phone.toLowerCase().indexOf(val) !== -1 || !val ;
+        return d.names.toLowerCase().indexOf(val) !== -1  || d.user.username.toLowerCase().indexOf(val) !== -1 || d.user.email.toLowerCase().indexOf(val) !== -1 || d.phone.toLowerCase().indexOf(val) !== -1 || !val ;
     });
     // update the rows
     this.listAdmin = temp;
@@ -36,6 +37,9 @@ export class AdminEngineerComponent implements OnInit {
 }
 
   ngOnInit() {
+     const user = JSON.parse(localStorage.getItem("USER"));
+    this.user = user; 
+    console.log(user)
     this.Engineer.listadmin().subscribe(resp => {
       this.listAdmin = resp;
       this.temp = resp;

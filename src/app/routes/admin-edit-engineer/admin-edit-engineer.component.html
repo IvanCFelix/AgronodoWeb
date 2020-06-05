@@ -3,9 +3,9 @@
     <!-- <small>Native Angular input validation</small> -->
   </div>
 </div>
-<button class="mr-1 btn btn-labeled btn-info mb-2" type="button"  [routerLink]="['/Admin-Ingeniero']">
+<button class="mr-1 btn btn-labeled btn-info mb-2" type="button" (click)="goback()">
   <span class="btn-label"><i class="fa fa-arrow-left"></i>
-</span>Regresar</button>
+  </span>Regresar</button>
 
 <div class="container-fluid mt-5">
   <div class="row d-flex justify-content-center align-content-center ">
@@ -47,17 +47,6 @@
                     <label>Nombre</label>
                     <input class="form-control" formControlName="name" type="text" />
                     <span class="text-danger" *ngIf="adminagricola.controls['name'].errors?.required">Ingresa un campo
-                      válido</span>
-                  </div>
-                </div>
-
-
-                <div class="form-group row">
-                  <div class="col">
-                    <label>Apellido</label>
-                    <input class="form-control" formControlName="lastname" type="text" />
-                    <span class="text-danger" *ngIf="adminagricola.controls['lastname'].errors?.required">Ingresa un
-                      campo
                       válido</span>
                   </div>
                 </div>
@@ -133,7 +122,7 @@
                     </div>
                   </div>
                 </div>
-              
+
               </div>
             </div>
           </div>

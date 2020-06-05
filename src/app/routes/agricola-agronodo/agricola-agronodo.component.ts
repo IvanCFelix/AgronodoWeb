@@ -79,19 +79,19 @@ export class AgricolaAgronodoComponent implements OnInit {
         console.log(result.value)
         this.agricola.delete(value.user.username)
         .subscribe( resp => {
-          
+           Swal.fire({
+             text: "Se eliminó correctamente ",
+             icon: "success",
+             showConfirmButton: false,
+             timer: 1500,
+             width: "270px",
+           });
           this.agricola.listadmin().subscribe(resp => {
             this.listagricola = resp;
             this.temp = resp;
             console.log(resp)
           })
-
         })
-        // Swal.fire(
-        //   'Deleted!',
-        //   'Your file has been deleted.',
-        //   'success',
-        // )
       }
     })
   }

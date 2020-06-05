@@ -11,33 +11,36 @@ export class Menu {
     };
     const AdminAgricola = {
       text: "Administradores",
-      icon: "icon-user",
+      icon: "fas fa-users",
       submenu: [
         {
           text: "Agricolas",
           link: "/Admin-Agricola",
-          icon: "icon-user"
+          icon: "icon-user",
         },
         {
           text: "Ingenieros",
           link: "/Admin-Ingeniero",
-          icon: "fas fa-industry"
-        }
-      ]
+          icon: "fas fa-industry",
+        },
+      ],
     };
 
     const Ingenieros = {
       text: "Ingenieros",
       link: "/Ingeniero",
-      icon: "icon-user"
-    
-  }
+      icon: "fas fa-user-cog",
+    };
     const lotes = {
-        text: "Lotes",
-        link: "/Lotes",
-        icon: "icon-user"
-      
-    }
+      text: "Lotes",
+      link: "/Lotes",
+      icon: "fas fa-object-ungroup",
+    };
+       const Incidencias = {
+         text: "Incidencias",
+         link: "/Incidencias",
+         icon: "fab fa-pagelines",
+       };
   
 
     const UsuariosAgroindustriasAgronodo = {
@@ -56,6 +59,18 @@ export class Menu {
         }
       ]
     };
+    const Tareas = {
+      text: "Tareas",
+      icon: "fas fa-tasks",
+      submenu: [
+        {
+          text: "Tareas",
+          link: "/Tareas",
+          icon: "icon-user",
+        },
+      ],
+    };
+
 
     var role = [];
 
@@ -75,14 +90,29 @@ export class Menu {
  
           break;
         }
-        //Admin Agricola
+        // Agricola
         case 4: {
-          role = [headingMain, Home, lotes, AdminAgricola,Ingenieros];
+          role = [
+            headingMain,
+            Home,
+            lotes,
+            AdminAgricola,
+            Ingenieros,
+            Tareas,
+            Incidencias,
+          ];
           break;
         }
-        //Admin Ingeniero
+        //Admin Agricola
         case 5: {
-      
+       role = [
+         headingMain,
+         Home,
+         lotes,
+         Ingenieros,
+         Tareas,
+         Incidencias,
+       ];
           break;
         }
         //Ingeniero
