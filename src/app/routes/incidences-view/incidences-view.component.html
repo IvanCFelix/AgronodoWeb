@@ -37,7 +37,7 @@
               <ngx-datatable #table class="bootstrap expandable material fullscreen "
                 style="height: calc(90vh - 270px); box-shadow: none; width: 100%;" [columnMode]="'force'"
                 [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true"
-                [rows]='reports' (page)="onPage($event)">
+                [rows]='reports'>
                 <!-- Column Templates -->
                 <ngx-datatable-column name="#" [width]="50" [canAutoResize]="false">
                   <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
@@ -84,11 +84,6 @@
             <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
             </agm-polyline-point>
           </agm-polyline>
-          <agm-polyline *ngFor="let polyline of mostrarsublotes; let i = index;" [strokeColor]="polyline.color">
-            <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat"
-              [longitude]="point.lng">
-            </agm-polyline-point>
-          </agm-polyline>
         </agm-map>
       </div>
 
@@ -107,7 +102,7 @@
             <div *ngIf="report.number">
               <b>Numero de reporte:</b>{{report.number}}
             </div>
-            <div *ngIf="!report.title" class="center">
+            <div *ngIf="report === {}" class="center">
               <div>
                 Reporte no seleccionado
               </div>

@@ -13,7 +13,13 @@ export class IncidencesViewComponent implements OnInit {
   technicalIncidence = [];
   agriculturalIncidence = [];
   reports = [];
-  report = {};
+  report = {
+    title: "",
+    observation: "",
+    number: '',
+    lat: '',
+    lng:''
+  };
   lat: any = 25.8132204;
   lng: any = -108.9858821;
   zoom: number = 14;
@@ -41,8 +47,8 @@ export class IncidencesViewComponent implements OnInit {
   ViewReport(value) {
     this.report = value;
     this.lat = value.lat;
-    this.lng = value.lng
-    this.zoom = 15
+    this.lng = value.lng;
+    this.zoom = 15;
   }
   Lot(id) {
     this.LotsService.getLot(id).subscribe((resp) => {
