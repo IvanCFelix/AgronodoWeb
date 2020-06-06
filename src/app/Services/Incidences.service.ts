@@ -10,8 +10,6 @@ export class Incidences {
   private token: String;
   constructor(public http: Http) {
     this.token = localStorage.getItem("token")
-      ? <any>JSON.parse(localStorage.getItem("USER")).token
-      : null;
   }
 
   register(item) {
@@ -65,10 +63,10 @@ export class Incidences {
   private jwt() {
     if (this.token) {
       let headers = new Headers();
-      let user = JSON.parse(localStorage.getItem("USER"));
       headers.append("Content-Type", "application/json");
       headers.append("Accept-Language", "es");
-      headers.append("Authorization", `token ${user.token}`);
+      headers.append("Authorization", `token ${this.token}`);
+      
       return new RequestOptions({ headers: headers });
     }
   }

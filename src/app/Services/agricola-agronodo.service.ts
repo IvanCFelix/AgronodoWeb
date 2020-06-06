@@ -12,7 +12,7 @@ import { Observable } from '../../../node_modules/rxjs';
 export class AgricolaAgronodo {
   private token: String;
   constructor(public http: Http) { 
-    this.token = (localStorage.getItem('token') ? (<any>JSON.parse(localStorage.getItem('USER')).token) : null);
+    this.token = localStorage.getItem('token') 
   }
   
  register(agricola) {
@@ -56,10 +56,10 @@ export class AgricolaAgronodo {
   private jwt() {
     if (this.token) {
         let headers = new Headers();
-        let user = JSON.parse(localStorage.getItem('USER'));
         headers.append('Content-Type', 'application/json');
         headers.append('Accept-Language', 'es');
-        headers.append('Authorization', `token ${user.token}`);
+        headers.append("Authorization", `token ${this.token}`);
+   
       return new RequestOptions({ headers: headers });
     }
   }

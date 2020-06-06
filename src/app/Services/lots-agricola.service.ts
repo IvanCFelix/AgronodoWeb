@@ -10,7 +10,7 @@ import { Uris } from './Uris';
 export class LotsAgricolaService {
   private token: String;
   constructor(public http: Http) {
-    this.token = (localStorage.getItem('token') ? (<any>JSON.parse(localStorage.getItem('USER')).token) : null);
+    this.token = localStorage.getItem('token') 
   }
 
   register(admin) {
@@ -121,10 +121,10 @@ export class LotsAgricolaService {
   private jwt() {
     if (this.token) {
       let headers = new Headers();
-      let user = JSON.parse(localStorage.getItem('USER'));
       headers.append('Content-Type', 'application/json');
       headers.append('Accept-language', 'en-es');
-      headers.append('Authorization', `token ${user.token}`);
+      headers.append("Authorization", `token ${this.token}`);
+      
       return new RequestOptions({ headers: headers });
     }
 

@@ -95,78 +95,77 @@ export class ProfileComponent implements OnInit {
     this.FetchData();
   }
 
-  async FetchData() {
-    await this.profile.getRefresh().subscribe((resp) => {
-      this.dataUser = resp;
-      switch (resp.user_type) {
-        // Agronodo
-        case 2: {
-          this.role = 2;
-          this.dataprofile = resp.profile;
-          this.adminagronodo.setValue({
-            names: resp.profile.names,
-            username: resp.username,
-            phone: resp.profile.phone,
-            email: resp.email,
-          });
-          break;
-        }
-        //Admin agronodo
-        case 3: {
-          break;
-        }
-        //Agricola
-        case 4: {
-          this.role = 4;
-          this.dataprofile = resp.profile;
-          this.agricola.setValue({
-            name: resp.profile.agricola,
-            username: resp.username,
-            email: resp.email,
-            address: resp.profile.address,
-            contactName: resp.profile.contactName,
-            phone: resp.profile.phone,
-            highEngineersLenght: resp.profile.prmsIngenieros,
-            lotsLenght: resp.profile.prmsLotes,
-            adminLenght: resp.profile.prmsAdminExtra,
-            highEngineers: resp.profile.prmsIngenierosBool,
-            lots: resp.profile.prmsLotesBool,
-            admin: resp.profile.prmsAdminExtraBool,
-          });
-          break;
-        }
-        // Admin Agricola
-        case 5: {
-          this.role = 5;
-          this.dataprofile = resp.profile;
-          this.Adminagricola.setValue({
-            username: resp.username,
-            email: resp.email,
-            contactName: resp.profile.names,
-            phone: resp.profile.phone,
-          });
-          break;
-        }
-        //Admin Ingeniero
-        case 6: {
-          this.role = 6;
-          this.dataprofile = resp.profile;
-          this.adminEngineers.setValue({
-            names: resp.profile.names,
-            email: resp.email,
-            phone: resp.profile.phone,
-            username: resp.username,
-          });
-          break;
-        }
-        default: {
-          break;
-        }
+  FetchData() {
+    const data = <any>JSON.parse(localStorage.getItem("USER"));
+    const resp = data;
+    this.dataUser = resp;
+    switch (resp.user_type) {
+      // Agronodo
+      case 2: {
+        this.role = 2;
+        this.dataprofile = resp.profile;
+        this.adminagronodo.setValue({
+          names: resp.profile.names,
+          username: resp.username,
+          phone: resp.profile.phone,
+          email: resp.email,
+        });
+        break;
       }
-      return resp;
-    });
+      //Admin agronodo
+      case 3: {
+        break;
+      }
+      //Agricola
+      case 4: {
+        this.role = 4;
+        this.dataprofile = resp.profile;
+        this.agricola.setValue({
+          name: resp.profile.agricola,
+          username: resp.username,
+          email: resp.email,
+          address: resp.profile.address,
+          contactName: resp.profile.contactName,
+          phone: resp.profile.phone,
+          highEngineersLenght: resp.profile.prmsIngenieros,
+          lotsLenght: resp.profile.prmsLotes,
+          adminLenght: resp.profile.prmsAdminExtra,
+          highEngineers: resp.profile.prmsIngenierosBool,
+          lots: resp.profile.prmsLotesBool,
+          admin: resp.profile.prmsAdminExtraBool,
+        });
+        break;
+      }
+      // Admin Agricola
+      case 5: {
+        this.role = 5;
+        this.dataprofile = resp.profile;
+        this.Adminagricola.setValue({
+          username: resp.username,
+          email: resp.email,
+          contactName: resp.profile.names,
+          phone: resp.profile.phone,
+        });
+        break;
+      }
+      //Admin Ingeniero
+      case 6: {
+        this.role = 6;
+        this.dataprofile = resp.profile;
+        this.adminEngineers.setValue({
+          names: resp.profile.names,
+          email: resp.email,
+          phone: resp.profile.phone,
+          username: resp.username,
+        });
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    return resp;
   }
-  setDataAgricola() {}
   fileChangeListener($event) {
     let image: any = new Image();
     let file: File = $event.target.files[0];
@@ -208,6 +207,7 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
+          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -243,6 +243,7 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
+          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -285,6 +286,7 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
+          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -318,6 +320,7 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
+          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -353,6 +356,7 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
+          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -378,7 +382,6 @@ export class ProfileComponent implements OnInit {
           username: value.username,
         },
       };
-      console.log(obj);
 
       this.Engineer.edit(obj, user).subscribe(
         (resp) => {
@@ -389,6 +392,7 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
+          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -426,6 +430,7 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
+          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -451,8 +456,6 @@ export class ProfileComponent implements OnInit {
           username: value.username,
         },
       };
-      console.log(obj);
-
       this.AdminAgricola.edit(obj, user).subscribe(
         (resp) => {
           Swal.fire({
@@ -462,6 +465,7 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
+          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -476,5 +480,10 @@ export class ProfileComponent implements OnInit {
         }
       );
     }
+  }
+  getprofile() {
+    this.profile.getRefresh().subscribe((resp) => {
+      localStorage.setItem("USER", JSON.stringify(resp));
+    });
   }
 }

@@ -53,11 +53,6 @@ export class HeaderComponent implements OnInit {
           ? "fa fa-compress"
           : "fa fa-expand";
     });
-    // this.admin.getRefresh().subscribe( (resp:any) => {
-    //   this.user = resp.user_type    
-       
-    //  })
- 
   }
 
   toggleUserBlock(event) {
@@ -100,7 +95,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
    this.admin.logout().subscribe(resp => {
-
+    
    },err => {
      console.log(err);
    })
