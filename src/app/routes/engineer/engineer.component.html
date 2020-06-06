@@ -21,9 +21,9 @@
     </div>
     <div class="col text-right">
       <button class="mb-1 mr-1 btn btn-success" type="button" routerLink="/Ingeniero/new"
-        *ngIf="listAdmin.length < this.user.profile.prmsIngenieros">Agregar nuevo
+        *ngIf="listAdmin.length < profile.prmsIngenieros">Agregar nuevo
         Ingeniero</button>
-      <span class="text-danger p-4" *ngIf="listAdmin.length == this.user.profile.prmsIngenieros">No puedes
+      <span class="text-danger p-4" *ngIf="listAdmin.length == profile.prmsIngenieros">No puedes
         agregar mas ingenieros llegaste al limite de registros </span>
     </div>
   </div>

@@ -11,6 +11,7 @@ import { DatatableComponent } from "@swimlane/ngx-datatable";
 export class IncidencesComponent implements OnInit {
   @ViewChild("table") tableExp: any;
   @ViewChild(DatatableComponent) table: DatatableComponent;
+
   Incidencesbydate = [];
   byrisk = [];
   Incidences = [];
@@ -40,19 +41,17 @@ export class IncidencesComponent implements OnInit {
   }
   orderIncidence(value) {
     this.Incidencesbydate = [];
-    this.IncidenceService.listBydate(`?order=${value}`).subscribe(
-      (resp) => {
-        let res = resp;
-        if (res.length > 3) {
-          for (let i = 0; i < 3; i++) {
-            let item = res[i];
-            this.Incidencesbydate.push(item);
-          }
-        } else {
-          this.Incidencesbydate = resp
+    this.IncidenceService.listBydate(`?order=${value}`).subscribe((resp) => {
+      let res = resp;
+      if (res.length > 3) {
+        for (let i = 0; i < 3; i++) {
+          let item = res[i];
+          this.Incidencesbydate.push(item);
         }
+      } else {
+        this.Incidencesbydate = resp;
       }
-    );
+    });
   }
   changeOrderbyrisk(event) {
     this.orderbyrisk(event);
