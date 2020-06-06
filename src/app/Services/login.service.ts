@@ -60,8 +60,7 @@ export class AuthService {
   }
 
   leerToken(){
-    localStorage.getItem('token') ? this.userToken = localStorage.getItem('token') : this.userToken = null
-    return this.userToken;
+    return localStorage.getItem("token");
   }
 
   estaAutenticado() {

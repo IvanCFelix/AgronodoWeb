@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
   filephoto: any = "";
 
   constructor(
-    public profile: AdminAgronodo,
+    public profile: AgricolaAgronodo,
     public router: Router,
     public agricolaService: AgricolaAgronodo,
     private route: ActivatedRoute,
@@ -207,7 +207,6 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
-          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -243,7 +242,6 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
-          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -286,7 +284,6 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
-          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -320,7 +317,6 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
-          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -356,7 +352,6 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
-          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -392,7 +387,6 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
-          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -430,7 +424,6 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
-          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -465,7 +458,6 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
-          this.getprofile();
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
