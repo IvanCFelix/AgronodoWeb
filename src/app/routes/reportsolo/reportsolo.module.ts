@@ -29,7 +29,7 @@ const routes: Routes = [
     ModalModule.forRoot(),
     ProgressbarModule.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyBNs42Rt_CyxAqdbIBK0a5Ut83QiauESPA",
+      apiKey: "AIzaSyDNOu2JQ001PxZY-GVwFvVou0_6h_Sj-14",
       libraries: ["places", "drawing", "geometry"],
     }),
   ],

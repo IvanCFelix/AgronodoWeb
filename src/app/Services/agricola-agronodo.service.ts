@@ -48,7 +48,7 @@ export class AgricolaAgronodo {
   }
   logout() {
     return this.http
-      .post(`${Uris.API_LOGOUT}`, this.token, this.jwt())
+      .post(`${Uris.API_LOGOUT}`, this.jwt())
       .map((response: Response) => response.json());
   }
   getRefresh() {

@@ -83,13 +83,14 @@ export class ProfileComponent implements OnInit {
       phone: new FormControl("", [Validators.required]),
     });
   }
-
-  async ngOnInit() {
-    console.log("init");
+  ngDoCheck() {
     const id = this.route.snapshot.paramMap.get("id");
     if (id) {
       this.FetchData();
     }
+  }
+  ngOnInit() {
+   
   }
   ngAfterContentInit() {
     this.FetchData();
