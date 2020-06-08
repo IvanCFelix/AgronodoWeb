@@ -2,10 +2,8 @@
 import 'rxjs/add/operator/map'
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/map'
 import { Uris } from './Uris';
-import { Observable } from '../../../node_modules/rxjs';
 @Injectable({
   providedIn: "root",
 })
@@ -14,6 +12,7 @@ export class AgricolaAgronodo {
   constructor(public http: Http) {
     this.token = localStorage.getItem("token");
   }
+  
 
   register(agricola) {
     return this.http
@@ -57,12 +56,6 @@ export class AgricolaAgronodo {
       .map((response: Response) => response.json());
   }
 
-  errorHandler(error: any): void {
-    console.log("SUPER ERROR", error);
-    if (localStorage.getItem("token") && error.status == 401) {
-      localStorage.removeItem("token");
-    }
-  }
 
   private jwt() {
     if (this.token) {
@@ -75,8 +68,3 @@ export class AgricolaAgronodo {
     }
   }
 }
-
-  
-
-
-

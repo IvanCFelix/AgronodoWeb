@@ -29,9 +29,9 @@ const routes: Routes = [
     ModalModule.forRoot(),
     RouterModule.forChild(routes),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBNs42Rt_CyxAqdbIBK0a5Ut83QiauESPA',
-      libraries: ['places', 'drawing', 'geometry'],
-  })
-  ]
+      apiKey: "AIzaSyATXoq67AS8KQZhv9dXOZseCQaxuK1DbcQ",
+      libraries: ["places", "drawing", "geometry"],
+    }),
+  ],
 })
-export class LotsEditModule { }
+export class LotsEditModule {}

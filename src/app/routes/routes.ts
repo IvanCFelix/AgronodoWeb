@@ -222,12 +222,12 @@ export const routes = [
 
          // Not found
 
-         { path: "login", component: LoginComponent },
          // { path: 'register', component: RegisterComponent },
          { path: "reset/:user/:token", component: LockComponent },
          { path: "reset/:password", component: LockComponent },
          { path: "landing", component: LandingComponent },
          { path: "404", component: Error404Component },
          { path: "500", component: Error500Component },
+         { path: "login", component: LoginComponent },
          { path: "**", redirectTo: "/landing" },
        ];

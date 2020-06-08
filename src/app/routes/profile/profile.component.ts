@@ -83,14 +83,12 @@ export class ProfileComponent implements OnInit {
       phone: new FormControl("", [Validators.required]),
     });
   }
-  ngDoCheck() {
+  ngDoCheck() {}
+  ngOnInit() {
     const id = this.route.snapshot.paramMap.get("id");
     if (id) {
       this.FetchData();
     }
-  }
-  ngOnInit() {
-   
   }
   ngAfterContentInit() {
     this.FetchData();
@@ -201,6 +199,7 @@ export class ProfileComponent implements OnInit {
       };
       this.agricolaService.edit(obj, user).subscribe(
         (resp) => {
+          console.log(resp);
           Swal.fire({
             text: "Se Actualizó correctamente" + value.name,
             icon: "success",
@@ -208,6 +207,7 @@ export class ProfileComponent implements OnInit {
             timer: 1500,
             width: "250px",
           });
+          localStorage.setItem("USER", JSON.stringify(resp));
           this.router.navigateByUrl("/home");
         },
         (err: any) => {
@@ -236,6 +236,8 @@ export class ProfileComponent implements OnInit {
       };
       this.agricolaService.edit(obj, user).subscribe(
         (resp) => {
+          console.log(resp);
+          localStorage.setItem("USER", JSON.stringify(resp));
           Swal.fire({
             text: "Se Actualizó correctamente" + value.name,
             icon: "success",
@@ -278,6 +280,7 @@ export class ProfileComponent implements OnInit {
       };
       this.profile.edit(obj, user).subscribe(
         (resp) => {
+          localStorage.setItem("USER", JSON.stringify(resp));
           Swal.fire({
             text: "Se actualizó correctamente \n" + value.names,
             icon: "success",
@@ -311,6 +314,7 @@ export class ProfileComponent implements OnInit {
       };
       this.profile.edit(obj, user).subscribe(
         (resp) => {
+          localStorage.setItem("USER", JSON.stringify(resp));
           Swal.fire({
             text: "Se actualizó correctamente" + value.names,
             icon: "success",
@@ -346,6 +350,7 @@ export class ProfileComponent implements OnInit {
       };
       this.Engineer.edit(obj, user).subscribe(
         (resp) => {
+          localStorage.setItem("USER", JSON.stringify(resp));
           Swal.fire({
             text: "Se actualizó correctamente \n" + value.names,
             icon: "success",
@@ -381,6 +386,7 @@ export class ProfileComponent implements OnInit {
 
       this.Engineer.edit(obj, user).subscribe(
         (resp) => {
+          localStorage.setItem("USER", JSON.stringify(resp));
           Swal.fire({
             text: "Se actualizó correctamente" + value.names,
             icon: "success",
@@ -418,6 +424,7 @@ export class ProfileComponent implements OnInit {
       };
       this.AdminAgricola.edit(obj, user).subscribe(
         (resp) => {
+          localStorage.setItem("USER", JSON.stringify(resp));
           Swal.fire({
             text: "Se actualizó correctamente \n" + value.contactName,
             icon: "success",
@@ -452,6 +459,7 @@ export class ProfileComponent implements OnInit {
       };
       this.AdminAgricola.edit(obj, user).subscribe(
         (resp) => {
+          localStorage.setItem("USER", JSON.stringify(resp));
           Swal.fire({
             text: "Se actualizó correctamente" + value.contactName,
             icon: "success",

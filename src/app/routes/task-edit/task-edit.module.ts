@@ -28,7 +28,7 @@ const routes: Routes = [
     ModalModule.forRoot(),
     RouterModule.forChild(routes),
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyDNOu2JQ001PxZY-GVwFvVou0_6h_Sj-14",
+      apiKey: "AIzaSyATXoq67AS8KQZhv9dXOZseCQaxuK1DbcQ",
       libraries: ["places", "drawing", "geometry"],
     }),
   ],
