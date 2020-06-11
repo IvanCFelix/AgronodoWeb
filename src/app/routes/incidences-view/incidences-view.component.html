@@ -80,6 +80,16 @@
           <agm-marker *ngIf="report.lat" [latitude]="report.lat" [longitude]="report.lng" [opacity]="0.9"
             [markerDraggable]="false">
           </agm-marker>
+          <agm-polyline [strokeColor]="'#4caf50'" [clickable]=true>
+            <div *ngFor="let item of circle">
+
+              <agm-circle [clickable]=true [latitude]="item.lat" [longitude]="item.lng" [draggable]="true"
+                [editable]="false" [fillColor]="item.color" [fillOpacity]="0.5" [radius]="400">
+              </agm-circle>
+            </div>
+          </agm-polyline>
+
+
           <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="'#4caf50'">
             <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
             </agm-polyline-point>

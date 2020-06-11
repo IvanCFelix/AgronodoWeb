@@ -63,7 +63,7 @@ export class ReportsoloComponent implements OnInit {
     const rep = this.route.snapshot.paramMap.get("repso");
 
     this.LotsService.GetReportSolo(sub, rut, rep).subscribe((resp: any) => {
-      console.log(this.url);
+      console.log(resp);
       const img = resp.images;
       this.slides = resp.images;
       console.log(this.slides);

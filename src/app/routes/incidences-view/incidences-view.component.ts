@@ -16,15 +16,26 @@ export class IncidencesViewComponent implements OnInit {
   report = {
     title: "",
     observation: "",
-    number: '',
-    lat: '',
-    lng:''
+    number: "",
+    lat: "",
+    lng: "",
   };
   lat: any = 25.8132204;
   lng: any = -108.9858821;
   zoom: number = 14;
   newpaths = [];
   nestedPaths = [];
+  circle = [
+    { lat: 25.818017257913233, lng: -108.99542838310865, color: "#2d572c" },
+    { lat: 25.815622073589832, lng: -108.9860728380647, color: "#ffff00" },
+    { lat: 25.811063363153906, lng: -108.98933440422681, color: "#2d572c" },
+    { lat: 25.811372433812217, lng: -108.99525672173169, color: "#ffff00" },
+    { lat: 25.81330410715699, lng: -108.9999774095979, color: "#2d572c" },
+    { lat: 25.81755367763111, lng: -109.001436531302, color: "#cb3234" },
+    { lat: 25.821030485513475, lng: -108.99826079582837, color: "#ffff00" },
+    { lat: 25.822034877674728, lng: -108.99242430901197, color: "#2d572c" },
+    { lat: 25.819671943904048, lng: -108.98051261901855, color: "#cb3234" },
+  ];
   constructor(
     public IncidenceService: Incidences,
     public route: ActivatedRoute,

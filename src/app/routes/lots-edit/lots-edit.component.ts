@@ -343,7 +343,7 @@ export class LotsEditComponent implements OnInit {
     let obj = {
       lat: lat,
       lng: lng
-    };
+    };    
     this.newpaths.push(obj);
     if (this.newpaths.length == 3) {
       let path = this.newpaths[0]

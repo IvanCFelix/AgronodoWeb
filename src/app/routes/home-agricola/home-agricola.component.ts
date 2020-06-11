@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ColorsService } from '../../shared/colors/colors.service';
+import { Component, OnInit } from "@angular/core";
+import { ColorsService } from "../../shared/colors/colors.service";
 import { Observable } from "rxjs/Observable";
-import { HttpClient } from '@angular/common/http';
-
+import { HttpClient } from "@angular/common/http";
+import { LotsAgricolaService } from "../../Services/lots-agricola.service";
 
 @Component({
   selector: "app-home-agricola",
@@ -51,7 +51,9 @@ export class HomeAgricolaComponent implements OnInit {
     "2011",
     "2012",
   ];
-
+  lots = [];
+  sublote = [];
+  itemsSublotes = []
   // events
   chartClicked(e: any): void {
     console.log(e);
@@ -61,13 +63,40 @@ export class HomeAgricolaComponent implements OnInit {
     console.log(e);
   }
 
-  constructor(public colors: ColorsService, public http: HttpClient) {}
+  constructor(
+    public colors: ColorsService,
+    public http: HttpClient,
+    public lotService: LotsAgricolaService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getLot();
+  }
   rFactor() {
     return Math.round(Math.random() * 100);
   }
   getChartData(url): Observable<any> {
     return this.http.get(url);
+  }
+  selectLot(value) {
+    this.itemsSublotes = []
+    for (let item of this.sublote) {  
+      if (value == item.father_field) {
+        console.log(item);
+        this.itemsSublotes.push(item)
+      }
+   }
+  }
+  getLot() {
+    this.lotService.listLots().subscribe((resp) => {
+      this.lots = resp;
+        let arr = [];
+        for (let data of resp) {
+          for (let item of data.subfield) {
+            arr.push(item);
+          }
+        }
+        this.sublote = arr;
+    });
   }
 }
