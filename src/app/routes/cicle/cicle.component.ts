@@ -2,7 +2,6 @@ import { ActivatedRoute } from "@angular/router";
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import Swal from "sweetalert2";
 import { LotsAgricolaService } from "../../Services/lots-agricola.service";
-import { } from "googlemaps"
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import {Location}from '@angular/common'
 declare var google: any;

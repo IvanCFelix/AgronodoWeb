@@ -11,12 +11,18 @@
             <!-- <gallery id="basic-test" fluid [items]="items"></gallery> -->
             <div class="row">
               <div class="col ">
+                <div class="center text-center">
+                  <p *ngIf="slides.length == 0">Lo sentimos no tienes imagenes disponibles</p>
+                </div>
                 <!-- <div class="bigImage" target="_blank">
                   <a download>
                     <img [src]="url + img" [alt]="img">
                   </a>
                 </div> -->
-                <div class="carousel">
+
+
+
+                <div class="carousel" *ngIf="slides.length > 0">
                   <owl-carousel-o [options]="customOptions">
                     <ng-container *ngFor="let slide of slides; let i = index">
                       <ng-template carouselSlide [id]="i">
@@ -31,19 +37,19 @@
 
 
               </div>
-              <div class="col ">
-                <!-- <div>
+              <!-- <div class="col "> -->
+              <!-- <div>
              <div class="gallery" *ngFor="let item of data.images;let i = index;">
                <img [src]="url + item.image" [alt]="i+1" width="600" height="400" (click)="imagen(item)">
             </div>
            </div> -->
-                <!-- <div class="scrolling-wrapper">
+              <!-- <div class="scrolling-wrapper">
                   <div class="card" *ngFor="let item of data.images;let i = index;">
                     <img [src]="url + item.image" [alt]="i+1" width="600" height="400" (click)="imagen(item)">
                   </div>
                 </div> -->
 
-              </div>
+              <!-- </div> -->
               <div>
                 <!-- <carousel [interval]="myInterval" [noWrap]="false">
                   <slide *ngFor="let item of data.images;let i = index;" [active]="item.active">
@@ -56,10 +62,12 @@
           </div>
           <div class="col d-flex justify-content-center align-items-center">
             <p *ngIf="video.length == 0">Lo sentimos no tienes videos disponibles</p>
-            <div *ngFor="let item of video;let i = index;">
-              <video controls>
-                <source [src]="url+item.video" type="video/mp4">
-              </video>
+            <div *ngIf="video.length !== 0">
+              <div *ngFor="let item of videos;let i = index;">
+                <video controls>
+                  <source [src]="url+item.videos" type="video/mp4">
+                </video>
+              </div>
             </div>
           </div>
         </div>
@@ -77,78 +85,81 @@
           </div>
         </div>
         <h2 class="p-3">Incidencia</h2>
-        <div class="row p-3">
-          <div class="col">
-            <div *ngIf="agriculturalIncidence" class="row">
-              <div class="col">
-                <div class="cent">
-                  <img src="https://img.icons8.com/ios/50/000000/ground.png" />
-                  <p>Suelo</p>
-
-                  <div *ngIf="agriculturalIncidence.ground == 1" class="icon" style="color: #008f39">
-                    <a class="fas fa-square"></a>
-                  </div>
-                  <div *ngIf="agriculturalIncidence.ground == 2" class="icon" style="color: #ffff00 ">
-                    <a class="fas fa-square"></a>
-                  </div>
-                  <div *ngIf="agriculturalIncidence.ground == 3" class="icon" style="color: #cb3234 ">
-                    <a class="fas fa-square"></a>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="cent">
-                  <img src="https://img.icons8.com/ios-filled/50/000000/sprout.png" />
-                  <p>Tallo</p>
-                  <div *ngIf="agriculturalIncidence.stem == 1" class="icon" style="color: #008f39">
-                    <a class="fas fa-square"></a>
-                  </div>
-                  <div *ngIf="agriculturalIncidence.stem == 2" class="icon" style="color: #ffff00 ">
-                    <a class="fas fa-square"></a>
-                  </div>
-                  <div *ngIf="agriculturalIncidence.stem == 3" class="icon" style="color: #cb3234 ">
-                    <a class="fas fa-square"></a>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="cent">
-                  <img src="https://img.icons8.com/ios-filled/50/000000/leaf.png" />
-                  <p>Hoja</p>
-                  <div *ngIf="agriculturalIncidence.leaf == 1" class="icon" style="color: #008f39">
-                    <a class="fas fa-square"></a>
-                  </div>
-                  <div *ngIf="agriculturalIncidence.leaf == 2" class="icon" style="color: #ffff00 ">
-                    <a class="fas fa-square"></a>
-                  </div>
-                  <div *ngIf="agriculturalIncidence.leaf == 3" class="icon" style="color: #cb3234 ">
-                    <a class="fas fa-square"></a>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="cent">
-                  <img src="https://img.icons8.com/ios-filled/50/000000/melon.png" />
-                  <p>Fruto</p>
-                  <div *ngIf="agriculturalIncidence.fruit == 1" class="icon" style="color: #008f39">
-                    <a class="fas fa-square"></a>
-                  </div>
-                  <div *ngIf="agriculturalIncidence.fruit == 2" class="icon" style="color: #ffff00 ">
-                    <a class="fas fa-square"></a>
-                  </div>
-                  <div *ngIf="agriculturalIncidence.fruit == 3" class="icon" style="color: #cb3234 ">
-                    <a class="fas fa-square"></a>
-                  </div>
-                </div>
+        <div *ngFor="let item of agriculturalIncidence" style="width: 396px;">
+          <div class="row m-3">
+            <div class="col-3 center">
+              <em class="fa-6x fab fa-envira"></em>
+            </div>
+            <div class="col m-0 p-0 text-incidencia">
+              <div>
+                <p><b>Tipo de incidencia:</b><small>{{item.name.name}}</small></p>
+                <p><b>Fecha:</b><small>{{item.datetime | date: 'dd/MM/yyyy'}}</small></p>
               </div>
             </div>
-            <div class="row">
-              <div class="col">
-
-              </div>
-            </div>
-
           </div>
+          <div>
+            <div class="container text-center m-3">
+              <div class="row center">
+                <div class="col-2 text-center">
+                  <div *ngIf="item.fruit == 1" class="icon center" style="color: #008f39">
+                    <a class="fas fa-2x fa-square"></a>
+                    <b style="color:black;margin-left:4px;">Planta</b>
+                  </div>
+                  <div *ngIf="item.fruit == 2" class="icon center" style="color: #ffff00">
+                    <a class="fas fa-2x fa-square"></a>
+                    <b style="color:black;margin-left:4px;">Planta</b>
+                  </div>
+                  <div *ngIf="item.fruit == 3" class="icon center" style="color: #cb3234">
+                    <a class="fas fa-2x fa-square"></a>
+                    <b style="color:black;margin-left:4px;">Planta</b>
+                  </div>
+                </div>
+                <div class="col-2 text-center">
+                  <div *ngIf="item.ground == 1" class="icon center" style="color: #008f39 ">
+                    <a class="fas fa-2x fa-square"></a>
+                    <b style="color:black;margin-left:4px;">suelo</b>
+                  </div>
+                  <div *ngIf="item.ground == 2" class="icon center" style="color: #ffff00 ">
+                    <a class="fas fa-2x fa-square"></a>
+                    <b style="color:black;margin-left:4px;">suelo</b>
+                  </div>
+                  <div *ngIf="item.ground == 3" class="icon center" style="color: #cb3234 ">
+                    <a class="fas fa-2x fa-square"></a>
+                    <b style="color:black;margin-left:4px;">suelo</b>
+                  </div>
+                </div>
+                <div class="col-2 text-center">
+                  <div *ngIf="item.stem === 1" class="icon center" style="color: #008f39 ">
+                    <a class="fas fa-2x fa-square"></a>
+                    <b style="color:black;margin-left:4px;">Tallo</b>
+                  </div>
+                  <div *ngIf="item.stem === 2" class="icon center" style="color: #ffff00 ">
+                    <a class="fas fa-2x fa-square"></a>
+                    <b style="color:black;margin-left:4px;">Tallo</b>
+                  </div>
+                  <div *ngIf="item.stem === 3" class="icon center" style="color: #cb3234 ">
+                    <a class="fas fa-2x fa-square"></a>
+                    <b style="color:black;margin-left:4px;">Tallo</b>
+                  </div>
+                </div>
+                <div class="col-2 text-center">
+                  <div *ngIf="item.leaf == 1" class="icon center" style="color: #008f39">
+                    <a class="fas fa-2x fa-square"></a>
+                    <b style="color:black;margin-left:4px;">Hoja</b>
+                  </div>
+                  <div *ngIf="item.leaf == 2" class="icon center" style="color: #ffff00">
+                    <a class="fas fa-2x fa-square"></a>
+                    <b style="color:black;margin-left:4px;">Hoja</b>
+                  </div>
+                  <div *ngIf="item.leaf == 3" class="icon center" style="color: #cb3234">
+                    <a class="fas fa-2x fa-square"></a>
+                    <b style="color:black;margin-left:4px;">Hoja</b>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

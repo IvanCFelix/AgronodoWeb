@@ -43,14 +43,9 @@ export class ReportsoloComponent implements OnInit {
   video: any = [];
   sub;
   rut;
-  agriculturalIncidence: any = {};
+  agriculturalIncidence: any = [];
   img;
-  photo = [
-    {
-      img:
-        "http://159.89.49.19/api/v1/media/reports/images/YzkzNmMyNTUtN2I2LmpwZw.jpg",
-    },
-  ];
+
   constructor(
     public LotsService: LotsAgricolaService,
     public route: ActivatedRoute,
@@ -66,23 +61,19 @@ export class ReportsoloComponent implements OnInit {
       console.log(resp);
       const img = resp.images;
       this.slides = resp.images;
-      console.log(this.slides);
       this.data = resp;
       if (resp.images.length == 0) {
+
       } else {
         this.img = img[0].image;
-        console.log(this.img);
       }
       this.agriculturalIncidence = resp.incidence.agriculturalIncidence;
       this.video = resp.videos;
-      console.log();
+      console.log(resp.videos)
     });
   }
   imagen(value) {
-    
-    this.img = value;
-    console.log(this.url + this.img);
- 
+    this.img = value; 
   }
   goback() {
     return this.router.back();

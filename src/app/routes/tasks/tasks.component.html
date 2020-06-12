@@ -25,10 +25,11 @@
   </div>
 
   <div class="card card-default mt-4">
-    <div class="card-body ">        
-      <ngx-datatable #table class="bootstrap expandable material fullscreen "  style="height: calc(90vh - 270px); box-shadow: none; width: 100%;"
-      [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
-     [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='listTareas' (page)="onPage($event)">
+    <div class="card-body ">
+      <ngx-datatable #table class="bootstrap expandable material fullscreen "
+        style="height: calc(90vh - 270px); box-shadow: none; width: 100%;" [columnMode]="'force'" [headerHeight]="50"
+        [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='listTareas'
+        (page)="onPage($event)">
         <!-- Column Templates -->
         <ngx-datatable-column name="#">
           <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
@@ -63,7 +64,7 @@
             <button class="btn btn-success m-1" type="button" [routerLink]="['/Tareas/',row.id]">
               <a class="fas fa-pencil-alt"></a> </button>
             <button class="btn btn-danger m-1" (click)="delete(row)">
-              <a class="fas fa-trash-alt" ></a>
+              <a class="fas fa-trash-alt"></a>
             </button>
           </ng-template>
         </ngx-datatable-column>
@@ -88,57 +89,57 @@
         </button>
       </div>
       <div class="modal-body">
-       <div class="container">
-        <div class="row">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <form [formGroup]="infoTaskForm">
-              <div class="form-group ">
-                <input class="form-control d-none" formControlName="id" type="text" />
-                <div class="col-12">
-                  <label>Titulo:</label>
-                  <input class="form-control" formControlName="title" type="text" disabled/>
-                  
-                </div>
-                <div class="row p-3">
-                  <div class="col">
-                    <label>Descripcion:</label>
-                    <input class="form-control" formControlName="description" type="textarea" disabled/>
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <form [formGroup]="infoTaskForm">
+                <div class="form-group ">
+                  <input class="form-control d-none" formControlName="id" type="text" />
+                  <div class="col-12">
+                    <label>Titulo:</label>
+                    <input class="form-control" formControlName="title" type="text" disabled />
+
+                  </div>
+                  <div class="row p-3">
+                    <div class="col">
+                      <label>Descripcion:</label>
+                      <input class="form-control" formControlName="description" type="textarea" disabled />
+                    </div>
+                  </div>
+                  <div class="row p-3">
+                    <div class="col">
+                      <label>Ingeniero:</label>
+                      <input class="form-control" formControlName="engineer" type="text" disabled />
+                    </div>
+                  </div>
+                  <div class="row p-2 pt-3">
+                    <div class="col">
+                      <label>Fecha limite:</label>
+                      <input class="form-control" formControlName="end_date" type="date" disabled />
+                    </div>
                   </div>
                 </div>
-                <div class="row p-3">
-                  <div class="col">
-                    <label>Ingeniero:</label>
-                    <input class="form-control" formControlName="engineer" type="text" disabled/>
-                  </div>
-                </div>
-                <div class="row p-2 pt-3">
-                  <div class="col">
-                    <label>Fecha limite:</label>
-                    <input class="form-control" formControlName="end_date" type="date" disabled />
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-            <agm-marker *ngFor="let item of taskMarkers" [latitude]="item.lat" [longitude]="item.lng"
-                    [opacity]="1" [markerDraggable]="true">
-                  </agm-marker>
-                  <agm-polyline *ngFor="let polyline of nestedSubfield; let i = index;" [strokeColor]="polyline.color">
-                    <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
-                    </agm-polyline-point>
-                  </agm-polyline>
-                  <agm-polyline *ngFor="let polyline of nestedField; let i = index;" [strokeColor]="'#4caf50'">
-                    <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
-                    </agm-polyline-point>
-                  </agm-polyline>
-          </agm-map>
-          
-          </div>
+              </form>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                <agm-marker *ngFor="let item of taskMarkers" [latitude]="item.lat" [longitude]="item.lng" [opacity]="1"
+                  [markerDraggable]="true">
+                </agm-marker>
+                <agm-polyline *ngFor="let polyline of nestedSubfield; let i = index;" [strokeColor]="polyline.color">
+                  <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                  </agm-polyline-point>
+                </agm-polyline>
+                <agm-polyline *ngFor="let polyline of nestedField; let i = index;" [strokeColor]="'#4caf50'">
+                  <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+                  </agm-polyline-point>
+                </agm-polyline>
+              </agm-map>
+
+            </div>
           </div>
         </div>
-       </div>
       </div>
     </div>
   </div>
+</div>

@@ -38,6 +38,12 @@ div.desc {
 
 
 
+.center {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-size: 14px;
+}
 
 .scrolling-wrapper {
   overflow-x: scroll;

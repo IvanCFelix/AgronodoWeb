@@ -19,7 +19,6 @@ export class AuthService {
     };
     return this.http.post(`${Uris.API_LOGIN}`, authData).pipe(
       map(resp => {
-        console.log(resp);
         this.guardarToken(resp['token'])
         localStorage.setItem("USER", JSON.stringify(resp));
 
@@ -64,6 +63,6 @@ export class AuthService {
   }
 
   estaAutenticado() {
-    return this.userToken;
+    return localStorage.getItem("token");
   }
 }
