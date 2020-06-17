@@ -25,11 +25,13 @@ export class ProfileComponent implements OnInit {
   role;
   dataUser: any = {};
   dataprofile: any = {};
-  Url = Uris.API_ENDPOINT;
+  Url;
   filephoto: any = "";
+  photo;
+  imagenlocal: any = {};
 
   constructor(
-    public profile: AgricolaAgronodo,
+    public adminagronodoService: AdminAgronodo,
     public router: Router,
     public agricolaService: AgricolaAgronodo,
     private route: ActivatedRoute,
@@ -83,15 +85,23 @@ export class ProfileComponent implements OnInit {
       phone: new FormControl("", [Validators.required]),
     });
   }
-  ngDoCheck() {}
+  ngDoCheck() {
+    const photo = <any>JSON.parse(localStorage.getItem("photo"));
+    if (photo) {
+      this.Url = Uris.API_ENDPOINT_IMAGE;
+    } else {
+      this.Url = Uris.API_ENDPOINT;
+    }
+  }
   ngOnInit() {
+    this.imagenlocal = <any>JSON.parse(localStorage.getItem("photo"));
     const id = this.route.snapshot.paramMap.get("id");
     if (id) {
       this.FetchData();
     }
   }
   ngAfterContentInit() {
-    this.FetchData();
+    // this.FetchData();
   }
 
   FetchData() {
@@ -109,6 +119,12 @@ export class ProfileComponent implements OnInit {
           phone: resp.profile.phone,
           email: resp.email,
         });
+        if (this.imagenlocal) {
+          this.dataprofile = resp.profile;
+        } else {
+          this.imagenlocal = resp.profile;
+        }
+
         break;
       }
       //Admin agronodo
@@ -171,10 +187,23 @@ export class ProfileComponent implements OnInit {
     var reader = new FileReader();
     reader.onload = this._handleReaderLoaded.bind(this);
     reader.readAsBinaryString(file);
+    console.log(this.filephoto);
   }
   _handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
     this.filephoto = btoa(binaryString); // Converting binary string data.
+    this.SendPhoto(btoa(binaryString));
+  }
+  SendPhoto(value) {
+    let obj = {
+      photo: value,
+    };
+    this.adminagronodoService
+      .Photo(this.dataUser.username, obj)
+      .subscribe((resp) => {
+        this.imagenlocal = resp;
+        localStorage.setItem("photo", JSON.stringify(resp));
+      });
   }
   // Editar Agricola
   submitFormAgricola(value) {
@@ -267,74 +296,38 @@ export class ProfileComponent implements OnInit {
       width: "270px",
     });
     Swal.showLoading();
-    if (this.filephoto == "") {
-      let obj = {
-        names: value.names,
-        phone: value.photo,
-        user: {},
-      };
-      let user = {
-        user: {
-          username: value.username,
-        },
-      };
-      this.profile.edit(obj, user).subscribe(
-        (resp) => {
-          localStorage.setItem("USER", JSON.stringify(resp));
-          Swal.fire({
-            text: "Se actualizó correctamente \n" + value.names,
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-            width: "250px",
-          });
-          this.router.navigateByUrl("/home");
-        },
-        (err: any) => {
-          Swal.fire({
-            text: "Error en el sevidor",
-            showConfirmButton: false,
-            timer: 1500,
-            icon: "error",
-            width: "250px",
-          });
-        }
-      );
-    } else {
-      let obj = {
-        names: value.names,
-        phone: value.phone,
-        photo: this.filephoto,
-        user: {},
-      };
-      let user = {
-        user: {
-          username: value.username,
-        },
-      };
-      this.profile.edit(obj, user).subscribe(
-        (resp) => {
-          localStorage.setItem("USER", JSON.stringify(resp));
-          Swal.fire({
-            text: "Se actualizó correctamente" + value.names,
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-            width: "250px",
-          });
-          this.router.navigateByUrl("/home");
-        },
-        (err: any) => {
-          Swal.fire({
-            text: "Error en el sevidor",
-            showConfirmButton: false,
-            timer: 1500,
-            icon: "error",
-            width: "250px",
-          });
-        }
-      );
-    }
+    let obj = {
+      names: value.names,
+      phone: value.phone,
+      user: {},
+    };
+    let user = {
+      user: {
+        username: value.username,
+      },
+    };
+    this.adminagronodoService.edit(obj, user).subscribe(
+      (resp) => {
+        localStorage.setItem("USER", JSON.stringify(resp));
+        Swal.fire({
+          text: "Se actualizó correctamente" + value.names,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          width: "250px",
+        });
+        this.router.navigateByUrl("/home");
+      },
+      (err: any) => {
+        Swal.fire({
+          text: "Error en el sevidor",
+          showConfirmButton: false,
+          timer: 1500,
+          icon: "error",
+          width: "250px",
+        });
+      }
+    );
   }
   submitFormAdminEnginner(value) {
     console.log(value);
@@ -483,8 +476,8 @@ export class ProfileComponent implements OnInit {
     }
   }
   getprofile() {
-    this.profile.getRefresh().subscribe((resp) => {
-      localStorage.setItem("USER", JSON.stringify(resp));
-    });
+    // this.a.getRefresh().subscribe((resp) => {
+    //   localStorage.setItem("USER", JSON.stringify(resp));
+    // });
   }
 }

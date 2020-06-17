@@ -1,10 +1,13 @@
 export class Uris {
          public static API_ENDPOINT = "http://api.agronodo.mx/api/v1/";
+         public static API_ENDPOINT_IMAGE = "http://api.agronodo.mx/";
+
          //public static API_ENDPOINT = "http://192.168.50.103:8000/api/v1/";
 
          public static PASSWORD_RESET = `${Uris.API_ENDPOINT}password/reset/confirm/`;
          public static PASSWORD_SET_CONFIRM = `${Uris.API_ENDPOINT}password/set/confirm/`;
          public static PASSWORD_CHANGE = `${Uris.API_ENDPOINT}password/change/`;
+         public static CHANGE_PHOTO_BASE64 = `${Uris.API_ENDPOINT}upload/base64/photo/`;
 
          public static API_LOGIN = `${Uris.API_ENDPOINT}login/`;
          public static API_LOGOUT = `${Uris.API_ENDPOINT}logout/`;

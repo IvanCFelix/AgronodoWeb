@@ -43,13 +43,17 @@ export class AdminAgronodo {
       .patch(`${Uris.API_AGRONODO}${user.user.username}/`, admin, this.jwt())
       .map((response: Response) => response.json());
   }
- 
 
   errorHandler(error: any): void {
     console.log("SUPER ERROR", error);
     if (localStorage.getItem("token") && error.status == 401) {
       localStorage.removeItem("token");
     }
+  }
+  Photo(id, photo) {
+    return this.http
+      .put(`${Uris.CHANGE_PHOTO_BASE64}${id}/`, photo, this.jwt())
+      .map((response: Response) => response.json());
   }
 
   private jwt() {

@@ -4,31 +4,40 @@ import { UserblockService } from "./userblock.service";
 import { Uris } from "../../../Services/Uris";
 import { AdminAgronodo } from "../../../Services/admin-agronodo.service";
 import { AgricolaAgronodo } from "../../../Services/agricola-agronodo.service";
+import { url } from "inspector";
 @Component({
   selector: "app-userblock",
   templateUrl: "./userblock.component.html",
   styleUrls: ["./userblock.component.scss"],
 })
 export class UserblockComponent implements OnInit {
-  public link = Uris.API_ENDPOINT;
+  public link;
   public usuario: any;
   public photo;
   public name;
   public type;
+  imagenLocal:any = {};
   public username: string = "";
   constructor(
     public userblockService: UserblockService,
     public adminService: AdminAgronodo,
     public agricolaAgronodo: AgricolaAgronodo
-  ) {}
+  ) {
+   
+  }
   ngDoCheck() {
+    this.imagenLocal = <any>JSON.parse(localStorage.getItem("photo"));
+    if (this.imagenLocal) {
+      this.link = Uris.API_ENDPOINT_IMAGE;
+    } else {
+      this.link = Uris.API_ENDPOINT;
+    }
     this.getusers();
   }
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
   getusers() {
     const data = <any>JSON.parse(localStorage.getItem("USER"));
+
     const user = data;
     this.username = user.username;
     if (user) {
@@ -36,10 +45,19 @@ export class UserblockComponent implements OnInit {
       this.usuario = user;
       this.type = user.user_type_name;
       // this.username = resp.username
+    
+     
+      
       switch (user.user_type) {
         // Agronodo
         case 2: {
-          this.photo = user.profile.photo;
+          
+          let photo =  this.imagenLocal.photo
+          if (photo) {
+            this.photo = photo;
+          } else {
+            this.photo = user.profile.photo;
+          }
           this.name = user.profile.names;
           break;
         }

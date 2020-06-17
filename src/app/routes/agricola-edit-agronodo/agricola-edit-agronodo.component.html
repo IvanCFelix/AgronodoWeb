@@ -1,8 +1,9 @@
 <div class="content-heading">
-  <div>Agregar agrícola
-    <!-- <small>Native Angular input validation</small> -->
-  </div>
+  {{tittle}}
 </div>
+<button class="mr-1 btn btn-labeled btn-info mb-2" type="button" [routerLink]="['/Agricola']">
+  <span class="btn-label"><i class="fa fa-arrow-left"></i>
+  </span>Regresar</button>
 <!-- START row-->
 <div class="container-fluid">
   <div class="row d-flex justify-content-center align-content-center">
@@ -19,13 +20,13 @@
                 <div class="form-group row">
                   <div class="col">
                     <label>Usuario de la Agricola</label>
-                    <input *ngIf="!id" class="form-control" formControlName="username" type="text"  />
+                    <input *ngIf="!id" class="form-control" formControlName="username" type="text" />
                     <input *ngIf="id" class="form-control" formControlName="username" type="text" disabled />
 
                     <span class="text-danger" *ngIf="agricola.controls['username'].errors?.required">Ingresa un campo
                       válido</span>
-                      <span class="text-danger" *ngIf="agricola.controls['username'].errors?.cannotContainSpace">
-                        No se permiten espacios en este campo</span>
+                    <span class="text-danger" *ngIf="agricola.controls['username'].errors?.cannotContainSpace">
+                      No se permiten espacios en este campo</span>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -33,8 +34,8 @@
                     <label>Email</label>
                     <input *ngIf="!id" class="form-control" formControlName="email" type="email"
                       placeholder="example@example.com" />
-                      <input *ngIf="id" class="form-control" formControlName="email" type="email"
-                      placeholder="example@example.com" disabled/>
+                    <input *ngIf="id" class="form-control" formControlName="email" type="email"
+                      placeholder="example@example.com" disabled />
                     <span class="text-danger" *ngIf="agricola.controls['email'].errors?.email">Ingresa un correo
                       válido</span>
                     <span class="text-danger" *ngIf="agricola.controls['email'].errors?.required">Ingresa un
@@ -59,7 +60,7 @@
                       válido</span>
                   </div>
                 </div>
-               
+
                 <div class="form-group row">
                   <div class="col">
                     <label>Teléfono</label>
@@ -83,10 +84,11 @@
                 <div class="main-container ">
                   <div class="row">
                     <div class="col-12 p-2">
-                      <img-cropper #cropper *ngIf="mostrar == true" [image]="data1" [settings]="cropperSettings" (onCrop)="cropped($event)">
+                      <img-cropper #cropper *ngIf="mostrar == true" [image]="data1" [settings]="cropperSettings"
+                        (onCrop)="cropped($event)">
                       </img-cropper>
-                      <div height="400" width="400" *ngIf="mostrar == false" >
-                        <img [src]="url+ photo" width="70%"  style="padding: 0px 30px 0px 30px;" >
+                      <div height="400" width="400" *ngIf="mostrar == false">
+                        <img [src]="url+ photo" width="70%" style="padding: 0px 30px 0px 30px;">
                       </div>
                     </div>
                     <div class="col-12">
@@ -94,13 +96,14 @@
                         <label for="file-upload" class="input-mod2 ">
                           <a class="fas fa-upload"></a> Selecciona una imagen
                         </label>
-                        <input id="file-upload" (change)="fileChangeListener($event)" type="file" style='display: none;' />
+                        <input id="file-upload" (change)="fileChangeListener($event)" type="file"
+                          style='display: none;' />
                         <div class="btn-group btn-group-justified mb">
                         </div>
                       </div>
                     </div>
-                 
-                  <div class="col-12 mt-3">
+
+                    <div class="col-12 mt-3">
                       <h5 class="text-left">Permisos</h5>
                       <div class="row  mt-2">
                         <div class="col-6 col-sm-6 col-md-12 col-lg-9 col-xl-8  text-left col-height ">
@@ -122,7 +125,8 @@
                               <span class="fa fa-check"></span>Lotes</label>
                           </div>
                         </div>
-                        <div class="col-6 col-sm-6 col-sm-6 col-lg-3 col-xl-4 text-left" *ngIf="agricola.value.lots == true">
+                        <div class="col-6 col-sm-6 col-sm-6 col-lg-3 col-xl-4 text-left"
+                          *ngIf="agricola.value.lots == true">
                           <input class="form-control" type="number" formControlName="lotsLenght" />
                         </div>
                       </div>
@@ -146,7 +150,7 @@
                 </div>
 
               </div>
-        
+
             </div>
             <div class="row mt-3">
               <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
@@ -196,8 +200,9 @@
 
             </div>
           </div>
-          <div class="card-footer card-default text-center" >
-            <button class="btn btn-info" type="submit" [disabled]="agricola.invalid"><em class="fa-2x mr-2 fas fa-plus font-13"></em>Agregar</button>
+          <div class="card-footer card-default text-center">
+            <button class="btn btn-info" type="submit" [disabled]="agricola.invalid"><em
+                class="fa-2x mr-2 fas fa-plus font-13"></em>Agregar</button>
 
           </div>
         </div>

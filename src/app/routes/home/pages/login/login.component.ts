@@ -67,14 +67,15 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl("/home");
 
       },
-      err => {
-        console.log(err)
+      (err:any) => {
+        console.log(err);
+        
         Swal.fire({
-          text: "Error en el sevidor",
+          text: err.error.non_field_errors[0],
           showConfirmButton: false,
           timer: 1500,
-          icon:'error',
-          width: '250px'
+          icon: "error",
+          width: "250px",
         });
       
       }

@@ -38,6 +38,8 @@ export class AdminIngAgricolaComponent implements OnInit {
 
   ngOnInit() {
     this.Agricola.listadmin().subscribe(resp => {
+      console.log(resp);
+      
       this.listAdmin = resp;
       this.temp = resp;
       console.log(resp)
