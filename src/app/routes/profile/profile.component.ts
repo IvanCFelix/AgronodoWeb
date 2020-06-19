@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit {
   filephoto: any = "";
   photo;
   imagenlocal: any = {};
+  id;
 
   constructor(
     public adminagronodoService: AdminAgronodo,
@@ -96,6 +97,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.imagenlocal = <any>JSON.parse(localStorage.getItem("photo"));
     const id = this.route.snapshot.paramMap.get("id");
+    this.id = id;
     if (id) {
       this.FetchData();
     }
@@ -133,9 +135,15 @@ export class ProfileComponent implements OnInit {
       }
       //Agricola
       case 4: {
+         if (this.imagenlocal) {
+           this.dataprofile = resp.profile;
+         } else {
+           this.imagenlocal = resp.profile;
+        }
+           this.dataprofile = resp.profile;
+        
         this.role = 4;
-        this.dataprofile = resp.profile;
-        this.agricola.setValue({
+         this.agricola.setValue({
           name: resp.profile.agricola,
           username: resp.username,
           email: resp.email,
@@ -187,7 +195,6 @@ export class ProfileComponent implements OnInit {
     var reader = new FileReader();
     reader.onload = this._handleReaderLoaded.bind(this);
     reader.readAsBinaryString(file);
-    console.log(this.filephoto);
   }
   _handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
@@ -199,7 +206,7 @@ export class ProfileComponent implements OnInit {
       photo: value,
     };
     this.adminagronodoService
-      .Photo(this.dataUser.username, obj)
+      .Photo(this.id, obj)
       .subscribe((resp) => {
         this.imagenlocal = resp;
         localStorage.setItem("photo", JSON.stringify(resp));
@@ -213,7 +220,6 @@ export class ProfileComponent implements OnInit {
       width: "270px",
     });
     Swal.showLoading();
-    if (this.filephoto == "") {
       let obj = {
         agricola: value.name,
         address: value.address,
@@ -225,44 +231,7 @@ export class ProfileComponent implements OnInit {
         user: {
           username: value.username,
         },
-      };
-      this.agricolaService.edit(obj, user).subscribe(
-        (resp) => {
-          console.log(resp);
-          Swal.fire({
-            text: "Se Actualizó correctamente" + value.name,
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-            width: "250px",
-          });
-          localStorage.setItem("USER", JSON.stringify(resp));
-          this.router.navigateByUrl("/home");
-        },
-        (err: any) => {
-          Swal.fire({
-            text: "Error en el sevidor",
-            showConfirmButton: false,
-            timer: 1500,
-            icon: "error",
-            width: "250px",
-          });
-        }
-      );
-    } else {
-      let obj = {
-        photo: this.filephoto,
-        agricola: value.name,
-        address: value.address,
-        contactName: value.contactName,
-        phone: value.phone,
-        user: {},
-      };
-      let user = {
-        user: {
-          username: value.username,
-        },
-      };
+    };    
       this.agricolaService.edit(obj, user).subscribe(
         (resp) => {
           console.log(resp);
@@ -286,7 +255,7 @@ export class ProfileComponent implements OnInit {
           });
         }
       );
-    }
+    
   }
   //Editar Admin Agronodo
   submitFormAdminAgronodo(value) {
@@ -404,46 +373,9 @@ export class ProfileComponent implements OnInit {
   }
   submitFormAdminAgricola(value) {
     console.log(value);
-
-    if (this.filephoto == "") {
       let obj = {
         names: value.contactName,
         phone: value.phone,
-      };
-      let user = {
-        user: {
-          username: value.username,
-        },
-      };
-      this.AdminAgricola.edit(obj, user).subscribe(
-        (resp) => {
-          localStorage.setItem("USER", JSON.stringify(resp));
-          Swal.fire({
-            text: "Se actualizó correctamente \n" + value.contactName,
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-            width: "250px",
-          });
-          this.router.navigateByUrl("/home");
-        },
-        (err: any) => {
-          console.log(err._body);
-
-          Swal.fire({
-            text: "Error en el sevidor",
-            showConfirmButton: false,
-            timer: 1500,
-            icon: "error",
-            width: "250px",
-          });
-        }
-      );
-    } else {
-      let obj = {
-        names: value.contactName,
-        phone: value.phone,
-        photo: this.filephoto,
       };
       let user = {
         user: {
@@ -473,7 +405,7 @@ export class ProfileComponent implements OnInit {
           });
         }
       );
-    }
+    
   }
   getprofile() {
     // this.a.getRefresh().subscribe((resp) => {
