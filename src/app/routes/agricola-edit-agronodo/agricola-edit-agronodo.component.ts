@@ -13,6 +13,7 @@ import { Uris } from "./../../Services/Uris";
   styleUrls: ["./agricola-edit-agronodo.component.scss"]
 })
 export class AgricolaEditAgronodoComponent implements OnInit {
+  tittle = ''
   colorDemo1 = "#389fd0";
   colorDemo2 = "#1255a7";
   colorDemo3 = "#555555";
@@ -69,13 +70,14 @@ export class AgricolaEditAgronodoComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get("id");
     this.id = id;
-    if(!id){
+    if (!id) {
+      this.tittle = "Agregar agrícola";
     }
 
-    if(id){
+    if (id) {
+      this.tittle = 'Editar Agricola'
       this.agricolaService.getadmin(id).subscribe((resp: any) => {
         console.log(resp);
-        console.log(resp)
         this.photo = resp.photo;
         this.mostrar = false;
 

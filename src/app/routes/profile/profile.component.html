@@ -4,7 +4,7 @@
       <div class="card-body text-center">
         <div class="py-4">
           <img *ngIf="filephoto === ''" class="img-fluid rounded-circle img-thumbnail thumb96"
-            [src]="Url+dataprofile.photo" alt="Contact" />
+            [src]="Url + imagenlocal.photo" alt="Contact" />
           <img *ngIf="filephoto !== ''" class="img-fluid rounded-circle img-thumbnail thumb96"
             [src]="'data:image/jpg;base64,'+ filephoto" alt="Contact" />
         </div>
