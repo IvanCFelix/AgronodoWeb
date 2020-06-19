@@ -10,10 +10,11 @@ import Swal from "sweetalert2";
 @Component({
   selector: "app-admin-edit-agronodo",
   templateUrl: "./admin-edit-agronodo.component.html",
-  styleUrls: ["./admin-edit-agronodo.component.scss"]
+  styleUrls: ["./admin-edit-agronodo.component.scss"],
 })
 export class AdminEditAgronodoComponent implements OnInit {
   id;
+  tittle = ''
   adminagronodo: FormGroup;
   mostrar: boolean;
   photo: string;
@@ -38,8 +39,8 @@ export class AdminEditAgronodoComponent implements OnInit {
       number: new FormControl("", [Validators.required]),
       username: new FormControl("", [
         Validators.required,
-        UsernameValidator.cannotContainSpace
-      ])
+        UsernameValidator.cannotContainSpace,
+      ]),
     });
 
     this.name = "Angular2";
@@ -64,6 +65,7 @@ export class AdminEditAgronodoComponent implements OnInit {
     this.id = id;
 
     if (id) {
+      this.tittle = "Editar administrador agronodo";
       // this.adminagronodo.controls['username'].disable();
       // this.adminagronodo.controls['email'].disable();
       this.adminregister.getadmin(id).subscribe((resp: any) => {
@@ -75,10 +77,11 @@ export class AdminEditAgronodoComponent implements OnInit {
           name: resp.names,
           email: resp.user.email,
           number: resp.phone,
-          username: resp.user.username
+          username: resp.user.username,
         });
       });
     } else {
+      this.tittle = "Agregar administrador agronodo";
       this.mostrar = true;
     }
   }
@@ -87,7 +90,7 @@ export class AdminEditAgronodoComponent implements OnInit {
     Swal.fire({
       text: "Guardar información",
       allowOutsideClick: false,
-      width: '270px'
+      width: "270px",
     });
     Swal.showLoading();
     if (this.id == null) {
@@ -104,18 +107,18 @@ export class AdminEditAgronodoComponent implements OnInit {
       photo: this.filestring,
       user: {
         username: value.username,
-        email: value.email
-      }
+        email: value.email,
+      },
     };
-    console.log(obj)
+    console.log(obj);
     this.adminregister.register(obj).subscribe(
-      resp => {
+      (resp) => {
         Swal.fire({
           text: "Se creó correctamente " + value.name,
           icon: "success",
           showConfirmButton: false,
           timer: 1500,
-          width: '250px'
+          width: "250px",
         });
         this.router.navigateByUrl("/Admin-Agronodo");
       },
@@ -124,8 +127,8 @@ export class AdminEditAgronodoComponent implements OnInit {
           text: "Error en el sevidor",
           showConfirmButton: false,
           timer: 1500,
-          icon:'error',
-          width: '250px'
+          icon: "error",
+          width: "250px",
         });
       }
     );
@@ -136,21 +139,21 @@ export class AdminEditAgronodoComponent implements OnInit {
       let obj = {
         names: value.name,
         phone: value.number,
-        user: {  }
+        user: {},
       };
       let user = {
         user: {
-          username: value.username
-        }
+          username: value.username,
+        },
       };
       this.adminregister.edit(obj, user).subscribe(
-        resp => {
+        (resp) => {
           Swal.fire({
-            text: "Se actualizó correctamente \n"+value.name,
+            text: "Se actualizó correctamente \n" + value.name,
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
-            width: '250px'
+            width: "250px",
           });
           this.router.navigateByUrl("/Admin-Agronodo");
         },
@@ -159,8 +162,8 @@ export class AdminEditAgronodoComponent implements OnInit {
             text: "Error en el sevidor",
             showConfirmButton: false,
             timer: 1500,
-            icon:'error',
-            width: '250px'
+            icon: "error",
+            width: "250px",
           });
         }
       );
@@ -169,21 +172,21 @@ export class AdminEditAgronodoComponent implements OnInit {
         names: value.name,
         phone: value.number,
         photo: this.filestring,
-        user: {}
+        user: {},
       };
       let user = {
         user: {
-          username: value.username
-        }
+          username: value.username,
+        },
       };
       this.adminregister.edit(obj, user).subscribe(
-        resp => {
+        (resp) => {
           Swal.fire({
             text: "Se actualizó correctamente" + value.name,
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
-            width: '250px'
+            width: "250px",
           });
           this.router.navigateByUrl("/Admin-Agronodo");
         },
@@ -192,8 +195,8 @@ export class AdminEditAgronodoComponent implements OnInit {
             text: "Error en el sevidor",
             showConfirmButton: false,
             timer: 1500,
-            icon:'error',
-            width: '250px'
+            icon: "error",
+            width: "250px",
           });
         }
       );
@@ -223,15 +226,26 @@ export class AdminEditAgronodoComponent implements OnInit {
     let myReader: FileReader = new FileReader();
 
     let that = this;
-    myReader.onloadend = function(loadEvent: any) {
+    myReader.onloadend = function (loadEvent: any) {
       image.src = loadEvent.target.result;
       that.cropper.setImage(image);
     };
-
     myReader.readAsDataURL(file);
   }
   _handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
     this.filestring = btoa(binaryString); // Converting binary string data.
+    if (this.id) {
+      this.SendPhoto(btoa(binaryString));
+    }
+  }
+ 
+  SendPhoto(value) {
+    let obj = {
+      photo: value,
+    };    
+    this.adminregister.Photo(this.id, obj).subscribe((resp) => {
+      console.log(resp)
+    });
   }
 }
