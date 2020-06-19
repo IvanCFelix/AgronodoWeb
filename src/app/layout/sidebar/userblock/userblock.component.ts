@@ -66,20 +66,32 @@ export class UserblockComponent implements OnInit {
         }
         //Agricola
         case 4: {
-          this.photo = user.profile.photo;
+          if (this.imagenLocal) {             
+             this.photo = this.imagenLocal.photo;
+           } else {
+             this.photo = user.profile.photo;
+           }
           this.name = user.profile.agricola;
           break;
         }
         // Admin Agricola
         case 5: {
-          this.photo = user.profile.photo;
+           if (this.imagenLocal) {
+             this.photo = this.imagenLocal.photo;
+           } else {
+             this.photo = user.profile.photo;
+           }
           this.name = user.profile.names;
 
           break;
         }
         //Admin Ingeniero
         case 6: {
-          this.photo = user.profile.photo;
+           if (this.imagenLocal) {
+             this.photo = this.imagenLocal.photo;
+           } else {
+             this.photo = user.profile.photo;
+           }
           this.name = user.profile.names;
           break;
         }
