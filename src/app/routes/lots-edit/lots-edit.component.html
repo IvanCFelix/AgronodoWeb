@@ -265,7 +265,7 @@
               </form>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-              <button *ngIf="sololote == false && verify == false " class="btn btn-danger pos-button" type="button"
+              <button *ngIf=" pathsSubLotes.length  > 0" class="btn btn-danger pos-button" type="button"
                 (click)="backsubfield()"><em class="fa fas fa-backward"></em></button>
               <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
                 (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
@@ -343,11 +343,11 @@
         </div>
         <div class="modal-body">
           <div class="container">
-            <form  [formGroup]="CropsForms" >
+            <form [formGroup]="CropsForms">
               <div class="row ">
                 <div class="col-9">
                   <label>Cultivo</label>
-                  <input class="form-control" formControlName="name" type="text"/>
+                  <input class="form-control" formControlName="name" type="text" />
                   <span class="text-danger" *ngIf="CropsForms.controls['name'].errors?.required">Ingresa un
                     campo
                     válido</span>
@@ -361,4 +361,4 @@
         </div>
       </div>
     </div>
-</div>
+  </div>
