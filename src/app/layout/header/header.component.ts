@@ -93,11 +93,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     
     this.admin.logout().subscribe(resp => {
-      console.log(resp);
-      
-    }, err => {
-        console.log(err);
-        
+    }, err => {        
     })
   }
 }

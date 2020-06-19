@@ -61,8 +61,11 @@ export class AdminAgronodo {
       let headers = new Headers();
       headers.append("Content-Type", "application/json");
       headers.append("Accept-Language", "es");
-      headers.append("Authorization", `token ${this.token}`);
+      headers.append("Authorization", `token ${this.leerToken()}`);
       return new RequestOptions({ headers: headers });
     }
+  }
+  leerToken() {
+    return localStorage.getItem("token");
   }
 }

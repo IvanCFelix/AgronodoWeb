@@ -52,10 +52,9 @@ export class UserblockComponent implements OnInit {
         // Agronodo
         case 2: {
           
-          let photo =  this.imagenLocal.photo
-          if (photo) {
-            this.photo = photo;
-          } else {
+          if (this.imagenLocal) {
+            this.photo = this.imagenLocal.photo;
+          } else{            
             this.photo = user.profile.photo;
           }
           this.name = user.profile.names;

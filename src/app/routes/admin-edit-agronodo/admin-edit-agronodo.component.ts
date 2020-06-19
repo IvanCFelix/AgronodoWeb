@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 })
 export class AdminEditAgronodoComponent implements OnInit {
   id;
+  tittle = ''
   adminagronodo: FormGroup;
   mostrar: boolean;
   photo: string;
@@ -30,7 +31,7 @@ export class AdminEditAgronodoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public adminregister: AdminAgronodo,
-    public router: Router,
+    public router: Router
   ) {
     this.adminagronodo = new FormGroup({
       name: new FormControl("", Validators.required),
@@ -64,6 +65,7 @@ export class AdminEditAgronodoComponent implements OnInit {
     this.id = id;
 
     if (id) {
+      this.tittle = "Editar administrador agronodo";
       // this.adminagronodo.controls['username'].disable();
       // this.adminagronodo.controls['email'].disable();
       this.adminregister.getadmin(id).subscribe((resp: any) => {
@@ -79,6 +81,7 @@ export class AdminEditAgronodoComponent implements OnInit {
         });
       });
     } else {
+      this.tittle = "Agregar administrador agronodo";
       this.mostrar = true;
     }
   }
@@ -227,23 +230,22 @@ export class AdminEditAgronodoComponent implements OnInit {
       image.src = loadEvent.target.result;
       that.cropper.setImage(image);
     };
-
     myReader.readAsDataURL(file);
-
-    if (this.id) {
-      let obj = {
-        photo:this.filestring
-      }
-      console.log(obj);
-      
-        // this.adminregister.Photo(this.id, obj).subscribe((resp) => {
-        //   console.log(resp);
-        // });
-       }
-    
   }
   _handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
     this.filestring = btoa(binaryString); // Converting binary string data.
+    if (this.id) {
+      this.SendPhoto(btoa(binaryString));
+    }
+  }
+ 
+  SendPhoto(value) {
+    let obj = {
+      photo: value,
+    };    
+    this.adminregister.Photo(this.id, obj).subscribe((resp) => {
+      console.log(resp)
+    });
   }
 }
