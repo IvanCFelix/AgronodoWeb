@@ -2,23 +2,38 @@
 
 .masthead {
   min-height: 30rem;
-  position: relative;
+  position: absolute;
   width: 100%;
-  background: linear-gradient(90deg, fade-out(white, 0.9) 0%, fade-out(white, 0.9) 100%),url("../../../../../assets/img/background-img.jpeg"),fade-out($color: #000000, $amount: 0);
+  background: url("../../../../../assets/img/landing/background-img.png");
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: cover;
-  h1 {
-    font-size: 4rem;
+  background-size: cover ;
+  h2 {
     margin: 0;
     padding: 0;
-    color: whitesmoke;
-  }
+          display: flex;
+          text-align: left;
+          font-family: Century Gothic !important;
+          font-style: normal !important;
+          opacity: 1;
+      color: white;
+    letter-spacing: 0px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.61);
+    }
+
   @media (min-width: 992px) {
     height: 100vh;
-    h1 {
-      font-size: 5.5rem;
+    h2 {
+      font-size: 3.5rem;
+      width: 700px;
     }
+    h3{
+      font-size: 2.5rem;
+    }
+    .masthead{
+      width: 100%;
+    }
+    
   }
 }
 
@@ -29,18 +44,51 @@
   
 }
 
+.column{
+  height: 400px;
+}
+.info{
+  width: 100%;
+  margin-left: 10rem;
+  margin-right: 3rem;
+  
+}
+
+.cellphone{
+  width: 30rem;
+}
+
+.h3{
+  margin: 0;
+  padding: 0;
+  font-family: Century Gothic !important;
+  font-style: normal !important;
+  opacity: 1;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.61);
+}
+
 
 .navbar {
-  background-color: rgba(0,0,0,0.2) !important;
+  background-color: white !important;
   .nav-item{
     height: 72px;
       display: flex;
+      -ms-transform-origin-x: 2rem;
       flex-direction: column;
       justify-content: center;
       .nav-link{
           transition: all .3s ease-in-out;
           height: 100%;
           display: flex;
+          text-align: left;
+          margin-right: 1rem;
+          font-family: Century Gothic;
+          font-style: normal;
+          font-size: 24;
+          letter-spacing: 0px;
+          color: #707070;
+          opacity: 1;
           flex-direction: column;
           justify-content: center;
       }
@@ -55,4 +103,27 @@
   .navbar.nav-item {
     height: 41px;
   }
+}
+
+.icon-nav{
+  width: 100px;
+  height: 60px;
+}
+
+.button{
+  background-color: #FD0000;
+  font-family:Century Gothic;
+  font-size: 15px;
+  color: #fff;
+  border-radius: 20px;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  
 }

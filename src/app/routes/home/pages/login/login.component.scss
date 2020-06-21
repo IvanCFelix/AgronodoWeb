@@ -287,7 +287,7 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background: linear-gradient(90deg, fade-out(white, 0.9) 0%, fade-out(white, 0.9) 100%), url("../../../../../assets/img/background-img.jpeg"), fade-out($color: #000000, $amount: 0);
+  background: url("../../../../../assets/img/landing/background-img.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -592,7 +592,7 @@ iframe {
   height: auto;
   padding-top: 8rem;
   padding-bottom: 8rem;
-  background: linear-gradient(90deg, fade-out(white, 0.9) 0%, fade-out(white, 0.9) 100%),url("../../../../../assets/img/background-img.jpeg"),fade-out($color: #000000, $amount: 0);
+  background:url("../../../../../assets/img/landing/background-img.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
