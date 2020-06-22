@@ -15,6 +15,7 @@
         <option value="" disabled>
           Seleccione un lote...
         </option>
+        <option value="all"> todos</option>
         <option *ngFor="let item of lots" [value]="item.id" class="form-control">
           {{item.name}}</option>
       </select>
@@ -23,10 +24,11 @@
   <div class="col-4">
     <div data-intro="Selecciona tu lote." class="form-group">
       <label>Sublote</label><br>
-      <select class="form-control">
+      <select class="form-control" (change)="selectSublot($event.target.value)">
         <option value="" disabled>
           Seleccione un sublote...
         </option>
+        <option value="all"> todos </option>
         <option *ngFor="let item of itemsSublotes" [value]='item.id' class="form-control">{{item.nickname}}</option>
       </select>
     </div>
@@ -48,7 +50,7 @@
           <a class="icon-user fa-3x text-white" routerLink="/Admin-Agronodo"></a>
         </div>
         <div class="col-8 py-3 bg-info rounded-right">
-          <div class="h2 mt-0">1700</div>
+          <div class="h2 mt-0">{{DataAgricola.reports_count}}</div>
           <div class="text-uppercase">Reportes</div>
         </div>
       </div>
@@ -59,7 +61,7 @@
           <a class="icon-user fa-3x text-white" routerLink="/Admin-Agronodo"></a>
         </div>
         <div class="col-8 py-3 bg-warning rounded-right">
-          <div class="h2 mt-0">1700</div>
+          <div class="h2 mt-0">{{DataAgricola.pathings_count}}</div>
           <div class="text-uppercase">Recorridos</div>
         </div>
       </div>
@@ -73,7 +75,7 @@
         <a class="icon-user fa-3x text-white" routerLink="/Admin-Agronodo"></a>
       </div>
       <div class="col-8 py-3 bg-success-dark rounded-right">
-        <div class="h2 mt-0">1700</div>
+        <div class="h2 mt-0">{{DataAgricola.incidences_count}}</div>
         <div class="text-uppercase">Total de incidencias</div>
       </div>
     </div>
@@ -84,7 +86,7 @@
         <a class="icon-user fa-3x text-white" routerLink="/Admin-Agronodo"></a>
       </div>
       <div class="col-8 py-3 bg-danger-dark rounded-right">
-        <div class="h2 mt-0">1700</div>
+        <div class="h2 mt-0">{{DataAgricola.resolved_incidences_count}}</div>
         <div class="text-uppercase">Incidencias activas</div>
       </div>
     </div>
@@ -95,7 +97,7 @@
         <a class="icon-user fa-3x text-white" routerLink="/Admin-Agronodo"></a>
       </div>
       <div class="col-8 py-3 bg-primary-dark rounded-right">
-        <div class="h2 mt-0">1700</div>
+        <div class="h2 mt-0">{{DataAgricola.unresolved_incidences_count}}</div>
         <div class="text-uppercase">Incidencias resueltas</div>
       </div>
     </div>

@@ -43,6 +43,13 @@ export class AdminAgricola {
     )
     .map((response: Response) => response.json()); 
 }
+
+  
+  Dashboard(id) {
+    return this.http
+      .get(`${Uris.DASHBORARD}${id}`, this.jwt())
+      .map((response: Response) => response.json()); 
+  }
   
 
   errorHandler(error: any): void {

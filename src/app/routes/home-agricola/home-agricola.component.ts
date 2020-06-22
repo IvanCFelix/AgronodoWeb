@@ -3,6 +3,7 @@ import { ColorsService } from "../../shared/colors/colors.service";
 import { Observable } from "rxjs/Observable";
 import { HttpClient } from "@angular/common/http";
 import { LotsAgricolaService } from "../../Services/lots-agricola.service";
+import { AdminAgricola } from "../../Services/admin-agricola.service";
 
 @Component({
   selector: "app-home-agricola",
@@ -10,6 +11,13 @@ import { LotsAgricolaService } from "../../Services/lots-agricola.service";
   styleUrls: ["./home-agricola.component.scss"],
 })
 export class HomeAgricolaComponent implements OnInit {
+  DataAgricola = {
+    reports_count: 0,
+    pathings_count: 0,
+    incidences_count: 0,
+    resolved_incidences_count: 0,
+    unresolved_incidences_count: 0
+  };
   barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -53,7 +61,7 @@ export class HomeAgricolaComponent implements OnInit {
   ];
   lots = [];
   sublote = [];
-  itemsSublotes = []
+  itemsSublotes = [];
   // events
   chartClicked(e: any): void {
     console.log(e);
@@ -66,7 +74,8 @@ export class HomeAgricolaComponent implements OnInit {
   constructor(
     public colors: ColorsService,
     public http: HttpClient,
-    public lotService: LotsAgricolaService
+    public lotService: LotsAgricolaService,
+    public AgricolaService: AdminAgricola
   ) {}
 
   ngOnInit() {
@@ -79,24 +88,42 @@ export class HomeAgricolaComponent implements OnInit {
     return this.http.get(url);
   }
   selectLot(value) {
-    this.itemsSublotes = []
-    for (let item of this.sublote) {  
+    this.itemsSublotes = [];
+    for (let item of this.sublote) {
       if (value == item.father_field) {
         console.log(item);
-        this.itemsSublotes.push(item)
+        this.itemsSublotes.push(item);
       }
-   }
+    }
+  }
+  selectSublot(id) {
+    console.log(id);
+    
+    if (id === 'all') {
+      
+    } else {
+      this.AgricolaService.Dashboard(id).subscribe((resp) => {
+        console.log(resp);
+        this.DataAgricola = {
+          reports_count: resp.reports_count,
+          pathings_count: resp.pathings_count,
+          incidences_count: resp.incidences_count,
+          resolved_incidences_count: resp.resolved_incidences_count,
+          unresolved_incidences_count: resp.unresolved_incidences_count,
+        };
+      });
+    }
   }
   getLot() {
     this.lotService.listLots().subscribe((resp) => {
       this.lots = resp;
-        let arr = [];
-        for (let data of resp) {
-          for (let item of data.subfield) {
-            arr.push(item);
-          }
+      let arr = [];
+      for (let data of resp) {
+        for (let item of data.subfield) {
+          arr.push(item);
         }
-        this.sublote = arr;
+      }
+      this.sublote = arr;
     });
   }
 }

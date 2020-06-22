@@ -1,76 +1,86 @@
-<div class="limiter breadcrumb   ">
-  <div class="container-login100">
-    <div class="wrap-login100 animated fadeIn">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top p-0">
 
-      <div class="login100-pic js-tilt "
-        style="will-change: transform; transform: perspective(300px) rotateX(-4.08deg) rotateY(-3.27deg) scale3d(1.1, 1.1, 1.1);margin-left: 79px;"
-        data-tilt>
-        <img src="../../../../../assets/img/Icono-app.png" alt="IMG">
-      </div>
-
-      <form [formGroup]="loginAgronodo" (submit)="login(loginAgronodo)" class="login100-form validate-form ">
-        <div class="img-respon">
-          <img src="../../../../../assets/img/Icono-app.png" alt="IMG" width="100">
-        </div>
-
-        <span class="login100-form-title">
-          Iniciar Sesión
-        </span>
-
-        <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-          <input class="input100" formControlName="username" type="text" name="username">
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-            <i class="fa fa-envelope" aria-hidden="true"></i>
-          </span>
-        </div>
-
-        <div class="wrap-input100 validate-input" data-validate="Password is required">
-          <input class="input100" formControlName="password" type="password" name="password" placeholder="Password">
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-            <i class="fa fa-lock" aria-hidden="true"></i>
-          </span>
-        </div>
-
-        <div class="container-login100-form-btn">
-          <button *ngIf="loginAgronodo.valid" class="login100-form-btn" type="submit">
-            Iniciar Sesión
-          </button>
-        </div>
-
-        <div class="text-center p-t-12" style="padding: 11px;">
-          <span class="txt1">
-            Olvidaste tu
-          </span>
-          <a class="txt2" href="" (click)="Modal.show()">
-            Contraseña?
-          </a>
-        </div>
+  <a class="navbar-brand" routerLink="/landing">
+    <img class="icon-nav ml-lg-5" src="../../../../../assets/img/preloader/preloader.full.png" alt="Avatar" width="60"
+      height="50" /></a>
+  <button style="z-index: 1;" class="navbar-toggler" type="button" (click)="toggleNavbar()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse  justify-content-end  " [ngClass]="{'show animated fadeIn': navbarOpen}">
 
 
-        <!-- <div class="text-center p-t-136">
-          <a class="txt2" href="#">
-            Registrarse →
-            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-          </a>
-        </div> -->
-      </form>
-      <div class="container-fluid">
-        <div class="row  bg-white mt-5" style="width: 898px;">
-          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-respon-1">
-            <p class="text-muted small mb-0 ">Correo: atencion@agronodo.com</p>
-            <p class="text-muted small mb-0 ">Teléfono. 6688 20 16 05</p>
+    <div>
+      <ul class="navbar-nav mr-md-5">
+        <li class="nav-item">
+          <a class="nav-link " href="#">Caracteristicas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Obtener</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contactanos</a>
+        </li>
+
+        <li class="nav-item ml1">
+          <a class="nav-link " routerLink="/login">Iniciar Sesión</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="limiter breadcrumb">
+  <div class="container-login100 ">
+    <div class="row mt-5 animated fadeIn w-100 d-flex justify-content-center align-content-center ">
+      <div class="col-12 col-sm-9 col-md-6 col-lg-6 col-xl-3 card p-5">
+        <form [formGroup]="loginAgronodo" (submit)="login(loginAgronodo)" class="login100-form validate-form ">
+          <div class="text-center">
+            <img class='m-3' src="../../../../../assets/img/180x120-opcion-2.png">
 
           </div>
-          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-respon-2">
-            <h5 class="text-muted ">Copyright &copy; AgroNodo 2020</h5>
+          <div class="title">
+            <span>
+              Iniciar Sesión
+            </span>
           </div>
-          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-respon-3">
-            <em class="fa-2x mr-2 fab fa-twitter cursor"></em>
-            <em class="fa-2x mr-2 fab fa-linkedin cursor"></em>
-            <em class="fa-2x mr-2 fab fa-facebook cursor"></em> </div>
-        </div>
+          <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+            <input class="input100" formControlName="username" type="text" name="username" placeholder="Username">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate="Password is required">
+            <input class="input100" formControlName="password" type="password" name="password" placeholder="Password">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div class="container-login100-form-btn">
+            <button *ngIf="loginAgronodo.valid" class="login100-form-btn ml-2" type="submit">
+              Iniciar Sesión
+            </button>
+          </div>
+          <div class="text-center pt-2">
+            <a class="txt2" href="" (click)="Modal.show()">
+              ¿Olvidaste tu Contraseña?
+            </a>
+          </div>
+          <div>
+            <button type="button" routerLink='/Landing' class="back-btn mr-lg-5 mt-5" type="submit">
+              Regresar
+            </button>
+          </div>
+          <div class="row footer">
+            <div class="col">
+              <h5 class="text-muted">Copyright &copy; AgroNodo 2020</h5>
+            </div>
+          </div>
+        </form>
+
       </div>
     </div>
   </div>
@@ -79,8 +89,8 @@
 
 <div bsModal #Modal="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog modal-md ">
-    <div class="modal-content">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content  p-2">
       <div class="modal-header">
         <div class="brand-logo" style="font-size: 20px;padding: 8px;">
           <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
@@ -94,40 +104,6 @@
       <div class="modal-body">
         <div class="container">
           <div class="row">
-            <!-- <div class="p-3">
-
-                  
-                  <div class="col-12">
-                    <p class="text-left py-2">Recuperar contraseña</p>
-                  </div>
-                  <div class="col-12">
-                    <form [formGroup]="forgotpassword" class="form-validate" role="form" name="recoverForm" novalidate=""
-                      (submit)="submitForm($event, forgotpassword.value)">
-                      <div class="form-group">
-                        <label class="text-muted">Correo</label>
-                        <div class="input-group ">
-                          <input class="form-control" type="email" name="email" placeholder="example@hotmail.com"
-                            autocomplete="off" formControlName="email"  style="border-bottom: 1px solid gray;border-radius: 0;"/>
-                          <div class="input-group-append">
-                            <span class="input-group-text text-muted bg-transparent border-left-0" style="padding: 9px;border:none;border-bottom: 1px solid gray;">
-                              <em class="fa fa-envelope"></em>
-                            </span>
-                          </div>
-                        </div>
-                        <div class="text-danger"
-                          *ngIf="forgotpassword.controls['email'].hasError('required') && (forgotpassword.controls['email'].dirty || forgotpassword.controls['email'].touched)">
-                          El correo es obligatorio</div>
-                        <div class="text-danger"
-                          *ngIf="forgotpassword.controls['email'].hasError('email') && (forgotpassword.controls['email'].dirty || forgotpassword.controls['email'].touched)">
-                         Correo no válido</div>
-                      </div>
-                      <p class="text-left mt-2">Mandaremos un mensaje a tu correo para verificar que estes registrado.</p>
-                      <div class="text-right">
-                        <button class="btn btn-success  mb-4 mt-4" type="submit">Mandar correo</button>
-                      </div>
-                    </form>
-                  </div>
-                </div> -->
             <app-recover></app-recover>
           </div>
         </div>

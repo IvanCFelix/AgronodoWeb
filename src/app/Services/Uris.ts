@@ -8,6 +8,7 @@ export class Uris {
          public static PASSWORD_SET_CONFIRM = `${Uris.API_ENDPOINT}password/set/confirm/`;
          public static PASSWORD_CHANGE = `${Uris.API_ENDPOINT}password/change/`;
          public static CHANGE_PHOTO_BASE64 = `${Uris.API_ENDPOINT}upload/base64/photo/`;
+         public static DASHBORARD = `${Uris.API_ENDPOINT}dashboard/`;
 
          public static API_LOGIN = `${Uris.API_ENDPOINT}login/`;
          public static API_LOGOUT = `${Uris.API_ENDPOINT}logout/`;

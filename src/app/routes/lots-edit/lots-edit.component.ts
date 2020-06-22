@@ -469,6 +469,7 @@ export class LotsEditComponent implements OnInit {
       this.pathsSubLotes.splice(num2, 1)
       this.pathsSubLotes.splice(num3, 1)
     }
+  
   }
   verify: boolean = true
   lotSublote: any;
