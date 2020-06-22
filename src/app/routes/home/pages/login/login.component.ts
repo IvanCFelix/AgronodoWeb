@@ -20,7 +20,7 @@ import Swal from "sweetalert2";
 export class LoginComponent implements OnInit {
   loginAgronodo: FormGroup;
   forgotpassword: FormGroup;
-  navbarOpen = true;
+  navbarOpen = false;
   constructor(
     public settings: SettingsService,
     fb: FormBuilder,
