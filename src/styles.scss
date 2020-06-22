@@ -58,38 +58,48 @@
 @import '../src/app/shared/styles/bootstrap/variables';
 @import '../src/app/shared/styles/app/variables';
 
-.ngx-datatable.bootstrap .datatable-footer .datatable-pager ul li:not(.disabled).active a, .ngx-datatable.bootstrap .datatable-footer .datatable-pager ul li:not(.disabled):hover a {
-  background-color: #5d9cec!important;
-  border-color: #5d9cec!important;
-  color: #fff!important;
+.ngx-datatable.bootstrap .datatable-footer .datatable-pager ul li:not(.disabled).active a,
+.ngx-datatable.bootstrap .datatable-footer .datatable-pager ul li:not(.disabled):hover a {
+  background-color: #5d9cec !important;
+  border-color: #5d9cec !important;
+  color: #fff !important;
 }
+
 // remove link decoration
 .datatable-icon-right {
   text-decoration: none !important;
 }
+
 // align table with no data legend
 .ngx-datatable.bootstrap .empty-row {
   text-align: center;
   margin-top: 20px;
 }
+
 // tabele footer
 .ngx-datatable.bootstrap .datatable-footer {
-  background-color: transparent!important;
-  color: $body-color!important;
+  background-color: transparent !important;
+  color: $body-color !important;
 }
+
 // table pagination
 .ngx-datatable.bootstrap .datatable-footer .datatable-pager a {
-  color: $pagination-color!important;
+  color: $pagination-color !important;
 }
-.pager li > a, .pager li > span {
-  border-color: $pagination-border-color!important;
+
+.pager li>a,
+.pager li>span {
+  border-color: $pagination-border-color !important;
 }
+
 .ngx-datatable.bootstrap .datatable-body .datatable-body-row {
-  border: 0!important;
+  border: 0 !important;
 }
+
 .ngx-datatable.bootstrap .datatable-body .datatable-body-row.datatable-row-even {
-  background-color: rgba(0, 0, 0, 0.025)!important;
+  background-color: rgba(0, 0, 0, 0.025) !important;
 }
+
 .ngx-datatable.bootstrap {
   background-color: transparent;
   box-shadow: 0 0 0 #000;
@@ -98,57 +108,77 @@
 .ngx-datatable.scroll-vertical {
   height: 600px;
 }
+
 // with other table in the same page
 .no-detail-row .datatable-row-detail {
   display: none !important;
 }
+
 // change color of active cells selected
-.ngx-datatable.bootstrap.single-selection .datatable-body-row.active, .ngx-datatable.bootstrap.single-selection .datatable-body-row.active .datatable-row-group, .ngx-datatable.bootstrap.multi-selection .datatable-body-row.active, .ngx-datatable.bootstrap.multi-selection .datatable-body-row.active .datatable-row-group, .ngx-datatable.bootstrap.multi-click-selection .datatable-body-row.active, .ngx-datatable.bootstrap.multi-click-selection .datatable-body-row.active .datatable-row-group,
-.ngx-datatable.bootstrap.single-selection .datatable-body-row.active:hover, .ngx-datatable.bootstrap.single-selection .datatable-body-row.active:hover .datatable-row-group, .ngx-datatable.bootstrap.multi-selection .datatable-body-row.active:hover, .ngx-datatable.bootstrap.multi-selection .datatable-body-row.active:hover .datatable-row-group, .ngx-datatable.bootstrap.multi-click-selection .datatable-body-row.active:hover, .ngx-datatable.bootstrap.multi-click-selection .datatable-body-row.active:hover .datatable-row-group {
+.ngx-datatable.bootstrap.single-selection .datatable-body-row.active,
+.ngx-datatable.bootstrap.single-selection .datatable-body-row.active .datatable-row-group,
+.ngx-datatable.bootstrap.multi-selection .datatable-body-row.active,
+.ngx-datatable.bootstrap.multi-selection .datatable-body-row.active .datatable-row-group,
+.ngx-datatable.bootstrap.multi-click-selection .datatable-body-row.active,
+.ngx-datatable.bootstrap.multi-click-selection .datatable-body-row.active .datatable-row-group,
+.ngx-datatable.bootstrap.single-selection .datatable-body-row.active:hover,
+.ngx-datatable.bootstrap.single-selection .datatable-body-row.active:hover .datatable-row-group,
+.ngx-datatable.bootstrap.multi-selection .datatable-body-row.active:hover,
+.ngx-datatable.bootstrap.multi-selection .datatable-body-row.active:hover .datatable-row-group,
+.ngx-datatable.bootstrap.multi-click-selection .datatable-body-row.active:hover,
+.ngx-datatable.bootstrap.multi-click-selection .datatable-body-row.active:hover .datatable-row-group {
+
   // background-color: $primary !important;
   .datatable-body-cell {
-      color: #fff!important;
+    color: #fff !important;
   }
 }
-.text-10{
+
+.text-10 {
   font-size: 10px;
 }
-.text-15{
+
+.text-15 {
   font-size: 15px;
 }
-.text-20{
+
+.text-20 {
   font-size: 20px;
 }
-.text-25{
+
+.text-25 {
   font-size: 25px;
 }
 
 .input-mod2 {
-    padding: 5px 10px;
-    background: #4b8ab1;
-    color: #fff;
-    border: 0px solid #fff;
-    cursor: pointer;
-    border-radius: 9px;
-  }
- 
-  
-  .modal {
-    text-align: center;
-  }
-  
-  @media screen and (min-width: 768px) { 
-    .modal:before {
-      display: inline-block;
-      vertical-align: middle;
-      content: " ";
-      height: 100%;
-    }
-  }
-  
-  .modal-dialog {
-    display: inline-block;
-    text-align: left;
-    vertical-align: middle;
-  }
+  padding: 5px 10px;
+  background: #4b8ab1;
+  color: #fff;
+  border: 0px solid #fff;
+  cursor: pointer;
+  border-radius: 9px;
+}
 
+
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.navbar-dark .navbar-toggler-icon {
+  background-image: url(./assets/img/logo.png) !important;
+}

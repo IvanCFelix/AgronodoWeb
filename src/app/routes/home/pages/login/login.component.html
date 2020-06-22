@@ -1,86 +1,87 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top p-0">
- 
+
   <a class="navbar-brand" routerLink="/landing">
     <img class="icon-nav ml-lg-5" src="../../../../../assets/img/preloader/preloader.full.png" alt="Avatar" width="60"
-    height="50" /></a>
-  <button style="z-index: 1;" class="navbar-toggler" type="button"  (click)="toggleNavbar()" >
+      height="50" /></a>
+  <button style="z-index: 1;" class="navbar-toggler" type="button" (click)="toggleNavbar()">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse  justify-content-end  " [ngClass] = "{'show animated fadeIn': navbarOpen}">
+  <div class="collapse navbar-collapse  justify-content-end  " [ngClass]="{'show animated fadeIn': navbarOpen}">
 
 
-  <div>
+    <div>
+      <ul class="navbar-nav mr-md-5">
+        <li class="nav-item">
+          <a class="nav-link " href="#">Caracteristicas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Obtener</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contactanos</a>
+        </li>
 
-
-    <ul class="navbar-nav mr-md-5" >
-      <li class="nav-item">
-        <a class="nav-link " href="#">Caracteristicas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Obtener</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Contactanos</a>
-      </li>
-   
         <li class="nav-item ml1">
           <a class="nav-link " routerLink="/login">Iniciar Sesión</a>
         </li>
-
-      
-    </ul>
-  </div>
+      </ul>
+    </div>
   </div>
 </nav>
 
 <div class="limiter breadcrumb">
   <div class="container-login100 ">
-    <div class="wrap-login100 mt-5 animated fadeIn">
+    <div class="row mt-5 animated fadeIn w-100 d-flex justify-content-center align-content-center ">
+      <div class="col-12 col-sm-9 col-md-6 col-lg-6 col-xl-3 card p-5">
+        <form [formGroup]="loginAgronodo" (submit)="login(loginAgronodo)" class="login100-form validate-form ">
+          <div class="text-center">
+            <img class='m-3' src="../../../../../assets/img/180x120-opcion-2.png">
 
-      <form [formGroup]="loginAgronodo" (submit)="login(loginAgronodo)" class="login100-form validate-form ">
-        
-        <img class="ml-lg-5 mt-lg-5 mb-4" src="../../../../../assets/img/180x120-opcion-2.png">
-        <span class="login100-form-title">
-          Iniciar Sesión
-        </span>
-        <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-          <input class="input100" formControlName="username" type="text" name="username" placeholder="Username">
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-            <i class="fa fa-envelope" aria-hidden="true"></i>
-          </span>
-        </div>
-
-        <div class="wrap-input100 validate-input" data-validate="Password is required">
-          <input class="input100" formControlName="password" type="password" name="password" placeholder="Password">
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-            <i class="fa fa-lock" aria-hidden="true"></i>
-          </span>
-        </div>
-
-        <div class="container-login100-form-btn">
-          <button *ngIf="loginAgronodo.valid" class="login100-form-btn ml-2" type="submit">
-            Iniciar Sesión
-          </button>
-        </div>
-        <div class="text-center pt-2" >
-          <a class="txt2" href="" (click)="Modal.show()">
-            ¿Olvidaste tu Contraseña?
-          </a>
-        </div>
-        <div>
-          <button class="back-btn mr-lg-5 mt-5" type="submit">
-            Regresar
-          </button>
-        </div>
-        <div class="row footer">
-          <div class="col">  
-             <h5 class="text-muted">Copyright &copy; AgroNodo 2020</h5>
           </div>
-        </div>
-      </form>
-      
+          <div class="title">
+            <span>
+              Iniciar Sesión
+            </span>
+          </div>
+          <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+            <input class="input100" formControlName="username" type="text" name="username" placeholder="Username">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate="Password is required">
+            <input class="input100" formControlName="password" type="password" name="password" placeholder="Password">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div class="container-login100-form-btn">
+            <button *ngIf="loginAgronodo.valid" class="login100-form-btn ml-2" type="submit">
+              Iniciar Sesión
+            </button>
+          </div>
+          <div class="text-center pt-2">
+            <a class="txt2" href="" (click)="Modal.show()">
+              ¿Olvidaste tu Contraseña?
+            </a>
+          </div>
+          <div>
+            <button type="button" routerLink='/Landing' class="back-btn mr-lg-5 mt-5" type="submit">
+              Regresar
+            </button>
+          </div>
+          <div class="row footer">
+            <div class="col">
+              <h5 class="text-muted">Copyright &copy; AgroNodo 2020</h5>
+            </div>
+          </div>
+        </form>
+
+      </div>
     </div>
   </div>
 </div>
@@ -88,8 +89,8 @@
 
 <div bsModal #Modal="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog modal-md ">
-    <div class="modal-content">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content  p-2">
       <div class="modal-header">
         <div class="brand-logo" style="font-size: 20px;padding: 8px;">
           <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
