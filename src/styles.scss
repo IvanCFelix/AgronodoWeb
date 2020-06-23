@@ -141,6 +141,9 @@
 .text-15 {
   font-size: 15px;
 }
+.text-18 {
+  font-size: 18px;
+}
 
 .text-20 {
   font-size: 20px;
@@ -153,12 +156,19 @@
 .input-mod2 {
   padding: 5px 10px;
   background: #4b8ab1;
-  color: #fff;
-  border: 0px solid #fff;
+  color: #ffffff;
   cursor: pointer;
   border-radius: 9px;
 }
 
+.search-input{
+  padding: 5px 18px;
+  background: #ffffff;
+  border-radius: 9px;
+  border-style: solid;
+  border-color: #808080;
+  
+}
 
 .modal {
   text-align: center;
@@ -182,3 +192,10 @@
 .navbar-dark .navbar-toggler-icon {
   background-image: url(./assets/img/logo.png) !important;
 }
+
+.wrapper{
+  .footer-container{
+      background-color: #ffffff !important;
+  }
+}
+
