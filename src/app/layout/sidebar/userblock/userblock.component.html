@@ -1,14 +1,13 @@
-<div class="item user-block" *ngIf="userBlockIsVisible()">
+<div class="item user-block mb-4" *ngIf="userBlockIsVisible()">
     <!-- User picture-->
     <div class="d-flex justify-content-center align-items-center">
         <div class="">
-            <img class="img-fluid rounded-circle img-thumbnail thumb96" [src]="link+photo" alt="Avatar"
-                [routerLink]="[ '/profile/',username ]" style="width: 80px;height: 75px;">
+            <img class="img-fluid profile " [src]="link+photo" alt="Avatar" [routerLink]="[ '/profile/',username ]">
         </div>
     </div>
     <!-- Name and Job-->
-    <div class="user-block-info">
-        <span class="user-block-name">Bienvenido<br> {{name}}</span>
+    <div class="user-block-info text-white">
+        <span class="user-block-name"> {{name}}</span>
         <span class="user-block-role">{{type}}</span>
     </div>
 </div>
