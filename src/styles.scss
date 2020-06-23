@@ -182,3 +182,23 @@
 .navbar-dark .navbar-toggler-icon {
   background-image: url(./assets/img/logo.png) !important;
 }
+
+.wrapper .aside-container .aside-inner {
+  padding-top: 79px;
+  height: 100%;
+  width: 266px;
+  overflow: hidden;
+}
+
+.layout-fixed .wrapper .section-container {
+  margin-top: 67px;
+}
+
+.wrapper .section-container,
+.wrapper .footer-container {
+  margin-left: 268px;
+}
+
+.sidebar {
+  background-color: #87C933 !important;
+}
