@@ -2,10 +2,9 @@
 <nav class="navbar topnavbar" role="navigation">
     <!-- START navbar header-->
     <div class="navbar-header">
-        <a class="navbar-brand"  class="text-white ">
+        <a class="navbar-brand" class="text-white ">
             <div class="brand-logo" style="font-size: 17px;">
-                <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 31px;"/>
-                Agronodo
+                <img class="img-fluid" src="assets/img/agronodo.png" alt="App Logo" style="height: 46px;" />
             </div>
             <div class="brand-logo-collapsed">
                 <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" />
@@ -17,47 +16,39 @@
     <ul class="navbar-nav mr-auto flex-row">
         <li class="nav-item">
             <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
-            <a class="nav-link d-none d-md-block d-lg-block d-xl-block" trigger-resize="" (click)="toggleCollapsedSideabar()" *ngIf="!isCollapsedText()">
+            <a class="nav-link d-none d-md-block d-lg-block d-xl-block" trigger-resize=""
+                (click)="toggleCollapsedSideabar()" *ngIf="!isCollapsedText()">
                 <em class="fas fa-bars"></em>
             </a>
             <!-- Button to show/hide the sidebar on mobile. Visible on mobile only.-->
-            <a class="nav-link sidebar-toggle d-md-none" (click)="settings.toggleLayoutSetting('asideToggled'); $event.stopPropagation()">
+            <a class="nav-link sidebar-toggle d-md-none"
+                (click)="settings.toggleLayoutSetting('asideToggled'); $event.stopPropagation()">
                 <em class="fas fa-bars"></em>
             </a>
         </li>
-        <!-- START User avatar toggle-->
+        <!-- END User avatar toggle-->
         <li class="nav-item d-none d-md-block">
             <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
-            <a  class="nav-link" (click)="toggleUserBlock($event)">
-                <em class="icon-user"></em>
-            </a>
-        </li>
-        <!-- END User avatar toggle--> 
-        <li class="nav-item d-none d-md-block">
-            <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
-            <a  class="nav-link" [routerLink]="['/reset/password']"  >
+            <a class="nav-link" [routerLink]="['/reset/password']">
                 <em class="icon-lock"></em>
             </a>
         </li>
     </ul>
     <!-- END Left navbar-->
     <!-- START Right Navbar-->
-    <ul  class="navbar-nav flex-row">
+    <ul class="navbar-nav flex-row">
         <!-- Search icon-->
         <li class="nav-item">
-            <a class="nav-link" (click)="logout()" routerLink="/login">
-                <i class="fas fa-sign-out-alt"></i>
+            <a class="nav-link">
+                Opciones
             </a>
         </li>
-      <!-- Home-->
-    
-          <li  class="nav-item d-none d-md-block">
-              <a   class="nav-link" #fsbutton routerLink="/home">
-                  <em class="fa fa-home"></em>
-              </a>
-          </li>
- 
-       
+        <li class="nav-item">
+            <a class="nav-link" (click)="logout()" routerLink="/login">
+                Cerrar sesión
+            </a>
+        </li>
+        <!-- Home-->
         <!-- Fullscreen (only desktops)-->
         <!-- <li class="nav-item d-none d-md-block">
             <a class="nav-link" #fsbutton (click)="toggleFullScreen($event)">
@@ -65,11 +56,11 @@
             </a>
         </li> -->
         <!-- START Offsidebar button-->
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" (click)="toggleOffsidebar(); $event.stopPropagation()">
                 <em class="icon-notebook"></em>
             </a>
-        </li>
+        </li> -->
         <!-- END Offsidebar menu-->
     </ul>
     <!-- END Right Navbar-->
