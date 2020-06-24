@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { TaskService } from '../../Services/task.service';
-import Swal from 'sweetalert2';
-import { FormGroup, FormControl } from '@angular/forms';
-import { Engineer } from '../../Services/engineer.service';
-import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { TaskService } from "../../Services/task.service";
+import Swal from "sweetalert2";
+import { FormGroup, FormControl } from "@angular/forms";
+import { Engineer } from "../../Services/engineer.service";
+import { DatatableComponent } from "@swimlane/ngx-datatable";
 
 @Component({
   selector: "app-tasks",
@@ -12,8 +12,11 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 })
 export class TasksComponent implements OnInit {
   listTareas = [];
+  listTareasResolved = [];
+
   @ViewChild("table") tableExp: any;
   @ViewChild("infoTask") public contentModal;
+
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
   infoTaskForm: FormGroup;
@@ -56,11 +59,25 @@ export class TasksComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getTareas();
+  }
+  getTareas() {
     this.taskService.listTask().subscribe((resp) => {
-      this.listTareas = resp;
+      // this.listTareas = resp;
+      let arr = [];
+      let arr2 = [];
+      for (let item of resp) {
+        if (!item.done_datetime) {
+          arr.push(item);
+          this.listTareas = arr;
+        }
+        if (item.done_datetime !== null) {
+          arr2.push(item);
+          this.listTareasResolved = arr2;
+        }
+      }
     });
   }
-
   modalshow(value: string) {
     this.contentModal.show("@getbootstrap");
   }

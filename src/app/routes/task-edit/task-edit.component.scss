@@ -1,6 +1,13 @@
 agm-map {
-    height: 500px;
+  height: 500px;
+}
+
+.font-13 {
+  font-size: 13px;
+}
+
+.mapa-modal {
+  agm-map {
+    height: 300px;
   }
-  .font-13{
-    font-size: 13px;
 }
