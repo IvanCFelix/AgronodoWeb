@@ -23,15 +23,24 @@
       <button class="mb-1 mr-1 btn btn-success" type="button" routerLink="/Tareas/new">Agregar tarea</button>
     </div>
   </div>
-
-  <div class="card card-default mt-4">
-    <div class="card-body ">
+</div>
+<div class="card">
+  <div class="row text-center">
+    <div class="col">
+      <h3>Tareas pendientes</h3>
+    </div>
+    <div class="col">
+      <h3>Tareas realizadas</h3>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="col-6 p-3">
       <ngx-datatable #table class="bootstrap expandable material fullscreen "
         style="height: calc(90vh - 270px); box-shadow: none; width: 100%;" [columnMode]="'force'" [headerHeight]="50"
         [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='listTareas'
         (page)="onPage($event)">
         <!-- Column Templates -->
-        <ngx-datatable-column name="#">
+        <ngx-datatable-column name="#" [width]="60" [canAutoResize]="false">
           <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
             <strong>{{rowIndex + 1}}</strong>
           </ng-template>
@@ -70,7 +79,57 @@
         </ngx-datatable-column>
       </ngx-datatable>
     </div>
+
+
+    <div class="col-6 p-3">
+      <ngx-datatable #table class="bootstrap expandable material fullscreen "
+        style="height: calc(90vh - 270px); box-shadow: none; width: 100%;" [columnMode]="'force'" [headerHeight]="50"
+        [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='listTareasResolved'
+        (page)="onPage($event)">
+        <!-- Column Templates -->
+        <ngx-datatable-column name="#" [width]="60" [canAutoResize]="false">
+          <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+            <strong>{{rowIndex + 1}}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Titulo">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.title}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Ingeniero">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <strong>{{row.engineer }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Descripcion">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.description}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Fecha final" [width]="80" [canAutoResize]="false">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.due_date}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Acción">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <button class="btn btn-primary m-1 respo" (click)="modalshow();contentId(row);">
+              <a class="fas fa-eye"></a>
+            </button>
+            <button class="btn btn-success m-1" type="button" [routerLink]="['/Tareas/',row.id]">
+              <a class="fas fa-pencil-alt"></a> </button>
+            <button class="btn btn-danger m-1" (click)="delete(row)">
+              <a class="fas fa-trash-alt"></a>
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+
+
+    </div>
   </div>
+
 </div>
 <!-- MODAL -->
 <div bsModal #infoTask="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
@@ -98,7 +157,6 @@
                   <div class="col-12">
                     <label>Titulo:</label>
                     <input class="form-control" formControlName="title" type="text" disabled />
-
                   </div>
                   <div class="row p-3">
                     <div class="col">

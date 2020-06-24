@@ -36,20 +36,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.isNavSearchVisible = false;
 
-    var ua = window.navigator.userAgent;
-    if (ua.indexOf("MSIE ") > 0 || !!ua.match(/Trident.*rv\:11\./)) {
-      // Not supported under IE
-      this.fsbutton.nativeElement.style.display = "none";
-    }
-
-    // Switch fullscreen icon indicator
-    const el = this.fsbutton.nativeElement.firstElementChild;
-    screenfull.on("change", () => {
-      if (el)
-        el.className = screenfull.isFullscreen
-          ? "fa fa-compress"
-          : "fa fa-expand";
-    });
   }
 
   toggleUserBlock(event) {

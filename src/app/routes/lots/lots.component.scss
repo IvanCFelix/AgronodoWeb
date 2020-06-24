@@ -6,6 +6,18 @@
   right: 20px;
 }
 
+h1,p,h2,h3{
+  font: Century-Ghotic;
+  color: #000000;
+}
+
+.ngx-datatable.bootstrap{
+  font-family:Bold, Century-Ghotic;
+  color: #000000;
+  font-size: 20px;
+
+}
+
 .border-td {
   border: 1px solid #eee
 }
@@ -69,7 +81,18 @@ agm-map {
   top: 14px;
 }
 
-
+.black-btn {
+  font-family: Century-Ghotic;
+  font-size: 18px;
+  text-align: center;
+  align-items: center;
+  line-height: 1.5;
+  color: #fff;
+  border-radius: 25px;
+  background: black;
+  justify-content: center;
+  transition: all 0.4s;
+}
 
 @media screen and (max-width: 1312px) {
   .respon {
@@ -83,3 +106,17 @@ agm-map {
   }
 
 }
+
+@font-face {
+  font-family: Century-Ghotic;
+  src: url(../../../assets/fonts/century/CenturyGhotic.ttf);
+}
+
+.card{
+  border-style: none;
+}
+
+.btn-icon{
+  width: 70px;
+}
+
