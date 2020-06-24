@@ -14,7 +14,6 @@ export class TaskEditComponent implements OnInit {
   @ViewChild("selected") public selectedModal;
   @ViewChild("Group") public GroupModal;
 
-
   id;
   lat: number = 25.8132204;
   lng: number = -108.9858821;
@@ -36,9 +35,9 @@ export class TaskEditComponent implements OnInit {
   objetives: any = [];
   id_subfield: any;
   subfield_info: any;
-  typeTask = '';
+  typeTask = "";
   color: string;
-  TaskGrouparray:any = [];
+  TaskGrouparray: any = [];
   routes = [];
   constructor(
     public ingenieroServicio: Engineer,
@@ -61,7 +60,6 @@ export class TaskEditComponent implements OnInit {
       title: new FormControl("", Validators.required),
       description: new FormControl("", Validators.required),
       due_date: new FormControl("", Validators.required),
-      startDate: new FormControl("", Validators.required),
       engineer: new FormControl("", Validators.required),
     });
     this.selectedLots = new FormGroup({
@@ -238,31 +236,31 @@ export class TaskEditComponent implements OnInit {
           engineer: value.engineer,
           tasks: this.TaskGrouparray,
         };
-         this.ingenieroServicio
-           .registerTaskGroup(grouptask, this.id_subfield)
-           .subscribe(
-             (resp) => {
-               Swal.fire({
-                 text: "Se creó correctamente " ,
-                 icon: "success",
-                 showConfirmButton: false,
-                 timer: 1500,
-                 width: "250px",
-               });
-               this.router.navigateByUrl("/Tareas");
-             },
-             (err: any) => {
-               console.log(err);
-               Swal.fire({
-                 text: err._body,
-                 showConfirmButton: false,
-                 timer: 1500,
-                 icon: "error",
-                 width: "250px",
-               });
-             }
-           );
-        
+        this.ingenieroServicio
+          .registerTaskGroup(grouptask, this.id_subfield)
+          .subscribe(
+            (resp) => {
+              Swal.fire({
+                text: "Se creó correctamente ",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 1500,
+                width: "250px",
+              });
+              this.router.navigateByUrl("/Tareas");
+            },
+            (err: any) => {
+              console.log(err);
+              Swal.fire({
+                text: err._body,
+                showConfirmButton: false,
+                timer: 1500,
+                icon: "error",
+                width: "250px",
+              });
+            }
+          );
+
         break;
       default:
         break;
@@ -370,7 +368,7 @@ export class TaskEditComponent implements OnInit {
     console.log(this.typeTask);
   }
   objetivos() {
-     this.objetives = [];
+    this.objetives = [];
     for (let i = 0; i < this.newTask.length; i++) {
       let Jsonobjetives = {
         lat: this.newTask[i].lat,
@@ -378,32 +376,35 @@ export class TaskEditComponent implements OnInit {
         description: this.descriptionsObjetives[i],
       };
       this.objetives.push(Jsonobjetives);
-      
     }
-    this.routes.push(this.objetives)
+    this.routes.push(this.objetives);
   }
+
   info(value) {
-    this.objetivos() 
+    this.objetivos();
+    let date: any = new Date();
+    let mes = ("0" + (date.getMonth() + 1)).slice(-2);
+    let dia = date.getDate();
+    let año = date.getFullYear();
+    let fecha = año + "-" + mes + "-" + dia;
     let obj = {
       title: value.title,
       description: value.description,
       due_date: value.due_date,
-      start_date: value.startDate,
+      start_date: fecha,
       engineer: value.engineer,
       objectives: this.objetives,
     };
     this.TaskGrouparray.push(obj);
     console.log(this.TaskGrouparray);
-    console.log(obj);
-    
-    this.newTask = []
+
+    this.newTask = [];
     this.tareasGroupModal.setValue({
       title: "",
       description: "",
       due_date: "",
       engineer: "",
-      startDate:""
     });
-    this.GroupModal.hide();    
+    this.GroupModal.hide();
   }
 }

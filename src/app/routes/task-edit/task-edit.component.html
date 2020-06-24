@@ -165,7 +165,6 @@
         <button type="button" class="close" routerLink='/Tareas' style="font-size: 34px;padding: 23px;">
           <span aria-hidden="true">&times;</span>
         </button>
-
       </div>
       <div class="modal-body">
         <div class="row">
@@ -285,14 +284,6 @@
                   </div>
                 </div>
                 <div class="form-group ">
-                  <div class="form-group ">
-                    <div class="col-12">
-                      <label>Fecha inicial:</label>
-                      <input class="form-control" formControlName="startDate" type="date" />
-                      <span class="text-danger" *ngIf="tareasGroupModal.controls.startDate.value == '' ">Ingresa un
-                        dato válido</span>
-                    </div>
-                  </div>
                   <div class="col-12">
                     <label>Fecha de vencimiento</label>
                     <input class="form-control" formControlName="due_date" type="date" />
