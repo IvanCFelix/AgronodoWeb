@@ -60,8 +60,18 @@ export class LoginComponent implements OnInit {
     }
     this.auth.login(form.value).subscribe(
       (resp: any) => {
-        Swal.close();
-        this.router.navigateByUrl("/home");
+        if (resp.user_type === 7) {
+          Swal.fire({
+            text: "No tienes accesos a esta plataforma",
+            showConfirmButton: false,
+            timer: 1500,
+            icon: "error",
+            width: "250px",
+          });
+        } else {
+          this.router.navigateByUrl("/home");
+          Swal.close();
+        }
       },
       (err: any) => {
         console.log(err);
