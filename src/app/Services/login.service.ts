@@ -61,8 +61,4 @@ export class AuthService {
   leerToken(){
     return localStorage.getItem("token");
   }
-
-  estaAutenticado() {
-    return localStorage.getItem("token");
-  }
 }
