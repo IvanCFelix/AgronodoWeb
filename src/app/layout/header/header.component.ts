@@ -17,7 +17,6 @@ export class HeaderComponent implements OnInit {
   menuItems = []; // for horizontal layout
   user: any;
   isNavSearchVisible: boolean;
-  @ViewChild("fsbutton") fsbutton; // the fullscreen button
 
   constructor(
     public menu: MenuService,
@@ -35,7 +34,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.isNavSearchVisible = false;
-
   }
 
   toggleUserBlock(event) {

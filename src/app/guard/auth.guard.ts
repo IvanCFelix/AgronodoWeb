@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
     public router:Router
   ) {}
   canActivate(): boolean {
-      if (this.auth.estaAutenticado()) {
+      if (this.auth.leerToken()) {
         return true;
       } else {
         this.router.navigateByUrl("/login");

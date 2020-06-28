@@ -1,140 +1,158 @@
-<div class="content-heading">
-  <div>Agregar un nuevo lote
-    <!-- <small>Native Angular input validation</small> -->
+<div class="row">
+  <div class="col mr-5">
+    <p *ngIf="mostrar == true" class="m-0 mb-4 text-muted text-15">Lotes</p>
+  </div>
+  <div class="col  text-right ">
+    <h1 class="m-0">Bienvenido</h1>
+    <h3 class="text-15">¿Qué deseas hacer hoy?</h3>
   </div>
 </div>
 
+
 <div class="container-fluid mt-5">
   <div class="row d-flex justify-content-center align-content-center ">
-    <div class="col-12 col-sm-10 col-md-9 col-lg-9 col-xl-8">
-      <form [formGroup]="lotesForms">
-        <div class="card ">
+    <div class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+      <div class="col-12">
+        <div class="row mb-4">
+          <div class="col-4 p-0">
+            <form [formGroup]="lotesForms">
+              <input class="form-control" formControlName="name" type="text" placeholder="Nombre del lote" />
+              <span class="text-danger" *ngIf="lotesForms.controls['name'].errors?.required">
+                Ingresa un campo válido</span>
+            </form>
+          </div>
+          <div class="col-4">
+            <div class="text-left"
+              *ngIf=" newpaths.length > 3 && lotesForms.valid && sublotearray.length == 0 && id === null">
+              <button (click)="confirmsublote(lotesForms.value);" class="black-btn" type="button"><em
+                  class="fa-2x mr-2 fas fa-plus font-13"></em>Agregar</button>
+            </div>
+            <div class="text-right p-4"
+              *ngIf=" newpaths.length > 3 && lotesForms.valid && sublotearray.length > 0 && id === null">
+              <button (click)="register(lotesForms.value,sublotearray);" class="black-btn" type="button"><em
+                  class="fa-2x mr-2 fas fa-plus font-13"></em>Agregar</button>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="text-right" *ngIf=" newpaths.length > 3 && lotesForms.valid && sublotearray.length == 0 && id">
+              <button (click)="confirmsublote(lotesForms.value);" class="green-btn" type="button">
+                Guardar</button>
+            </div>
+            <div class="text-right " *ngIf=" newpaths.length > 3 && lotesForms.valid && sublotearray.length > 0 && id">
+              <button (click)="register(lotesForms.value,sublotearray);" class="green-btn"
+                type="button">Guardar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row text-black">
+        <div class="col-12">
+          <h4 class="m-0">Delimita el área de tu lote</h4>
+          <hr class="mt-1 mb-1 linea">
+        </div>
+        <div class="col-3 ">
+          <p class="m-0">Instrucciones</p>
+        </div>
+        <div class="col-12 mb-3">
+          <p class="text-instrucciones">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere illo porro id
+            alias at quo doloremque,
+            reprehenderit recusandae perferendis ducimus dicta officia, expedita ab, magnam corporis ut maiores hic
+            eaque.</p>
+        </div>
+      </div>
+      <div class="col-12  text-center mb-3 ">
+        <button *ngIf="newpaths.length > 1" class="btn btn-regresar pos-button text-center" type="button"
+          (click)="back()">
+          Deshacer<img src="../../../assets/img/icons/regresa.svg" alt="regresar" width="25" class="ml-2"></button>
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+          (mapClick)="addMarker($event.coords.lat, $event.coords.lng)" class="m-3">
+          <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
+            [opacity]="marker.alpha" [markerDraggable]="false">
+          </agm-marker>
+          <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="'#4caf50'">
+            <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+            </agm-polyline-point>
+          </agm-polyline>
+          <agm-polyline *ngFor="let polyline of mostrarsublotes; let i = index;" [strokeColor]="polyline.color">
+            <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat"
+              [longitude]="point.lng">
+            </agm-polyline-point>
+          </agm-polyline>
+        </agm-map>
+        <p *ngIf="selectedMarker">
+          Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
+        </p>
+      </div>
+
+
+
+      <div class="row text-left p-2">
+        <div class="col-3">
+          <button *ngIf="newpaths.length >= 3 && !url" class="green-btn" type="button" (click)="pol();Modal.show();">
+            <em class="fa-2x mr-2 fas fa-plus font-13"></em>Agregar un sublote</button>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-center align-content-center"
+        *ngIf="!url && sublotearray.length > 0 || verify == true">
+        <div class="col">
           <div class="card-body">
-            <div class="row">
-              <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="form-group row">
-                  <div class="col ">
-                    <label>Nombre del lote</label>
-                    <div>
-                      <input class="form-control" formControlName="name" type="text" />
-                    </div>
-                    <span class="text-danger" *ngIf="lotesForms.controls['name'].errors?.required">Ingresa un
-                      campo
-                      válido</span>
-                    <!-- <span class="text-danger" *ngIf="lotesForms.controls['name'].errors?.cannotContainSpace">
-                      No se permiten espacios en este campo</span> -->
-                  </div>
-                  <div class="col">
-                    <div class="text-right p-4"
-                      *ngIf=" newpaths.length > 3 && lotesForms.valid && sublotearray.length == 0">
-                      <button (click)="confirmsublote(lotesForms.value);" class="btn btn-info" type="button"><em
-                          class="fa-2x mr-2 fas fa-plus font-13"></em>Guardar información</button>
-                    </div>
-                    <div class="text-right p-4"
-                      *ngIf=" newpaths.length > 3 && lotesForms.valid && sublotearray.length > 0">
-                      <button (click)="register(lotesForms.value,sublotearray);" class="btn btn-info" type="button"><em
-                          class="fa-2x mr-2 fas fa-plus font-13"></em>Guardar información</button>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-              <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
-
-                <button class="btn btn-danger pos-button" type="button" (click)="back()"><em
-                    class="fa fas fa-backward"></em></button>
-                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
-                  (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
-                  <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
-                    [opacity]="marker.alpha" [markerDraggable]="false">
-                  </agm-marker>
-                  <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="'#4caf50'">
-                    <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
-                    </agm-polyline-point>
-                  </agm-polyline>
-                  <agm-polyline *ngFor="let polyline of mostrarsublotes; let i = index;" [strokeColor]="polyline.color">
-                    <agm-polyline-point *ngFor="let point of polyline.subfieldCoordinates" [latitude]="point.lat"
-                      [longitude]="point.lng">
-                    </agm-polyline-point>
-                  </agm-polyline>
-                </agm-map>
-
-
-
-
-                <p *ngIf="selectedMarker">
-                  Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
-                </p>
-              </div>
+            <!-- START table-responsive-->
+            <div class="table-responsive">
+              <table class="table ">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Color</th>
+                    <th>Nombre</th>
+                    <th>Tipo de cultivo</th>
+                    <th>Tipo de lote</th>
+                    <th>Ciclos</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let items of sublotearray; let c = index;">
+                  <tr>
+                    <td>{{c + 1}}</td>
+                    <td>
+                      <div class="h1 mt-lg">
+                        <div [ngStyle]="{'color': items.color}">
+                          <a class="fas fa-square"></a>
+                        </div>
+                      </div>
+                    </td>
+                    <td>{{items.nickname}}</td>
+                    <td>
+                      <p *ngIf="items.agriculture_type == 'T'">Tradicional</p>
+                      <p *ngIf="items.agriculture_type == 'P'">Protegida</p>
+                    </td>
+                    <td>{{items.crops.name}}</td>
+                    <td>
+                      <!-- <b>{{items.start_date}} </b> a <b> {{items.finish_date}}</b> -->
+                    </td>
+                    <td class="respon">
+                      <button *ngIf="newlot" class="btn btn-success m-1" type="button"
+                        (click)="datasublote(items,c);Modal.show();">
+                        <a class="fas fa-pencil-alt"></a> </button>
+                      <button *ngIf="verify && newlot == false" class="btn btn-success m-1" type="button"
+                        (click)="datasolosublote(items,c);Modal.show();">
+                        <a class="fas fa-pencil-alt"></a> </button>
+                      <button type="button" class="btn btn-danger" (click)="DeletesubloteNOID(items,c)">
+                        <a class="fas fa-trash-alt"></a>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          </div>
-
-          <div class="row text-right p-2">
-            <div class="col ">
-              <button *ngIf="newpaths.length >= 3 && !url" class="btn btn-success" type="button"
-                (click)="pol();Modal.show();">Agregar un sub lote</button>
-            </div>
-          </div>
-          <div class="row d-flex justify-content-center align-content-center"
-            *ngIf="!url && sublotearray.length > 0 || verify == true">
-            <div class="col">
-              <div class="card-body">
-                <!-- START table-responsive-->
-                <div class="table-responsive">
-                  <table class="table ">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Color</th>
-                        <th>Nombre</th>
-                        <th>Tipo de cultivo</th>
-                        <th>Tipo de lote</th>
-                        <th>Ciclos</th>
-                        <th>Acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody *ngFor="let items of sublotearray; let c = index;">
-                      <tr>
-                        <td>{{c + 1}}</td>
-                        <td>
-                          <div class="h1 mt-lg">
-                            <div [ngStyle]="{'color': items.color}">
-                              <a class="fas fa-square"></a>
-                            </div>
-                          </div>
-                        </td>
-                        <td>{{items.nickname}}</td>
-                        <td>
-                          <p *ngIf="items.agriculture_type == 'T'">Tradicional</p>
-                          <p *ngIf="items.agriculture_type == 'P'">Protegida</p>
-                        </td>
-                        <td>{{items.crops.name}}</td>
-                        <td>
-                          <!-- <b>{{items.start_date}} </b> a <b> {{items.finish_date}}</b> -->
-                        </td>
-                        <td class="respon">
-                          <button *ngIf="newlot" class="btn btn-success m-1" type="button"
-                            (click)="datasublote(items,c);Modal.show();">
-                            <a class="fas fa-pencil-alt"></a> </button>
-                          <button *ngIf="verify && newlot == false" class="btn btn-success m-1" type="button"
-                            (click)="datasolosublote(items,c);Modal.show();">
-                            <a class="fas fa-pencil-alt"></a> </button>
-                          <button type="button" class="btn btn-danger" (click)="DeletesubloteNOID(items,c)">
-                            <a class="fas fa-trash-alt"></a>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <!-- END table-responsive-->
-              </div>
-
-            </div>
+            <!-- END table-responsive-->
           </div>
 
         </div>
-      </form>
+      </div>
+
+
+
 
 
     </div>
@@ -146,127 +164,134 @@
   <div class="modal-dialog modal-lg " style="height: 52%;width: 100%;">
 
     <div class="modal-content" style="width: 116%;">
-      <div class="modal-header p-0">
-        <div class="brand-logo" style="font-size: 20px;padding: 8px;">
-          <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
-          Agregar un sublote
-        </div>
-        <button type="button" class="close" aria-label="Close" (click)="Modal.hide();clearform();"
-          style="font-size: 34px;padding: 23px;">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+      <button type="button" class="close" aria-label="Close" (click)="Modal.hide();clearform();">
+        <span aria-hidden="true">&times;</span>
+      </button>
       <div class="modal-body">
         <div class="container">
           <div class="row">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-              <form [formGroup]="sublotesforms">
-                <div class="form-group ">
-                  <input class="form-control d-none" formControlName="_id" type="text" />
-
-                  <div class="col-12">
-                    <label>Nombre</label>
-                    <input class="form-control" formControlName="nickname" type="text"
-                      *ngIf="newlot && sololote == false" />
-                    <input class="form-control" formControlName="nickname" type="text" *ngIf="newlot == false" />
-
-                    <input class="form-control" formControlName="nickname" type="text" disabled
-                      *ngIf="newlot && sololote == true" />
-
-                    <span class="text-danger" *ngIf="sublotesforms.controls['nickname'].errors?.required">Ingresa un
-                      campo
-                      válido</span>
+              <div class="col">
+                <div class="row d-flex justify-content-center align-items-center mb-4">
+                  <div class="col-5">
+                    <div class="brand-logo" style="font-size: 20px;padding: 8px;">
+                      <img class="img-fluid" src="../../../assets/img/agronodo.png" alt="App Logo"
+                        style="height: 54px;" />
+                    </div>
+                  </div>
+                  <div class="col">
+                    <p style="font-size: 21px;">Agregar un sublote</p>
                   </div>
                 </div>
-                <div class="row p-3">
-
-
-
-                  <div class="col">
-                    <div data-intro="Selecciona tu ocupación." class="form-group">
-                      <label>Tipo de lote</label><br>
-                      <select formControlName="crops" class="form-control">
-                        <option value="" disabled>
-                          Seleccione una ocupación...
-                        </option>
-                        <option *ngFor="let item of crops" class="form-control">{{item.name}}</option>
-                      </select>
-                      <span class="text-danger" *ngIf="sublotesforms.controls['crops'].errors?.required">Ingresa un
+              </div>
+              <div class="col-12">
+                <form [formGroup]="sublotesforms">
+                  <div class="form-group ">
+                    <input class="form-control d-none" formControlName="_id" type="text" />
+                    <div class="col-12">
+                      <label>Nombre del sublote</label>
+                      <input class="form-control" placeholder="Escribir nombre" formControlName="nickname" type="text"
+                        *ngIf="newlot && sololote == false" />
+                      <input class="form-control" placeholder="Escribir nombre" formControlName="nickname" type="text"
+                        *ngIf="newlot == false" />
+                      <input class="form-control" placeholder="Escribir nombre" formControlName="nickname" type="text"
+                        disabled *ngIf="newlot && sololote == true" />
+                      <span class="text-black-50" *ngIf="sublotesforms.controls['nickname'].errors?.required">Ingresa un
                         campo
                         válido</span>
                     </div>
                   </div>
-                  <div class="col-1 m-0 d-flex justify-content-center align-items-center" style="height: 90px;">
-                    <button type="button" class="btn btn-warning " (click)="Crops.show()">+</button>
+                  <div class="form-group p-3">
+                    <label>Tipo de lote</label>
+                    <div class="col-12 p-0 ">
+                      <div class="pos-more">
+                        <button type="button" class="btn more-btn text-center" (click)="Crops.show()">
+                          <em class='fa fa-plus'></em>
+                        </button>
+                      </div>
+                      <div data-intro="Selecciona tu ocupación.">
+                        <select formControlName="crops">
+                          <option value="" disabled>
+                            Seleccione una uno...
+                          </option>
+                          <option *ngFor="let item of crops" class="form-control">{{item.name}}</option>
+                        </select>
+                        <span class="text-black-50" *ngIf="sublotesforms.controls['crops'].errors?.required">Ingresa un
+                          campo
+                          válido</span>
+                      </div>
+                    </div>
+
                   </div>
-                </div>
-                <div>
-                  <!-- <div class="form-group " *ngIf="sublotesforms.controls.crops.value == 'otro' && sublotesforms.controls.crops.value !== crops ">
+                  <div>
+                    <!-- <div class="form-group " *ngIf="sublotesforms.controls.crops.value == 'otro' && sublotesforms.controls.crops.value !== crops ">
+                      <div class="col-12">
+                        <label>Tipo de lote(Otro..)</label>
+                        <input class="form-control" formControlName="crops" type="text" />
+                      </div>
+                    </div> -->
+                  </div>
+                  <div class="form-group ">
                     <div class="col-12">
-                      <label>Tipo de lote(Otro..)</label>
-                      <input class="form-control" formControlName="crops" type="text" />
-                    </div>
-                  </div> -->
-
-                </div>
-                <div class="form-group ">
-                  <div class="col-12">
-                    <div data-intro="Selecciona tu ocupación." class="form-group">
-                      <label>Tipo de agricultura</label><br>
-                      <select formControlName="agriculture_type" class="form-control">
-                        <option value="" disabled>
-                          Seleccione una ocupación...
-                        </option>
-                        <option value="P" class="form-control">Protegida</option>
-                        <option value="T">Tradicional</option>
-                      </select>
-
-                      <span class="text-danger"
-                        *ngIf="sublotesforms.controls['agriculture_type'].errors?.required">Ingresa un campo
-                        válido</span>
-                    </div>
-                  </div>
-                </div>
-                <!-- <div class="row">
-                  <div class="col-6" style="padding: 1px 3px 3px 30px;">
-                    <label>Fecha de inicio</label>
-                    <input type="date" class="form-control" formControlName="start_date">
-                  </div>
-                  <div class="col-6" style="    padding: 0px 23px 13px 14px;">
-                    <label>Fecha final</label>
-                    <input type="date" class="form-control" formControlName="finish_date">
-                  </div>
-                </div> -->
-                <div class="row">
-                  <div class="col text-center">
-                    Color principal:
-                  </div>
-                  <div class="col text-center">
-                    <div class="h1 clickable mt-lg" [(colorPicker)]="colorDemo1" [cpPosition]="'bottom'"
-                      [style.color]="colorDemo1" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true">
-                      <div>
-                        <a class="fas fa-square"></a>
+                      <div data-intro="Selecciona tu ocupación." class="form-group">
+                        <label>Tipo de agricultura</label><br>
+                        <select formControlName="agriculture_type">
+                          <option value="" disabled>
+                            Seleccione una uno...
+                          </option>
+                          <option value="P" class="form-control">Protegida</option>
+                          <option value="T">Tradicional</option>
+                        </select>
+                        <span class="text-black-50"
+                          *ngIf="sublotesforms.controls['agriculture_type'].errors?.required">Ingresa un campo
+                          válido</span>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="text-center mt-3">
-                  <button *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid && newlot && sololote == false "
-                    class="btn btn-success" type="button"
-                    (click)="sublotenew(sublotesforms.value);Modal.hide();">Guardar datos</button>
-                  <button
-                    *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid && sololote && sublotearray.length == 0 && newlot"
-                    class="btn btn-success" type="button"
-                    (click)="submitsololot(sublotesforms.value);Modal.hide();">Guardar datos 2</button>
-                  <button *ngIf=" sublotesforms.valid && verify  && newlot == false" class="btn btn-success"
-                    type="button" (click)="sendSublotesolo(sublotesforms.value);Modal.hide();">Guardar datos 3</button>
-                </div>
+                  <!-- <div class="row">
+                    <div class="col-6" style="padding: 1px 3px 3px 30px;">
+                      <label>Fecha de inicio</label>
+                      <input type="date" class="form-control" formControlName="start_date">
+                    </div>
+                    <div class="col-6" style="    padding: 0px 23px 13px 14px;">
+                      <label>Fecha final</label>
+                      <input type="date" class="form-control" formControlName="finish_date">
+                    </div>
+                  </div> -->
+                  <div class="row">
+                    <div class="col text-center">
+                      Color principal:
+                    </div>
+                    <div class="col text-center">
+                      <div class="h1 clickable mt-lg" [(colorPicker)]="colorDemo1" [cpPosition]="'bottom'"
+                        [style.color]="colorDemo1" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true">
+                        <div>
+                          <a class="fas fa-square"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-left mt-3">
+                    <button *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid && newlot && sololote == false "
+                      class="btn black-btn" type="button" (click)="sublotenew(sublotesforms.value);Modal.hide();">
+                      Finalizar</button>
+                    <button
+                      *ngIf="pathsSubLotes.length > 3 && sublotesforms.valid && sololote && sublotearray.length == 0 && newlot"
+                      class="btn black-btn" type="button" (click)="submitsololot(sublotesforms.value);Modal.hide();">
+                      Finalizar</button>
+                    <button *ngIf=" sublotesforms.valid && verify  && newlot == false" class="btn black-btn"
+                      type="button" (click)="sendSublotesolo(sublotesforms.value);Modal.hide();">
+                      Finalizar
+                    </button>
+                  </div>
 
-              </form>
+                </form>
+              </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-              <button *ngIf=" pathsSubLotes.length  > 0" class="btn btn-danger pos-button" type="button"
-                (click)="backsubfield()"><em class="fa fas fa-backward"></em></button>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-4">
+              <button *ngIf=" pathsSubLotes.length  > 0" class="btn btn-regresar pos-button" type="button"
+                (click)="backsubfield()" style="padding: 5px;width: 106px;">Deshacer<img
+                  src="../../../assets/img/icons/regresa.svg" alt="regresar" width="20" class="ml-2"></button>
               <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
                 (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
                 <agm-polygon [fillOpacity]="0.1" [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'" [paths]="allLots">
@@ -309,8 +334,6 @@
                     </agm-polyline-point>
                   </agm-polyline>
                 </div>
-
-
                 <agm-polyline *ngFor="let polyline of pathSub;let i = index;" [strokeColor]="colorDemo1">
                   <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                   </agm-polyline-point>
@@ -326,10 +349,7 @@
 
   <div bsModal #Crops="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
     aria-hidden="true" [config]="{ ignoreBackdropClick: true }">
-
-
     <div class="modal-dialog modal-lg " style="height: 52%;width: 100%;">
-
       <div class="modal-content" style="width: 116%;">
         <div class="modal-header p-0">
           <div class="brand-logo" style="font-size: 20px;padding: 8px;">

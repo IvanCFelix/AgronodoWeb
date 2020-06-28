@@ -268,8 +268,6 @@ iframe {
 }
 
 @media (max-width: 768px) {
-
-
   .login100-pic {
     display: none;
   }
@@ -284,12 +282,6 @@ iframe {
   padding-left: 7rem;
   padding-right: 8.5rem;
 }
-
-
-
-
-
-
 
 @media (max-width: 992px) {
   .alert-validate::before {
@@ -344,8 +336,16 @@ iframe {
 
     .nav-link:hover {
       background-color: rgba(0, 0, 0, 0.4) !important;
-
+      color: white !important;
     }
+  }
+}
+
+.url {
+
+  .nav-link {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    color: white !important;
   }
 }
 

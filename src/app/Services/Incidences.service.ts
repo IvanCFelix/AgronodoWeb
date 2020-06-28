@@ -9,7 +9,7 @@ import { Uris } from "./Uris";
 export class Incidences {
   private token: String;
   constructor(public http: Http) {
-    this.token = localStorage.getItem("token")
+    this.token = this.leerToken();
   }
 
   register(item) {
@@ -65,9 +65,12 @@ export class Incidences {
       let headers = new Headers();
       headers.append("Content-Type", "application/json");
       headers.append("Accept-Language", "es");
-      headers.append("Authorization", `token ${this.token}`);
-      
+      headers.append("Authorization", `token ${this.leerToken()}`);
+
       return new RequestOptions({ headers: headers });
     }
+  }
+  leerToken() {
+    return localStorage.getItem("token");
   }
 }
