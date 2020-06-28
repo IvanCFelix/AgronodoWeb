@@ -5,12 +5,12 @@ import 'rxjs/add/operator/map'
 import { Uris } from './Uris';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class LotsAgricolaService {
   private token: String;
   constructor(public http: Http) {
-    this.token = localStorage.getItem('token') 
+    this.token = this.leerToken();
   }
 
   register(admin) {
@@ -24,7 +24,6 @@ export class LotsAgricolaService {
       .get(`${Uris.API_LOTS}`, this.jwt())
       .map((response: Response) => response.json());
   }
-
 
   getLot(value) {
     return this.http
@@ -102,32 +101,34 @@ export class LotsAgricolaService {
   }
 
   Getcrops() {
-    return this.http.get(`${Uris.API_CROPS_LIST_GET}`, this.jwt()).map((response: Response) => response.json())
+    return this.http
+      .get(`${Uris.API_CROPS_LIST_GET}`, this.jwt())
+      .map((response: Response) => response.json());
   }
   registerCrops(admin) {
-    return this.http.post(`${Uris.API_CROPS_LIST_GET}`, admin, this.jwt()).map((response: Response) => response.json())
+    return this.http
+      .post(`${Uris.API_CROPS_LIST_GET}`, admin, this.jwt())
+      .map((response: Response) => response.json());
   }
 
-
-
-
   errorHandler(error: any): void {
-    console.log("SUPER ERROR", error)
-    if (localStorage.getItem('token') && error.status == 401) {
-      localStorage.removeItem('token');
+    console.log("SUPER ERROR", error);
+    if (localStorage.getItem("token") && error.status == 401) {
+      localStorage.removeItem("token");
     }
   }
 
   private jwt() {
     if (this.token) {
       let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Accept-language', 'en-es');
-      headers.append("Authorization", `token ${this.token}`);
-      
+      headers.append("Content-Type", "application/json");
+      headers.append("Accept-language", "en-es");
+      headers.append("Authorization", `token ${this.leerToken()}`);
       return new RequestOptions({ headers: headers });
     }
-
+  }
+  leerToken() {
+    return localStorage.getItem("token");
   }
 }
 

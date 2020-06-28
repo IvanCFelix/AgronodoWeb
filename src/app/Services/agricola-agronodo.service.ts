@@ -13,7 +13,7 @@ export class AgricolaAgronodo {
     this.token = this.leerToken();
   }
   ngOnInit(): void {}
- 
+
   register(agricola) {
     return this.http
       .post(`${Uris.API_AGRICOLA}`, agricola, this.jwt())
@@ -48,7 +48,7 @@ export class AgricolaAgronodo {
   logout() {
     let obj = {};
     return this.http
-      .post(`${Uris.API_LOGOUT}`, obj, this.logoutheader())
+      .post(`${Uris.API_LOGOUT}`, obj, this.jwt())
       .map((response: Response) => response.json());
   }
   getRefresh() {
@@ -63,21 +63,10 @@ export class AgricolaAgronodo {
       headers.append("Content-Type", "application/json");
       headers.append("Accept-Language", "es");
       headers.append("Authorization", `token ${this.leerToken()}`);
-
       return new RequestOptions({ headers: headers });
     }
   }
   leerToken() {
     return localStorage.getItem("token");
-  }
-  private logoutheader() {
-    if (this.leerToken()) {
-      let headers = new Headers();
-      headers.append("Content-Type", "application/json");
-      headers.append("Accept-Language", "es");
-      headers.append("Authorization", `token ${this.leerToken()}`);
-
-      return new RequestOptions({ headers: headers });
-    }
   }
 }

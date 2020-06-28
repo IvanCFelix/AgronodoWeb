@@ -68,11 +68,8 @@ export class EngineerEditComponent implements OnInit {
     console.log(id);
     if (id) {
       this.Engineer.getadmin(id).subscribe((resp: any) => {
-        console.log(resp);
-
         this.photo = resp.photo;
         this.mostrar = false;
-
         this.adminagricola.setValue({
           name: resp.names,
           email: resp.user.email,
@@ -132,10 +129,8 @@ export class EngineerEditComponent implements OnInit {
         this.router.navigateByUrl("/Ingeniero");
       },
       (err: any) => {
-        console.log(err);
-
         Swal.fire({
-          text: "Error en el sevidor",
+          text: err._body,
           showConfirmButton: false,
           timer: 1500,
           icon: "error",
@@ -174,10 +169,8 @@ export class EngineerEditComponent implements OnInit {
           this.router.navigateByUrl("/Ingeniero");
         },
         (err: any) => {
-          console.log(err._body);
-
           Swal.fire({
-            text: "Error en el sevidor",
+            text: err._body,
             showConfirmButton: false,
             timer: 1500,
             icon: "error",
@@ -207,7 +200,7 @@ export class EngineerEditComponent implements OnInit {
       this.Engineer.edit(obj, user).subscribe(
         (resp) => {
           Swal.fire({
-            text: "Se actualizó correctamente" + value.names,
+            text: "Se actualizó correctamente" + value.name,
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -217,13 +210,13 @@ export class EngineerEditComponent implements OnInit {
         },
         (err: any) => {
           console.log(err._body);
-          Swal.fire({
-            text: "Error en el sevidor",
-            showConfirmButton: false,
-            timer: 1500,
-            icon: "error",
-            width: "250px",
-          });
+         Swal.fire({
+           text: err._body,
+           showConfirmButton: false,
+           timer: 1500,
+           icon: "error",
+           width: "250px",
+         });
         }
       );
     }

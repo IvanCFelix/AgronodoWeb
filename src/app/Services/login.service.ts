@@ -18,10 +18,12 @@ export class AuthService {
       returnSecureToken: true
     };
     return this.http.post(`${Uris.API_LOGIN}`, authData).pipe(
-      map(resp => {
-        this.guardarToken(resp['token'])
-        localStorage.setItem("USER", JSON.stringify(resp));
-
+      map((resp:any) => {
+        if (resp.user_type === 7) {
+        } else {
+          this.guardarToken(resp['token'])
+          localStorage.setItem("USER", JSON.stringify(resp));       
+        }
         return resp;
       })
     );
@@ -59,10 +61,6 @@ export class AuthService {
   }
 
   leerToken(){
-    return localStorage.getItem("token");
-  }
-
-  estaAutenticado() {
     return localStorage.getItem("token");
   }
 }

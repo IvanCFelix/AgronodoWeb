@@ -1,11 +1,12 @@
 agm-map {
-    height: 500px;
-  }
-  .font-13{
-    font-size: 13px;
+  height: 500px;
 }
 
-.pos-button{
+.font-13 {
+  font-size: 13px;
+}
+
+.pos-button {
   position: absolute;
   z-index: 1;
   right: 32px;
@@ -14,14 +15,43 @@ agm-map {
 
 
 
-@media screen and (max-width: 1312px) { 
-  .respon{
+@media screen and (max-width: 1312px) {
+  .respon {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  agm-map{
-   height: 412px;
+
+  agm-map {
+    height: 412px;
   }
 
- }
+}
+
+.text-instrucciones {
+  font-size: 11px;
+  font-weight: 400;
+  word-spacing: 4pt;
+  line-height: 10pt;
+}
+
+.linea {
+  background-color: #3a3f51 !important;
+}
+
+.close {
+  font-size: 34px;
+  padding: 23px;
+  position: absolute;
+  z-index: 1;
+  right: 5px;
+  top: -19px;
+}
+
+.pos-more {
+  height: 100px;
+  width: 37px;
+  position: absolute;
+  right: -47px;
+  top: 1px;
+}

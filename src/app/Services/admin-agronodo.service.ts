@@ -8,7 +8,7 @@ import { Uris } from './Uris';
 export class AdminAgronodo {
   private token: String;
   constructor(public http: Http) {
-    this.token = localStorage.getItem("token");
+    this.token = this.leerToken();
   }
 
   register(admin) {
