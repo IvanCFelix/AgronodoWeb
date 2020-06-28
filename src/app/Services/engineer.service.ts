@@ -9,6 +9,7 @@ export class Engineer {
   private token: String;
   constructor(public http: Http) {
     this.token = this.leerToken();
+
   }
 
   register(admin) {
@@ -60,6 +61,11 @@ export class Engineer {
     return this.http
       .post(`${Uris.API_TASK_POST}${subfield}/`, task, this.jwt())
       .map((response: Response) => response.json());
+
+  registerTaskGroup(task, subfield) {
+    return this.http
+      .post(`${Uris.API_TASK_POST}${subfield}/group/`, task, this.jwt())
+      .map((response: Response) => response.json());
   }
   getTask(id) {
     return this.http
@@ -86,6 +92,7 @@ export class Engineer {
       headers.append("Content-Type", "application/json");
       headers.append("Accept-Language", "es");
       headers.append("Authorization", `token ${this.leerToken()}`);
+
 
       return new RequestOptions({ headers: headers });
     }

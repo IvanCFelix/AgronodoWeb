@@ -34,14 +34,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.isNavSearchVisible = false;
-
-    var ua = window.navigator.userAgent;
-    if (ua.indexOf("MSIE ") > 0 || !!ua.match(/Trident.*rv\:11\./)) {
-      // Not supported under IE
-    }
-
-    // Switch fullscreen icon indicator
-
   }
 
   toggleUserBlock(event) {
