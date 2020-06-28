@@ -61,7 +61,7 @@ export class Engineer {
     return this.http
       .post(`${Uris.API_TASK_POST}${subfield}/`, task, this.jwt())
       .map((response: Response) => response.json());
-
+  }
   registerTaskGroup(task, subfield) {
     return this.http
       .post(`${Uris.API_TASK_POST}${subfield}/group/`, task, this.jwt())
