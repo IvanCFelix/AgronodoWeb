@@ -61,7 +61,7 @@ export class LotsEditComponent implements OnInit {
     this.sublotesforms = new FormGroup({
       _id: new FormControl(-1),
       nickname: new FormControl("", Validators.required),
-      crops: new FormControl([""], Validators.required),
+      crops: new FormControl("", Validators.required),
       // start_date: new FormControl(Date, Validators.required),
       // finish_date: new FormControl(Date, Validators.required),
       agriculture_type: new FormControl("", Validators.required)

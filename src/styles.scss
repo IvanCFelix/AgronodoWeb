@@ -141,6 +141,7 @@
 .text-15 {
   font-size: 15px;
 }
+
 .text-18 {
   font-size: 18px;
 }
@@ -161,13 +162,24 @@
   border-radius: 9px;
 }
 
-.search-input{
+.search-input {
   padding: 5px 18px;
   background: #ffffff;
   border-radius: 9px;
   border-style: solid;
   border-color: #808080;
-  
+
+}
+
+input {
+  background: #FFFFFF 0% 0% no-repeat padding-box !important;
+  border: 1px solid #707070 !important;
+  border-radius: 25px !important;
+  opacity: 1 !important;
+}
+
+::placeholder {
+  color: black !important;
 }
 
 .modal {
@@ -194,9 +206,9 @@
 }
 
 
-.wrapper{
-  .footer-container{
-      background-color: #ffffff !important;
+.wrapper {
+  .footer-container {
+    background-color: #ffffff !important;
   }
 }
 
@@ -221,3 +233,100 @@
   background-color: #87C933 !important;
 }
 
+.border-header {
+  border-bottom: 1px solid gray !important;
+}
+
+.black-btn {
+  font-size: 15px;
+  padding: 1px;
+  width: 146px;
+  height: 35px;
+  color: #fff;
+  border-radius: 25px;
+  background: black;
+  border-color: black;
+  justify-content: center;
+  transition: all 0.4s;
+}
+
+.green-btn {
+  font-size: 15px;
+  padding: 1px;
+  width: 100%;
+  height: 35px;
+  color: #fff;
+  border-radius: 25px;
+  font-weight: 300;
+  background-color: #87C933;
+  border: 1px solid #87C933;
+  justify-content: center;
+  transition: all 0.4s;
+}
+
+.btn-regresar {
+  font: Regular 15px/18px Century Gothic;
+  font-size: 15px;
+  padding: 1px;
+  box-shadow: 0px 3px 6px #00000086;
+  width: 116px;
+  height: 39px;
+  font-weight: 300;
+  text-align: left;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 1;
+  background-color: #FD0000;
+  border-color: #FD0000;
+  border-radius: 25px;
+}
+
+.more-btn {
+  padding: 1px;
+  width: 100%;
+  height: 34px;
+  font-weight: 300;
+  text-align: left;
+  letter-spacing: 0px;
+  color: black;
+  opacity: 1;
+  background-color: #FDCC00;
+  border-color: #FDCC00;
+  border-radius: 25px;
+}
+
+.more-btn:hover {
+  color: white;
+  box-shadow: 0px 3px 6px #00000086;
+
+}
+
+select {
+  border-radius: 25px !important;
+  display: block;
+  width: 100%;
+  height: 2.1875rem;
+  padding: 0.375rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.52857143;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #707070;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+.btn-regresar:hover {
+  color: white;
+  box-shadow: 0px 1px 4px #00000086;
+}
+
+.modal-content {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #0000005F;
+  border-radius: 48px;
+  opacity: 1;
+}

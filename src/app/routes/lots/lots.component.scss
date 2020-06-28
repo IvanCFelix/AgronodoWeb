@@ -6,17 +6,14 @@
   right: 20px;
 }
 
-h1,p,h2,h3{
+h1,
+p,
+h2,
+h3 {
   font: Century-Ghotic;
   color: #000000;
 }
 
-.ngx-datatable.bootstrap{
-  font-family:Bold, Century-Ghotic;
-  color: #000000;
-  font-size: 20px;
-
-}
 
 .border-td {
   border: 1px solid #eee
@@ -63,11 +60,12 @@ agm-map {
 
 }
 
-.ngx-datatable.bootstrap .datatable-body .datatable-body-row.datatable-row-even {
-  background-color: rgba(0, 0, 0, 0.025) !important;
-  width: 97% !important;
-}
+.font {
+  font-family: Bold, Century-Ghotic;
+  color: #000000;
+  font-size: 20px;
 
+}
 
 
 .font-13 {
@@ -81,18 +79,7 @@ agm-map {
   top: 14px;
 }
 
-.black-btn {
-  font-family: Century-Ghotic;
-  font-size: 18px;
-  text-align: center;
-  align-items: center;
-  line-height: 1.5;
-  color: #fff;
-  border-radius: 25px;
-  background: black;
-  justify-content: center;
-  transition: all 0.4s;
-}
+
 
 @media screen and (max-width: 1312px) {
   .respon {
@@ -112,11 +99,20 @@ agm-map {
   src: url(../../../assets/fonts/century/CenturyGhotic.ttf);
 }
 
-.card{
+.card {
   border-style: none;
 }
 
-.btn-icon{
-  width: 70px;
+.btn-icon {
+  width: 52px;
 }
 
+.btn-success {
+  background-color: #1E983B !important;
+  border-color: #1E983B !important;
+}
+
+.btn-primary {
+  background-color: #2F80E7 !important;
+  border-color: #2F80E7 !important;
+}
