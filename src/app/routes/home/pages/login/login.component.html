@@ -18,8 +18,7 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Contactanos</a>
         </li>
-
-        <li class="nav-item ml1">
+        <li class="nav-item" [ngClass]="{'url' : url === 'login'}">
           <a class="nav-link " routerLink="/login">Iniciar Sesión</a>
         </li>
       </ul>
@@ -75,7 +74,7 @@
             <div class="col">
               <h5 class="text-muted">Copyright &copy; AgroNodo 2020</h5>
             </div>
-            
+
           </div>
         </form>
 

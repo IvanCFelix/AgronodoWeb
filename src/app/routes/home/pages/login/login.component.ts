@@ -1,5 +1,5 @@
 import { AuthService } from "./../../../../Services/login.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { SettingsService } from "./../../../../core/settings/settings.service";
 import { Component, OnInit, ViewChild, TemplateRef } from "@angular/core";
 import {
@@ -20,13 +20,15 @@ import Swal from "sweetalert2";
 export class LoginComponent implements OnInit {
   loginAgronodo: FormGroup;
   forgotpassword: FormGroup;
+  url;
   navbarOpen = false;
   constructor(
     public settings: SettingsService,
     fb: FormBuilder,
     private modalService: BsModalService,
     public router: Router,
-    public auth: AuthService
+    public auth: AuthService,
+    public route:ActivatedRoute
   ) {
     this.loginAgronodo = new FormGroup({
       username: new FormControl("", [Validators.required]),
@@ -44,6 +46,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     localStorage.clear();
+    const url:any = this.route.url;
+ this.url = url.value[0].path;
+    
   }
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
