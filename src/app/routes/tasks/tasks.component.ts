@@ -64,6 +64,7 @@ export class TasksComponent implements OnInit {
   getTareas() {
     this.taskService.listTask().subscribe((resp) => {
       // this.listTareas = resp;
+      console.log(resp)
       let arr = [];
       let arr2 = [];
       for (let item of resp) {

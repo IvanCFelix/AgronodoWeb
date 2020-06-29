@@ -12,7 +12,6 @@ import { Router, ActivatedRoute } from "@angular/router";
 export class TaskEditComponent implements OnInit {
   @ViewChild("description") public contentModal;
   @ViewChild("selected") public selectedModal;
-  @ViewChild("Group") public GroupModal;
 
   id;
   lat: number = 25.8132204;
@@ -21,7 +20,6 @@ export class TaskEditComponent implements OnInit {
   tareasForm: FormGroup;
   descriptionForm: FormGroup;
   selectedLots: FormGroup;
-  tareasGroupModal: FormGroup;
   tareasGroup: FormGroup;
   ingeniero: any = [];
   lote: any = [];
@@ -39,27 +37,31 @@ export class TaskEditComponent implements OnInit {
   color: string;
   TaskGrouparray: any = [];
   routes = [];
+  startEnd = [];
+  icon = {
+    img:
+      "https://developers.google.com/maps/documentation/javascript/examples/full/images/info-i_maps.png",
+  };
   constructor(
     public ingenieroServicio: Engineer,
     public router: Router,
     private route: ActivatedRoute
   ) {
+    let date: any = new Date();
+    let mes = ("0" + (date.getMonth() + 1)).slice(-2);
+    let dia = date.getDate();
+    let año = date.getFullYear();
+    let fecha = año + "-" + mes + "-" + dia;
     this.tareasForm = new FormGroup({
       id: new FormControl(""),
       name: new FormControl("", Validators.required),
       description: new FormControl("", Validators.required),
       engineer: new FormControl("", Validators.required),
       swDate: new FormControl("", Validators.required),
-      startDate: new FormControl(""),
+      startDate: new FormControl(fecha),
       endDate: new FormControl(""),
     });
     this.tareasGroup = new FormGroup({
-      engineer: new FormControl("", Validators.required),
-    });
-    this.tareasGroupModal = new FormGroup({
-      title: new FormControl("", Validators.required),
-      description: new FormControl("", Validators.required),
-      due_date: new FormControl("", Validators.required),
       engineer: new FormControl("", Validators.required),
     });
     this.selectedLots = new FormGroup({
@@ -78,52 +80,16 @@ export class TaskEditComponent implements OnInit {
   }
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get("id");
-    let JsonSwDate = false;
     this.id = id;
     console.log(this.id);
     if (id != null) {
       this.ingenieroServicio.getTask(id).subscribe((Resp: any) => {
-        for (let item of Resp.objectives) {
-          let obj = {
-            lat: item.lat,
-            lng: item.lng,
-          };
-          this.descriptionsObjetives.push(item.description);
-          this.newTask.push(obj);
-        }
-        this.ingenieroServicio
-          .getSubloteID(Resp.subfield)
-          .subscribe((resp2: any) => {
-            if (Resp.due_date != null) {
-              JsonSwDate = true;
-            }
-            this.tareasForm.setValue({
-              id: Resp.id,
-              name: Resp.title,
-              description: Resp.description,
-              engineer: Resp.engineer,
-              swDate: JsonSwDate,
-              endDate: Resp.due_date,
-              startDate: Resp.start_date,
-            });
-            this.subloteCoordinates = resp2.subfieldCoordinates;
-            const array: any[] = Array.of(this.subloteCoordinates);
-            this.nestedSubfield = array;
-            this.centrarCamara(
-              resp2.subfieldCoordinates[0].lat,
-              resp2.subfieldCoordinates[0].lng
-            );
-            this.ingenieroServicio
-              .getLoteID(resp2.father_field)
-              .subscribe((loteResp: any) => {
-                this.field = loteResp.coordinates;
-                const array: any[] = Array.of(this.field);
-                this.nestedField = array;
-              });
-          });
+        this.setDataIndividual(Resp);
       });
     }
-
+    this.getData();
+  }
+  getData() {
     this.ingenieroServicio.listadmin().subscribe((Resp: any) => {
       this.ingeniero = Resp;
     });
@@ -135,11 +101,59 @@ export class TaskEditComponent implements OnInit {
     });
   }
 
+  setDataIndividual(Resp) {
+    let JsonSwDate = false;
+    let Initial = Resp.objectives;
+    for (let item of Initial) {
+      let obj = {
+        lat: item.lat,
+        lng: item.lng,
+      };
+      this.descriptionsObjetives.push(item.description);
+      this.newTask.push(obj);      
+      this.objetivos();
+    }
+    this.startEnd.push(Initial[0]);
+    this.startEnd.push(Initial[Initial.length - 1]);
+
+    console.log(this.startEnd);
+
+    this.ingenieroServicio
+      .getSubloteID(Resp.subfield)
+      .subscribe((resp2: any) => {
+        if (Resp.due_date != null) {
+          JsonSwDate = true;
+        }
+        this.tareasForm.setValue({
+          id: Resp.id,
+          name: Resp.title,
+          description: Resp.description,
+          engineer: Resp.engineer,
+          swDate: JsonSwDate,
+          endDate: Resp.due_date,
+          startDate: Resp.start_date,
+        });
+        this.subloteCoordinates = resp2.subfieldCoordinates;
+        const array: any[] = Array.of(this.subloteCoordinates);
+        this.nestedSubfield = array;
+        this.centrarCamara(
+          resp2.subfieldCoordinates[0].lat,
+          resp2.subfieldCoordinates[0].lng
+        );
+        this.ingenieroServicio
+          .getLoteID(resp2.father_field)
+          .subscribe((loteResp: any) => {
+            this.field = loteResp.coordinates;
+            const array: any[] = Array.of(this.field);
+            this.nestedField = array;
+          });
+      });
+  }
+
   addMarker(lat: number, lng: number) {
     switch (this.typeTask) {
       case "Individual":
-        if (this.subloteCoordinates.length == 0) {
-        } else {
+        if (this.newTask.length === 0) {
           this.contentModal.show();
           let obj = {
             lat: lat,
@@ -149,22 +163,16 @@ export class TaskEditComponent implements OnInit {
         }
         break;
       case "Group":
-        break;
-      default:
-        break;
-    }
-  }
-  addMakerModalGroup(lat: number, lng: number) {
-    switch (this.typeTask) {
-      case "Group":
-        if (this.subloteCoordinates.length == 0) {
-        } else {
-          this.contentModal.show();
-          let obj = {
-            lat: lat,
-            lng: lng,
-          };
-          this.newTask.push(obj);
+        let obj = {
+          lat: lat,
+          lng: lng,
+        };
+        this.newTask.push(obj);
+        if (this.newTask.length > 0) {
+          this.objetivos();
+          let i = 0;
+          this.submitDescription(i);
+          i++;
         }
         break;
       default:
@@ -183,88 +191,43 @@ export class TaskEditComponent implements OnInit {
       this.guardarTarea(value);
     } else {
       console.log(value);
-      this.updateTarea(value);
+      // this.updateTarea(value);
     }
   }
 
   guardarTarea(value: any) {
-    switch (this.typeTask) {
-      case "Individual":
-        let i = 0;
-        for (let item of this.newTask) {
-          let Jsonobjetives = {
-            lat: item.lat,
-            lng: item.lng,
-            description: this.descriptionsObjetives[i],
-          };
-          this.objetives.push(Jsonobjetives);
-          i++;
-        }
-        let obj = {
-          engineer: value.engineer,
-          title: value.name,
-          description: value.description,
-          objectives: this.objetives,
-          start_date: value.startDate,
-          due_date: value.endDate,
-        };
-        this.ingenieroServicio.registerTask(obj, this.id_subfield).subscribe(
-          (resp) => {
-            Swal.fire({
-              text: "Se creó correctamente " + value.name,
-              icon: "success",
-              showConfirmButton: false,
-              timer: 1500,
-              width: "250px",
-            });
-            this.router.navigateByUrl("/Tareas");
-          },
-          (err: any) => {
-            console.log(err);
-            Swal.fire({
-              text: "Error en el sevidor",
-              showConfirmButton: false,
-              timer: 1500,
-              icon: "error",
-              width: "250px",
-            });
-          }
-        );
-        break;
-      case "Group":
-        let grouptask = {
-          engineer: value.engineer,
-          tasks: this.TaskGrouparray,
-        };
-        this.ingenieroServicio
-          .registerTaskGroup(grouptask, this.id_subfield)
-          .subscribe(
-            (resp) => {
-              Swal.fire({
-                text: "Se creó correctamente ",
-                icon: "success",
-                showConfirmButton: false,
-                timer: 1500,
-                width: "250px",
-              });
-              this.router.navigateByUrl("/Tareas");
-            },
-            (err: any) => {
-              console.log(err);
-              Swal.fire({
-                text: err._body,
-                showConfirmButton: false,
-                timer: 1500,
-                icon: "error",
-                width: "250px",
-              });
-            }
-          );
+    let obj = {
+      engineer: value.engineer,
+      title: value.name,
+      description: value.description,
+      objectives: this.objetives,
+      start_date: value.startDate,
+      due_date: value.endDate,
+    };
+    console.log(obj);
 
-        break;
-      default:
-        break;
-    }
+    this.ingenieroServicio.registerTask(obj, this.id_subfield).subscribe(
+      (resp) => {
+        Swal.fire({
+          text: "Se creó correctamente " + value.name,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          width: "250px",
+        });
+        this.router.navigateByUrl("/Tareas");
+      },
+      (err: any) => {
+        console.log(err);
+        Swal.fire({
+          text: "Error en el sevidor",
+          showConfirmButton: false,
+          timer: 1500,
+          icon: "error",
+          width: "250px",
+        });
+      }
+    );
   }
 
   updateTarea(value: any) {
@@ -378,33 +341,5 @@ export class TaskEditComponent implements OnInit {
       this.objetives.push(Jsonobjetives);
     }
     this.routes.push(this.objetives);
-  }
-
-  info(value) {
-    this.objetivos();
-    let date: any = new Date();
-    let mes = ("0" + (date.getMonth() + 1)).slice(-2);
-    let dia = date.getDate();
-    let año = date.getFullYear();
-    let fecha = año + "-" + mes + "-" + dia;
-    let obj = {
-      title: value.title,
-      description: value.description,
-      due_date: value.due_date,
-      start_date: fecha,
-      engineer: value.engineer,
-      objectives: this.objetives,
-    };
-    this.TaskGrouparray.push(obj);
-    console.log(this.TaskGrouparray);
-
-    this.newTask = [];
-    this.tareasGroupModal.setValue({
-      title: "",
-      description: "",
-      due_date: "",
-      engineer: "",
-    });
-    this.GroupModal.hide();
   }
 }
