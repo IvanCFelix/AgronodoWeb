@@ -40,7 +40,7 @@
         [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='listTareas'
         (page)="onPage($event)">
         <!-- Column Templates -->
-        <ngx-datatable-column name="#" [width]="60" [canAutoResize]="false">
+        <ngx-datatable-column name="#" [width]="auto" [canAutoResize]="false">
           <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
             <strong>{{rowIndex + 1}}</strong>
           </ng-template>
@@ -55,17 +55,12 @@
             <strong>{{row.engineer }}</strong>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Descripcion">
-          <ng-template let-row="row" ngx-datatable-cell-template>
-            {{row.description}}
-          </ng-template>
-        </ngx-datatable-column>
         <ngx-datatable-column name="Fecha final">
           <ng-template let-row="row" ngx-datatable-cell-template>
             {{row.due_date}}
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Acción">
+        <ngx-datatable-column name="Acción" [width]="auto" [canAutoResize]="false">
           <ng-template let-row="row" ngx-datatable-cell-template>
             <button class="btn btn-primary m-1 respo" (click)="modalshow();contentId(row);">
               <a class="fas fa-eye"></a>
