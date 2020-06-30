@@ -2,7 +2,7 @@
   <div class="card p-3">
     <div class="row">
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-        <form [formGroup]="tareasForm" *ngIf="typeTask ==='Individual'">
+        <form [formGroup]="tareasForm">
           <div class="form-group ">
             <input class="form-control d-none" formControlName="id" type="text" />
             <div class="col-12">
@@ -73,64 +73,19 @@
               datos</button>
           </div>
         </form>
-        <div *ngIf="typeTask ==='Group'">
-          <form [formGroup]="tareasGroup">
-            <div class="form-group ">
-              <div class="col-12">
-                <div data-intro="Selecciona el ingeniero." class="form-group">
-                  <label>Ingeniero</label><br>
-                  <select formControlName="engineer" class="form-control">
-                    <option value="" disabled>
-                      Seleccione un ingeniero...
-                    </option>
-                    <option *ngFor="let item of ingeniero" [value]="item.user.username" class="form-control">
-                      {{item.names}}</option>
-                  </select>
-                  <span class="text-danger" *ngIf="tareasGroup.controls['engineer'].errors?.required">Ingresa un
-                    dato válido</span>
-                </div>
-              </div>
-            </div>
-          </form>
-          <div class="text-center" *ngIf="TaskGrouparray.length  === 0">
-            <p>No tienes tareas agregadas, click en el boton para agregar tareas</p>
-          </div>
-          <div class="text-center">
-            <button class="btn btn-success" type="button" (click)="Group.show()">Agregar</button>
-
-          </div>
-          <div *ngIf="TaskGrouparray.length > 0">
-            <div *ngFor="let item of TaskGrouparray" class="row m-2">
-              <div class="col-3">
-                <b>Titulo:</b><br>{{item.title}}
-              </div>
-              <div class="col-3">
-                <b>Descripcion:</b><br>{{item.description}}
-              </div>
-              <div class="col-3">
-                <b>Fecha:</b><br>{{item.due_date}}
-              </div>
-              <div class="col-3">
-                <b>Ingeniero:</b><br>{{item.engineer}}
-              </div>
-            </div>
-          </div>
-          <div class="text-center m-3">
-            <button class="btn btn-info" *ngIf="TaskGrouparray.length > 0"
-              (click)="guardarTarea(tareasGroup.value)">Guardar
-              información</button>
-          </div>
-        </div>
       </div>
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 card-modal">
         <!-- MAPA -->
-        <button *ngIf="typeTask === 'Individual'" class="btn btn-danger pos-button" type="button"
-          (click)="back();modalshowSelected('@getbootstrap')"><em class="fa fas fa-backward"></em></button>
+        <button class="btn btn-danger pos-button" type="button" (click)="back();modalshowSelected('@getbootstrap')"><em
+            class="fa fas fa-backward"></em></button>
         <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
           (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
-          <div *ngIf="typeTask === 'Individual'">
+          <div>
             <agm-marker *ngFor="let item of newTask" [latitude]="item.lat" [longitude]="item.lng" [opacity]="1"
-              [markerDraggable]="true">
+              [markerDraggable]="false">
+            </agm-marker>
+            <agm-marker *ngFor="let item of startEnd" [latitude]="item.lat" [longitude]="item.lng" [opacity]="1"
+              [markerDraggable]="false" [iconUrl]='icon.img'>
             </agm-marker>
           </div>
           <agm-polyline *ngFor="let polyline of nestedField;let i = index;" [strokeColor]="'#4caf50'">
@@ -234,90 +189,7 @@
     </div>
   </div>
 </div>
-<div bsModal #Group="bs-modal" class="modal fade" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="false"
-  [config]="{ ignoreBackdropClick: true }">
 
-  <div class="modal-dialog modal-lg " style="height: 81%;width:58%;">
-    <div class="modal-content" style="width: 116%;">
-      <div class="modal-header p-0">
-        <div class="brand-logo" style="font-size: 20px;padding: 8px;">
-          <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
-          Agregar un objetivo
-        </div>
-      </div>
-      <div class="modal-body">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <form [formGroup]="tareasGroupModal">
-                <div class="form-group ">
-                  <div class="col-12">
-                    <label>Titulo</label>
-                    <input class="form-control" formControlName="title" type="text" />
-                    <span class="text-danger" *ngIf="tareasGroupModal.controls['title'].errors?.required">Ingresa un
-                      dato válido</span>
-                  </div>
-                </div>
-                <div class="form-group ">
-                  <div class="col-12">
-                    <label>Descripcion</label>
-                    <textarea class="form-control" formControlName="description" type="text"></textarea>
-                    <span class="text-danger" *ngIf="tareasGroupModal.controls['description'].errors?.required">Ingresa
-                      un
-                      dato válido</span>
-                  </div>
-                </div>
-                <div class="form-group ">
-                  <div class="col-12">
-                    <div data-intro="Selecciona el ingeniero." class="form-group">
-                      <label>Ingeniero</label><br>
-                      <select formControlName="engineer" class="form-control">
-                        <option value="" disabled>
-                          Seleccione un ingeniero...
-                        </option>
-                        <option *ngFor="let item of ingeniero" [value]="item.user.username" class="form-control">
-                          {{item.names}}</option>
-                      </select>
-                    </div>
-                    <span class="text-danger" *ngIf="tareasGroupModal.controls['engineer'].errors?.required">Ingresa un
-                      dato válido</span>
-                  </div>
-                </div>
-                <div class="form-group ">
-                  <div class="col-12">
-                    <label>Fecha de vencimiento</label>
-                    <input class="form-control" formControlName="due_date" type="date" />
-                    <span class="text-danger" *ngIf="tareasGroupModal.controls.due_date.value == '' ">Ingresa un
-                      dato válido</span>
-                  </div>
-                </div>
-                <Button class="btn btn-success" (click)="info(tareasGroupModal.value)"
-                  *ngIf="newTask.length > 0">Guardad información</Button>
-              </form>
-            </div>
-            <div class="col">
-              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
-                (mapClick)="addMakerModalGroup($event.coords.lat, $event.coords.lng)">
-                <agm-marker *ngFor="let item of newTask" [latitude]="item.lat" [longitude]="item.lng" [opacity]="1"
-                  [markerDraggable]="true">
-                </agm-marker>
-                <agm-polyline *ngFor="let polyline of nestedField;let i = index;" [strokeColor]="'#4caf50'">
-                  <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
-                  </agm-polyline-point>
-                </agm-polyline>
-                <agm-polyline *ngFor="let polyline of nestedSubfield; let i = index;" [strokeColor]="color">
-                  <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
-                  </agm-polyline-point>
-                </agm-polyline>
-              </agm-map>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <!-- MODAL -->
 <div bsModal #description="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
   aria-hidden="false" [config]="{ ignoreBackdropClick: true }">
