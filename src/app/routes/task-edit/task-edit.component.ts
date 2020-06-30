@@ -104,13 +104,18 @@ export class TaskEditComponent implements OnInit {
   setDataIndividual(Resp) {
     let JsonSwDate = false;
     let Initial = Resp.objectives;
+    if (Resp.objectives.length > 1) {
+      this.typeTask = "Group";
+    } else {
+      this.typeTask = "Individual";
+    }
     for (let item of Initial) {
       let obj = {
         lat: item.lat,
         lng: item.lng,
       };
       this.descriptionsObjetives.push(item.description);
-      this.newTask.push(obj);      
+      this.newTask.push(obj);
       this.objetivos();
     }
     this.startEnd.push(Initial[0]);
@@ -190,8 +195,7 @@ export class TaskEditComponent implements OnInit {
     if (this.id == null) {
       this.guardarTarea(value);
     } else {
-      console.log(value);
-      // this.updateTarea(value);
+      this.updateTarea(value);
     }
   }
 
@@ -231,55 +235,38 @@ export class TaskEditComponent implements OnInit {
   }
 
   updateTarea(value: any) {
-    switch (this.typeTask) {
-      case "Individual":
-        let i = 0;
-        for (let item of this.newTask) {
-          let Jsonobjetives = {
-            lat: item.lat,
-            lng: item.lng,
-            description: this.descriptionsObjetives[i],
-          };
-          this.objetives.push(Jsonobjetives);
-          i++;
-        }
-        let obj = {
-          id: value.id,
-          engineer: value.engineer,
-          title: value.name,
-          description: value.description,
-          objectives: this.objetives,
-          due_date: value.endDate,
-        };
-        console.log(obj);
-        this.ingenieroServicio.editTask(obj).subscribe(
-          (resp: any) => {
-            Swal.fire({
-              text: "Datos actualizados correctamente " + value.name,
-              icon: "success",
-              showConfirmButton: false,
-              timer: 1500,
-              width: "250px",
-            });
-            this.router.navigateByUrl("/Tareas");
-          },
-          (err: any) => {
-            console.log(err);
-            Swal.fire({
-              text: "Error en el sevidor",
-              showConfirmButton: false,
-              timer: 1500,
-              icon: "error",
-              width: "250px",
-            });
-          }
-        );
-        break;
-      case "Group":
-        break;
-      default:
-        break;
-    }
+    this.objetivos();
+    let obj = {
+      id: value.id,
+      engineer: value.engineer,
+      title: value.name,
+      description: value.description,
+      objectives: this.objetives,
+      due_date: value.endDate,
+    };
+    console.log(obj);
+    this.ingenieroServicio.editTask(obj).subscribe(
+      (resp: any) => {
+        Swal.fire({
+          text: "Datos actualizados correctamente " + value.name,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          width: "250px",
+        });
+        this.router.navigateByUrl("/Tareas");
+      },
+      (err: any) => {
+        console.log(err);
+        Swal.fire({
+          text: "Error en el sevidor",
+          showConfirmButton: false,
+          timer: 1500,
+          icon: "error",
+          width: "250px",
+        });
+      }
+    );
   }
   changeOrderIncidence(value) {
     this.ingenieroServicio.getLoteID(value).subscribe((Resp: any) => {
