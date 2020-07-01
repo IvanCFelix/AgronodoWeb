@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     localStorage.clear();
     const url:any = this.route.url;
- this.url = url.value[0].path;
+    this.url = url.value[0].path;
     
   }
   toggleNavbar() {
