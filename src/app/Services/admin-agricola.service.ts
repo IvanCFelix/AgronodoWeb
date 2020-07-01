@@ -49,6 +49,11 @@ export class AdminAgricola {
       .get(`${Uris.DASHBORARD}${id}`, this.jwt())
       .map((response: Response) => response.json());
   }
+   DashboardHome() {
+    return this.http
+      .get(`${Uris.DASHBORARD}`, this.jwt())
+      .map((response: Response) => response.json());
+  }
 
   errorHandler(error: any): void {
     console.log("SUPER ERROR", error);

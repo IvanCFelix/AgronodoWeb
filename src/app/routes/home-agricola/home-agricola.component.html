@@ -107,15 +107,13 @@
 <div class="row">
   <div class="col-6">
     <div style="display: block">
-      <canvas baseChart [datasets]="lineData.datasets" [labels]="lineData.labels" [options]="barChartOptions"
-        [legend]="true" [chartType]="'line'" (chartHover)="chartHovered($event)"
-        (chartClick)="chartClicked($event)"></canvas>
+      <canvas #lineCanvas></canvas>
     </div>
   </div>
   <div class="col-6">
     <div style="display: block">
-      <canvas baseChart [datasets]="lineData.datasets" [labels]="" [options]="barChartOptions2" [legend]="true"
-        [chartType]="'bar'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+      <canvas #barCanavas></canvas>
+
     </div>
   </div>
 </div>
