@@ -15,8 +15,6 @@ export class HomeAgricolaComponent implements OnInit {
 
   lineChart: any;
   barChart: any;
-  public chart: any = null;
-  private intervalUpdate: any = null;
   aljson = {};
   DataAgricola = {
     reports_count: 0,
@@ -24,22 +22,6 @@ export class HomeAgricolaComponent implements OnInit {
     incidences_count: 0,
     resolved_incidences_count: 0,
     unresolved_incidences_count: 0,
-  };
-  barChartOptions: any = {
-    scaleShowVerticalLines: false,
-    responsive: true,
-  };
-
-  barChartData: any[] = [{ data: [], label: "" }];
-  barChartLabels: string[] = [];
-
-  barChartData2: any[] = [
-    { data: [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0], label: "" },
-  ];
-  barChartLabels2: string[] = [];
-  barChartOptions2: any = {
-    scaleShowVerticalLines: false,
-    responsive: true,
   };
   lots = [];
   sublote = [];
@@ -51,16 +33,10 @@ export class HomeAgricolaComponent implements OnInit {
     public lotService: LotsAgricolaService,
     public AgricolaService: AdminAgricola
   ) {}
-  private ngOnDestroy(): void {
-    clearInterval(this.intervalUpdate);
-  }
+
   ngOnInit() {
-    this.intervalUpdate = setInterval(function () {}.bind(this), 700);
     this.getLot();
     this.allData();
-  }
-  rFactor() {
-    return Math.round(Math.random() * 100);
   }
   allData() {
     this.AgricolaService.DashboardHome().subscribe((resp) => {
@@ -82,9 +58,7 @@ export class HomeAgricolaComponent implements OnInit {
         );
     });
   }
-  labels(value: string[]) {
-    return value;
-  }
+
   selectLot(value) {
     if (value === "all") {
       this.allData();
