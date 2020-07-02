@@ -13,8 +13,8 @@ export class HomeAgricolaComponent implements OnInit {
   @ViewChild("lineCanvas") lineCanvas;
   @ViewChild("barCanavas") barCanvas;
 
-  lineChart: any;
-  barChart: any;
+  lineChart: any = {};
+  barChart: any = {};
   aljson = {};
   DataAgricola = {
     reports_count: 0,
@@ -48,14 +48,15 @@ export class HomeAgricolaComponent implements OnInit {
         resolved_incidences_count: resp.resolved_incidences_count,
         unresolved_incidences_count: resp.unresolved_incidences_count,
       };
+    
       this.lineChartData(
         resp.incidences_per_name.barChartLabels,
         resp.incidences_per_name.barChartData
       );
-        this.BarChartData(
-          resp.incidences_per_time.barChartLabels,
-          resp.incidences_per_time.barChartData
-        );
+      this.BarChartData(
+        resp.incidences_per_time.barChartLabels,
+        resp.incidences_per_time.barChartData
+      );
     });
   }
 
@@ -86,14 +87,15 @@ export class HomeAgricolaComponent implements OnInit {
           resolved_incidences_count: resp.resolved_incidences_count,
           unresolved_incidences_count: resp.unresolved_incidences_count,
         };
+
         this.lineChartData(
           resp.incidences_per_name.barChartLabels,
           resp.incidences_per_name.barChartData
         );
-          this.BarChartData(
-            resp.incidences_per_time.barChartLabels,
-            resp.incidences_per_time.barChartData
-          );
+        this.BarChartData(
+          resp.incidences_per_time.barChartLabels,
+          resp.incidences_per_time.barChartData
+        );
       });
     }
   }
@@ -135,7 +137,7 @@ export class HomeAgricolaComponent implements OnInit {
       data: datasets[0].data,
       spanGaps: false,
     };
-
+    this.lineChart = this.barCanvas.nativeElement;
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: "line",
       data: {
@@ -145,6 +147,7 @@ export class HomeAgricolaComponent implements OnInit {
     });
   }
   BarChartData(labels, datasets) {
+    this.barChart = {};
     let obj: any = {
       label: datasets[0].label,
       fill: true,
@@ -167,14 +170,14 @@ export class HomeAgricolaComponent implements OnInit {
       data: datasets[0].data,
       spanGaps: false,
     };
-
-       this.barChart = new Chart(this.barCanvas.nativeElement, {
-         type: "bar",
-         data: {
-           labels: labels,
-           datasets: [obj],
-         },
-       });
+    this.barChart = this.barCanvas.nativeElement;
+    this.barChart = new Chart(this.barCanvas.nativeElement, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [obj],
+      },
+    });
   }
 
   getRandom(min, max) {
