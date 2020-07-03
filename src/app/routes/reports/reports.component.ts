@@ -1,7 +1,7 @@
 import { ActivatedRoute } from "@angular/router";
 import { LotsAgricolaService } from "./../../Services/lots-agricola.service";
 import { Component, OnInit } from "@angular/core";
-import { Location } from '@angular/common'
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-reports",
@@ -22,10 +22,11 @@ export class ReportsComponent implements OnInit {
   lat: number = 25.8132204;
   lng: number = -108.9858821;
   zoom: number = 12;
+  recorr
   constructor(
     public LotsService: LotsAgricolaService,
     public route: ActivatedRoute,
-    public location:Location
+    public location: Location
   ) {}
 
   ngOnInit() {
@@ -60,12 +61,27 @@ export class ReportsComponent implements OnInit {
   }
   ShowReportId(sub, rep) {
     this.LotsService.GetListPathingsID(sub, rep).subscribe((resp: any) => {
-      console.log("ruta es");
-      console.log(resp);
       this.ruta = resp;
       this.recorrido = resp.pathingCoordinates;
+      this.lat = resp.pathingCoordinates[0].lat;
+      this.lng = resp.pathingCoordinates[0].lng;
+      let arr = []
+      let obj1 = {
+        lat: resp.pathingCoordinates[0].lat,
+        lng: resp.pathingCoordinates[0].lng,
+        text:'inicio'
+      };
+      let obj2 = {
+        lat: resp.pathingCoordinates[resp.pathingCoordinates.length - 1].lat,
+        lng: resp.pathingCoordinates[resp.pathingCoordinates.length - 1].lng,
+        text: "Fin",
+      };
+      arr.push(obj1);
+      arr.push(obj2);
+      this.recorr = arr;
     });
   }
+
   onCircleClicked(evento, id) {
     console.log(id);
   }

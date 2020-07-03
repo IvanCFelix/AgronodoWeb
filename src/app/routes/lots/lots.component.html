@@ -59,13 +59,11 @@
           <button class="btn btn-success m-1 text-right" type="button" [routerLink]="['/Lotes/','lote',id]"
             *ngIf="verify == false ">
             <a class="fas fa-pencil-alt"></a> Editar lote</button>
-
         </div>
         <div class="col animated fadeIn">
           <p *ngIf="mostrar" class="text-18 ml-4 text-20">Ve la lista de lotes, edita, habilita/deshabilita o agrega
             nuevos.</p>
           <p *ngIf="mostrar == false && verify == true" class="text-18">Ver, editar, agregar y eliminar sublotes.</p>
-
         </div>
       </div>
     </div>
@@ -215,20 +213,6 @@
 
                     </div>
                   </div>
-                  <div class="card-footer text-right bt0">
-                    <button class="btn btn-success m-1" type="button" [routerLink]="['/Lotes/','lote',id]"
-                      *ngIf="verify == false">
-                      <a class="fas fa-pencil-alt"></a> </button>
-                    <button class="btn btn-primary m-1 respo" type="button" [routerLink]="['/Lotes/cicle/',id,item.id]">
-                      <a class="fas fa-eye"></a> </button>
-                    <button class="btn btn-success m-1" type="button" (click)="datasublote(item,i);Modal.show()"
-                      *ngIf="verify == true">
-                      <a class="fas fa-pencil-alt"></a> </button>
-                    <button (click)="deletesublote(item)" type="button" class="btn btn-danger">
-                      <a class="fas fa-trash-alt"></a>
-                    </button>
-                  </div>
-
                 </div>
               </div>
             </div>

@@ -55,9 +55,9 @@
             <strong>{{row.engineer }}</strong>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Fecha final">
+        <ngx-datatable-column name="Fecha inicial">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{row.due_date}}
+            {{row.start_date}}
           </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Acción" [canAutoResize]="false">
@@ -104,7 +104,7 @@
         </ngx-datatable-column>
         <ngx-datatable-column name="Fecha final" [width]="80" [canAutoResize]="false">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{row.due_date}}
+            {{row.done_datetime | date:'dd-MM-yyyy'}}
           </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Acción">
