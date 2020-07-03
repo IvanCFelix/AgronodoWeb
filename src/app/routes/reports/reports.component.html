@@ -106,6 +106,8 @@
       <div class="col">
         <div class=" card-body ">
           <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false">
+            <agm-marker *ngFor="let item of recorr" [latitude]="item.lat" [longitude]="item.lng" [label]="item.text">
+            </agm-marker>
             <agm-polygon [paths]="allLots" [fillOpacity]="0.1" [fillColor]="'transparent'" [clickable]=false
               [strokeColor]="sublote.color">
             </agm-polygon>
@@ -113,6 +115,7 @@
             <div>
               <agm-polyline [strokeColor]="'#4caf50'" [clickable]=true>
                 <div *ngFor="let item of report">
+
                   <agm-circle (mouseOver)="infoWindow.open();" (mouseOut)="infoWindow.close();" [clickable]=true
                     [latitude]="item.lat" [longitude]="item.lng" [draggable]="true" [editable]="false"
                     [fillColor]="'#ff8000'" [fillOpacity]="1" [radius]="3"
@@ -130,8 +133,10 @@
                 </div>
                 <agm-polyline-point *ngFor="let point of recorrido;let i = index;" [latitude]="point.lat"
                   [longitude]="point.lng">
+
                 </agm-polyline-point>
               </agm-polyline>
+
 
             </div>
 
