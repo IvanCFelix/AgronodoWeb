@@ -52,8 +52,6 @@
               <div class="col-12">
                 <label>Fecha inicial:</label>
                 <input class="form-control" formControlName="startDate" type="date" />
-                <span class="text-danger" *ngIf="tareasForm.controls.startDate.value == '' ">Ingresa un
-                  dato válido</span>
               </div>
             </div>
             <div class="form-group ">
@@ -92,10 +90,12 @@
             <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
             </agm-polyline-point>
           </agm-polyline>
-          <agm-polyline *ngFor="let polyline of routes;let i = index;">
-            <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
-            </agm-polyline-point>
-          </agm-polyline>
+          <div *ngIf="typeTask === 'Recorrido'">
+            <agm-polyline *ngFor="let polyline of recorrido;let i = index;">
+              <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
+              </agm-polyline-point>
+            </agm-polyline>
+          </div>
           <agm-polyline *ngFor="let polyline of nestedSubfield; let i = index;" [strokeColor]="'#4caf50'">
             <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
             </agm-polyline-point>
@@ -132,11 +132,8 @@
                 <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                 </agm-polyline-point>
               </agm-polyline>
-              <agm-polyline *ngFor="let polyline of routes;let i = index;">
-                <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
-                </agm-polyline-point>
-              </agm-polyline>
-              <agm-polyline *ngFor="let polyline of nestedSubfield; let i = index;" [strokeColor]="color">
+
+              <agm-polyline *ngFor="let polyline of nestedSubfield; let i = index;" [strokeColor]="'#4caf50'">
                 <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
                 </agm-polyline-point>
               </agm-polyline>
@@ -179,10 +176,10 @@
             Selecciona el tipo de reporte que deseas
           </div>
           <div class="col">
-            <Button class="btn btn-info" type='button' (click)="type('Individual')">Individual</Button>
+            <Button class="btn btn-info" type='button' (click)="type('Simple')">Simples</Button>
           </div>
           <div class="col">
-            <Button class="btn btn-success" type='button' (click)="type('Group')">Grupal</Button>
+            <Button class="btn btn-success" type='button' (click)="type('Recorrido')">Recorrido de tareas</Button>
           </div>
         </div>
       </div>
@@ -207,7 +204,7 @@
           <form [formGroup]="descriptionForm">
             <div class="form-group ">
               <div class="col-12">
-                <label>Nombre</label>
+                <label>Descripción</label>
                 <input class="form-control" formControlName="description" type="text" />
                 <span class="text-danger" *ngIf="descriptionForm.controls['description'].errors?.required">Ingresa un
                   dato válido</span>

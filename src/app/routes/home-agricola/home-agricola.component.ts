@@ -13,10 +13,8 @@ export class HomeAgricolaComponent implements OnInit {
   @ViewChild("lineCanvas") lineCanvas;
   @ViewChild("barCanavas") barCanvas;
 
-  lineChart: any;
-  barChart: any;
-  public chart: any = null;
-  private intervalUpdate: any = null;
+  lineChart: any = {};
+  barChart: any = {};
   aljson = {};
   DataAgricola = {
     reports_count: 0,
@@ -24,22 +22,6 @@ export class HomeAgricolaComponent implements OnInit {
     incidences_count: 0,
     resolved_incidences_count: 0,
     unresolved_incidences_count: 0,
-  };
-  barChartOptions: any = {
-    scaleShowVerticalLines: false,
-    responsive: true,
-  };
-
-  barChartData: any[] = [{ data: [], label: "" }];
-  barChartLabels: string[] = [];
-
-  barChartData2: any[] = [
-    { data: [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0], label: "" },
-  ];
-  barChartLabels2: string[] = [];
-  barChartOptions2: any = {
-    scaleShowVerticalLines: false,
-    responsive: true,
   };
   lots = [];
   sublote = [];
@@ -51,16 +33,10 @@ export class HomeAgricolaComponent implements OnInit {
     public lotService: LotsAgricolaService,
     public AgricolaService: AdminAgricola
   ) {}
-  private ngOnDestroy(): void {
-    clearInterval(this.intervalUpdate);
-  }
+
   ngOnInit() {
-    this.intervalUpdate = setInterval(function () {}.bind(this), 700);
     this.getLot();
     this.allData();
-  }
-  rFactor() {
-    return Math.round(Math.random() * 100);
   }
   allData() {
     this.AgricolaService.DashboardHome().subscribe((resp) => {
@@ -72,19 +48,18 @@ export class HomeAgricolaComponent implements OnInit {
         resolved_incidences_count: resp.resolved_incidences_count,
         unresolved_incidences_count: resp.unresolved_incidences_count,
       };
+    
       this.lineChartData(
         resp.incidences_per_name.barChartLabels,
         resp.incidences_per_name.barChartData
       );
-        this.BarChartData(
-          resp.incidences_per_time.barChartLabels,
-          resp.incidences_per_time.barChartData
-        );
+      this.BarChartData(
+        resp.incidences_per_time.barChartLabels,
+        resp.incidences_per_time.barChartData
+      );
     });
   }
-  labels(value: string[]) {
-    return value;
-  }
+
   selectLot(value) {
     if (value === "all") {
       this.allData();
@@ -112,14 +87,15 @@ export class HomeAgricolaComponent implements OnInit {
           resolved_incidences_count: resp.resolved_incidences_count,
           unresolved_incidences_count: resp.unresolved_incidences_count,
         };
+
         this.lineChartData(
           resp.incidences_per_name.barChartLabels,
           resp.incidences_per_name.barChartData
         );
-          this.BarChartData(
-            resp.incidences_per_time.barChartLabels,
-            resp.incidences_per_time.barChartData
-          );
+        this.BarChartData(
+          resp.incidences_per_time.barChartLabels,
+          resp.incidences_per_time.barChartData
+        );
       });
     }
   }
@@ -161,7 +137,7 @@ export class HomeAgricolaComponent implements OnInit {
       data: datasets[0].data,
       spanGaps: false,
     };
-
+    this.lineChart = this.barCanvas.nativeElement;
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: "line",
       data: {
@@ -171,6 +147,7 @@ export class HomeAgricolaComponent implements OnInit {
     });
   }
   BarChartData(labels, datasets) {
+    this.barChart = {};
     let obj: any = {
       label: datasets[0].label,
       fill: true,
@@ -193,14 +170,14 @@ export class HomeAgricolaComponent implements OnInit {
       data: datasets[0].data,
       spanGaps: false,
     };
-
-       this.barChart = new Chart(this.barCanvas.nativeElement, {
-         type: "bar",
-         data: {
-           labels: labels,
-           datasets: [obj],
-         },
-       });
+    this.barChart = this.barCanvas.nativeElement;
+    this.barChart = new Chart(this.barCanvas.nativeElement, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [obj],
+      },
+    });
   }
 
   getRandom(min, max) {

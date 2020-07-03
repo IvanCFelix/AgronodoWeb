@@ -36,12 +36,12 @@ export class TaskEditComponent implements OnInit {
   typeTask = "";
   color: string;
   TaskGrouparray: any = [];
-  routes = [];
   startEnd = [];
   icon = {
     img:
       "https://developers.google.com/maps/documentation/javascript/examples/full/images/info-i_maps.png",
   };
+  recorrido = [];
   constructor(
     public ingenieroServicio: Engineer,
     public router: Router,
@@ -49,9 +49,11 @@ export class TaskEditComponent implements OnInit {
   ) {
     let date: any = new Date();
     let mes = ("0" + (date.getMonth() + 1)).slice(-2);
-    let dia = date.getDate();
+    let dia = ("0" + (date.getDate() + 1)).slice(-2);
     let año = date.getFullYear();
     let fecha = año + "-" + mes + "-" + dia;
+    console.log(fecha);
+
     this.tareasForm = new FormGroup({
       id: new FormControl(""),
       name: new FormControl("", Validators.required),
@@ -84,7 +86,7 @@ export class TaskEditComponent implements OnInit {
     console.log(this.id);
     if (id != null) {
       this.ingenieroServicio.getTask(id).subscribe((Resp: any) => {
-        this.setDataIndividual(Resp);
+        this.setDataSimple(Resp);
       });
     }
     this.getData();
@@ -101,13 +103,17 @@ export class TaskEditComponent implements OnInit {
     });
   }
 
-  setDataIndividual(Resp) {
+  setDataSimple(Resp) {
     let JsonSwDate = false;
     let Initial = Resp.objectives;
-    if (Resp.objectives.length > 1) {
-      this.typeTask = "Group";
+    console.log(Resp);
+
+    if (Resp.objectives[0].description === "") {
+      console.log(Resp.objectives[0].description);
+      this.typeTask = "Recorrido";
     } else {
-      this.typeTask = "Individual";
+      this.typeTask = "Simple";
+      console.log("entro");
     }
     for (let item of Initial) {
       let obj = {
@@ -120,9 +126,6 @@ export class TaskEditComponent implements OnInit {
     }
     this.startEnd.push(Initial[0]);
     this.startEnd.push(Initial[Initial.length - 1]);
-
-    console.log(this.startEnd);
-
     this.ingenieroServicio
       .getSubloteID(Resp.subfield)
       .subscribe((resp2: any) => {
@@ -157,17 +160,15 @@ export class TaskEditComponent implements OnInit {
 
   addMarker(lat: number, lng: number) {
     switch (this.typeTask) {
-      case "Individual":
-        if (this.newTask.length === 0) {
-          this.contentModal.show();
-          let obj = {
-            lat: lat,
-            lng: lng,
-          };
-          this.newTask.push(obj);
-        }
+      case "Simple":
+        this.contentModal.show();
+        let obj1 = {
+          lat: lat,
+          lng: lng,
+        };
+        this.newTask.push(obj1);
         break;
-      case "Group":
+      case "Recorrido":
         let obj = {
           lat: lat,
           lng: lng,
@@ -200,6 +201,7 @@ export class TaskEditComponent implements OnInit {
   }
 
   guardarTarea(value: any) {
+    this.objetivoSimple();
     let obj = {
       engineer: value.engineer,
       title: value.name,
@@ -224,7 +226,7 @@ export class TaskEditComponent implements OnInit {
       (err: any) => {
         console.log(err);
         Swal.fire({
-          text: "Error en el sevidor",
+          text: err._body,
           showConfirmButton: false,
           timer: 1500,
           icon: "error",
@@ -235,7 +237,16 @@ export class TaskEditComponent implements OnInit {
   }
 
   updateTarea(value: any) {
-    this.objetivos();
+    switch (this.typeTask) {
+      case "Simple":
+        this.objetivoSimple();
+        break;
+      case "Recorrido":
+        this.objetivos();
+        break;
+      default:
+        break;
+    }
     let obj = {
       id: value.id,
       engineer: value.engineer,
@@ -259,7 +270,7 @@ export class TaskEditComponent implements OnInit {
       (err: any) => {
         console.log(err);
         Swal.fire({
-          text: "Error en el sevidor",
+          text: err._body,
           showConfirmButton: false,
           timer: 1500,
           icon: "error",
@@ -315,9 +326,19 @@ export class TaskEditComponent implements OnInit {
       this.typeTask = value;
       this.selectedModal.hide();
     }
-    console.log(this.typeTask);
   }
   objetivos() {
+    this.objetives = [];
+    for (let i = 0; i < this.newTask.length; i++) {
+      let Jsonobjetives = {
+        lat: this.newTask[i].lat,
+        lng: this.newTask[i].lng,
+      };
+      this.objetives.push(Jsonobjetives);
+    }
+    this.recorrido.push(this.objetives);
+  }
+  objetivoSimple() {
     this.objetives = [];
     for (let i = 0; i < this.newTask.length; i++) {
       let Jsonobjetives = {
@@ -327,6 +348,5 @@ export class TaskEditComponent implements OnInit {
       };
       this.objetives.push(Jsonobjetives);
     }
-    this.routes.push(this.objetives);
   }
 }
