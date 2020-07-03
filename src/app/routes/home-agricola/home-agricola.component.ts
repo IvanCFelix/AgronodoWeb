@@ -48,15 +48,14 @@ export class HomeAgricolaComponent implements OnInit {
         resolved_incidences_count: resp.resolved_incidences_count,
         unresolved_incidences_count: resp.unresolved_incidences_count,
       };
-    
-      this.lineChartData(
-        resp.incidences_per_name.barChartLabels,
-        resp.incidences_per_name.barChartData
-      );
-      this.BarChartData(
-        resp.incidences_per_time.barChartLabels,
-        resp.incidences_per_time.barChartData
-      );
+        this.lineChartData(
+          resp.incidences_per_time.barChartLabels,
+          resp.incidences_per_time.barChartData
+        );
+        this.BarChartData(
+          resp.incidences_per_name.barChartLabels,
+          resp.incidences_per_name.barChartData
+        );
     });
   }
 
@@ -89,12 +88,12 @@ export class HomeAgricolaComponent implements OnInit {
         };
 
         this.lineChartData(
-          resp.incidences_per_name.barChartLabels,
-          resp.incidences_per_name.barChartData
-        );
-        this.BarChartData(
           resp.incidences_per_time.barChartLabels,
           resp.incidences_per_time.barChartData
+          );
+          this.BarChartData(
+            resp.incidences_per_name.barChartLabels,
+            resp.incidences_per_name.barChartData
         );
       });
     }
