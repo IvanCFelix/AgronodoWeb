@@ -114,7 +114,7 @@ export class HomeAgricolaComponent implements OnInit {
   }
 
   lineChartData(labels, datasets) {
-    let obj: any = {
+    let activos: any = {
       label: datasets[0].label,
       fill: true,
       lineTension: 0.1,
@@ -136,18 +136,40 @@ export class HomeAgricolaComponent implements OnInit {
       data: datasets[0].data,
       spanGaps: false,
     };
+    let inactivos: any = {
+      label: datasets[1].label,
+      fill: true,
+      lineTension: 0.1,
+      backgroundColor: this.colores(0.2),
+      borderColor: this.colores(0.8),
+      borderCapStyle: "butt",
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: "miter",
+      pointBorderColor: this.colores(0.8),
+      pointBackgroundColor: "#fff",
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: this.colores(0.8),
+      pointHoverBorderColor: this.colores(0.8),
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: datasets[1].data,
+      spanGaps: false,
+    };
     this.lineChart = this.barCanvas.nativeElement;
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: "line",
       data: {
         labels: labels,
-        datasets: [obj],
+        datasets: [activos,inactivos],
       },
     });
   }
   BarChartData(labels, datasets) {
     this.barChart = {};
-    let obj: any = {
+    let activos: any = {
       label: datasets[0].label,
       fill: true,
       lineTension: 0.1,
@@ -169,12 +191,34 @@ export class HomeAgricolaComponent implements OnInit {
       data: datasets[0].data,
       spanGaps: false,
     };
+      let inactivos: any = {
+        label: datasets[1].label,
+        fill: true,
+        lineTension: 0.1,
+        backgroundColor: this.colores(0.5),
+        borderColor: this.colores(0.4),
+        borderCapStyle: "butt",
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: "miter",
+        pointBorderColor: this.colores(0.8),
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: this.colores(0.8),
+        pointHoverBorderColor: this.colores(0.8),
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: datasets[1].data,
+        spanGaps: false,
+      };
     this.barChart = this.barCanvas.nativeElement;
     this.barChart = new Chart(this.barCanvas.nativeElement, {
       type: "bar",
       data: {
         labels: labels,
-        datasets: [obj],
+        datasets: [activos, inactivos],
       },
     });
   }
