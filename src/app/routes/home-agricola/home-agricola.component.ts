@@ -305,6 +305,7 @@ export class HomeAgricolaComponent implements OnInit {
       );
     } else {
       if (value === "all") {
+          this.allData();
       } else {
         this.AgricolaService.DashboardHomeInitialDate(value).subscribe(
           (resp) => {
