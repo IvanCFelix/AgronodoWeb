@@ -33,6 +33,21 @@
       </select>
     </div>
   </div>
+  <div class="col-4">
+    <div data-intro="Selecciona tu lote." class="form-group">
+      <label>Año, mes, semanas</label><br>
+      <select class="form-control" (change)="selectTime($event.target.value)">
+        <option value="" disabled>
+          Seleccione un...
+        </option>
+        <option value="all"> todos </option>
+        <option value="Y"> Años </option>
+        <option value="M"> mes </option>
+        <option value="W"> semanas </option>
+
+      </select>
+    </div>
+  </div>
 </div>
 <div class="row">
   <div class="col">
@@ -105,12 +120,12 @@
 </div>
 
 <div class="row">
-  <div class="col-6">
+  <div class="col-8">
     <div style="display: block">
       <canvas #lineCanvas></canvas>
     </div>
   </div>
-  <div class="col-6">
+  <div class="col-8">
     <div style="display: block">
       <canvas #barCanavas></canvas>
     </div>
