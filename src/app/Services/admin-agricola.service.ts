@@ -49,9 +49,19 @@ export class AdminAgricola {
       .get(`${Uris.DASHBORARD}${id}`, this.jwt())
       .map((response: Response) => response.json());
   }
-   DashboardHome() {
+  DashboardHome() {
     return this.http
       .get(`${Uris.DASHBORARD}`, this.jwt())
+      .map((response: Response) => response.json());
+  }
+  DashboardHomeInitialDate(date) {
+    return this.http
+      .get(`${Uris.DASHBORARD}?time=${date}`, this.jwt())
+      .map((response: Response) => response.json());
+  }
+  DashboardHomeDATE(id, date) {
+    return this.http
+      .get(`${Uris.DASHBORARD}${id}/?time=${date}`, this.jwt())
       .map((response: Response) => response.json());
   }
 
