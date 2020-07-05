@@ -25,6 +25,7 @@ export class HomeAgricolaComponent implements OnInit {
   };
   lots = [];
   sublote = [];
+  idsublote;
   itemsSublotes = [];
 
   constructor(
@@ -33,7 +34,22 @@ export class HomeAgricolaComponent implements OnInit {
     public lotService: LotsAgricolaService,
     public AgricolaService: AdminAgricola
   ) {}
-
+  ngAfterContentInit(): void {
+    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+      type: "line",
+      data: {
+        labels: [],
+        datasets: [],
+      },
+    });
+    this.barChart = new Chart(this.barCanvas.nativeElement, {
+      type: "bar",
+      data: {
+        labels: [],
+        datasets: [],
+      },
+    });
+  }
   ngOnInit() {
     this.getLot();
     this.allData();
@@ -48,14 +64,14 @@ export class HomeAgricolaComponent implements OnInit {
         resolved_incidences_count: resp.resolved_incidences_count,
         unresolved_incidences_count: resp.unresolved_incidences_count,
       };
-        this.lineChartData(
-          resp.incidences_per_time.barChartLabels,
-          resp.incidences_per_time.barChartData
-        );
-        this.BarChartData(
-          resp.incidences_per_name.barChartLabels,
-          resp.incidences_per_name.barChartData
-        );
+      this.lineChartData(
+        resp.incidences_per_time.barChartLabels,
+        resp.incidences_per_time.barChartData
+      );
+      this.BarChartData(
+        resp.incidences_per_name.barChartLabels,
+        resp.incidences_per_name.barChartData
+      );
     });
   }
 
@@ -73,12 +89,12 @@ export class HomeAgricolaComponent implements OnInit {
     }
   }
   selectSublot(id) {
+    this.idsublote = id;
     if (id === "all") {
       this.allData();
     } else {
       this.AgricolaService.Dashboard(id).subscribe((resp) => {
         this.aljson = resp;
-        console.log(resp);
         this.DataAgricola = {
           reports_count: resp.reports_count,
           pathings_count: resp.pathings_count,
@@ -90,10 +106,10 @@ export class HomeAgricolaComponent implements OnInit {
         this.lineChartData(
           resp.incidences_per_time.barChartLabels,
           resp.incidences_per_time.barChartData
-          );
-          this.BarChartData(
-            resp.incidences_per_name.barChartLabels,
-            resp.incidences_per_name.barChartData
+        );
+        this.BarChartData(
+          resp.incidences_per_name.barChartLabels,
+          resp.incidences_per_name.barChartData
         );
       });
     }
@@ -109,7 +125,6 @@ export class HomeAgricolaComponent implements OnInit {
         }
       }
       this.sublote = arr;
-      console.log(resp);
     });
   }
 
@@ -158,17 +173,33 @@ export class HomeAgricolaComponent implements OnInit {
       data: datasets[1].data,
       spanGaps: false,
     };
-    this.lineChart = this.barCanvas.nativeElement;
-    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-      type: "line",
-      data: {
-        labels: labels,
-        datasets: [activos,inactivos],
-      },
-    });
+    this.SetDataChart(labels, activos, inactivos, "line");
+  }
+  SetDataChart(labels, activos, inactivos, type) {
+    switch (type) {
+      case "line":
+        this.lineChart.data.labels = [];
+        this.lineChart.data.datasets = [];
+        this.lineChart.data.datasets = [];
+        this.lineChart.data.labels = labels;
+        this.lineChart.data.datasets.push(activos);
+        this.lineChart.data.datasets.push(inactivos);
+        this.lineChart.update();
+        break;
+      case "bar":
+        this.barChart.data.labels = [];
+        this.barChart.data.datasets = [];
+        this.barChart.data.datasets = [];
+        this.barChart.data.labels = labels;
+        this.barChart.data.datasets.push(activos);
+        this.barChart.data.datasets.push(inactivos);
+        this.barChart.update();
+        break;
+      default:
+        break;
+    }
   }
   BarChartData(labels, datasets) {
-    this.barChart = {};
     let activos: any = {
       label: datasets[0].label,
       fill: true,
@@ -189,38 +220,32 @@ export class HomeAgricolaComponent implements OnInit {
       pointRadius: 1,
       pointHitRadius: 10,
       data: datasets[0].data,
+      spanGaps: true,
+    };
+    let inactivos: any = {
+      label: datasets[1].label,
+      fill: true,
+      lineTension: 0.1,
+      backgroundColor: this.colores(0.5),
+      borderColor: this.colores(0.4),
+      borderCapStyle: "butt",
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: "miter",
+      pointBorderColor: this.colores(0.8),
+      pointBackgroundColor: "#fff",
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: this.colores(0.8),
+      pointHoverBorderColor: this.colores(0.8),
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: datasets[1].data,
       spanGaps: false,
     };
-      let inactivos: any = {
-        label: datasets[1].label,
-        fill: true,
-        lineTension: 0.1,
-        backgroundColor: this.colores(0.5),
-        borderColor: this.colores(0.4),
-        borderCapStyle: "butt",
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: "miter",
-        pointBorderColor: this.colores(0.8),
-        pointBackgroundColor: "#fff",
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: this.colores(0.8),
-        pointHoverBorderColor: this.colores(0.8),
-        pointHoverBorderWidth: 2,
-        pointRadius: 1,
-        pointHitRadius: 10,
-        data: datasets[1].data,
-        spanGaps: false,
-      };
-    this.barChart = this.barCanvas.nativeElement;
-    this.barChart = new Chart(this.barCanvas.nativeElement, {
-      type: "bar",
-      data: {
-        labels: labels,
-        datasets: [activos, inactivos],
-      },
-    });
+    this.SetDataChart(labels, activos, inactivos, "bar");
+    console.log(this.barChart);
   }
 
   getRandom(min, max) {
@@ -233,5 +258,97 @@ export class HomeAgricolaComponent implements OnInit {
       this.getRandom(0, 255),
       opacity,
     ].join(",")})`;
+  }
+  selectTime(value) {
+    if (this.idsublote) {
+      this.AgricolaService.DashboardHomeDATE(this.idsublote, value).subscribe(
+        (resp) => {
+          this.aljson = resp;
+          this.DataAgricola = {
+            reports_count: resp.reports_count,
+            pathings_count: resp.pathings_count,
+            incidences_count: resp.incidences_count,
+            resolved_incidences_count: resp.resolved_incidences_count,
+            unresolved_incidences_count: resp.unresolved_incidences_count,
+          };
+          if (resp.incidences_per_year) {
+            this.lineChartData(
+              resp.incidences_per_year.barChartLabels,
+              resp.incidences_per_year.barChartData
+            );
+            this.BarChartData(
+              resp.incidences_per_name.barChartLabels,
+              resp.incidences_per_name.barChartData
+            );
+          }
+          if (resp.incidences_per_time) {
+            this.lineChartData(
+              resp.incidences_per_time.barChartLabels,
+              resp.incidences_per_time.barChartData
+            );
+            this.BarChartData(
+              resp.incidences_per_name.barChartLabels,
+              resp.incidences_per_name.barChartData
+            );
+          }
+          if (resp.incidences_per_week) {
+            this.lineChartData(
+              resp.incidences_per_week.barChartLabels,
+              resp.incidences_per_week.barChartData
+            );
+            this.BarChartData(
+              resp.incidences_per_name.barChartLabels,
+              resp.incidences_per_name.barChartData
+            );
+          }
+        }
+      );
+    } else {
+      if (value === "all") {
+      } else {
+        this.AgricolaService.DashboardHomeInitialDate(value).subscribe(
+          (resp) => {
+            this.aljson = resp;
+            this.DataAgricola = {
+              reports_count: resp.reports_count,
+              pathings_count: resp.pathings_count,
+              incidences_count: resp.incidences_count,
+              resolved_incidences_count: resp.resolved_incidences_count,
+              unresolved_incidences_count: resp.unresolved_incidences_count,
+            };
+            if (resp.incidences_per_year) {
+              this.lineChartData(
+                resp.incidences_per_year.barChartLabels,
+                resp.incidences_per_year.barChartData
+              );
+              this.BarChartData(
+                resp.incidences_per_name.barChartLabels,
+                resp.incidences_per_name.barChartData
+              );
+            }
+            if (resp.incidences_per_time) {
+              this.lineChartData(
+                resp.incidences_per_time.barChartLabels,
+                resp.incidences_per_time.barChartData
+              );
+              this.BarChartData(
+                resp.incidences_per_name.barChartLabels,
+                resp.incidences_per_name.barChartData
+              );
+            }
+            if (resp.incidences_per_week) {
+              this.lineChartData(
+                resp.incidences_per_week.barChartLabels,
+                resp.incidences_per_week.barChartData
+              );
+              this.BarChartData(
+                resp.incidences_per_name.barChartLabels,
+                resp.incidences_per_name.barChartData
+              );
+            }
+          }
+        );
+      }
+    }
   }
 }
