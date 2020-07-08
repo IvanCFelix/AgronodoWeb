@@ -21,7 +21,9 @@ export class AdminIngAgricolaComponent implements OnInit {
   timeout: any;
   expanded: any = {};
   selected = [];
-  user = {}
+  user = {
+    prmsAdminExtraBool:0
+  }
   constructor(public Agricola:AdminAgricola) {
     
   }
