@@ -21,6 +21,9 @@ export class AdminIngAgricolaComponent implements OnInit {
   timeout: any;
   expanded: any = {};
   selected = [];
+  user = {
+    prmsAdminExtraBool:0
+  }
   constructor(public Agricola:AdminAgricola) {
     
   }
@@ -37,6 +40,8 @@ export class AdminIngAgricolaComponent implements OnInit {
 }
 
   ngOnInit() {
+    const user = <any>JSON.parse(localStorage.getItem("USER"));
+    this.user =  user.profile
     this.Agricola.listadmin().subscribe(resp => {
       console.log(resp);
       

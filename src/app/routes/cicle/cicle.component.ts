@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import Swal from "sweetalert2";
 import { LotsAgricolaService } from "../../Services/lots-agricola.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import {Location}from '@angular/common'
+import { Location } from "@angular/common";
 declare var google: any;
 @Component({
   selector: "app-cicle",
@@ -35,6 +35,31 @@ export class CicleComponent implements OnInit {
   mostrarsublotes: any = [];
   nestedPaths = [];
   cicleLength: any;
+  reportes = []
+  inicio = {
+    url: "../../../assets/img/Marcadores/Inicio.png",
+    scaledSize: { height: 40, width: 30 },
+  };
+  fin = {
+    url: "../../../assets/img/Marcadores/final.png",
+    scaledSize: { height: 40, width: 30 },
+  };
+  sano = {
+    url: "../../../assets/img/Marcadores/saludable1.png",
+    scaledSize: { height: 40, width: 30 },
+  };
+  reportNormal = {
+    url: "../../../assets/img/Marcadores/reporte1.png",
+    scaledSize: { height: 40, width: 30 },
+  };
+  alerta = {
+    url: "../../../assets/img/Marcadores/alerta1.png",
+    scaledSize: { height: 40, width: 30 },
+  };
+  peligro = {
+    url: "../../../assets/img/Marcadores/peligro1.png",
+    scaledSize: { height: 40, width: 30 },
+  };
   constructor(
     public LotsService: LotsAgricolaService,
     public route: ActivatedRoute,
@@ -57,9 +82,14 @@ export class CicleComponent implements OnInit {
     });
   }
 
+  setUrl(value) {
+    let URL = {
+      url: value,
+      scaledSize: { height: 40, width: 30 },
+    };
+    return URL;
+  }
   verify(value) {
-    console.log(value);
-    console.log("el valor para verificar es ");
     console.log(value);
     const sub = this.sub;
     const lot = this.lot;
@@ -138,20 +168,18 @@ export class CicleComponent implements OnInit {
         arr.push(array);
       }
     }
-    console.log(arr);
-
     return arr;
   }
   showpathings(value) {
     console.log(value);
-
+    this.reportes =  value.reports
     this.pathingCoordinates = value.pathingCoordinates;
     const array: any[] = Array.of(this.pathingCoordinates);
+    // this.rutas = this.recor();
     this.pathingCoordinates = array;
     this.lat = value.pathingCoordinates[0].lat;
     this.lng = value.pathingCoordinates[0].lng;
     this.zoom = 14;
-    // this.destin( value.pathingCoordinates)
   }
   destin(value) {
     const inicial = value[0];
@@ -212,4 +240,3 @@ export class CicleComponent implements OnInit {
     return this.Location.back();
   }
 }
-

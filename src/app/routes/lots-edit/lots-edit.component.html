@@ -65,7 +65,7 @@
         <button *ngIf="newpaths.length > 1" class="btn btn-regresar pos-button text-center" type="button"
           (click)="back()">
           Deshacer<img src="../../../assets/img/icons/regresa.svg" alt="regresar" width="25" class="ml-2"></button>
-        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="true" [mapTypeControl]='true'
           (mapClick)="addMarker($event.coords.lat, $event.coords.lng)" class="m-3">
           <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
             [opacity]="marker.alpha" [markerDraggable]="false">
@@ -292,8 +292,8 @@
               <button *ngIf=" pathsSubLotes.length  > 0" class="btn btn-regresar pos-button" type="button"
                 (click)="backsubfield()" style="padding: 5px;width: 106px;">Deshacer<img
                   src="../../../assets/img/icons/regresa.svg" alt="regresar" width="20" class="ml-2"></button>
-              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
-                (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
+              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="true"
+                [mapTypeControl]='true' (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
                 <agm-polygon [fillOpacity]="0.1" [fillColor]="'#4caf50'" [strokeColor]="'#4caf50'" [paths]="allLots">
                 </agm-polygon>
                 <div>

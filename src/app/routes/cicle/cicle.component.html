@@ -137,7 +137,8 @@
                             <strong>Final del recorrido</strong>
                           </td>
                           <td>
-                            {{ lote.done_date }} a las {{ lote.pathingTime }}
+                            {{ lote.done_date | date:" dd/MM/yyyy 'de' hh:mm:ss "  }} a las
+                            {{ lote.pathingTime }}
                           </td>
                           <td>
                             <strong>Distancia Recorrida:</strong>
@@ -171,30 +172,6 @@
                       </button>
                     </div>
                   </div>
-                  <!-- <div class="row">
-                    <div class="col">
-                      <strong>Nombre de la ruta:
-                        <small>{{lote.title}}</small>
-                      </strong>
-                    </div>
-                    <div class="col">
-                      <strong>Fin del recorrido:
-                        <small>{{lote.done_date}} a las {{lote.pathingTime}}</small>
-                      </strong>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <strong>Ingeniero:
-                        <small>{{lote.engineer}}</small>
-                      </strong>
-                    </div>
-                    <div class="col">
-                      <strong>Rol:
-                        <small>{{lote.engineer_role}}</small>
-                      </strong>
-                    </div>
-                  </div> -->
                 </div>
               </div>
             </div>
@@ -203,7 +180,7 @@
       </div>
       <div class="col">
         <div class="card-body">
-          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false">
+          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="true" [mapTypeControl]='true'>
             <agm-polygon [paths]="allLots" [fillOpacity]="0.1" [fillColor]="'transparent'"
               [strokeColor]="showsublote.color">
             </agm-polygon>
@@ -217,20 +194,57 @@
             <div *ngIf="mostrar == false">
               <agm-polyline *ngFor="let polyline of pathingCoordinates; let i = index" [strokeColor]="'#4caf50'"
                 [clickable]="true">
-                <div *ngFor="let lote of rutas">
-                  <div *ngFor="let item of lote.reports">
-                    <agm-circle [latitude]="item.lat" [longitude]="item.lng" [clickable]="false" [draggable]="true"
-                      [editable]="false" [fillColor]="'#ff8000'" [fillOpacity]="1" [radius]="1">
-                    </agm-circle>
+                <div *ngFor="let item of reportes">
+                  <div *ngIf="item.incidence">
+                    <div *ngFor="let agricultura of item.incidence.agriculturalIncidence">
+                      <div *ngIf="agricultura.status === 2">
+                        <agm-marker [latitude]="item.lat" [longitude]="item.lng" [iconUrl]="alerta">
+                          <agm-info-window>
+                            {{item.title}} <br><b>{{item.datetime | date:" dd/MM/yyyy  hh:mm:ss "}}</b>
+                          </agm-info-window>
+                        </agm-marker>
+                      </div>
+                    </div>
+                    <div *ngFor="let agricultura of item.incidence.agriculturalIncidence">
+                      <div *ngIf="agricultura.status === 3">
+                        <agm-marker [latitude]="item.lat" [longitude]="item.lng" [iconUrl]="peligro">
+                          <agm-info-window>
+                            {{item.title}} <br><b>{{item.datetime | date:" dd/MM/yyyy hh:mm:ss "}}</b>
+                          </agm-info-window>
+                        </agm-marker>
+                      </div>
+                    </div>
+                    <div *ngFor="let tecnica of item.incidence.technicalIncidence">
+                      <agm-marker [latitude]="item.lat" [longitude]="item.lng" [iconUrl]="peligro">
+                        <agm-info-window>
+                          {{item.title}} <br><b>{{item.datetime | date:" dd/MM/yyyy hh:mm:ss "}}</b>
+                        </agm-info-window>
+                      </agm-marker>
+
+                    </div>
+                  </div>
+                  <div *ngIf="item.incidente == null && item.type == 1">
+                    <agm-marker [latitude]="item.lat" [longitude]="item.lng" [iconUrl]="sano">
+                      <agm-info-window>
+                        {{item.title}} <br><b>{{item.datetime | date:" dd/MM/yyyy hh:mm:ss "}}</b>
+                      </agm-info-window>
+                    </agm-marker>
+                  </div>
+                  <div *ngIf="item.incidente == null && item.type == 3">
+                    <agm-marker [latitude]="item.lat" [longitude]="item.lng" [iconUrl]="reportNormal">
+                      <agm-info-window>
+                        {{item.title}} <br><b>{{item.datetime | date:" dd/MM/yyyy hh:mm:ss "}}</b>
+                      </agm-info-window>
+                    </agm-marker>
                   </div>
                 </div>
-                <agm-marker [latitude]="polyline[0].lat" [longitude]="polyline[0].lng" [label]="'Inicio'">
+
+                <agm-marker [latitude]="polyline[0].lat" [longitude]="polyline[0].lng" [iconUrl]="inicio">
                 </agm-marker>
                 <agm-marker [latitude]="polyline[polyline.length - 1].lat"
-                  [longitude]="polyline[polyline.length - 1].lng" [label]="'Fin'">
+                  [longitude]="polyline[polyline.length - 1].lng" [iconUrl]="fin">
                 </agm-marker>
-
-                <agm-polyline-point *ngFor="let point of polyline; let i = index" [latitude]="point.lat"
+                <agm-polyline-point *ngFor=" let point of polyline; let i=index" [latitude]="point.lat"
                   [longitude]="point.lng">
                 </agm-polyline-point>
               </agm-polyline>
