@@ -44,6 +44,8 @@ export class ReportsoloComponent implements OnInit {
   sub;
   rut;
   agriculturalIncidence: any = [];
+  TecnicaIncidence: any = [];
+
   img;
 
   constructor(
@@ -63,17 +65,19 @@ export class ReportsoloComponent implements OnInit {
       this.slides = resp.images;
       this.data = resp;
       if (resp.images.length == 0) {
-
       } else {
         this.img = img[0].image;
       }
       this.agriculturalIncidence = resp.incidence.agriculturalIncidence;
+      this.TecnicaIncidence = resp.incidence.technicalIncidence;
+      console.log(this.TecnicaIncidence);
+      
       this.video = resp.videos;
-      console.log(resp.videos)
+      console.log(resp.videos);
     });
   }
   imagen(value) {
-    this.img = value; 
+    this.img = value;
   }
   goback() {
     return this.router.back();

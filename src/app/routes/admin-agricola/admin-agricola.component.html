@@ -20,8 +20,12 @@
         style="border-radius: 21px;" />
     </div>
     <div class="col text-right">
-      <button class="mb-1 mr-1 btn btn-success" type="button" routerLink="/Admin-Agricola/new">Agregar nuevo
-        Administrador</button>
+      <div *ngIf="user.prmsAdminExtraBool">
+        <button *ngIf="user.prmsAdminExtra > listAdmin.length " class="mb-1 mr-1 btn btn-success" type="button"
+          routerLink="/Admin-Agricola/new">Agregar nuevo
+          Administrador</button>
+
+      </div>
     </div>
   </div>
 

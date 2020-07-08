@@ -225,7 +225,7 @@
       *ngIf="listlots.length < user.profile.prmsLotes && mostrar == true || profile.canAddField == true">Agregar
       lote</button>
     <div class="col-12 p-0">
-      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false">
+      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="true" [mapTypeControl]='true'>
         <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="'#4caf50'" [clickable]=true>
           <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
           </agm-polyline-point>
@@ -343,8 +343,8 @@
                 <button class="btn btn-danger " type="button" (click)="clearsublote()"><em
                     class="fa fas fa-trash"></em></button>
               </div> -->
-                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
-                  (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
+                <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="true"
+                  [mapTypeControl]='true' (mapClick)="addMakerSubLote($event.coords.lat, $event.coords.lng)">
                   <agm-marker *ngFor="let marker of pathsSubLotes" [iconUrl]="iconmap.iconUrl" [latitude]="marker.lat"
                     [longitude]="marker.lng" [opacity]="marker.alpha" [markerDraggable]="false">
                   </agm-marker>
