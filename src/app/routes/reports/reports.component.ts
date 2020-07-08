@@ -22,7 +22,23 @@ export class ReportsComponent implements OnInit {
   lat: number = 25.8132204;
   lng: number = -108.9858821;
   zoom: number = 12;
-  recorr
+  recorr;
+  sano = {
+    url: "../../../assets/img/Marcadores/saludable1.png",
+    scaledSize: { height: 40, width: 30 },
+  };
+  reportNormal = {
+    url: "../../../assets/img/Marcadores/reporte1.png",
+    scaledSize: { height: 40, width: 30 },
+  };
+  alerta = {
+    url: "../../../assets/img/Marcadores/alerta1.png",
+    scaledSize: { height: 40, width: 30 },
+  };
+  peligro = {
+    url: "../../../assets/img/Marcadores/peligro1.png",
+    scaledSize: { height: 40, width: 30 },
+  };
   constructor(
     public LotsService: LotsAgricolaService,
     public route: ActivatedRoute,
@@ -65,16 +81,18 @@ export class ReportsComponent implements OnInit {
       this.recorrido = resp.pathingCoordinates;
       this.lat = resp.pathingCoordinates[0].lat;
       this.lng = resp.pathingCoordinates[0].lng;
-      let arr = []
+      let arr = [];
       let obj1 = {
         lat: resp.pathingCoordinates[0].lat,
         lng: resp.pathingCoordinates[0].lng,
-        text:'inicio'
+        url: "../../../assets/img/Marcadores/Inicio.png",
+        scaledSize: { height: 40, width: 30 },
       };
       let obj2 = {
         lat: resp.pathingCoordinates[resp.pathingCoordinates.length - 1].lat,
         lng: resp.pathingCoordinates[resp.pathingCoordinates.length - 1].lng,
-        text: "Fin",
+        url: "../../../assets/img/Marcadores/final.png",
+        scaledSize: { height: 40, width: 30 },
       };
       arr.push(obj1);
       arr.push(obj2);

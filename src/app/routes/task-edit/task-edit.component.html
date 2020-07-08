@@ -76,7 +76,7 @@
         <!-- MAPA -->
         <!-- <button class="btn btn-danger pos-button" type="button" (click)="back();modalshowSelected('@getbootstrap')"><em
             class="fa fas fa-backward"></em></button> -->
-        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="true" [mapTypeControl]='true'
           (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
           <div>
             <agm-marker *ngFor="let item of newTask" [latitude]="item.lat" [longitude]="item.lng" [opacity]="1"
@@ -124,7 +124,8 @@
       <div class="modal-body">
         <div class="row">
           <div class="col mapa-modal">
-            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="true"
+              [mapTypeControl]='true'>
               <agm-marker *ngFor="let item of newTask" [latitude]="item.lat" [longitude]="item.lng" [opacity]="1"
                 [markerDraggable]="true">
               </agm-marker>

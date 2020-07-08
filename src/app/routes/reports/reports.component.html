@@ -69,44 +69,16 @@
                         [routerLink]="['/Lotes/reporte/',lote,sublote.id,ruta.id,report.id]">Ver reporte</button>
                     </div>
                   </div>
-                  <!-- <div class="row">
-                    <div class="col">
-                      <strong>Nombre de la ruta:
-                        <small>{{lote.title}}</small>
-                      </strong>
-                    </div>
-                    <div class="col">
-                      <strong>Fin del recorrido:
-                        <small>{{lote.done_date}} a las {{lote.pathingTime}}</small>
-                      </strong>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <strong>Ingeniero:
-                        <small>{{lote.engineer}}</small>
-                      </strong>
-                    </div>
-                    <div class="col">
-                      <strong>Rol:
-                        <small>{{lote.engineer_role}}</small>
-                      </strong>
-                    </div>
-                  </div> -->
-
-
                 </div>
               </div>
-
-
             </div>
           </div>
         </div>
       </div>
       <div class="col">
         <div class=" card-body ">
-          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="false">
-            <agm-marker *ngFor="let item of recorr" [latitude]="item.lat" [longitude]="item.lng" [label]="item.text">
+          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="true" [mapTypeControl]='true'>
+            <agm-marker *ngFor="let item of recorr" [latitude]="item.lat" [longitude]="item.lng" [iconUrl]='item'>
             </agm-marker>
             <agm-polygon [paths]="allLots" [fillOpacity]="0.1" [fillColor]="'transparent'" [clickable]=false
               [strokeColor]="sublote.color">
@@ -115,25 +87,71 @@
             <div>
               <agm-polyline [strokeColor]="'#4caf50'" [clickable]=true>
                 <div *ngFor="let item of report">
-
-                  <agm-circle (mouseOver)="infoWindow.open();" (mouseOut)="infoWindow.close();" [clickable]=true
-                    [latitude]="item.lat" [longitude]="item.lng" [draggable]="true" [editable]="false"
-                    [fillColor]="'#ff8000'" [fillOpacity]="1" [radius]="3"
-                    (circleClick)="onCircleClicked($event,item.id)">
-                  </agm-circle>
-                  <agm-info-window [latitude]="item.lat" [longitude]="item.lng" [disableAutoPan]="false" #infoWindow>
-                    <div>
-                      <span>
-                        <h5>{{item.title}}</h5>
-                        <p>{{item.observation}}</p>
-                      </span>
+                  <div *ngIf="item.incidence">
+                    <div *ngFor="let agricultura of item.incidence.agriculturalIncidence">
+                      <div *ngIf="agricultura.status === 2">
+                        <agm-marker [latitude]="item.lat" [longitude]="item.lng" [iconUrl]="alerta">
+                          <agm-info-window>
+                            <div class="text-center">
+                              {{item.title}} <br><b>{{item.datetime}}</b><br>
+                              <button class="btn btn-success m-2"
+                                [routerLink]="['/Lotes/reporte/',lote,sublote.id,ruta.id,item.id]">ver más</button>
+                            </div>
+                          </agm-info-window>
+                        </agm-marker>
+                      </div>
                     </div>
+                    <div *ngFor="let agricultura of item.incidence.agriculturalIncidence">
+                      <div *ngIf="agricultura.status === 3">
+                        <agm-marker [latitude]="item.lat" [longitude]="item.lng" [iconUrl]="peligro">
+                          <agm-info-window>
+                            <div class="text-center">
+                              {{item.title}} <br><b>{{item.datetime}}</b><br>
+                              <button class="btn btn-success m-2"
+                                [routerLink]="['/Lotes/reporte/',lote,sublote.id,ruta.id,item.id]">ver más</button>
+                            </div>
+                          </agm-info-window>
+                        </agm-marker>
+                      </div>
+                    </div>
+                    <div *ngFor="let tecnica of item.incidence.technicalIncidence">
+                      <agm-marker [latitude]="item.lat" [longitude]="item.lng" [iconUrl]="peligro">
+                        <agm-info-window>
+                          <div class="text-center">
+                            {{item.title}} <br><b>{{item.datetime}}</b><br>
+                            <button class="btn btn-success m-2"
+                              [routerLink]="['/Lotes/reporte/',lote,sublote.id,ruta.id,item.id]">ver más</button>
+                          </div>
+                        </agm-info-window>
+                      </agm-marker>
 
-                  </agm-info-window>
+                    </div>
+                  </div>
+                  <div *ngIf="item.incidente == null && item.type == 1">
+                    <agm-marker [latitude]="item.lat" [longitude]="item.lng" [iconUrl]="sano">
+                      <agm-info-window>
+                        <div class="text-center">
+                          {{item.title}} <br><b>{{item.datetime}}</b><br>
+                          <button class="btn btn-success m-2"
+                            [routerLink]="['/Lotes/reporte/',lote,sublote.id,ruta.id,item.id]">ver más</button>
+                        </div>
+                      </agm-info-window>
+                    </agm-marker>
+                  </div>
+                  <div *ngIf="item.incidente == null && item.type == 3">
+                    <agm-marker [latitude]="item.lat" [longitude]="item.lng" [iconUrl]="reportNormal">
+                      <agm-info-window>
+                        <div class="text-center">
+                          {{item.title}} <br><b>{{item.datetime}}</b><br>
+                          <button class="btn btn-success m-2"
+                            [routerLink]="['/Lotes/reporte/',lote,sublote.id,ruta.id,item.id]">ver más</button>
+                        </div>
+                      </agm-info-window>
+                    </agm-marker>
+                  </div>
                 </div>
                 <agm-polyline-point *ngFor="let point of recorrido;let i = index;" [latitude]="point.lat"
                   [longitude]="point.lng">
-
                 </agm-polyline-point>
               </agm-polyline>
 

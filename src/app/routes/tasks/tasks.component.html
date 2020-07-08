@@ -175,7 +175,8 @@
               </form>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="true"
+                [mapTypeControl]='true'>
                 <agm-marker *ngFor="let item of taskMarkers" [latitude]="item.lat" [longitude]="item.lng" [opacity]="1"
                   [markerDraggable]="true">
                 </agm-marker>
