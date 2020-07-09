@@ -46,12 +46,7 @@
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Titulo de incidencia">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    <p>{{row.title}}</p>
-                  </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Observation">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    <p>{{row.observation}}</p>
+                    <p>{{row.name.name}}</p>
                   </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Fecha">
@@ -80,16 +75,6 @@
           <agm-marker *ngIf="report.lat" [latitude]="report.lat" [longitude]="report.lng" [opacity]="0.9"
             [markerDraggable]="false">
           </agm-marker>
-          <agm-polyline [strokeColor]="'#4caf50'" [clickable]=true>
-            <div *ngFor="let item of circle">
-
-              <agm-circle [clickable]=true [latitude]="item.lat" [longitude]="item.lng" [draggable]="true"
-                [editable]="false" [fillColor]="item.color" [fillOpacity]="0.5" [radius]="400">
-              </agm-circle>
-            </div>
-          </agm-polyline>
-
-
           <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="'#4caf50'">
             <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
             </agm-polyline-point>
@@ -98,7 +83,23 @@
       </div>
 
       <div class="col ">
-        <div class="card">
+        <div class="card" *ngIf="type === 'agriculturalIncidence'">
+          <div class="card-header">
+            Datos del reporte
+          </div>
+          <div class="card-body">
+            <div *ngIf="reportTechnicalIncidence.title">
+              <b>Titulo:</b> {{report.title}}
+            </div>
+            <div *ngIf="reportTechnicalIncidence.observation">
+              <b>Obsevación:</b>{{report.observation}}<br>
+            </div>
+            <div *ngIf="reportTechnicalIncidence.number">
+              <b>Numero de reporte:</b>{{report.number}}
+            </div>
+          </div>
+        </div>
+        <div class="card" *ngIf="type === 'technicalIncidence'">
           <div class="card-header">
             Datos del reporte
           </div>

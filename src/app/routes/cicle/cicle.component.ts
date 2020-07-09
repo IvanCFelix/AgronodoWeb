@@ -19,7 +19,13 @@ export class CicleComponent implements OnInit {
   origin: any;
   destination: any;
   color;
-  cicle: any = {};
+  cicle: any = {
+    finish_date: "",
+    passed_weeks: "",
+    progress: "",
+    remaining_weeks: "",
+    start_date: "",
+  };
   id;
   progressvalue = "0.0";
   rutas: any = [];
@@ -35,7 +41,7 @@ export class CicleComponent implements OnInit {
   mostrarsublotes: any = [];
   nestedPaths = [];
   cicleLength: any;
-  reportes = []
+  reportes = [];
   inicio = {
     url: "../../../assets/img/Marcadores/Inicio.png",
     scaledSize: { height: 40, width: 30 },
@@ -118,7 +124,6 @@ export class CicleComponent implements OnInit {
     this.LotsService.GetSubloteID(sub).subscribe((resp: any) => {
       console.log(resp);
       this.cicle = resp.cicle;
-
       console.log(this.cicle);
       this.crops = resp.crops;
       this.progressvalue = this.crops.progress;
@@ -159,7 +164,10 @@ export class CicleComponent implements OnInit {
   modalshow(value: string) {
     this.contentModal.show();
   }
-
+  suma(val,val2) {
+    let res = val + val2
+    return res
+  }
   recor() {
     let arr = [];
     for (let lot of this.showlote.weeks) {
@@ -171,8 +179,10 @@ export class CicleComponent implements OnInit {
     return arr;
   }
   showpathings(value) {
+    console.log(this.rutas);
+
     console.log(value);
-    this.reportes =  value.reports
+    this.reportes = value.reports;
     this.pathingCoordinates = value.pathingCoordinates;
     const array: any[] = Array.of(this.pathingCoordinates);
     // this.rutas = this.recor();

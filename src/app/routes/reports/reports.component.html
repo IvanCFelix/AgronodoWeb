@@ -5,20 +5,17 @@
   <div class="card card-default ">
     <div class="row p-3">
       <div class="col-4">
-        <h4>Nombre:
-          <small>{{ruta.title}}</small>
-
+        <h4>Fecha de recorrido:
+          <small>{{ruta.done_date | date: 'dd-MM-yyyy'}}</small>
         </h4>
-        <h4>Final del ciclo:
-          <small> {{ruta.done_date}}</small>
-        </h4>
-        <h4>Hora final:
+        <h4>Duración:
           <small>{{ruta.pathingTime}}</small>
+        </h4>
+        <h4>Usuario:
+          <small>{{ruta.user}}</small>
         </h4>
       </div>
       <div class="col-2 text-center">
-
-
       </div>
       <div class="col d-flex flex-row align-items-end">
 
@@ -41,7 +38,31 @@
               <!-- Ciclo por semanas -->
               <div>
                 <div *ngFor="let report of report;let i = index" class="card b m-3 animated fadeIn p-3">
-                  <div class="col">
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-12">
+                        <h4 class="m-0">Reporte #{{i + 1}}</h4>
+                        <small class="text-muted">{{report.datetime}}</small>
+                      </div>
+                      <div class="col-8">
+                        <strong>Nombre:</strong><br>{{report.title}}<br>
+                        <strong>Observación:</strong><br>{{report.observation}}
+                      </div>
+                      <div class="col-4 d-flex justify-content-end align-content-center">
+                        <img class="rounded-circle pos-image"
+                          src='https://happytravel.viajes/wp-content/uploads/2020/04/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'
+                          alt="" />
+                      </div>
+                      <div class="col-12">
+                        <div class="card-footer text-center bt0">
+                          <button class="btn btn-info" type="button"
+                            [routerLink]="['/Lotes/reporte/',lote,sublote.id,ruta.id,report.id]">Ver
+                            reporte</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="col">
                     <h4 class="m-0">Reporte #{{i + 1}}</h4>
                     <small class="text-muted">{{report.datetime}}</small>
                     <table class="table">
@@ -51,24 +72,24 @@
                             <strong>Nombre</strong>
                           </td>
                           <td>{{report.title}}</td>
-
                         </tr>
                         <tr>
                           <td>
-                            <strong>Observación</strong>
-                          </td>
-                          <td>
+                            <strong>Observación</strong>:
                             {{report.observation}}
                           </td>
+                          <td>
+                            hola
+                          </td>
                         </tr>
-
                       </tbody>
                     </table>
                     <div class="card-footer text-center bt0">
                       <button class="btn btn-info" type="button"
                         [routerLink]="['/Lotes/reporte/',lote,sublote.id,ruta.id,report.id]">Ver reporte</button>
                     </div>
-                  </div>
+                  </div> -->
+
                 </div>
               </div>
             </div>

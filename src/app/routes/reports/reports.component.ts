@@ -77,6 +77,8 @@ export class ReportsComponent implements OnInit {
   }
   ShowReportId(sub, rep) {
     this.LotsService.GetListPathingsID(sub, rep).subscribe((resp: any) => {
+      console.log(resp);
+      
       this.ruta = resp;
       this.recorrido = resp.pathingCoordinates;
       this.lat = resp.pathingCoordinates[0].lat;
