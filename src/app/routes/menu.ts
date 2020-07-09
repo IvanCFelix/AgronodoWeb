@@ -74,12 +74,12 @@ export class Menu {
         }
         //Admin Agricola
         case 5: {
-          role = [Home, lotes, Ingenieros, Tareas, Incidencias];
+          role = [Home, lotes, AdminIngeniero, Ingenieros, Tareas, Incidencias];
           break;
         }
         //Ingeniero
         case 6: {
-          role = [Home, Ingenieros, lotes];
+          role = [Home, Ingenieros, lotes,Tareas];
           break;
         }
         default: {
