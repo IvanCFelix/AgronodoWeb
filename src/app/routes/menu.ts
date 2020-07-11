@@ -79,7 +79,7 @@ export class Menu {
         }
         //Ingeniero
         case 6: {
-          role = [Home, Ingenieros, lotes,Tareas];
+          role = [Home, Ingenieros, lotes, Tareas];
           break;
         }
         default: {

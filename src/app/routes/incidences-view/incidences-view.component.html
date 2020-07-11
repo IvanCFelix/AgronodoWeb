@@ -26,10 +26,8 @@
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
-
         </div>
         <div class="col-12 p-0   ">
           <div class="card">
@@ -69,12 +67,35 @@
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
       <div class="card">
         <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [streetViewControl]="true" [mapTypeControl]='true'>
-          <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
+          <!-- <agm-marker *ngFor="let marker of newpaths" [latitude]="marker.lat" [longitude]="marker.lng"
             [opacity]="marker.alpha" [markerDraggable]="false">
+          </agm-marker> -->
+          <agm-marker *ngIf="reporttechnicalIncidence.lat" [latitude]="reporttechnicalIncidence.lat"
+            [longitude]="reporttechnicalIncidence.lng" [opacity]="0.9" [markerDraggable]="false">
           </agm-marker>
-          <agm-marker *ngIf="report.lat" [latitude]="report.lat" [longitude]="report.lng" [opacity]="0.9"
-            [markerDraggable]="false">
-          </agm-marker>
+          <div *ngFor="let item of ReportsPaths">
+            <agm-marker [latitude]="item.lat" [longitude]="item.lng">
+              <agm-info-window>
+                <div class="info">
+                  <p><b>Titulo:</b>{{item.title}}</p>
+                  <p><b>observation:</b>{{item.observation}}</p>
+                  <p><b>Fecha:</b>{{item.datetime | date:" dd/MM/yyyy"}}</p>
+                  <div class="center m-2">
+                    <button class="btn btn-info" (click)="showpathing(item)">Ver ruta</button>
+                  </div>
+                </div>
+              </agm-info-window>
+            </agm-marker>
+          </div>
+          <!-- <div *ngFor="let agricultura of incidence.reports"> -->
+          <!-- <div *ngIf="agricultura.status === 2">
+              <agm-marker [latitude]="item.lat" [longitude]="item.lng" [iconUrl]="alerta">
+                <agm-info-window>
+                  {{item.title}} <br><b>{{item.datetime | date:" dd/MM/yyyy  hh:mm:ss "}}</b>
+                </agm-info-window>
+              </agm-marker>
+            </div> -->
+          <!-- </div> -->
           <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="'#4caf50'">
             <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
             </agm-polyline-point>
@@ -83,19 +104,60 @@
       </div>
 
       <div class="col ">
-        <div class="card" *ngIf="type === 'agriculturalIncidence'">
+        <div class="card " *ngIf="type === 'agriculturalIncidence'">
           <div class="card-header">
-            Datos del reporte
+            <b> Datos del reporte:</b>
           </div>
-          <div class="card-body">
-            <div *ngIf="reportTechnicalIncidence.title">
-              <b>Titulo:</b> {{report.title}}
-            </div>
-            <div *ngIf="reportTechnicalIncidence.observation">
-              <b>Obsevación:</b>{{report.observation}}<br>
-            </div>
-            <div *ngIf="reportTechnicalIncidence.number">
-              <b>Numero de reporte:</b>{{report.number}}
+          <div class="card-body ">
+            <div class="row center">
+              <div class="col-10 text-center border">
+                <p><b>Nombre: </b>{{reportAgricola.name.name}}</p>
+                <p><b>Fecha:</b>{{reportAgricola.datetime | date: 'dd-MM-yyyy'}}</p>
+                <div class="center">
+                  <div class="col-2 text-center">
+                    <div *ngIf="reportAgricola.fruit == 1" class="icon " style="color: #008f39">
+                      <a class="fas fa-2x fa-square"></a>
+                      <b style="color:black">Planta</b>
+                    </div>
+                    <div *ngIf="reportAgricola.fruit == 2" class="icon " style="color: #ffff00">
+                      <a class="fas fa-2x fa-square"></a>
+                      <b style="color:black">Planta</b>
+                    </div>
+                    <div *ngIf="reportAgricola.fruit == 3" class="icon " style="color: #cb3234">
+                      <a class="fas fa-2x fa-square"></a>
+                      <b style="color:black">Planta</b>
+                    </div>
+                  </div>
+                  <div class="col-2 text-center">
+                    <div *ngIf="reportAgricola.ground == 1" class="icon" style="color: #008f39 ">
+                      <a class="fas fa-2x fa-square"></a>
+                      <b style="color:black">suelo</b>
+                    </div>
+                    <div *ngIf="reportAgricola.ground == 2" class="icon" style="color: #ffff00 ">
+                      <a class="fas fa-2x fa-square"></a>
+                      <b style="color:black">suelo</b>
+                    </div>
+                    <div *ngIf="reportAgricola.ground == 3" class="icon" style="color: #cb3234 ">
+                      <a class="fas fa-2x fa-square"></a>
+                      <b style="color:black">suelo</b>
+                    </div>
+                  </div>
+                  <div class="col-2 text-center">
+                    <div *ngIf="reportAgricola.plant == 1" class="icon" style="color: #008f39">
+                      <a class="fas fa-2x fa-square"></a>
+                      <b style="color:black">Hoja</b>
+                    </div>
+                    <div *ngIf="reportAgricola.plant == 2" class="icon" style="color: #ffff00">
+                      <a class="fas fa-2x fa-square"></a>
+                      <b style="color:black">Hoja</b>
+                    </div>
+                    <div *ngIf="reportAgricola.plant == 3" class="icon" style="color: #cb3234">
+                      <a class="fas fa-2x fa-square"></a>
+                      <b style="color:black">Hoja</b>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -104,16 +166,16 @@
             Datos del reporte
           </div>
           <div class="card-body">
-            <div *ngIf="report.title">
-              <b>Titulo:</b> {{report.title}}
+            <div *ngIf="reporttechnicalIncidence.title">
+              <b>Titulo:</b> {{reporttechnicalIncidence.title}}
             </div>
-            <div *ngIf="report.observation">
-              <b>Obsevación:</b>{{report.observation}}<br>
+            <div *ngIf="reporttechnicalIncidence.observation">
+              <b>Obsevación:</b>{{reporttechnicalIncidence.observation}}<br>
             </div>
-            <div *ngIf="report.number">
-              <b>Numero de reporte:</b>{{report.number}}
+            <div *ngIf="reporttechnicalIncidence.number">
+              <b>Numero de reporte:</b>{{reporttechnicalIncidence.number}}
             </div>
-            <div *ngIf="report === {}" class="center">
+            <div *ngIf="reporttechnicalIncidence === {}" class="center">
               <div>
                 Reporte no seleccionado
               </div>
@@ -203,7 +265,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="technicalIncidence.length > 0">
+        <div *ngIf="type === 'technicalIncidence'">
           <div *ngFor="let item of technicalIncidence">
             <div class="card ">
               <div class="row m-3">
