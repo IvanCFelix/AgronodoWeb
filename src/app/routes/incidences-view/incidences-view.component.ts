@@ -24,7 +24,7 @@ export class IncidencesViewComponent implements OnInit {
     risk: "",
     type: "",
   };
-  Url = Uris.API_ENDPOINT_AUDIO;
+  Url = Uris.API_ENDPOINT;
   technicalIncidence = [];
   agriculturalIncidence = [];
   reports = [];
@@ -118,7 +118,12 @@ export class IncidencesViewComponent implements OnInit {
     }
     return this.ViewsModal.show();
   }
-  reproducir() {
-    this.elementoAudio.nativeElement.play();
+  reproducir(value) {
+ 
+  let audio = new Audio();
+  audio.src = value;
+  audio.load();
+  audio.play();
+
   }
 }

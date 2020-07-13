@@ -358,9 +358,10 @@
               <div class="col">
                 <p><b>Audio: #{{ i + 1 }}</b></p>
               </div>
-              <div class="col" (click)="reproducir()">
-                <p></p>
-                <audio #elementoAudio controls>
+              <div class="col">
+                <button class="btn btn-info" (click)="reproducir(Url+item.audio)"><em
+                    class="fa fa-eraser"></em></button>
+                <audio controls>
                   <source [src]='Url+item.audio' type="audio/3gp">
                 </audio>
               </div>
