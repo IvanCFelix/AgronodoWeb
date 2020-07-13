@@ -11,7 +11,7 @@
             </div>
             <div class="col p-0">
               <div *ngIf="Incidence">
-                <h4>Reporte de origen</h4>
+                <h4>Datos de incidencia</h4>
                 <div class="row">
                   <div class="col p-0">
                     <p>{{Incidence.description}}</p>
@@ -33,9 +33,9 @@
           <div class="card">
             <div class="card-body  p-0">
               <ngx-datatable #table class="bootstrap expandable material fullscreen "
-                style="height: calc(90vh - 270px); box-shadow: none; width: 100%;" [columnMode]="'force'"
-                [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true"
-                [rows]='reports'>
+                style="height: 350px; box-shadow: none; width: 100%;" [columnMode]="'force'" [headerHeight]="50"
+                [footerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true" [rows]='reports'
+                [headerHeight]="50">
                 <!-- Column Templates -->
                 <ngx-datatable-column name="#" [width]="50" [canAutoResize]="false">
                   <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
@@ -62,6 +62,60 @@
             </div>
           </div>
         </div>
+        <div class="col-12">
+          <div *ngFor="let item of ReportsPaths">
+            <div *ngIf="item.type === 2">
+              <div class="row">
+                <div class="col-12 border-bottom p-2">
+                  <p><b>Titulo:</b>{{item.title}}</p>
+                </div>
+                <div class="col-12 border-bottom p-2">
+                  <p><b>observation:</b>{{item.observation}}</p>
+                </div>
+                <div class="col-12 border-bottom p-2">
+                  <p><b>Fecha:</b> {{item.datetime | date: 'dd-MM-yyyy'}}</p>
+                </div>
+                <div class="col">
+                  <div class="row">
+                    <div class="col-6 border-bottom p-2">
+                      <p><b>Videos:</b></p>
+                      <p *ngIf="item.videos.length > 0"><b>Videos: {{item.length}}</b> {{item.observation}}</p>
+                    </div>
+                    <div class="col-6 border-bottom p-2 center">
+                      <p *ngIf="item.videos.length === 0">No tienes videos disponibles</p>
+                      <div *ngIf="item.videos.length > 0">
+                        <button class="btn btn-info" type="button" (click)="viewModal(item,'video')"><em
+                            class="fa fa-eye"></em></button>
+                        <button class="btn btn-info ml-2" type="button"><em class="fa fa-download "></em></button>
+                      </div>
+                    </div>
+                    <div class="col-6 border-bottom p-2">
+                      <!-- <a href="www.google.com"><img src="../../../assets/img/logo.png" alt="img" style="width:42px;height:42px;"></a> -->
+                      <p *ngIf="item.audios.length > 0"><b>Audios:</b> {{item.audios.length}}</p>
+                    </div>
+                    <div class="col-6 border-bottom p-2 center">
+                      <p *ngIf="item.audios.length === 0"><b>Audios:</b>No audios disponibles</p>
+                      <div *ngIf="item.audios.length > 0">
+                        <button class="btn btn-info" type="button" (click)="viewModal(item,'audios')"><em
+                            class=" fa fa-eye"></em></button>
+                      </div>
+                    </div>
+                    <div class="col-6 border-bottom p-2">
+                      <p *ngIf="item.images.length > 0"><b>Imagenes:</b>{{item.images.length}}</p>
+                    </div>
+                    <div class="col-6 border-bottom p-2 center">
+                      <p *ngIf="item.images.length === 0">>No imagenes disponibles</p>
+                      <div *ngIf="item.audios.length > 0">
+                        <button class="btn btn-info" type="button" (click)="viewModal(item,'images')"><em
+                            class="fa fa-eye"></em></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -80,22 +134,13 @@
                   <p><b>Titulo:</b>{{item.title}}</p>
                   <p><b>observation:</b>{{item.observation}}</p>
                   <p><b>Fecha:</b>{{item.datetime | date:" dd/MM/yyyy"}}</p>
-                  <div class="center m-2">
-                    <button class="btn btn-info" (click)="showpathing(item)">Ver ruta</button>
-                  </div>
+
                 </div>
+
               </agm-info-window>
             </agm-marker>
           </div>
-          <!-- <div *ngFor="let agricultura of incidence.reports"> -->
-          <!-- <div *ngIf="agricultura.status === 2">
-              <agm-marker [latitude]="item.lat" [longitude]="item.lng" [iconUrl]="alerta">
-                <agm-info-window>
-                  {{item.title}} <br><b>{{item.datetime | date:" dd/MM/yyyy  hh:mm:ss "}}</b>
-                </agm-info-window>
-              </agm-marker>
-            </div> -->
-          <!-- </div> -->
+
           <agm-polyline *ngFor="let polyline of nestedPaths;let i = index;" [strokeColor]="'#4caf50'">
             <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat" [longitude]="point.lng">
             </agm-polyline-point>
@@ -279,11 +324,51 @@
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #views="bs-modal" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+  aria-hidden="true" [config]="{ ignoreBackdropClick: true }">
+  <div class="modal-dialog modal-md " style="height: 81%;width: 100%;">
+    <div class="modal-content" style="width: 116%;">
+      <div class="modal-header p-0">
+        <div class="brand-logo" style="font-size: 20px;padding: 8px;">
+          <img class="img-fluid" src="assets/img/logo.png" alt="App Logo" style="height: 54px;" />
+          Selecciona un tipo de tarea
+        </div>
+        <button type="button" class="close" style="font-size: 34px;padding: 23px;" (click)="views.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="images.length > 0">
+          <p>Videos</p>
+        </div>
+        <div *ngIf="videos.length > 0">
+          <p>videos</p>
+        </div>
+        <div *ngIf="audios.length > 0">
+          <div *ngFor="let item of audios; let i = index">
+            <div class="row">
+              <div class="col">
+                <p><b>Audio: #{{ i + 1 }}</b></p>
+              </div>
+              <div class="col" (click)="reproducir()">
+                <p></p>
+                <audio #elementoAudio controls>
+                  <source [src]='Url+item.audio' type="audio/3gp">
+                </audio>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

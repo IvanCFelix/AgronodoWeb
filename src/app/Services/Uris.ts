@@ -1,6 +1,7 @@
 export class Uris {
          public static API_ENDPOINT = "https://api.agronodo.mx/api/v1/";
          public static API_ENDPOINT_IMAGE = "https://api.agronodo.mx/";
+         public static API_ENDPOINT_AUDIO = "https://api.agronodo.mx/";
 
          //public static API_ENDPOINT = "http://192.168.50.103:8000/api/v1/";
 
